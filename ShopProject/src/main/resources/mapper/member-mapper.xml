@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.mapper.MemberMapper">
+	<select id="login" parameterType="map" resultType="member">
+		select memberId, pw, memberName, address, date_format(birthDate,'%Y/%m/%d') as birthDate, memberTelNo,
+		withdraw, gender  
+		from member where memberId = #{id} and pw = #{passwd}
+	</select>
+	<select id="managerLogin" parameterType="map" resultType="String">
+		select managerId
+		from manager
+		where managerId = #{managerId} and pw = #{pw}
+	</select>
+	<select id="selectAllMember" resultType="member">
+		select  memberId, memberName, address, date_format(birthDate,'%Y/%m/%d') as birthDate,
+		memberTelNo, gender
+		from member
+	</select>
+	<insert id="insertMember" parameterType="member">
+		insert into member(memberId,pw,memberName,postNo,address,addressdetail,birthDate,memberTelNo,withdraw,gender)
+		values(#{memberId},#{pw},#{memberName},#{postNo},#{address}, #{addressDetail}, #{birthDate}, #{memberTelNo}, 'N', #{gender})
+	</insert>
+	<select id="selectLoginMember" parameterType="String" resultType="member">
+		select memberId, memberName, address, date_format(birthDate,'%Y/%m/%d') as birthDate,
+		memberTelNo, gender
+		from member
+		where memberId = #{memberId}
+	</select>
+	<select id="selectMemberCount" resultType="int">
+		select count(*) from member
+	</select>
+	<select id="selectMemberList" resultType="member" parameterType="int">
+		select 
+		memberId, memberName, address, date_format(birthDate,'%Y/%m/%d') as birthDate
+		,memberTelNo, gender, withdraw, addressdetail, postno
+		from member
+		limit ${pageNo}, 15
+	</select>
+	<select id="selectSearchMember" parameterType="map" resultType="member">
+		select 
+		memberId, memberName, address, to_char(birthDate,'YYYY/MM/DD') as birthDate
+		,memberTelNo, gender, withdraw , addressdetail, postno
+		from member
+		where
+		${type} like '%' || #{search} || '%'
+		limit ${pageNo}, 15
+	</select>
+	<select id="selectSearchMemberCount" parameterType="map" resultType="int">
+		select count(*)
+		from member
+		where
+		${type} like '%' || #{search} || '%'
+	</select>
+	<select id="selectMemberOrderCount" resultType="int">
+		select count(*) from memberorder
+	</select>
+	<select id="selectMemberOrderList" parameterType="int" resultType="memberOrder">
+		select *
+		from memberorder
+		limit ${pageNo}, 15
+	</select>
+	<select id="selectSearchMemberOrder" parameterType="map" resultType="memberOrder">
+		select *
+		from memberorder
+		where
+		${type} like '%' || #{search} || '%'
+		limit ${pageNo}, 15
+	</select>
+	<select id="selectLoginMemberOrderList" parameterType="map" resultType="map">
+		select *
+		from memberorder
+		where 
+		memberId = #{memberId}
+		limit ${pageNo}, 15
+	</select>
+	<select id="selectSearchMemberOrderCount" resultType="int">
+		select count(*)
+		from memberorder
+		where
+		${type} like '%' || #{search} || '%'
+	</select>
+	<select id="selectMemberListExcel" resultType="member">
+		select memberId, memberName, address
+		,date_format(birthDate,'%Y/%m/%d') as birthDate
+		,memberTelNo, gender, withdraw, addressdetail, postno
+		from member
+	</select>
+	<select id="selectSearchMemberExcel" parameterType="map" resultType="member">
+		select memberId, memberName, address
+		, date_format(birthDate,'%Y,%m,%d') as birthDate
+		,memberTelNo, gender, withdraw, addressdetail, postno 
+		from member
+		where
+		${type} like '%' || #{search} || '%'
+	</select>
+	<select id="selectMemberOrderListExcel" resultType="memberOrder">
+		select *
+		from memberorder
+	</select>
+	<select id="selectSearchMemberOrderExcel" parameterType="map" resultType="memberOrder">
+		select *
+		from memberorder
+		where
+		${type} like '%' || #{search} || '%'
+	</select>
+	<select id="selectCartList" resultType="cart" parameterType="String">
+		select 
+		p.productname, p.price, p.productno, c.quantity, c.colorno, c.sizeno, c.cartno
+		from cart c, product p
+		where c.productno = p.productno
+		and c.memberid = #{memberid}
+	</select>
+	<select id="selectShoppingCartList" resultType="cart" parameterType="String">
+		select 
+		p.productname, p.price, p.productno, c.quantity, c.colorno, c.sizeno, c.cartno
+		, cl.colorname, s.sizekind
+		from cart c, product p, color cl, sizes s
+		where c.productno = p.productno
+		and c.memberid = #{memberid}
+		and c.colorno = cl.colorno
+        and c.sizeno = s.sizeno
+	</select>
+	<insert id="insertKakaoLoginInfo" parameterType="map">
+		insert into member(memberId,memberName)
+		values(#{memberId},#{memberName})
+	</insert>
+	<select id="selectId" parameterType="String" resultType="String">
+		select memberid from member where memberId = #{memberId}
+	</select>
+	<update id="updateMember" parameterType="member">
+		update member set pw = #{pw},  memberName = #{memberName},
+		address = #{address},memberTelNo = #{memberTelNo},gender = #{gender} where memberId = #{memberId}
+	</update>
+	<insert id="insertNaverLoginInfo" parameterType="map">
+		insert into member(memberId,memberName)
+		values(#{memberId},#{memberName})
+	</insert>
+	<select id="selectMemberInfo" parameterType="String" resultType="member">
+		select * from member where memberid = #{memberId}
+	</select>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
