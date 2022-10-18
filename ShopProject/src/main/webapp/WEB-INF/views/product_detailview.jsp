@@ -218,7 +218,7 @@
 							<article class="single_product">
 								<figure>
 									<div class="product_thumb">
-										<a class="primary_img" href="product-details.html"><img
+										<a class="primary_img" href="productdetailview.do?productno=${pr.productno }&productname=${pr.productname}"><img
 											src="fileDown.do?productphotono=${pr.productphotono}&productno=${pr.productno}" alt=""></a>
 											<!-- 
 											<a class="secondary_img" href="product-details.html"><img

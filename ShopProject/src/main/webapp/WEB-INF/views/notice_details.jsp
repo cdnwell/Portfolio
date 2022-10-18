@@ -76,70 +76,64 @@
 	margin-bottom : 30px;
 }
 </style>
+<script>
+	$(function(){
+		$('.comment_reply a').click(function(){
+			$('.plus_comment').empty();
+			var d = '';
+			d += `<div class="comments_form plus_comment">
+				<form action="insertNoticeReply.do" class="frm">
+					<div class="row">`;
+					if(${sessionScope.mLogin}){
+						d += `<input type="hidden" name="writer" value="관리자">`;
+					}else{
+						d += `<input type="hidden" name="writer" value="${sessionScope.name }">`;
+					}
+				  d += `<input type="hidden" name="noticeno" value="${sessionScope.noticeno }">
+						<input type="hidden" name="memberid" value="${sessionScope.id }">
+						<div class="col-lg-4 col-md-4">`;
+			if(${sessionScope.mLogin}){
+				d += `<label for="author">Name</label><input id="author" type="text" value="관리자" disabled>`; 
+			}else{
+				d += `<label for="author">Name</label><input id="author" type="text" value="${sessionScope.name }" disabled>`;	
+			}
+				  d += `</div>
+						<div class="col-12">
+							<label for="review_comment">Comment </label>
+							<textarea name="content" id="review_comment" style="element.style : 0; height : 100px"></textarea>
+						</div>
+					</div>
+					<button class="frm_button" type="button" style="color : white;">Post Comment</button>
+				</form>
+			</div>`;
+			$(this).parent().parent().parent().after(d);
+		});
+		$(document).on("click",".frm_button",function(){
+			var replyno = $(this).parent().parent().prev().children('input[class="replyno"]').val();
+			var d = $(this).parent().serialize()+"&replyno="+replyno;
+			$.ajax({
+				url : 'insertNoticeReplyRe.do',
+				data : d,
+				type : 'post',
+				dataType : 'json',
+				success : function(r){
+					if(r!=0)
+						location.href='notice_detail.do?noticeno='+r;
+					else
+						alert('댓글 입력에 실패하였습니다.');
+				}
+			});
+		});
+		var comments_ea = $('.comment_list').length;
+		$('.comments_box h3').html(comments_ea + ' Comments');
+		$('figure').css('margin','20px');
+	});
+</script>
 </head>
 <body>
 	<!--header area start-->
 	<jsp:include page="template/main/main_header.jsp"></jsp:include>
 	<!--header area end-->
-	<!-- script area start -->
-	<script>
-		$(function(){
-			$('.comment_reply a').click(function(){
-				$('.plus_comment').empty();
-				var d = '';
-				d += `<div class="comments_form plus_comment">
-					<form action="insertNoticeReply.do" class="frm">
-						<div class="row">`;
-						if(${sessionScope.mLogin}){
-							d += `<input type="hidden" name="writer" value="관리자">`;
-						}else{
-							d += `<input type="hidden" name="writer" value="${sessionScope.name }">`;
-						}
-					  d += `<input type="hidden" name="noticeno" value="${sessionScope.noticeno }">
-							<input type="hidden" name="memberid" value="${sessionScope.id }">
-							<div class="col-lg-4 col-md-4">`;
-				if(${sessionScope.mLogin}){
-					d += `<label for="author">Name</label><input id="author" type="text" value="관리자" disabled>`; 
-				}else{
-					d += `<label for="author">Name</label><input id="author" type="text" value="${sessionScope.name }" disabled>`;	
-				}
-					  d += `</div>
-							<div class="col-12">
-								<label for="review_comment">Comment </label>
-								<textarea name="content" id="review_comment" style="element.style : 0; height : 100px"></textarea>
-							</div>
-						</div>
-						<button class="frm_button" type="button" style="color : white;">Post Comment</button>
-					</form>
-				</div>`;
-				$(this).parent().parent().parent().after(d);
-			});
-			$(document).on("click",".frm_button",function(){
-				var replyno = $(this).parent().parent().prev().children('input[class="replyno"]').val();
-				var d = $(this).parent().serialize()+"&replyno="+replyno;
-				//var d = frm.children().children('input[name="writer"]').val();
-				//console.log(replyno);
-				console.log(d);
-				$.ajax({
-					url : 'insertNoticeReplyRe.do',
-					data : d,
-					type : 'post',
-					dataType : 'json',
-					success : function(r){
-						if(r!=0)
-							location.href='notice_detail.do?noticeno='+r;
-						else
-							alert('댓글 입력에 실패하였습니다.');
-					}
-				});
-			});
-			var comments_ea = $('.comment_list').length;
-			$('.comments_box h3').html(comments_ea + ' Comments');
-			$('figure').css('margin','20px');
-		});
-	</script>
-
-	<!-- script area end -->
 	<!--breadcrumbs area start-->
 	<div class="breadcrumbs_area">
 		<div class="container">

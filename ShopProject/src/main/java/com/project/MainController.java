@@ -196,7 +196,6 @@ public class MainController {
 		session.invalidate();
 
 		return "redirect:/";
-
 	}
 
 	/*
@@ -1002,8 +1001,10 @@ public class MainController {
 	public String selectAllMember(@RequestParam(name = "pageNo", defaultValue = "1") int pageNo, String search,
 			String type, Model model) {
 		List<MemberDTO> list = null;
+		
 		int count = 0;
 		int pageNoLimit = (pageNo-1)*15;
+		
 		if (search == null || type == null || search.equals("") || type.equals("")) {
 			list = memberService.selectMemberList(pageNoLimit);
 			model.addAttribute("member", list);
