@@ -1382,11 +1382,8 @@ public class MainController {
 	public String deleteCart(Model model, HttpSession session, HttpServletRequest request, HttpServletResponse response,
 			String memberId, String productno) {
 		memberId = (String) session.getAttribute("id");
-		HashMap<Object, Object> map = new HashMap<Object, Object>();
-		map.put("productno", productno);
-		map.put("memberId", memberId);
 
-		productService.deleteCart(map);
+		productService.deleteCart(memberId,productno);
 
 		return "redirect:/shoping-cart.do";
 	}

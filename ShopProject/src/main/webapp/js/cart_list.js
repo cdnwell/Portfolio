@@ -16,6 +16,7 @@
 					data += "<a href='#'><img src='prImageDown.do?productno="+arr[i].productno+"' alt=''></a></div>";
 					data += "<div class='cart_info'>";
 					data += "<a href='#'>"+arr[i].productname+"</a>";
+					data += "<p class='pr_info' style='margin:2px 0;'>"+arr[i].colorname+" ("+arr[i].sizekind+")"+"</p>";
 					data += "<p class='pr_quantity'>"+arr[i].quantity+" x";
 					data += "<span class='pr_price'> &#8361;"+arr[i].price.toLocaleString('ko-KR')+"</span></p></div>";
 					data += "<input type='hidden' name='cartno' value='"+arr[i].cartno+"'>";

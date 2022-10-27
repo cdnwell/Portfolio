@@ -41,7 +41,7 @@ public interface ProductMapper {
 
 	CartDTO selectCartDTO(CartDTO cdto);
 
-	void deleteCart(HashMap<Object, Object> map);
+	int deleteCart(HashMap<Object, Object> map);
 
 	ProductDTO ProductDetailView(String productname);
 

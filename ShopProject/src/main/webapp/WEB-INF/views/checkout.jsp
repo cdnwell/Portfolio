@@ -85,8 +85,56 @@ function sample6_execDaumPostcode() {
     }).open();
 }
 
+$(function(){
+	$("#btn-kakao-pay").click(function(){
+		
+		// 필수입력값을 확인.
+		var name = $("#form-payment input[name='pay-name']").val();
+		var tel = $("#form-payment input[name='pay-tel']").val();
+		var email = $("#form-payment input[name='pay-email']").val();
+		
+		if(name == ""){
+			$("#form-payment input[name='pay-name']").focus()
+		}
+		if(tel == ""){
+			$("#form-payment input[name='pay-tel']").focus()
+		}
+		if(email == ""){
+			$("#form-payment input[name='pay-email']").focus()
+		}
+		
+		// 결제 정보를 form에 저장한다.
+		let totalPayPrice = parseInt($("#total-pay-price").text().replace(/,/g,''))
+		let totalPrice = parseInt($("#total-price").text().replace(/,/g,''))
+		let discountPrice = totalPrice - totalPayPrice 
+		let usePoint = $("#point-use").val()
+		let useUserCouponNo = $(":radio[name='userCoupon']:checked").val()
+		
+		// 카카오페이 결제전송
+		$.ajax({
+			type:'get'
+			,url:'/order/pay'
+			,data:{
+				total_amount: totalPayPrice
+				,payUserName: name
+				,sumPrice:totalPrice
+				,discountPrice:discountPrice
+				,totalPrice:totalPayPrice
+				,tel:tel
+				,email:email
+				,usePoint:usePoint
+				,useCouponNo:useUserCouponNo	
+				
+			},
+			success:function(response){
+				location.href = response.next_redirect_pc_url			
+			}
+		})
+	})
+});
 
 </script>
+<script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 
 </head>
 <body>
@@ -114,6 +162,7 @@ function sample6_execDaumPostcode() {
 	<div class="Checkout_section">
 		<div class="container">
 			<div class="row">
+			<!-- 
 				<div class="col-12">
 					<div class="user-actions">
 						<h3>
@@ -163,6 +212,7 @@ function sample6_execDaumPostcode() {
 						</div>
 					</div>
 				</div>
+				-->
 			</div>
 			<div class="checkout_form">
 				<div class="row">
@@ -178,13 +228,13 @@ function sample6_execDaumPostcode() {
 									 <li class="member address">
                     <label>우편번호</label>
                     <div class="address_box">
-                    <span class="input_area"><input type="text" name="address1" class="postcodify_postcode5 border_bottom" id="sample6_postcode" value="${requestScope.mdto.postno}"></span>
+                    <span class="input_area"><input type="text" name="address1" class="postcodify_postcode5 border_bottom" id="sample6_postcode" value="${requestScope.mdto.postNo}"></span>
                     <input type="button" id="address_btn" onclick="sample6_execDaumPostcode()" value="우편번호 검색"><br>
                     </div>
                     <label>도로명주소</label>
                     <span class="input_area"><input type="text" name="address2" id="sample6_address" class="postcodify_address border_bottom" value="${requestScope.mdto.address}"></span>
                     <label>상세주소</label>
-                    <span class="input_area"><input type="text" name="address3" id="sample6_detailAddress" class="postcodify_details border_bottom" value="${requestScope.mdto.addressdetail}"></span>
+                    <span class="input_area"><input type="text" name="address3" id="sample6_detailAddress" class="postcodify_details border_bottom" value="${requestScope.mdto.addressDetail}"></span>
                     
                     </li>
 								</div>
@@ -307,7 +357,7 @@ function sample6_execDaumPostcode() {
 							</div>
 							<div class="payment_method">
 								<div class="order_button">
-									<button type="submit">Proceed to PayPal</button>
+									<button id="check_module" type="submit">Proceed to PayPal</button>
 								</div>
 							</div>
 						</form>
@@ -318,85 +368,7 @@ function sample6_execDaumPostcode() {
 	</div>
 	<!--Checkout page section end-->
 	<!--footer area start-->
-	<footer class="footer_widgets footer_padding">
-		<div class="container">
-			<div class="footer_top">
-				<div class="row">
-					<div class="col-12">
-						<div class="newsletter_area">
-							<div class="section_title">
-								<h2>Keep Connected</h2>
-							</div>
-							<div class="newsletter_desc">
-								<p>Get updates by subscribe our weekly newsletter</p>
-							</div>
-							<div class="subscribe_form">
-								<form id="mc-form" class="mc-form footer-newsletter">
-									<input id="mc-email" type="email" autocomplete="off"
-										placeholder="Your email address" />
-									<button id="mc-submit">Subscribe</button>
-								</form>
-								<!-- mailchimp-alerts Start -->
-								<div class="mailchimp-alerts text-centre">
-									<div class="mailchimp-submitting"></div>
-									<!-- mailchimp-submitting end -->
-									<div class="mailchimp-success"></div>
-									<!-- mailchimp-success end -->
-									<div class="mailchimp-error"></div>
-									<!-- mailchimp-error end -->
-								</div>
-								<!-- mailchimp-alerts end -->
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="footer_middle">
-				<div class="row">
-					<div class="col-12">
-						<div class="footer_social">
-							<ul>
-								<li><a href="#"><i class="fa fa-facebook"
-										aria-hidden="true"></i></a></li>
-								<li><a href="#"><i class="fa fa-twitter"
-										aria-hidden="true"></i></a></li>
-								<li><a href="#"><i class="fa fa-youtube-play"
-										aria-hidden="true"></i></a></li>
-								<li><a href="#"><i class="fa fa-google"
-										aria-hidden="true"></i></a></li>
-								<li><a href="#"><i class="fa fa-instagram"
-										aria-hidden="true"></i></a></li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="footer_bottom">
-				<div class="row align-items-center">
-					<div class="col-lg-6 col-md-7">
-						<div class="footer_bottom_left">
-							<div class="footer_logo">
-								<a href="index.html"><img src="assets/img/logo/logo2.png"
-									alt=""></a>
-							</div>
-							<div class="copyright_area">
-								<p>
-									Copyright Â© 2020 <a href="index.html">Braga</a>. <a
-										href="http://www.bootstrapmb.com/" target="_blank">All
-										rights reserved.</a>
-								</p>
-							</div>
-						</div>
-					</div>
-					<div class="col-lg-6 col-md-5">
-						<div class="footer_paypal text-right">
-							<a href="#"><img src="assets/img/icon/payment.png" alt=""></a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</footer>
+	<jsp:include page="template/main/main_footer.jsp"></jsp:include>
 	<!--footer area end-->
 	<!-- JS ============================================ -->
 	<!--jquery min js-->

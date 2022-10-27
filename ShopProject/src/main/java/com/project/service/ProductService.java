@@ -85,10 +85,6 @@ public class ProductService {
 		return mapper.selectCartDTO(cdto);
 	}
 
-	public void deleteCart(HashMap<Object, Object> map) {
-		mapper.deleteCart(map);
-	}
-	
 	public int selectCart(CartDTO cdto) {
 		return mapper.selectCart(cdto);
 	}
@@ -188,5 +184,13 @@ public class ProductService {
 
 	public String selectDeleteFilePath(String productno) {
 		return mapper.selectDeleteFilePath(productno);
+	}
+
+	public int deleteCart(String memberId, String productno) {
+		HashMap<Object, Object> map = new HashMap<Object, Object>();
+		map.put("productno", productno);
+		map.put("memberId", memberId);
+		
+		return mapper.deleteCart(map);
 	}
 }

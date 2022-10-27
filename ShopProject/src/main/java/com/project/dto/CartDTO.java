@@ -28,4 +28,5 @@ public class CartDTO {
 	private String cartdate;
 	private int quantity;
 	private int price;
+	private int deliveryprice;
 }

@@ -107,7 +107,16 @@
 	</select>
 	<select id="selectCartList" resultType="cart" parameterType="String">
 		select 
-		p.productname, p.price, p.productno, c.quantity, c.colorno, c.sizeno, c.cartno
+		p.productname, p.price, p.productno, c.quantity, (
+			select cp.colorname
+			from color cp
+			where cp.colorno = c.colorno
+		) colorname,
+		( 
+			select sp.sizekind
+			from sizes sp
+			where sp.sizeno = c.sizeno
+		) sizekind, c.cartno
 		from cart c, product p
 		where c.productno = p.productno
 		and c.memberid = #{memberid}

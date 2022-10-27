@@ -120,30 +120,11 @@
 				</div>
 			</div>
 			<div class="cart_gallery">
-				
-				<!-- 
-		<c:forEach items="${requestScope.cartlist }" var="cdto">
-				<div class="cart_item">
-					<div class="cart_img">
-						<a href="#"><img src="assets/img/s-product/product.jpg" alt=""></a>
-					</div>
-					<div class="cart_info">
-						<a href="#">${cdto.productname }</a>
-						<p>
-							1 x <span>${cdto.price } </span>
-						</p>
-					</div>
-					<div class="cart_remove">
-						<a href="#"><i class="ion-ios-close-outline"></i></a>
-					</div>
-				</div>
-				</c:forEach>
-				 -->
 			</div>
 			<div class="mini_cart_table">
 				<div class="cart_table_border">
 					<div class="cart_total mt-10">
-						<span>total:</span><span class="price">$125.00</span>
+						<span>total:</span><span class="price"></span>
 					</div>
 				</div>
 			</div>
@@ -153,9 +134,9 @@
 						cart</a>
 				</div>
 				<div class="cart_button">
-					<a href="checkout.html"><i class="fa fa-sign-in"></i>Checkout</a>
-				</div><!-- cart_button -->
-			</div><!-- cart_gallery -->
-		</div> <!-- mini_cart -->
+					<a href="checkout.do"><i class="fa fa-sign-in"></i>Checkout</a>
+				</div>
+			</div> 
+		</div>  
 		<!--mini cart end-->
 	</header>

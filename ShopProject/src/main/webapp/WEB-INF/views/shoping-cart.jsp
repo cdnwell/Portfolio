@@ -64,10 +64,9 @@
 				productname = td.eq(3).text();
 				colorname = td.eq(4).text();
 				sizekind = td.eq(5).text();
-				price = parseInt(td.eq(6).text());
+				price = parseInt(td.eq(6).text().substr(1));
 				quantity = parseInt(td.eq(7).text());
 				console.log(productno);
-				
 			});	
 				
 			if(checkcount == 0){
@@ -75,7 +74,7 @@
 				return false;
 			}
 			
-			 var new_form = $('<form></form>');
+			var new_form = $('<form></form>');
 		    new_form.attr("name", "test_form");
 		    new_form.attr("method", "post");
 		    new_form.attr("action", "checkout.do");
@@ -133,7 +132,6 @@
 									<thead>
 										<tr>
 											<th class="product_remove">Delete</th>
-											<th class="product_select">Select</th>
 											<th class="product_thumb">Image</th>
 											<th class="product_name">Product</th>
 											<th class="product_name">Color</th>
@@ -144,27 +142,22 @@
 										</tr>
 									</thead>
 									<tbody>
-									<c:forEach items="${requestScope.cartlist }" var="cdto">
-										<tr>
-										<!-- 삭제 -->
-											<td class="product_remove"><a href="deletecart.do?productno=${cdto.productno }"><i
-													class="fa fa-trash-o"></i></a></td>
-											<td class="product_checkbox">
-												<input type="checkbox" id="cart_check">											
-											</td>
-											<td class="product_thumb"><a href="productdetailview.do?productno=${cdto.productno }&productname=${cdto.productname}"><img
-													src="prImageDown.do?productno=${cdto.productno }" alt=""></a></td>
-											<td class="cart_product_name" ><a href="productdetailview.do?productno=${cdto.productno }&productname=${cdto.productname}">${cdto.productname }</a></td>
-											<td class="cart_color_name">${cdto.colorname }</td>
-											<td class="cart_size_name">${cdto.sizekind }</td>
-											<td class="product-price">￦${cdto.price }</td>
-											<td class="product_quantity">${cdto.quantity }</td>
-											
-											<td class="product_total">￦${cdto.price  * cdto.quantity }</td>
-											<td class="pno_hidden"><input type="hidden" value="${cdto.productno }"></td>
-											<c:set var="total_price" value="${total_price + cdto.price * cdto.quantity }" />
-										</tr>
-									</c:forEach>
+										<c:forEach items="${requestScope.cartlist }" var="cdto">
+											<tr>
+												<td class="product_remove"><a href="deletecart.do?productno=${cdto.productno }"><i
+														class="fa fa-trash-o"></i></a></td>
+												<td class="product_thumb"><a href="productdetailview.do?productno=${cdto.productno }&productname=${cdto.productname}"><img
+														src="prImageDown.do?productno=${cdto.productno }" alt=""></a></td>
+												<td class="cart_product_name" ><a href="productdetailview.do?productno=${cdto.productno }&productname=${cdto.productname}">${cdto.productname }</a></td>
+												<td class="cart_color_name">${cdto.colorname }</td>
+												<td class="cart_size_name">${cdto.sizekind }</td>
+												<td class="product-price">￦${cdto.price }</td>
+												<td class="product_quantity">${cdto.quantity }</td>
+												<td class="product_total">￦${cdto.price  * cdto.quantity }</td>
+												<td class="pno_hidden"><input type="hidden" value="${cdto.productno }"></td>
+												<c:set var="total_price" value="${total_price + cdto.price * cdto.quantity }" />
+											</tr>
+										</c:forEach>
 									</tbody>
 								</table>
 							</div>
@@ -194,22 +187,27 @@
 								<h3>Cart Totals</h3>
 								<div class="coupon_inner">
 									<div class="cart_subtotal">
-										<p>Subtotal</p>
-										<p class="cart_amount">Â£215.00</p>
+										<p>상품가격</p>
+										<p class="cart_amount">${total_price }</p>
 									</div>
 									<div class="cart_subtotal ">
-										<p>Shipping</p>
+										<p>배송비</p>
 										<p class="cart_amount">
-											<span>Flat Rate:</span>Â£255.00
+											<c:choose>
+											<c:when test="${total_price <= 10000 }">￦ 2500</c:when>
+											<c:otherwise>무료 배송 (1만원 이상)</c:otherwise>
+											</c:choose>
 										</p>
 									</div>
-									<a href="#">Calculate shipping</a>
 									<div class="cart_subtotal">
-										<p>Total</p>
+										<p>총 상품가격</p>
 										<p class="cart_amount">￦ <c:out value="${total_price }"/></p>
 									</div>
 									<div class="checkout_btn">
+									<!-- 
 										<span id="checkbtn">주문페이지로 이동</span>
+									 -->
+										<div class="checkout_btn"><a href="checkout.do">주문 페이지로 이동</a></div>
 									</div>
 								</div>
 							</div>

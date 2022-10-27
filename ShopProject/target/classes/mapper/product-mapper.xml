@@ -45,10 +45,9 @@
       insert into cart(productno, quantity, memberid, cartdate, colorno, sizeno, cartno)
       values(#{productno}, #{quantity}, #{memberid}, sysdate(), #{colorno}, #{sizeno}, nextval('cartno_seq'))
    </insert>
- 	<select id="selectCartProduct" parameterType="String"
-      resultType="cart">
+ 	<select id="selectCartProduct" parameterType="String" resultType="cart">
       select c.*,s.sizekind,co.colorname,pp.productphotono from cart c,sizes s,color co, productphoto pp
-      where c.memberid = 'A0001' and  c.sizeno= s.sizeno and c.colorno = co.colorno and c.productno = pp.productno
+      where c.memberid = #{memberId} and  c.sizeno= s.sizeno and c.colorno = co.colorno and c.productno = pp.productno
    </select>
  	<delete id="deleteCart" parameterType="map">
 		delete from cart

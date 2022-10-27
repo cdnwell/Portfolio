@@ -81,19 +81,162 @@ label input{
 }
 
 </style>
+<style type="text/css">
+	.box_img{
+    width: 400px;
+    height: 650px;
+    border : 1px solid black;
+}
+
+
+
+.thumb_img{
+    height: 78%;
+}
+
+.thumb_img img{
+	margin-top : 40px;
+	width : 100%;
+	max-height: 804px;
+    border: 1px solid #c7c7c7;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+
+
+
+.footer_img{
+    width: 100%;
+    height: 22%;
+    text-align: center;
+    position: relative;
+}
+
+.footer_img img{
+    box-sizing: border-box;
+    width: calc( 16% );
+    height: 100px;
+    margin-top: 3.5%;
+    margin-left: 2%;
+    margin-right: 2%;
+    border: 1px solid #c7c7c7;
+    border-radius: 6px;
+
+    cursor: pointer;
+}
+
+
+
+.footer-stage-hide{
+    position: relative;
+    width: 95%;
+    height: 100%;
+    margin-right: 2.5%;
+    margin-left: 2.5%;
+    overflow: hidden;
+}
+
+.footer-stage{
+    position: absolute;
+    box-sizing: border-box;
+    width: 165%;
+    height: 100%;
+    left: -33%;
+}
+
+
+
+.box_img:hover .imgb-nav div{
+    opacity: 1;
+    visibility: visible;
+}
+
+.imgb-nav div:hover{
+    background-color: #ff4545;
+}
+
+.imgb-nav div{
+    background-color: #b7b7b7;
+    
+    width: 30px;
+    height: 30px;
+    border-radius: 5px;
+    text-align: center;
+    color: white;
+    font-size: 18px;
+
+    transition: 0.3s;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.imgb-prev {
+    position: absolute;
+    cursor: pointer;
+
+    top: calc( 100% / 2 - 15px );
+    left: -1px;
+}
+
+.imgb-next{
+    position: absolute;
+    cursor: pointer;
+    
+    top: calc( 100% / 2 - 15px );
+    right: -1px;
+}
+
+
+
+.disabled{
+    display: none;
+}
+
+.stage-img{
+    transition : .3s;
+}
+</style>
+
 <script>
+	let slide_img = [];
+	let count_img = 0;
+
 	function setThumbnail(event) {
 	  var reader = new FileReader();
-	
+
 	  reader.onload = function(event) {
 	  	$('.img-card-body').empty();
-	    var img = $('<img id="thumbImg">');
+	    img = $('<img class="stage-img">');
 	    img.attr('src', event.target.result);
 	    $('.img-card-body').append(img);
+
+		// console.log(img.attr('src'));
+		setSlideImg(img);
 	  };
 	
 	  reader.readAsDataURL(event.target.files[0]);
+	  
 	};
+
+	function setSlideImg(img){
+		const img_src = img.attr('src');
+		const img_class = img.attr('class');
+
+		if(count_img < 4){
+			slide_img.push('<img class="'+img_class+'" src="'+img_src+'">');
+			count_img++;	
+		} else {
+			const img_tmp = [...slide_img];
+			for(i=0;i<4;i++){
+				slide_img[i] = img_tmp[i+1];
+			}
+			slide_img[4] = '<img class="'+img_class+'" src="'+img_src+'">';
+		}
+
+		console.log(count_img,img_class);
+		
+	}
+
 	function label_chk(r){
         var label = $(r).parent();
         
@@ -110,14 +253,19 @@ label input{
 		$("#plus").click(function() {
 			if (count == 5)
 				return;
+			$("#file_form1").append("<p><input type='file' name='file"+count+"' onchange=setThumbnail(event);>");
 			count++;
-			$("#file_form1").append("<p><input type='file' name='file'></p>");
 		});
 		$("#minus").click(function() {
 			if (count == 1)
 				return;
 			count--;
 			$(this).parent().parent().children("p").last().remove();
+			if(count_img == count - 1){
+				slide_img.pop();
+				count_img--;
+			}
+			console.log(slide_img);
 		});
 	});
 </script>
@@ -199,7 +347,7 @@ label input{
 							<td colspan="2">
 								<div id="file_form1">
 									<p>
-										<input type="file" name="file" onchange="setThumbnail(event);">
+										<input type="file" name="file0" onchange="setThumbnail(event);">
 									</p>
 									<p class="file_btn_first">
 										<button type="button" id="plus" class="btn-primary btn plus-btn">+</button>
@@ -207,10 +355,10 @@ label input{
 									</p>
 									
 									<p>
-										<input type="file" name="file">
+										<input type="file" name="file1" onchange="setThumbnail(event);">
 									</p>
 									<p>
-										<input type="file" name="file">
+										<input type="file" name="file2" onchange="setThumbnail(event);">
 									</p>
 								</div>
 							</td>

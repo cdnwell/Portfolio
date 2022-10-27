@@ -22,6 +22,7 @@ public class ProductDTO {
 	private int inquantity;
 	private int cost;
 	private int price;
+	private int deliveryprice;
 	private String categoryno;
 	private String sizename;
 	private String productphotono;
