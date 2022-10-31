@@ -215,7 +215,6 @@ label input{
 	  };
 	
 	  reader.readAsDataURL(event.target.files[0]);
-	  
 	};
 
 	function setSlideImg(img){
