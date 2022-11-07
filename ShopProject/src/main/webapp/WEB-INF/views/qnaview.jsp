@@ -144,8 +144,7 @@ textarea{
 														<tr>
 															<td colspan="2">
 																<div>
-																	${comment.writer }<br> <font size="2"
-																		color="lightgray">${comment.qnarecontent }</font>
+																	<b>${comment.writer }</b><br> <font size="2">${comment.qnarecontent }</font>
 																</div>
 															</td>
 														</tr>

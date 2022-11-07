@@ -1231,6 +1231,7 @@ public class MainController {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyMMddhhmmss");
 			String date = sdf.format(Calendar.getInstance().getTime());
 			String imagefilename = date + "_img" + originalFileName;
+//			System.out.println(imagefilename);
 			
 			if (f.getSize() == 0)
 				continue;

@@ -53,10 +53,11 @@ input {
 }
 
 .head-card-body{
-	position : absolute;
+	margin-top: 0.5rem;
 	top : 15px;
 	text-align : center;
 	width : 100%;
+	padding: 5px;
 }
 
 .first_td{
@@ -188,6 +189,29 @@ label input{
 
 
 
+.preview-stage{
+	width: 100%;
+	height: 80px;
+	border: 1px solid #e3e6f0;
+	border-radius: 3px;
+
+	text-align: center;
+}
+
+.preview-stage img{
+	height: 70px;
+	margin: 5px;
+}
+
+
+
+.thumb-img{
+	width: 96%;
+	margin: 0 2%;
+}
+
+
+
 .disabled{
     display: none;
 }
@@ -198,43 +222,223 @@ label input{
 </style>
 
 <script>
-	let slide_img = [];
-	let count_img = 0;
+	// 변경 상태
+	// 0 : 이미지 없음
+	// 1 : 이미지 있음
+	// 2 : 이미지가 있던 상태에서 변경 됨
+	// 3 : 이미지가 있던 상태에서 한 번 더 변경 됨 -> 변경 될 경우 2가 됨
+	var img_arr = [0,0,0,0,0];
 
-	function setThumbnail(event) {
-	  var reader = new FileReader();
+	function setThumbnail0(event) {
+		var reader = new FileReader();
 
-	  reader.onload = function(event) {
-	  	$('.img-card-body').empty();
-	    img = $('<img class="stage-img">');
-	    img.attr('src', event.target.result);
-	    $('.img-card-body').append(img);
-
-		// console.log(img.attr('src'));
-		setSlideImg(img);
-	  };
-	
-	  reader.readAsDataURL(event.target.files[0]);
+		try{
+			reader.onload = function(event) {
+				img = $('.preview-img0');
+				img.attr('src', event.target.result);
+				var thumbNum = $('.thumb-img').length;
+				var thumb_img = $('<img class="thumb-img">');
+				if(thumbNum === 0){
+					thumb_img.attr('src',event.target.result);
+					thumb_img.appendTo('.img-card-body');
+					img_arr[0] = 1;
+				} else if (img_arr[0] === 1) {
+					$('.img-card-body').empty();
+					thumb_img.attr('src',event.target.result);
+					thumb_img.appendTo('.img-card-body');
+					img_arr[0] = 2;
+				} else if (img_arr[0] === 2) {
+					$('.img-card-body').empty();
+					thumb_img.attr('src',event.target.result);
+					thumb_img.appendTo('.img-card-body');
+					img_arr[0] = 3;
+				} else if (img_arr[0] === 3) {
+					$('.img-card-body').empty();
+					thumb_img.attr('src',event.target.result);
+					thumb_img.appendTo('.img-card-body');
+					img_arr[0] = 2;
+				}
+			};
+			
+			reader.readAsDataURL(event.target.files[0]);
+		} catch (err) {
+			img = $('.preview-img0');
+			img.attr('src','img/icon/tmp_img_icon.png');
+			if (img_arr[0] === 1 || img_arr[0] === 2 || img_arr[0] === 3) {
+				$('.thumb-img').remove();
+			}
+			img_arr[0] = 0;
+		}
+		
 	};
 
-	function setSlideImg(img){
-		const img_src = img.attr('src');
-		const img_class = img.attr('class');
+	function setThumbnail1(event) {
+		var reader = new FileReader();
 
-		if(count_img < 4){
-			slide_img.push('<img class="'+img_class+'" src="'+img_src+'">');
-			count_img++;	
-		} else {
-			const img_tmp = [...slide_img];
-			for(i=0;i<4;i++){
-				slide_img[i] = img_tmp[i+1];
-			}
-			slide_img[4] = '<img class="'+img_class+'" src="'+img_src+'">';
-		}
-
-		console.log(count_img,img_class);
+		try{
+			reader.onload = function(event) {
+				img = $('.preview-img1');
+				img.attr('src', event.target.result);
+				var thumbNum = $('.thumb-img').length;
+				var thumb_img = $('<img class="thumb-img">');
+				if(thumbNum === 0){
+					thumb_img.attr('src',event.target.result);
+					thumb_img.appendTo('.img-card-body');
+					img_arr[1] = 1;
+				} else if (img_arr[1] === 1) {
+					$('.img-card-body').empty();
+					thumb_img.attr('src',event.target.result);
+					thumb_img.appendTo('.img-card-body');
+					img_arr[1] = 2;
+				} else if (img_arr[1] === 2) {
+					$('.img-card-body').empty();
+					thumb_img.attr('src',event.target.result);
+					thumb_img.appendTo('.img-card-body');
+					img_arr[1] = 3;
+				} else if (img_arr[1] === 3) {
+					$('.img-card-body').empty();
+					thumb_img.attr('src',event.target.result);
+					thumb_img.appendTo('.img-card-body');
+					img_arr[1] = 2;
+				}
+			};
 		
-	}
+			reader.readAsDataURL(event.target.files[0]);
+		} catch (err) {
+			img = $('.preview-img1');
+			img.attr('src','img/icon/tmp_img_icon.png');
+			if (img_arr[1] === 1 || img_arr[1] === 2 || img_arr[1] === 3) {
+				$('.thumb-img').remove();
+			}
+			img_arr[1] = 0;
+		}
+	};
+
+	function setThumbnail2(event) {
+		var reader = new FileReader();
+
+		try{
+			reader.onload = function(event) {
+				img = $('.preview-img2');
+				img.attr('src', event.target.result);
+				var thumbNum = $('.thumb-img').length;
+				var thumb_img = $('<img class="thumb-img">');
+				if(thumbNum === 0){
+					thumb_img.attr('src',event.target.result);
+					thumb_img.appendTo('.img-card-body');
+					img_arr[2] = 1;
+				} else if (img_arr[2] === 1) {
+					$('.img-card-body').empty();
+					thumb_img.attr('src',event.target.result);
+					thumb_img.appendTo('.img-card-body');
+					img_arr[2] = 2;
+				} else if (img_arr[2] === 2) {
+					$('.img-card-body').empty();
+					thumb_img.attr('src',event.target.result);
+					thumb_img.appendTo('.img-card-body');
+					img_arr[2] = 3;
+				} else if (img_arr[2] === 3) {
+					$('.img-card-body').empty();
+					thumb_img.attr('src',event.target.result);
+					thumb_img.appendTo('.img-card-body');
+					img_arr[2] = 2;
+				}
+			};
+		
+			reader.readAsDataURL(event.target.files[0]);
+		} catch (err) {
+			img = $('.preview-img2');
+			img.attr('src','img/icon/tmp_img_icon.png');
+			if (img_arr[2] === 1 || img_arr[2] === 2 || img_arr[2] === 3) {
+				$('.thumb-img').remove();
+			}
+			img_arr[2] = 0;
+		}
+	};
+
+	function setThumbnail3(event) {
+		var reader = new FileReader();
+
+		try{
+			reader.onload = function(event) {
+				img = $('.preview-img3');
+				img.attr('src', event.target.result);
+				var thumbNum = $('.thumb-img').length;
+				var thumb_img = $('<img class="thumb-img">');
+				if(thumbNum === 0){
+					thumb_img.attr('src',event.target.result);
+					thumb_img.appendTo('.img-card-body');
+					img_arr[3] = 1;
+				} else if (img_arr[3] === 1) {
+					$('.img-card-body').empty();
+					thumb_img.attr('src',event.target.result);
+					thumb_img.appendTo('.img-card-body');
+					img_arr[3] = 2;
+				} else if (img_arr[3] === 2) {
+					$('.img-card-body').empty();
+					thumb_img.attr('src',event.target.result);
+					thumb_img.appendTo('.img-card-body');
+					img_arr[3] = 3;
+				} else if (img_arr[3] === 3) {
+					$('.img-card-body').empty();
+					thumb_img.attr('src',event.target.result);
+					thumb_img.appendTo('.img-card-body');
+					img_arr[3] = 2;
+				}
+			};
+		
+			reader.readAsDataURL(event.target.files[0]);
+		} catch (err) {
+			img = $('.preview-img3');
+			img.attr('src','img/icon/tmp_img_icon.png');
+			if (img_arr[3] === 1 || img_arr[3] === 2 || img_arr[3] === 3) {
+				$('.thumb-img').remove();
+			}
+			img_arr[3] = 0;
+		}
+	};
+
+	function setThumbnail4(event) {
+		var reader = new FileReader();
+
+		try{
+			reader.onload = function(event) {
+				img = $('.preview-img4');
+				img.attr('src', event.target.result);
+				var thumbNum = $('.thumb-img').length;
+				var thumb_img = $('<img class="thumb-img">');
+				if(thumbNum === 0){
+					thumb_img.attr('src',event.target.result);
+					thumb_img.appendTo('.img-card-body');
+					img_arr[4] = 1;
+				} else if (img_arr[4] === 1) {
+					$('.img-card-body').empty();
+					thumb_img.attr('src',event.target.result);
+					thumb_img.appendTo('.img-card-body');
+					img_arr[4] = 2;
+				} else if (img_arr[4] === 2) {
+					$('.img-card-body').empty();
+					thumb_img.attr('src',event.target.result);
+					thumb_img.appendTo('.img-card-body');
+					img_arr[4] = 3;
+				} else if (img_arr[4] === 3) {
+					$('.img-card-body').empty();
+					thumb_img.attr('src',event.target.result);
+					thumb_img.appendTo('.img-card-body');
+					img_arr[4] = 2;
+				}
+			};
+		
+			reader.readAsDataURL(event.target.files[0]);
+		} catch (err) {
+			img = $('.preview-img4');
+			img.attr('src','img/icon/tmp_img_icon.png');
+			if (img_arr[4] === 1 || img_arr[4] === 2 || img_arr[4] === 3) {
+				$('.thumb-img').remove();
+			}
+			img_arr[4] = 0;
+		}
+	};
 
 	function label_chk(r){
         var label = $(r).parent();
@@ -247,24 +451,35 @@ label input{
             label.css('color','black');
         }
     };
+
 	$(function() {
-		var count = 3;
-		$("#plus").click(function() {
-			if (count == 5)
-				return;
-			$("#file_form1").append("<p><input type='file' name='file"+count+"' onchange=setThumbnail(event);>");
-			count++;
-		});
-		$("#minus").click(function() {
-			if (count == 1)
-				return;
-			count--;
-			$(this).parent().parent().children("p").last().remove();
-			if(count_img == count - 1){
-				slide_img.pop();
-				count_img--;
+		// var count = 3;
+		// $("#plus").click(function() {
+		// 	if (count == 5)
+		// 		return;
+		// 	$("#file_form1").append("<p><input type='file' name='file"+count+"' onchange=setThumbnail(event);>");
+		// 	count++;
+		// });
+		// $("#minus").click(function() {
+		// 	if (count == 1)
+		// 		return;
+		// 	count--;
+		// 	$(this).parent().parent().children("p").last().remove();
+		// 	if(count_img == count - 1){
+		// 		slide_img.pop();
+		// 		count_img--;
+		// 	}
+		// });
+		
+		$('.preview-img').click(function(e){
+			$('.img-card-body').empty();
+			var no_img = 'img/icon/tmp_img_icon.png';
+			var find_img = e.target.src.indexOf(no_img);
+			if(find_img === -1){
+				var img = $('<img class="thumb-img">');
+				img.attr('src',e.target.src);
+				img.appendTo('.img-card-body');
 			}
-			console.log(slide_img);
 		});
 	});
 </script>
@@ -345,19 +560,24 @@ label input{
 						<tr>
 							<td colspan="2">
 								<div id="file_form1">
-									<p>
-										<input type="file" name="file0" onchange="setThumbnail(event);">
-									</p>
-									<p class="file_btn_first">
+									<!-- <p class="file_btn_first">
 										<button type="button" id="plus" class="btn-primary btn plus-btn">+</button>
 										<button type="button" id="minus" class="btn-primary btn">-</button>
-									</p>
-									
+									</p> -->
 									<p>
-										<input type="file" name="file1" onchange="setThumbnail(event);">
+										<input type="file" name="file" class="file0" onchange="setThumbnail0(event);">
 									</p>
 									<p>
-										<input type="file" name="file2" onchange="setThumbnail(event);">
+										<input type="file" name="file" class="file1" onchange="setThumbnail1(event);">
+									</p>
+									<p>
+										<input type="file" name="file" class="file2" onchange="setThumbnail2(event);">
+									</p>
+									<p>
+										<input type="file" name="file" class="file3" onchange="setThumbnail3(event);">
+									</p>
+									<p>
+										<input type="file" name="file" class="file4" onchange="setThumbnail4(event);">
 									</p>
 								</div>
 							</td>
@@ -367,8 +587,15 @@ label input{
 			</div>
 		</div>
 		<div class="card shadow mb-4 col-lg-6 card-container">
-			<div class="card-body img-card-body"></div>
 			<h2 class="head-card-body">상품 미리 보기</h2>
+			<div class="preview-stage">
+				<img src="img/icon/tmp_img_icon.png" class="preview-img0 preview-img" alt="상품 미리보기 이미지">
+				<img src="img/icon/tmp_img_icon.png" class="preview-img1 preview-img" alt="상품 미리보기 이미지">
+				<img src="img/icon/tmp_img_icon.png" class="preview-img2 preview-img" alt="상품 미리보기 이미지">
+				<img src="img/icon/tmp_img_icon.png" class="preview-img3 preview-img" alt="상품 미리보기 이미지">
+				<img src="img/icon/tmp_img_icon.png" class="preview-img4 preview-img" alt="상품 미리보기 이미지">
+			</div>
+			<div class="card-body img-card-body"></div>
 		</div>
 	</div>
 </body>
