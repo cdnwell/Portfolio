@@ -164,7 +164,6 @@ public class MainController {
 
 		result = memberService.updateMember(memberDto);
 		response.getWriter().write("<script>alert('회원 정보 수정 완료.');location.href='/';</script>");
-
 	}
 
 	/*
@@ -412,7 +411,6 @@ public class MainController {
 		int result = 0;
 		result = boardService.deleteCartList(cartno);
 
-		System.out.println("삭제 완료 : " + result);
 		if (result == 0) {
 			response.getWriter().write("0");
 		} else {
@@ -1231,7 +1229,6 @@ public class MainController {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyMMddhhmmss");
 			String date = sdf.format(Calendar.getInstance().getTime());
 			String imagefilename = date + "_img" + originalFileName;
-//			System.out.println(imagefilename);
 			
 			if (f.getSize() == 0)
 				continue;
@@ -1357,9 +1354,7 @@ public class MainController {
 		if (count != 0) {
 			int quantity = cdto.getQuantity();
 			count = productService.updateQuantity(cdto);
-			System.out.println(cdto);
 			CartDTO cdto1 = productService.selectCartDTO(cdto);
-			System.out.println(cdto1);
 			cdto1.setQuantity(quantity);
 			return ResponseEntity.ok(cdto1);
 		}
@@ -1408,7 +1403,6 @@ public class MainController {
 		model.addAttribute("productlist", productlist);
 		model.addAttribute("memberId", memberId);
 		return "product_detailview";
-		//#//
 	}
 
 	@RequestMapping("/checkout.do")

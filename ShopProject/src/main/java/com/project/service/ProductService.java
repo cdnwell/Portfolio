@@ -31,8 +31,8 @@ public class ProductService {
 	public int deleteProduct(String[] index) {
 		int count=0;
 		for(int i = 0; i <index.length;i++) {
-		String str = index[i];
-		count += mapper.deleteProduct(str);
+    		String str = index[i];
+    		count += mapper.deleteProduct(str);
 		}
 		return count;
 	}
@@ -57,11 +57,9 @@ public class ProductService {
 	}
 
 	public String selectFile(String productno,int productphotono) {
-		System.out.println(productno+"adfb"+productphotono);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("productno", productno);
 		map.put("productphotono", productphotono);
-		System.out.println(mapper.selectFile(map));
 		return mapper.selectFile(map);
 	}
 

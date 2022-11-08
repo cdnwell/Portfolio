@@ -23,7 +23,6 @@ public class QnaService {
 	public int insertBoard(QnADTO qnadto) {
 		int qno = qnamapper.selectBoardNo();
 		qnadto.setQno(String.valueOf(qno));
-		System.out.println(qnadto);
 		qnamapper.insertBoard(qnadto);
 		return qno;
 	}

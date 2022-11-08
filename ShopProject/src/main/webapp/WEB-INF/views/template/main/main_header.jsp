@@ -15,6 +15,15 @@
 	.category_ul a{
 		width : fit-content;
 	}
+	.pe-7s-config{
+	    font-size: 28px;
+	    color: #232323;
+	    margin-right : 10px;
+	}
+	.pe-7s-config:hover {
+	    color: #e83e8c;
+	    transition-duration: 1s;
+	}
 </style>
 <script src="js/cart_list.js"></script>
 <script src="js/category_list.js"></script>
@@ -78,10 +87,13 @@
 					</div>
 					<div class="col-lg-2 col-md-4 col-sm-4 col-4">
 						<div class="header_account_area">
-							<c:if test="${sessionScope.login }">
-							<div class="header_account_list  mini_cart_wrapper">
-								<a href="javascript:void(0)"><span class="pe-7s-shopbag before_item_count"></span></a>
+							<div>
+								<a href="manager.do"><span class="pe-7s-config"></span></a>
 							</div>
+							<c:if test="${sessionScope.login }">
+								<div class="header_account_list mini_cart_wrapper">
+									<a href="javascript:void(0)"><span class="pe-7s-shopbag before_item_count"></span></a>
+								</div>
 							</c:if>
 							<c:choose>
 								<c:when test="${sessionScope.login }">
