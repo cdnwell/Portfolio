@@ -53,7 +53,18 @@ public class ProductService {
 	}
 
 	public List<FileDTO> selectFilePath(String productno) {
-		return mapper.selectFilePath(productno);
+	    List<FileDTO> list = mapper.selectFilePath(productno);
+	    
+	    int size = list.size();
+	    if(size != 5) {
+	        for(int i = size;i<5;i++) {
+	            FileDTO file = new FileDTO();
+	            file.setFileName("src");
+	            list.add(file);
+	        }
+	    }
+	    
+		return list;
 	}
 
 	public String selectFile(String productno,int productphotono) {

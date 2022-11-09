@@ -83,112 +83,6 @@ label input{
 
 </style>
 <style type="text/css">
-	.box_img{
-    width: 400px;
-    height: 650px;
-    border : 1px solid black;
-}
-
-
-
-.thumb_img{
-    height: 78%;
-}
-
-.thumb_img img{
-	margin-top : 40px;
-	width : 100%;
-	max-height: 804px;
-    border: 1px solid #c7c7c7;
-    cursor: pointer;
-    box-sizing: border-box;
-}
-
-
-
-.footer_img{
-    width: 100%;
-    height: 22%;
-    text-align: center;
-    position: relative;
-}
-
-.footer_img img{
-    box-sizing: border-box;
-    width: calc( 16% );
-    height: 100px;
-    margin-top: 3.5%;
-    margin-left: 2%;
-    margin-right: 2%;
-    border: 1px solid #c7c7c7;
-    border-radius: 6px;
-
-    cursor: pointer;
-}
-
-
-
-.footer-stage-hide{
-    position: relative;
-    width: 95%;
-    height: 100%;
-    margin-right: 2.5%;
-    margin-left: 2.5%;
-    overflow: hidden;
-}
-
-.footer-stage{
-    position: absolute;
-    box-sizing: border-box;
-    width: 165%;
-    height: 100%;
-    left: -33%;
-}
-
-
-
-.box_img:hover .imgb-nav div{
-    opacity: 1;
-    visibility: visible;
-}
-
-.imgb-nav div:hover{
-    background-color: #ff4545;
-}
-
-.imgb-nav div{
-    background-color: #b7b7b7;
-    
-    width: 30px;
-    height: 30px;
-    border-radius: 5px;
-    text-align: center;
-    color: white;
-    font-size: 18px;
-
-    transition: 0.3s;
-    opacity: 0;
-    visibility: hidden;
-}
-
-.imgb-prev {
-    position: absolute;
-    cursor: pointer;
-
-    top: calc( 100% / 2 - 15px );
-    left: -1px;
-}
-
-.imgb-next{
-    position: absolute;
-    cursor: pointer;
-    
-    top: calc( 100% / 2 - 15px );
-    right: -1px;
-}
-
-
-
 .preview-stage{
 	width: 100%;
 	height: 80px;
@@ -453,24 +347,6 @@ label input{
     };
 
 	$(function() {
-		// var count = 3;
-		// $("#plus").click(function() {
-		// 	if (count == 5)
-		// 		return;
-		// 	$("#file_form1").append("<p><input type='file' name='file"+count+"' onchange=setThumbnail(event);>");
-		// 	count++;
-		// });
-		// $("#minus").click(function() {
-		// 	if (count == 1)
-		// 		return;
-		// 	count--;
-		// 	$(this).parent().parent().children("p").last().remove();
-		// 	if(count_img == count - 1){
-		// 		slide_img.pop();
-		// 		count_img--;
-		// 	}
-		// });
-		
 		$('.preview-img').click(function(e){
 			$('.img-card-body').empty();
 			var no_img = 'img/icon/tmp_img_icon.png';
