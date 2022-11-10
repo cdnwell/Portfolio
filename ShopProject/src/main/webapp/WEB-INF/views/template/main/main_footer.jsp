@@ -5,9 +5,11 @@
 	.copyright_area p{
 		margin-bottom : 0;
 		text-transform: none;
-	}
-	.copyright_area p:hover{
+		font-size : 14px;
+		font-family : Courier;
+		
 		color : white;
+		opacity : 0.9;
 	}
 </style>
 <footer class="footer_widgets">

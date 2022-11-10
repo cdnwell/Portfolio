@@ -74,6 +74,7 @@ label input{
 	height: 80px;
 	border: 1px solid #e3e6f0;
 	border-radius: 3px;
+	position: relative;
 
 	text-align: center;
 }
@@ -83,6 +84,35 @@ label input{
 	margin: 5px;
 }
 
+.stage-label-p, .stage-label-m{
+	height: 100%;
+	position: absolute;
+	left : 0;
+	writing-mode: vertical-lr;
+	text-orientation: upright;
+	font-size: 14px;
+	letter-spacing : -8px;
+
+	background-color: #4e73df;
+	color: white;
+}
+
+
+
+.modify-stage{
+	width: 100%;
+	height: 80px;
+	border: 1px solid #e3e6f0;
+	border-radius: 3px;
+	position : relative;
+
+	text-align: center;
+}
+
+.modify-stage img{
+	height : 70px;
+	margin : 5px;
+}
 
 
 .head-card-body{
@@ -99,220 +129,8 @@ label input{
 }
 
 </style>
+<script src="js/preview-img.js"></script>
 <script type="text/javascript">
-	var img_arr = [0,0,0,0,0];
-	
-	function setThumbnail0(event) {
-		var reader = new FileReader();
-	
-		try{
-			reader.onload = function(event) {
-				img = $('.preview-img0');
-				img.attr('src', event.target.result);
-				var thumbNum = $('.thumb-img').length;
-				var thumb_img = $('<img class="thumb-img">');
-				if(thumbNum === 0){
-					thumb_img.attr('src',event.target.result);
-					thumb_img.appendTo('.img-card-body');
-					img_arr[0] = 1;
-				} else if (img_arr[0] === 1) {
-					$('.img-card-body').empty();
-					thumb_img.attr('src',event.target.result);
-					thumb_img.appendTo('.img-card-body');
-					img_arr[0] = 2;
-				} else if (img_arr[0] === 2) {
-					$('.img-card-body').empty();
-					thumb_img.attr('src',event.target.result);
-					thumb_img.appendTo('.img-card-body');
-					img_arr[0] = 3;
-				} else if (img_arr[0] === 3) {
-					$('.img-card-body').empty();
-					thumb_img.attr('src',event.target.result);
-					thumb_img.appendTo('.img-card-body');
-					img_arr[0] = 2;
-				}
-			};
-			
-			reader.readAsDataURL(event.target.files[0]);
-		} catch (err) {
-			img = $('.preview-img0');
-			img.attr('src','img/icon/tmp_img_icon.png');
-			if (img_arr[0] === 1 || img_arr[0] === 2 || img_arr[0] === 3) {
-				$('.thumb-img').remove();
-			}
-			img_arr[0] = 0;
-		}
-		
-	};
-	
-	function setThumbnail1(event) {
-		var reader = new FileReader();
-	
-		try{
-			reader.onload = function(event) {
-				img = $('.preview-img1');
-				img.attr('src', event.target.result);
-				var thumbNum = $('.thumb-img').length;
-				var thumb_img = $('<img class="thumb-img">');
-				if(thumbNum === 0){
-					thumb_img.attr('src',event.target.result);
-					thumb_img.appendTo('.img-card-body');
-					img_arr[1] = 1;
-				} else if (img_arr[1] === 1) {
-					$('.img-card-body').empty();
-					thumb_img.attr('src',event.target.result);
-					thumb_img.appendTo('.img-card-body');
-					img_arr[1] = 2;
-				} else if (img_arr[1] === 2) {
-					$('.img-card-body').empty();
-					thumb_img.attr('src',event.target.result);
-					thumb_img.appendTo('.img-card-body');
-					img_arr[1] = 3;
-				} else if (img_arr[1] === 3) {
-					$('.img-card-body').empty();
-					thumb_img.attr('src',event.target.result);
-					thumb_img.appendTo('.img-card-body');
-					img_arr[1] = 2;
-				}
-			};
-		
-			reader.readAsDataURL(event.target.files[0]);
-		} catch (err) {
-			img = $('.preview-img1');
-			img.attr('src','img/icon/tmp_img_icon.png');
-			if (img_arr[1] === 1 || img_arr[1] === 2 || img_arr[1] === 3) {
-				$('.thumb-img').remove();
-			}
-			img_arr[1] = 0;
-		}
-	};
-	
-	function setThumbnail2(event) {
-		var reader = new FileReader();
-	
-		try{
-			reader.onload = function(event) {
-				img = $('.preview-img2');
-				img.attr('src', event.target.result);
-				var thumbNum = $('.thumb-img').length;
-				var thumb_img = $('<img class="thumb-img">');
-				if(thumbNum === 0){
-					thumb_img.attr('src',event.target.result);
-					thumb_img.appendTo('.img-card-body');
-					img_arr[2] = 1;
-				} else if (img_arr[2] === 1) {
-					$('.img-card-body').empty();
-					thumb_img.attr('src',event.target.result);
-					thumb_img.appendTo('.img-card-body');
-					img_arr[2] = 2;
-				} else if (img_arr[2] === 2) {
-					$('.img-card-body').empty();
-					thumb_img.attr('src',event.target.result);
-					thumb_img.appendTo('.img-card-body');
-					img_arr[2] = 3;
-				} else if (img_arr[2] === 3) {
-					$('.img-card-body').empty();
-					thumb_img.attr('src',event.target.result);
-					thumb_img.appendTo('.img-card-body');
-					img_arr[2] = 2;
-				}
-			};
-		
-			reader.readAsDataURL(event.target.files[0]);
-		} catch (err) {
-			img = $('.preview-img2');
-			img.attr('src','img/icon/tmp_img_icon.png');
-			if (img_arr[2] === 1 || img_arr[2] === 2 || img_arr[2] === 3) {
-				$('.thumb-img').remove();
-			}
-			img_arr[2] = 0;
-		}
-	};
-	
-	function setThumbnail3(event) {
-		var reader = new FileReader();
-	
-		try{
-			reader.onload = function(event) {
-				img = $('.preview-img3');
-				img.attr('src', event.target.result);
-				var thumbNum = $('.thumb-img').length;
-				var thumb_img = $('<img class="thumb-img">');
-				if(thumbNum === 0){
-					thumb_img.attr('src',event.target.result);
-					thumb_img.appendTo('.img-card-body');
-					img_arr[3] = 1;
-				} else if (img_arr[3] === 1) {
-					$('.img-card-body').empty();
-					thumb_img.attr('src',event.target.result);
-					thumb_img.appendTo('.img-card-body');
-					img_arr[3] = 2;
-				} else if (img_arr[3] === 2) {
-					$('.img-card-body').empty();
-					thumb_img.attr('src',event.target.result);
-					thumb_img.appendTo('.img-card-body');
-					img_arr[3] = 3;
-				} else if (img_arr[3] === 3) {
-					$('.img-card-body').empty();
-					thumb_img.attr('src',event.target.result);
-					thumb_img.appendTo('.img-card-body');
-					img_arr[3] = 2;
-				}
-			};
-		
-			reader.readAsDataURL(event.target.files[0]);
-		} catch (err) {
-			img = $('.preview-img3');
-			img.attr('src','img/icon/tmp_img_icon.png');
-			if (img_arr[3] === 1 || img_arr[3] === 2 || img_arr[3] === 3) {
-				$('.thumb-img').remove();
-			}
-			img_arr[3] = 0;
-		}
-	};
-	
-	function setThumbnail4(event) {
-		var reader = new FileReader();
-	
-		try{
-			reader.onload = function(event) {
-				img = $('.preview-img4');
-				img.attr('src', event.target.result);
-				var thumbNum = $('.thumb-img').length;
-				var thumb_img = $('<img class="thumb-img">');
-				if(thumbNum === 0){
-					thumb_img.attr('src',event.target.result);
-					thumb_img.appendTo('.img-card-body');
-					img_arr[4] = 1;
-				} else if (img_arr[4] === 1) {
-					$('.img-card-body').empty();
-					thumb_img.attr('src',event.target.result);
-					thumb_img.appendTo('.img-card-body');
-					img_arr[4] = 2;
-				} else if (img_arr[4] === 2) {
-					$('.img-card-body').empty();
-					thumb_img.attr('src',event.target.result);
-					thumb_img.appendTo('.img-card-body');
-					img_arr[4] = 3;
-				} else if (img_arr[4] === 3) {
-					$('.img-card-body').empty();
-					thumb_img.attr('src',event.target.result);
-					thumb_img.appendTo('.img-card-body');
-					img_arr[4] = 2;
-				}
-			};
-		
-			reader.readAsDataURL(event.target.files[0]);
-		} catch (err) {
-			img = $('.preview-img4');
-			img.attr('src','img/icon/tmp_img_icon.png');
-			if (img_arr[4] === 1 || img_arr[4] === 2 || img_arr[4] === 3) {
-				$('.thumb-img').remove();
-			}
-			img_arr[4] = 0;
-		}
-	};
-
 	function label_chk(r){
 	    var label = $(r).parent();
 	    
@@ -324,17 +142,19 @@ label input{
 	        label.css('color','black');
 	    }
 	}
+	
 	$(function() {
-		$('.preview-img').click(function(e){
-			$('.img-card-body').empty();
-			var no_img = 'img/icon/tmp_img_icon.png';
-			var find_img = e.target.src.indexOf(no_img);
-			if(find_img === -1){
-				var img = $('<img class="thumb-img">');
-				img.attr('src',e.target.src);
-				img.appendTo('.img-card-body');
-			}
-		});
+		// size와 color의 label 색상 설정
+		$('.size_label input').filter(':checked').parent().css('background-color','#2e59d9').css('color','white');
+		$('.color_label input').filter(':checked').parent().css('background-color','#2e59d9').css('color','white');
+		
+		// 미리보기 img가 있을 경우 첫번째 이미지를 썸네일로 표시
+		var find_src = $('.preview-img-before0').attr('src').indexOf('img/icon/tmp_img_icon.png');
+		if(find_src === -1){
+			var img = $('<img class="thumb-img">');
+			img.attr('src',$('.preview-img-before0').attr('src'));
+			img.appendTo('.img-card-body');
+		}
 	});
 </script>
 <style>
@@ -352,7 +172,7 @@ label input{
 					<table class="table table-bordered" id="dataTable" width="100%"
 						cellspacing="0">
 						<tr>
-							<td>상품번호</td>
+							<td style="width: 100px;">상품번호</td>
 							<td><input type="text"
 								value="${requestScope.product.productno }" placeholder="상품번호"
 								disabled> <input type="hidden" name="productno"
@@ -431,29 +251,20 @@ label input{
 						</tr>
 						<tr>
 							<td colspan="2" class="file_td">
-							<!-- 
-								<p class="btn_p">
-									<button type="button" id="plus"
-										class="btn btn-primary two-btns">+</button>
-									<button type="button" id="minus"
-										class="btn btn-primary two-btns">-</button>
-								</p>
-								 -->
 								<p>
-									<input type="file" name="file">
-								</p>
-								
-								<p>
-									<input type="file" name="file">
+									<input type="file" name="file" onchange="setThumbnail0(event);">
 								</p>
 								<p>
-									<input type="file" name="file">
+									<input type="file" name="file" onchange="setThumbnail1(event);">
 								</p>
 								<p>
-									<input type="file" name="file">
+									<input type="file" name="file" onchange="setThumbnail2(event);">
 								</p>
 								<p>
-									<input type="file" name="file">
+									<input type="file" name="file" onchange="setThumbnail3(event);">
+								</p>
+								<p>
+									<input type="file" name="file" onchange="setThumbnail4(event);">
 								</p>
 							</td>
 						</tr>
@@ -476,16 +287,25 @@ label input{
 		<div class="card shadow mb-4 col-lg-6 card-container">
 			<h2 class="head-card-body">상품 정보 수정</h2>
 			<div class="preview-stage">
-				<c:forEach var="f" items="${requestScope.Filepath }" varStatus="i" begin="0" end="5">
+				<div class="stage-label-p">Before</div>
+				<c:forEach var="f" items="${requestScope.Filepath }" varStatus="i">
 					<c:choose>
-					<c:when test="${f.productno != null }">
-						<img class="preview-img${i.index } preview-img" src="fileDown.do?productphotono=${f.productphotono}&productno=${f.productno} onchange="setThumbnail${i.index }(event);">
-					</c:when>
-					<c:otherwise>
-						<img src="img/icon/tmp_img_icon.png" class="preview-img${i.index } preview-img" alt="상품 미리보기 이미지" onchange="setThumbnail${i.index }(event);">
-					</c:otherwise>
+						<c:when test="${f.productno != null }">
+							<img class="preview-img preview-img-before${i.index }" src="fileDown.do?productphotono=${f.productphotono}&productno=${f.productno}">
+						</c:when>
+						<c:otherwise>
+							<img src="img/icon/tmp_img_icon.png" class="preview-img" alt="상품 미리보기 이미지">
+						</c:otherwise>
 					</c:choose>
 				</c:forEach>
+			</div>
+			<div class="modify-stage">
+				<div class="stage-label-m">After</div>
+				<img src="img/icon/tmp_img_icon.png" class="preview-img0 preview-img" alt="상품 미리보기 이미지">
+				<img src="img/icon/tmp_img_icon.png" class="preview-img1 preview-img" alt="상품 미리보기 이미지">
+				<img src="img/icon/tmp_img_icon.png" class="preview-img2 preview-img" alt="상품 미리보기 이미지">
+				<img src="img/icon/tmp_img_icon.png" class="preview-img3 preview-img" alt="상품 미리보기 이미지">
+				<img src="img/icon/tmp_img_icon.png" class="preview-img4 preview-img" alt="상품 미리보기 이미지">
 			</div>
 			<div class="card-body img-card-body"></div>
 		</div>

@@ -89,5 +89,5 @@ public interface ProductMapper {
 
 	int deletePrevFile(String productno);
 
-	String selectDeleteFilePath(String productno);
+	List<String> selectDeleteFilePath(String productno);
 }

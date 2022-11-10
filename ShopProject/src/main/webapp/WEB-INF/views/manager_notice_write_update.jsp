@@ -30,9 +30,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="../vendor/ckeditor/ckeditor.js"></script>
 <script src="../vendor/ckeditor/UploadAdapter.js"></script>
-<!-- 
-<script src="/UploadAdapter.js"></script>
- -->
 <script>
 function uploadAdapterPlugin(editor){
 		editor.plugins.get('FileRepository').createUploadAdapter = (loader) =>{
@@ -66,18 +63,34 @@ function uploadAdapterPlugin(editor){
 	
 </script>
 <style type="text/css">
+
 	th {
 		width : 250px;
 	}
+	
 	td > input{
 		width : 100%;
 	}
+	
 	.ck-content{
 		height : 500px;
 	}
+	
 	.content_td{
 		width : 1700px;
 	}
+	
+	#input-content{
+		width : 1700px;
+		height : 500px;
+		border : 1px solid #dedede;
+	}
+	
+	#file_form{
+		padding : 5px 0; 
+		padding-top : 15px;
+	}
+	
 </style> 
 </head>
 

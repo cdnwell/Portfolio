@@ -193,6 +193,7 @@
     <select id="selectFileEa" parameterType="String" resultType="int">
     	select count(*) from productphoto where productno = #{productno}
     </select>
+    <!-- 
     <delete id="deletePrevFile" parameterType="String">
     	delete from productphoto
 		where 
@@ -202,8 +203,12 @@
 			(select productphotono from productphoto where productno = #{productno} order by productphotono limit 1) tp
 		)
     </delete>
+     -->
+    <delete id="deletePrevFile" parameterType="String">
+     	delete from productphoto where productno = #{productno}
+    </delete>
     <select id="selectDeleteFilePath" parameterType="String" resultType="String">
-    	select photopath from productphoto where productno = #{productno} order by productphotono limit 1
+    	select photopath from productphoto where productno = #{productno} order by productphotono
     </select>
 </mapper>
 

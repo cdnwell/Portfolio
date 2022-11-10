@@ -1257,6 +1257,7 @@ public class MainController {
 		model.addAttribute("Filepath", Filelist);
 		model.addAttribute("sizelist", sizelist);
 		model.addAttribute("colorlist", colorlist);
+		
 		return "manager_productView";
 	}
 
@@ -1281,6 +1282,9 @@ public class MainController {
 		fis.close();
 	}
 	
+	/*
+	 * 상품 관리 페이지 - 상품 업데이트
+	 */
 	@RequestMapping("/updateProduct.do")
 	public String updateProduct(ProductDTO productDto, MultipartHttpServletRequest request) {
 		productService.updateProduct(productDto);
@@ -1292,8 +1296,16 @@ public class MainController {
 			userRoot.mkdirs();
 
 		List<MultipartFile> fileList = request.getFiles("file");
-		int fileea = productService.selectFileEa(productno);
 		
+		// 이전 파일들을 경로를 찾아 지워준다.
+	    List<String> filepath = productService.selectDeleteFilePath(productno);
+	    for(String filepathEa : filepath) {
+	        File delFile = new File(filepathEa);
+	        delFile.delete();
+	    }
+        productService.deletePrevFile(productno);
+            
+        // 새로 받은 이미지를 업로드한다.
 		for (MultipartFile f : fileList) {
 			String originalFileName = f.getOriginalFilename();
 			SimpleDateFormat sdf = new SimpleDateFormat("yyMMddhhmmss");
@@ -1304,14 +1316,6 @@ public class MainController {
 				continue;
 			File uploadFile = new File(root + "\\" + imagefilename);
 			productService.insertFileList(new FileDTO(uploadFile, productno, 0));
-			fileea++;
-			if(fileea > 5) {
-				String filepath = productService.selectDeleteFilePath(productno);
-				File delFile = new File(filepath);
-				delFile.delete();
-				productService.deletePrevFile(productno);
-				fileea--;
-			}
 			try {
 				f.transferTo(uploadFile);
 			} catch (IllegalStateException e) {

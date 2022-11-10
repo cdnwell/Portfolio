@@ -191,7 +191,7 @@ public class ProductService {
 		return mapper.deletePrevFile(productno);
 	}
 
-	public String selectDeleteFilePath(String productno) {
+	public List<String> selectDeleteFilePath(String productno) {
 		return mapper.selectDeleteFilePath(productno);
 	}
 
