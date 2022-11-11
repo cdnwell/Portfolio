@@ -95,24 +95,42 @@ label input{
 
 	background-color: #4e73df;
 	color: white;
+	text-align: center;
 }
 
 
+.modify-stage {
+    width: 100%;
+    height: 120px;
+    border: 1px solid #e3e6f0;
+    border-radius: 3px;
+    position: relative;
 
-.modify-stage{
-	width: 100%;
-	height: 80px;
-	border: 1px solid #e3e6f0;
-	border-radius: 3px;
-	position : relative;
-
-	text-align: center;
+    padding-left: calc( ( 100% - 400px ) / 2 );
 }
 
 .modify-stage img{
 	height : 70px;
 	margin : 5px;
 }
+
+
+
+.modify-div {
+    width: 80px;
+    height: 110px;
+    box-sizing: border-box;
+    float: left;
+}
+
+.modify-div select {
+    width: 70px;
+    height: 30px;
+    box-sizing: border-box;
+    display: inline;
+	margin-left: 5px;
+}
+
 
 
 .head-card-body{
@@ -132,15 +150,57 @@ label input{
 <script src="js/preview-img.js"></script>
 <script type="text/javascript">
 	function label_chk(r){
-	    var label = $(r).parent();
-	    
-	    if(label.css('background-color') == 'rgb(255, 255, 255)'){
-	        label.css('background-color','#2e59d9');
-	        label.css('color','white');
-	    } else {
-	        label.css('background-color','white');
-	        label.css('color','black');
-	    }
+        var label = $(r).parent();
+		
+		var color_bool = $(r).attr('name') === 'colors' ? true : false ;
+
+		if(color_bool){
+			var colorkind = label.html();
+			var index = colorkind.indexOf('<');
+			colorkind = colorkind.substring(0,index).trim();
+
+			var colorno = label.children('input').attr('value');
+			var select = $('.div-select');
+		}
+
+        if(label.css('background-color') == 'rgb(255, 255, 255)'){
+            label.css('background-color','#2e59d9');
+            label.css('color','white');
+			if(color_bool)
+				select.append('<option value="'+colorno+'" class="colorno'+colorno+'">'+colorkind+'</option');
+        } else {
+            label.css('background-color','white');
+            label.css('color','#858796');
+			if(color_bool)
+				$('.colorno'+colorno).remove();
+        }
+    };
+
+	function color_init(){
+		var label = $('.color_label input').filter(':checked').parent();
+		console.log(label);
+		var select = $('.div-select');
+		for(let i=0;i<label.length;i++){
+			var color_label = label.get(i);
+			var colorkind = color_label.innerHTML;
+			var index = colorkind.indexOf('<');
+			colorkind = colorkind.substring(0,index).trim();
+			console.log('colorkind',colorkind);
+
+			var colorno = color_label.children.item(0).getAttribute('value');
+
+			select.append('<option value="'+colorno+'" class="colorno'+colorno+'">'+colorkind+'</option');
+		}
+
+		/*
+		var colorkind = color_label.html();
+		var index = colorkind.indexOf('<');
+		colorkind = colorkind.substring(0,index).trim();
+
+		var colorno = label.children('input').attr('value');
+		
+		var select = $('.div-select');
+		*/
 	}
 	
 	$(function() {
@@ -148,6 +208,9 @@ label input{
 		$('.size_label input').filter(':checked').parent().css('background-color','#2e59d9').css('color','white');
 		$('.color_label input').filter(':checked').parent().css('background-color','#2e59d9').css('color','white');
 		
+		// 선택된 color -> colorkind, colorno 불러오기
+		color_init();
+
 		// 미리보기 img가 있을 경우 첫번째 이미지를 썸네일로 표시
 		var find_src = $('.preview-img-before0').attr('src').indexOf('img/icon/tmp_img_icon.png');
 		if(find_src === -1){
@@ -301,11 +364,36 @@ label input{
 			</div>
 			<div class="modify-stage">
 				<div class="stage-label-m">After</div>
-				<img src="img/icon/tmp_img_icon.png" class="preview-img0 preview-img" alt="상품 미리보기 이미지">
-				<img src="img/icon/tmp_img_icon.png" class="preview-img1 preview-img" alt="상품 미리보기 이미지">
-				<img src="img/icon/tmp_img_icon.png" class="preview-img2 preview-img" alt="상품 미리보기 이미지">
-				<img src="img/icon/tmp_img_icon.png" class="preview-img3 preview-img" alt="상품 미리보기 이미지">
-				<img src="img/icon/tmp_img_icon.png" class="preview-img4 preview-img" alt="상품 미리보기 이미지">
+				<div class="modify-div0 modify-div">
+					<img src="img/icon/tmp_img_icon.png" class="preview-img0 preview-img" alt="상품 미리보기 이미지">
+					<select class="select0 div-select">
+						<option>-------</option>
+					</select>
+				</div>
+				<div class="modify-div1 modify-div">
+					<img src="img/icon/tmp_img_icon.png" class="preview-img1 preview-img" alt="상품 미리보기 이미지">
+					<select class="select1 div-select">
+						<option>-------</option>
+					</select>
+				</div>
+				<div class="modify-div2 modify-div">
+					<img src="img/icon/tmp_img_icon.png" class="preview-img2 preview-img" alt="상품 미리보기 이미지">
+					<select class="select2 div-select">
+						<option>-------</option>
+					</select>
+				</div>
+				<div class="modify-div3 modify-div">
+					<img src="img/icon/tmp_img_icon.png" class="preview-img3 preview-img" alt="상품 미리보기 이미지">
+					<select class="select3 div-select">
+						<option>-------</option>
+					</select>
+				</div>
+				<div class="modify-div4 modify-div">
+					<img src="img/icon/tmp_img_icon.png" class="preview-img4 preview-img" alt="상품 미리보기 이미지">
+					<select class="select4 div-select">
+						<option>-------</option>
+					</select>
+				</div>
 			</div>
 			<div class="card-body img-card-body"></div>
 		</div>

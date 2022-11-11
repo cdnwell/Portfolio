@@ -85,16 +85,33 @@ label input{
 <style type="text/css">
 .preview-stage{
 	width: 100%;
-	height: 80px;
+	height: 120px;
 	border: 1px solid #e3e6f0;
 	border-radius: 3px;
 
-	text-align: center;
+	padding-left: calc( ( 100% - 400px ) / 2 );
 }
 
 .preview-stage img{
 	height: 70px;
 	margin: 5px;
+}
+
+
+
+.preview-div {
+    width: 80px;
+    height: 110px;
+    box-sizing: border-box;
+    float: left;
+}
+
+.preview-div select {
+    width: 70px;
+    height: 30px;
+    box-sizing: border-box;
+    display: inline;
+	margin-left: 5px;
 }
 
 
@@ -118,13 +135,28 @@ label input{
 <script>
 	function label_chk(r){
         var label = $(r).parent();
-        
+		
+		var color_bool = $(r).attr('name') === 'colors' ? true : false ;
+
+		if(color_bool){
+			var colorkind = label.html();
+			var index = colorkind.indexOf('<');
+			colorkind = colorkind.substring(0,index).trim();
+
+			var colorno = label.children('input').attr('value');
+			var select = $('.div-select');
+		}
+
         if(label.css('background-color') == 'rgb(255, 255, 255)'){
             label.css('background-color','#2e59d9');
             label.css('color','white');
+			if(color_bool)
+				select.append('<option value="'+colorno+'" class="colorno'+colorno+'">'+colorkind+'</option');
         } else {
             label.css('background-color','white');
-            label.css('color','black');
+            label.css('color','#858796');
+			if(color_bool)
+				$('.colorno'+colorno).remove();
         }
     };
 </script>
@@ -234,11 +266,36 @@ label input{
 		<div class="card shadow mb-4 col-lg-6 card-container">
 			<h2 class="head-card-body">상품 미리 보기</h2>
 			<div class="preview-stage">
-				<img src="img/icon/tmp_img_icon.png" class="preview-img0 preview-img" alt="상품 미리보기 이미지">
-				<img src="img/icon/tmp_img_icon.png" class="preview-img1 preview-img" alt="상품 미리보기 이미지">
-				<img src="img/icon/tmp_img_icon.png" class="preview-img2 preview-img" alt="상품 미리보기 이미지">
-				<img src="img/icon/tmp_img_icon.png" class="preview-img3 preview-img" alt="상품 미리보기 이미지">
-				<img src="img/icon/tmp_img_icon.png" class="preview-img4 preview-img" alt="상품 미리보기 이미지">
+				<div class="preview-div0 preview-div">
+					<img src="img/icon/tmp_img_icon.png" class="preview-img0 preview-img" alt="상품 미리보기 이미지">
+					<select class="select0 div-select">
+						<option>-------</option>
+					</select>
+				</div>
+				<div class="preview-div1 preview-div">
+					<img src="img/icon/tmp_img_icon.png" class="preview-img1 preview-img" alt="상품 미리보기 이미지">
+					<select class="select1 div-select">
+						<option>-------</option>
+					</select>
+				</div>
+				<div class="preview-div2 preview-div">
+					<img src="img/icon/tmp_img_icon.png" class="preview-img2 preview-img" alt="상품 미리보기 이미지">
+					<select class="select2 div-select">
+						<option>-------</option>
+					</select>
+				</div>
+				<div class="preview-div3 preview-div">
+					<img src="img/icon/tmp_img_icon.png" class="preview-img3 preview-img" alt="상품 미리보기 이미지">
+					<select class="select3 div-select">
+						<option>-------</option>
+					</select>
+				</div>
+				<div class="preview-div4 preview-div">
+					<img src="img/icon/tmp_img_icon.png" class="preview-img4 preview-img" alt="상품 미리보기 이미지">
+					<select class="select4 div-select">
+						<option>-------</option>
+					</select>
+				</div>
 			</div>
 			<div class="card-body img-card-body"></div>
 		</div>

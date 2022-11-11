@@ -244,6 +244,7 @@ $(function(){
 								<div class="col-lg-6 mb-20">
 									<label>Email Address <span>*</span></label><input type="text">
 								</div>
+								<!--
 								<div class="col-12 mb-20">
 									<input id="account" type="checkbox"
 										data-target="createp_account" /><label for="account"
@@ -314,6 +315,7 @@ $(function(){
 										</div>
 									</div>
 								</div>
+								-->
 								<div class="col-12">
 									<div class="order-notes">
 										<label for="order_note">Order Notes</label>

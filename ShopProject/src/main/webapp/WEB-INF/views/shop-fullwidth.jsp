@@ -70,8 +70,9 @@
 				<div class="col-12">
 					<!--shop wrapper start-->
 					<!--shop toolbar start-->
-					<div class="shop_toolbar_wrapper">
+					<div class="row shop_wrapper">
 					<c:forEach items="${requestScope.productlist }" var="productlist" varStatus="status" begin="0" end="3">
+					<!-- <div class="shop_toolbar_wrapper"> -->
 						<div class="col-lg-3 col-md-4 col-sm-6 col-12 ">
 							<div class="single_product">
 								<div class="product_thumb">
@@ -132,8 +133,9 @@
 						</div>
 					</c:forEach>
 					</div>
-					<div class="shop_toolbar_wrapper">
+					<div class="row shop_wrapper">
 					<c:forEach items="${requestScope.productlist }" var="productlist" varStatus="status" begin="4" end="7">
+					<!-- <div class="shop_toolbar_wrapper"> -->
 						<div class="col-lg-3 col-md-4 col-sm-6 col-12 ">
 							<div class="single_product">
 								<div class="product_thumb">
@@ -194,8 +196,9 @@
 						</div>
 					</c:forEach>
 					</div>
-					<div class="shop_toolbar_wrapper">
+					<div class="row shop_wrapper">
 					<c:forEach items="${requestScope.productlist }" var="productlist" varStatus="status" begin="8" end="11">
+					<!-- <div class="shop_toolbar_wrapper"> -->
 						<div class="col-lg-3 col-md-4 col-sm-6 col-12 ">
 							<div class="single_product">
 								<div class="product_thumb">

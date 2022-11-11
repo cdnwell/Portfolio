@@ -8,10 +8,10 @@
 		from product p
  	</select>
 	<select id="selectProductList" resultType="product">
-	select 
-	distinct first_value(pp.productphotono) over(partition by pp.productno order by productphotono) as productphotono
-	, p.categoryno, p.colors, p.cost, p.inquantity, p.price, p.productname, p.productno, p.sizes, date_format(p.receivingdate,'%Y/%m/%d') as receivingdate 
-	from product p, productphoto pp where p.productno = pp.productno
+		select 
+		distinct first_value(pp.productphotono) over(partition by pp.productno order by productphotono) as productphotono
+		, p.categoryno, p.colors, p.cost, p.inquantity, p.price, p.productname, p.productno, p.sizes, date_format(p.receivingdate,'%Y/%m/%d') as receivingdate 
+		from product p, productphoto pp where p.productno = pp.productno
  	</select>
 	<select id="selectProductDTO" parameterType="String" resultType="product">
 		select p.categoryno,p.colors,p.cost,p.inquantity,p.price,p.productname,p.productno,p.sizes,date_format(p.receivingdate,'%Y/%m/%d')as receivingdate 
@@ -130,7 +130,7 @@
    </select>
     <select id="shopNewProductList" parameterType="string" resultType="product">
      select p.productno, p.productname, p.price, p.receivingdate,pp.productphotono from product p,productphoto pp
-     where receivingdate between truncate(sysdate()) - 30 and truncate(sysdate()) and p.productno = pp.productno
+     where receivingdate between sysdate() - 30 and sysdate() and p.productno = pp.productno
      order by receivingdate asc
     </select>
     <select id="selectProductNo" parameterType="cart" resultType="String">
