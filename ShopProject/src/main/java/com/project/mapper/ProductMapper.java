@@ -90,4 +90,8 @@ public interface ProductMapper {
 	int deletePrevFile(String productno);
 
 	List<String> selectDeleteFilePath(String productno);
+
+    List<FileDTO> selectFilePathAddColor(String productno);
+
+    int insertFileListAddColor(FileDTO file);
 }

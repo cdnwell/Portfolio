@@ -34,9 +34,6 @@
 		  window.opener.location.href = window.opener.document.URL;
 		window.close();
 	};
-	
-
-	
 </script>
 <style>
 	.img_p{

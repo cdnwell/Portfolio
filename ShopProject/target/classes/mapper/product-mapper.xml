@@ -20,6 +20,15 @@
 	<select id="selectFilePath" parameterType="String" resultType="file">
  		select * from productphoto where productno = #{productno}
  	</select>
+ 	<select id="selectFilePathDummy" parameterType="String" resultType="file">
+ 		select * from productphoto where productno = #{productno}
+ 	</select>
+ 	<select id="selectFilePathAddColor" parameterType="String" resultType="file">
+ 		select p.*, c.colorname 
+		from productphoto p, color c
+		where productno = #{productno} and 
+		p.colorno = c.colorno 
+ 	</select>
  	<select id="selectProductNO" resultType="String">
  		select nextval('productno_seq') from dual
  	</select>
@@ -38,6 +47,10 @@
  		insert into productphoto(productno,productphotono,photopath)
  		values(#{productno},nextval('prphotono_seq'),#{photopath})
  	</insert>
+ 	<insert id="insertFileListAddColor" parameterType="file">
+ 		insert into productphoto(productno, productphotono, photopath, colorno)
+ 		values(#{productno}, nextval('prphotono_seq'), #{photopath}, #{colorno})
+ 	</insert>
  	<select id="selectcategoryList" resultType="category">
  		select categoryno,categoryname from productcategory where MOD(categoryno , 100 ) = 0
  	</select>
@@ -45,10 +58,27 @@
       insert into cart(productno, quantity, memberid, cartdate, colorno, sizeno, cartno)
       values(#{productno}, #{quantity}, #{memberid}, sysdate(), #{colorno}, #{sizeno}, nextval('cartno_seq'))
    </insert>
+   <!-- 
  	<select id="selectCartProduct" parameterType="String" resultType="cart">
       select c.*,s.sizekind,co.colorname,pp.productphotono from cart c,sizes s,color co, productphoto pp
       where c.memberid = #{memberId} and  c.sizeno= s.sizeno and c.colorno = co.colorno and c.productno = pp.productno
    </select>
+    -->
+    <select id="selectCartProduct" parameterType="String" resultType="cart">
+    	select c.*, s.sizekind, co.colorname, 
+		(
+			select pp.productphotono 
+			from productphoto pp
+			where c.productno  = pp.productno and
+			c.colorno = pp.colorno 
+		) as productphotono, 
+		p.productname, p.price 
+		from cart c, sizes s, color co, product p
+		where c.memberid = 'id01' and 
+		c.colorno = co.colorno and
+		c.sizeno = s.sizeno and
+		c.productno = p.productno 
+    </select>
  	<delete id="deleteCart" parameterType="map">
 		delete from cart
 		where memberid = #{memberId} and productno = #{productno}

@@ -39,6 +39,12 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <!-- daum cdn js -->
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<style>
+	.product_td strong{
+		display : block;
+		font-size : 12px;
+	}
+</style>
 <script>
 function sample6_execDaumPostcode() {
     new daum.Postcode({
@@ -135,7 +141,6 @@ $(function(){
 
 </script>
 <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
-
 </head>
 <body>
 	<!--header area start-->
@@ -225,7 +230,6 @@ $(function(){
 								</div>
 								
 								<div class="col-12 mb-20">
-									 <li class="member address">
                     <label>우편번호</label>
                     <div class="address_box">
                     <span class="input_area"><input type="text" name="address1" class="postcodify_postcode5 border_bottom" id="sample6_postcode" value="${requestScope.mdto.postNo}"></span>
@@ -235,8 +239,6 @@ $(function(){
                     <span class="input_area"><input type="text" name="address2" id="sample6_address" class="postcodify_address border_bottom" value="${requestScope.mdto.address}"></span>
                     <label>상세주소</label>
                     <span class="input_area"><input type="text" name="address3" id="sample6_detailAddress" class="postcodify_details border_bottom" value="${requestScope.mdto.addressDetail}"></span>
-                    
-                    </li>
 								</div>
 								<div class="col-lg-6 mb-20">
 									<label>Phone<span>*</span></label><input type="text"  value="${requestScope.mdto.memberTelNo}">
@@ -340,19 +342,21 @@ $(function(){
 										</tr>
 									</thead>
 									<tbody>
+										<c:set var="total_price" value="0"/>
 										 <c:forEach items="${requestScope.cartlist }" var="cdto">
 										<tr>
-											<td>${cdto.productname } <strong>${cdto.colorname } </strong><strong>${cdto.sizekind }</strong></td>
-											<td>${cdto.price }</td>
+											<td class="product_td">${cdto.productname } <strong>${cdto.colorname } ${cdto.sizekind }</strong></td>
+											<td><strong>&#8361;</strong> ${cdto.price }</td>
 											<td>${cdto.quantity }</td>
-											<td>${cdto.quantity * cdto.price }</td>
+											<td><strong>&#8361;</strong> ${cdto.quantity * cdto.price }</td>
+											<c:set var="total_price" value="${total_price + cdto.quantity * cdto.price }"/>
 										</tr>
 										</c:forEach>  
 										</tbody>
 										<tfoot>
 										<tr class="order_total">
-											<th>총합계</th>
-											<td><strong>&#8361;220.00</strong></td>
+											<th>총 금액</th>
+											<td colspan="3"><strong>&#8361;</strong> <c:out value="${total_price }"/></td>
 										</tr>
 									</tfoot>
 								</table>

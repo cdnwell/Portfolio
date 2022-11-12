@@ -53,20 +53,9 @@ public class ProductService {
 	}
 
 	public List<FileDTO> selectFilePath(String productno) {
-	    List<FileDTO> list = mapper.selectFilePath(productno);
-	    
-	    int size = list.size();
-	    if(size != 5) {
-	        for(int i = size;i<5;i++) {
-	            FileDTO file = new FileDTO();
-	            file.setFileName("src");
-	            list.add(file);
-	        }
-	    }
-	    
-		return list;
+		return mapper.selectFilePath(productno);
 	}
-
+	
 	public String selectFile(String productno,int productphotono) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("productno", productno);
@@ -202,4 +191,23 @@ public class ProductService {
 		
 		return mapper.deleteCart(map);
 	}
+
+    public List<FileDTO> selectFilePathAddColor(String productno) {
+        List<FileDTO> list = mapper.selectFilePathAddColor(productno);
+        
+        int size = list.size();
+        if(size != 5) {
+            for(int i = size;i<5;i++) {
+                FileDTO file = new FileDTO();
+                file.setFileName("src");
+                list.add(file);
+            }
+        }
+        
+        return list;
+    }
+
+    public int insertFileListAddColor(FileDTO file) {
+        return mapper.insertFileListAddColor(file);
+    }
 }

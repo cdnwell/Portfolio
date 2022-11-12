@@ -71,17 +71,28 @@ label input{
 
 .preview-stage{
 	width: 100%;
-	height: 80px;
+	height: 100px;
 	border: 1px solid #e3e6f0;
 	border-radius: 3px;
 	position: relative;
-
-	text-align: center;
+	padding-left: calc( ( 100% - 400px ) / 2 );
 }
 
 .preview-stage img{
 	height: 70px;
 	margin: 5px;
+}
+
+.preview-div{
+	float: left;
+}
+
+.preview-div span{
+	width: 100%;
+	margin-top: -5px;
+	text-align: center;
+	display: block;
+	font-size: 14px;
 }
 
 .stage-label-p, .stage-label-m{
@@ -97,6 +108,7 @@ label input{
 	color: white;
 	text-align: center;
 }
+
 
 
 .modify-stage {
@@ -146,6 +158,10 @@ label input{
 	margin: 0 2%;
 }
 
+.disabled{
+	display: none;
+}
+
 </style>
 <script src="js/preview-img.js"></script>
 <script type="text/javascript">
@@ -192,15 +208,91 @@ label input{
 			select.append('<option value="'+colorno+'" class="colorno'+colorno+'">'+colorkind+'</option');
 		}
 
-		/*
-		var colorkind = color_label.html();
-		var index = colorkind.indexOf('<');
-		colorkind = colorkind.substring(0,index).trim();
+	}
 
-		var colorno = label.children('input').attr('value');
+	//--------select 값 바뀔 때 form안의 input hidden 값도 바뀜--------//
+	// value : -1 -> 아무 것도 선택하지 않았다. 
+	function select_chg(event){
+		var index = event;
+		var value = $('.select'+index+' option:selected').val();
 		
-		var select = $('.div-select');
-		*/
+		$('.color-hidden'+index).val(value);
+	}
+
+	//--------form이 submit 되기 전에 이미지와 색상 매치 확인--------//
+	function submit_chk(){
+		// submit을 하기 전에 사진에 색상이 적용되었는지 체크한다.
+		var no_img = 'img/icon/tmp_img_icon.png';
+		var img_no = 0;
+
+		for(let i=0;i<5;i++){
+			var img_src = $('.preview-img'+i).attr('src');
+			var find_img = img_src.indexOf(no_img);
+
+			if(find_img === -1){
+				var select_val = $('.select'+i+' option:selected').val();
+
+				if(select_val == -1){
+					alert('이미지에 색상이 선택되지 않았습니다.');
+					return false;
+				}
+			} else {
+				img_no++;
+			}
+		}
+
+		// 이미지가 기본 이미지라면 img_no가 계속 추가되어 5가 됨
+		// 이미지를 먼저 추가해달라는 메세지를 보냄
+		if(img_no === 5){
+			alert('이미지를 먼저 추가해주세요');
+			return false;
+		}
+
+		// 이미지에 적용된 색상 option만 남기고 나머지는 삭제한다.
+		var colors = $('input[name=colors]:checked');
+		var colors_arr = [];
+		var colors_del = [];
+
+		for(let i=0;i<colors.length;i++){
+			var colors_ea = colors.get(i);
+			var colors_no = colors_ea.getAttribute('value');
+			colors_arr.push(colors_no);
+		}
+
+		console.log('colors_arr',colors_arr);
+
+		for(let i=0;i<5;i++){
+			var select_val = $('.select'+i+' option:selected').val();
+
+			colors_arr = colors_arr.filter(e => e !== select_val);
+		}
+
+		var colors_del_arr = $('input[name=colors]:checked');
+		console.log(colors_del_arr);
+
+		for(let i=0;i<colors_del_arr.length;i++){
+			var colors_del_val = colors_del_arr[i].getAttribute('value');
+			var colors_class = colors_del_arr[i].getAttribute('class');
+			
+			for(let j=0;j<colors_arr.length;j++){
+				if(colors_arr[j] === colors_del_val){
+					var colors_class_tag = $('.'+colors_class);
+					colors_class_tag.prop('checked',false);
+
+					colors_class_tag.parent().css('background-color','white');
+            		colors_class_tag.parent().css('color','#858796');
+
+					$('.colorno'+colors_del_val).remove();
+				}
+			}
+		}
+
+		colors_del_arr = $('input[name=colors]:checked');
+		console.log(colors_del_arr);
+		// 이미지에 적용된 색상 option만 남음 [완료]
+
+		// 모든 조건을 통과했다면 submit
+		return true;
 	}
 	
 	$(function() {
@@ -231,7 +323,7 @@ label input{
 			<div class="card-body">
 				<div class="table-responsive">
 					<form action="updateProduct.do" method="post"
-						enctype="multipart/form-data">
+						enctype="multipart/form-data" onsubmit="return submit_chk();">
 					<table class="table table-bordered" id="dataTable" width="100%"
 						cellspacing="0">
 						<tr>
@@ -331,9 +423,14 @@ label input{
 								</p>
 							</td>
 						</tr>
-						<tr>
-							<td><input type="hidden" name="update"
-								value=${requestScope.product.productno }></td>
+						<tr class="disabled">
+							<td colspan="2" class="hidden-input">
+								<input type="hidden" class="color-hidden0" name="color0" value="-1">
+								<input type="hidden" class="color-hidden1" name="color1" value="-1">
+								<input type="hidden" class="color-hidden2" name="color2" value="-1">
+								<input type="hidden" class="color-hidden3" name="color3" value="-1">
+								<input type="hidden" class="color-hidden4" name="color4" value="-1">
+							</td>
 						</tr>
 						<tr>
 							<td colspan="2">
@@ -354,10 +451,15 @@ label input{
 				<c:forEach var="f" items="${requestScope.Filepath }" varStatus="i">
 					<c:choose>
 						<c:when test="${f.productno != null }">
-							<img class="preview-img preview-img-before${i.index }" src="fileDown.do?productphotono=${f.productphotono}&productno=${f.productno}">
+							<div class="preview-div">
+								<img class="preview-img preview-img-before${i.index }" src="fileDown.do?productphotono=${f.productphotono}&productno=${f.productno}">
+								<span class="pre-colorname">${f.colorname}</span>
+							</div>
 						</c:when>
 						<c:otherwise>
-							<img src="img/icon/tmp_img_icon.png" class="preview-img" alt="상품 미리보기 이미지">
+							<div class="preview-div">
+								<img src="img/icon/tmp_img_icon.png" class="preview-img" alt="상품 미리보기 이미지">
+							</div>
 						</c:otherwise>
 					</c:choose>
 				</c:forEach>
@@ -366,32 +468,32 @@ label input{
 				<div class="stage-label-m">After</div>
 				<div class="modify-div0 modify-div">
 					<img src="img/icon/tmp_img_icon.png" class="preview-img0 preview-img" alt="상품 미리보기 이미지">
-					<select class="select0 div-select">
-						<option>-------</option>
+					<select class="select0 div-select" onchange="select_chg(0);">
+						<option value="-1">-------</option>
 					</select>
 				</div>
 				<div class="modify-div1 modify-div">
 					<img src="img/icon/tmp_img_icon.png" class="preview-img1 preview-img" alt="상품 미리보기 이미지">
-					<select class="select1 div-select">
-						<option>-------</option>
+					<select class="select1 div-select" onchange="select_chg(1);">
+						<option value="-1">-------</option>
 					</select>
 				</div>
 				<div class="modify-div2 modify-div">
 					<img src="img/icon/tmp_img_icon.png" class="preview-img2 preview-img" alt="상품 미리보기 이미지">
-					<select class="select2 div-select">
-						<option>-------</option>
+					<select class="select2 div-select" onchange="select_chg(2);">
+						<option value="-1">-------</option>
 					</select>
 				</div>
 				<div class="modify-div3 modify-div">
 					<img src="img/icon/tmp_img_icon.png" class="preview-img3 preview-img" alt="상품 미리보기 이미지">
-					<select class="select3 div-select">
-						<option>-------</option>
+					<select class="select3 div-select" onchange="select_chg(3);">
+						<option value="-1">-------</option>
 					</select>
 				</div>
 				<div class="modify-div4 modify-div">
 					<img src="img/icon/tmp_img_icon.png" class="preview-img4 preview-img" alt="상품 미리보기 이미지">
-					<select class="select4 div-select">
-						<option>-------</option>
+					<select class="select4 div-select" onchange="select_chg(4);">
+						<option value="-1">-------</option>
 					</select>
 				</div>
 			</div>

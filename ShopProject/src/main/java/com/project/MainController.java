@@ -1215,7 +1215,22 @@ public class MainController {
 	}
 
 	@RequestMapping("/insertproduct.do")
-	public String insertproduct(Model model, ProductDTO productdto, MultipartHttpServletRequest request) {
+	public String insertproduct(Model model, ProductDTO productdto,
+	        int color0, int color1, int color2, int color3, int color4,
+	        MultipartHttpServletRequest request) {
+	    ArrayList<Integer> color = new ArrayList<>();
+	    
+	    if(color0 != -1)
+	        color.add(color0);
+	    if(color0 != -1)
+	        color.add(color1);
+	    if(color0 != -1)
+	        color.add(color2);
+	    if(color0 != -1)
+	        color.add(color3);
+	    if(color0 != -1)
+	        color.add(color4);
+	    
 		String productno = productService.insertproduct(productdto);
 		
 		String root = "c:\\fileUpload\\";
@@ -1223,6 +1238,8 @@ public class MainController {
 		if (!userRoot.exists())
 			userRoot.mkdirs();
 
+		int color_idx = 0;
+		
 		List<MultipartFile> fileList = request.getFiles("file");
 		for (MultipartFile f : fileList) {
 			String originalFileName = f.getOriginalFilename();
@@ -1232,8 +1249,13 @@ public class MainController {
 			
 			if (f.getSize() == 0)
 				continue;
+			
 			File uploadFile = new File(root + "\\" + imagefilename + "");
-			productService.insertFileList(new FileDTO(uploadFile, productno, 0));
+			FileDTO file = new FileDTO(uploadFile, productno, 0, color.get(color_idx));
+			
+			productService.insertFileListAddColor(file);
+			color_idx++;
+			
 			try {
 				f.transferTo(uploadFile);
 			} catch (IllegalStateException e) {
@@ -1249,7 +1271,7 @@ public class MainController {
 	@RequestMapping("/productView.do")
 	public String manager_productView(Model model, String productno) {
 		ProductDTO dto = productService.selectProductDTO(productno);
-		List<FileDTO> Filelist = productService.selectFilePath(productno);
+		List<FileDTO> Filelist = productService.selectFilePathAddColor(productno);
 		List<SizesDTO> sizelist = productService.selectSizesSelectList(productno);
 		List<ColorDTO> colorlist = productService.selectColorSelectList(productno);
 		
@@ -1286,10 +1308,24 @@ public class MainController {
 	 * 상품 관리 페이지 - 상품 업데이트
 	 */
 	@RequestMapping("/updateProduct.do")
-	public String updateProduct(ProductDTO productDto, MultipartHttpServletRequest request) {
-		productService.updateProduct(productDto);
-		String productno = productDto.getProductno();
+	public String updateProduct(ProductDTO productDto, MultipartHttpServletRequest request,
+	        int color0, int color1, int color2, int color3, int color4) {
+	    ArrayList<Integer> color = new ArrayList<>();
 		
+	    if(color0 != -1)
+	        color.add(color0);
+	    if(color0 != -1)
+	        color.add(color1);
+	    if(color0 != -1)
+	        color.add(color2);
+	    if(color0 != -1)
+	        color.add(color3);
+	    if(color0 != -1)
+	        color.add(color4);
+	    
+	    productService.updateProduct(productDto);
+	    String productno = productDto.getProductno();
+        
 		String root = "c:\\fileUpload\\";
 		File userRoot = new File(root);
 		if (!userRoot.exists())
@@ -1304,7 +1340,8 @@ public class MainController {
 	        delFile.delete();
 	    }
         productService.deletePrevFile(productno);
-            
+        
+        int color_idx = 0;
         // 새로 받은 이미지를 업로드한다.
 		for (MultipartFile f : fileList) {
 			String originalFileName = f.getOriginalFilename();
@@ -1315,7 +1352,10 @@ public class MainController {
 			if (f.getSize() == 0)
 				continue;
 			File uploadFile = new File(root + "\\" + imagefilename);
-			productService.insertFileList(new FileDTO(uploadFile, productno, 0));
+			FileDTO file = new FileDTO(uploadFile, productno, 0, color.get(color_idx));
+			//productService.insertFileList(new FileDTO(uploadFile, productno, 0));
+			productService.insertFileListAddColor(file);
+			color_idx++;
 			try {
 				f.transferTo(uploadFile);
 			} catch (IllegalStateException e) {
@@ -1398,7 +1438,6 @@ public class MainController {
 		List<SizesDTO> sizeslist = productService.selectProductSizesList(productno);
 		List<ProductDTO> productlist = productService.selectProductListCategory(productno);
 		
-		
 		memberId = (String) session.getAttribute("id");
 		model.addAttribute("productdto", productdto);
 		model.addAttribute("colorlist", colorlist);
@@ -1406,6 +1445,7 @@ public class MainController {
 		model.addAttribute("filelist", filelist);
 		model.addAttribute("productlist", productlist);
 		model.addAttribute("memberId", memberId);
+		
 		return "product_detailview";
 	}
 
@@ -1415,11 +1455,11 @@ public class MainController {
 
 		List<CartDTO> cartlist = productService.selectCartProduct(memberId);
 		MemberDTO mdto = memberService.selectMemberInfo(memberId);
+		
 		model.addAttribute("cartlist", cartlist);
 		model.addAttribute("mdto", mdto);
 
 		return "checkout";
-
 	}
 
 	@RequestMapping("/selectproductsizelist.do")

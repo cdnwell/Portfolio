@@ -62,11 +62,15 @@ function uploadAdapterPlugin(editor){
 	});
 </script>
 <style type="text/css">
-
-	th {
-		width : 250px;
+	
+	table{
+		width : 100%;
 	}
 	
+	th{
+		width : 0;
+	}
+
 	td > input{
 		width : 100%;
 	}
@@ -76,11 +80,11 @@ function uploadAdapterPlugin(editor){
 	}
 	
 	.content_td{
-		width : 1700px;
+		width : 100%;	
 	}
 	
 	#input-content{
-		width : 1700px;
+		width : 100%;
 		height : 500px;
 		border : 1px solid #dedede;
 	}
