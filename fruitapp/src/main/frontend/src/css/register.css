@@ -1,0 +1,205 @@
+#register{
+    position: fixed;
+    top: 200px;
+    left: calc(50% - 225px);
+    background-color: white;
+    border: 1px solid #131C2B;
+    border-radius: 10px;
+    width: 550px;
+    height: 600px;
+    z-index: 50;
+
+    box-shadow: rgba(0, 0, 0, 0.5) 0 0 0 9999px;
+    display: none;
+}
+
+
+#register_frm > div{
+    margin-left: 40px;
+}
+
+.register_title{
+    font-family: Reminder;
+    text-align: center;
+    font-size: 23px;
+    padding-top: 15px;
+}
+
+.register_title_p{
+    text-align: center;
+    font-weight: bold;
+    padding-bottom: 30px;
+}
+
+.register_id_box input{
+    width: 240px;
+    padding: 10px;
+    border-radius: 0;
+    border: 1px solid black;
+    outline: none;
+    margin-left: 36px;
+    margin-bottom: 8px;
+}
+
+.register_id_box a{
+    display: block;
+    text-decoration: none;
+    color: black;
+    width: 120px;
+    padding: 5px;
+    border: 1px solid #131C2B;
+    border-radius: 3px;
+    font-size: 13px;
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+.register_id_box a:hover{
+    color: white;
+    background-color: #131C2B;
+}
+
+.password_box1{
+    margin: 8px 0;    
+}
+
+.password_box1 input{
+    width: 240px;
+    padding: 10px;
+    border-radius: 0;
+    border: 1px solid black;
+    outline: none;
+    margin-left: 20px;
+}
+
+.password_box2{
+    margin: 8px 0;
+}
+
+.password_box2 input{
+    width: 240px;
+    padding: 10px;
+    border-radius: 0;
+    border: 1px solid black;
+    outline: none;
+    margin-left: 52px;
+}
+
+.register_nick_box{
+    margin: 8px 0;
+}
+
+.register_nick_box input{
+    width: 240px;
+    padding: 10px;
+    border-radius: 0;
+    border: 1px solid black;
+    outline: none;
+    margin-left: 36px;
+    margin-bottom: 8px;
+
+}
+
+.register_nick_box a{
+    display: block;
+    text-decoration: none;
+    color: black;
+    width: 120px;
+    padding: 5px;
+    border: 1px solid #131C2B;
+    border-radius: 3px;
+    font-size: 13px;
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+.register_nick_box a:hover{
+    color: white;
+    background-color: #131C2B;
+}
+
+.register_email_box{
+    margin: 8px;
+}
+
+.register_email_box input{
+    width: 175px;
+    padding: 10px;
+    border-radius: 0;
+    border: 1px solid black;
+    outline: none;
+    margin-left: 36px;
+}
+
+.register_email_box select{
+    width: 150px;
+    padding: 10px;
+    border-radius: 0;
+    border: 1px solid black;
+    outline: none;
+}
+
+.register_btn_box{
+    position: absolute;
+    bottom: 58px;
+    left: 107px;
+}
+
+.register_btn_two{
+    
+    border: 1px solid #131C2B;
+    background-color: white;
+    border-radius: 3px;
+    width: 120px;
+    padding: 5px;
+    
+}
+
+.register_btn_two:hover{
+    background-color: #131C2B;
+    color: white;
+}
+
+.reset_btn{
+    border: 1px solid #131C2B;
+    background-color: white;
+    border-radius: 3px;
+    width: 120px;
+    padding: 5px;
+}
+
+.reset_btn:hover{
+    background-color: #131C2B;
+    color: white;
+}
+
+.id_chk{
+    font-size: 14px;
+    padding-bottom: 8px;
+    color: red;
+
+    display: none;
+}
+
+.nick_chk{
+    padding-top: 8px;
+    color: red;
+    font-size: 14px;
+
+    display: none;
+}
+
+.pass_chk{
+    font-size: 14px;
+    color: red;
+
+    display: none;
+}
+
+.email_chk{
+    font-size: 14px;
+    color: red;
+    padding: 10px 0;
+
+    display: none;
+}
