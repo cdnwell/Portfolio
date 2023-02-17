@@ -1,0 +1,19 @@
+.menu {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    height: 100%;
+
+    margin-right: 40px;
+}
+
+.menu a {
+    text-decoration: none;
+    color: white;
+
+    font-size: 20px;
+    font-weight: bold;
+
+    margin-right: 40px;
+}
