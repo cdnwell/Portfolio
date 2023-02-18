@@ -1,0 +1,9 @@
+.book_root {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.book_date_p {
+    margin-top: -10px;
+}

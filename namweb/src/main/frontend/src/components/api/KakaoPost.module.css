@@ -8,3 +8,26 @@
 
     z-index: 11;
 }
+
+.address_button_box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.address_button {
+    width: 100px;
+    padding: 10px;
+
+    border: none;
+    border-radius: 5px;
+    background-color: cornflowerblue;
+    color: white;
+
+    cursor: pointer;
+}
+
+.address_span {
+    padding: 10px;
+    color: #424242;
+}
