@@ -1,5 +1,5 @@
 .metadata/
 
-namweb/constant/*.java
+/constant/*.java
 
 *.properties
