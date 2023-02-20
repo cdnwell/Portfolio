@@ -5,7 +5,7 @@ import java.util.HashMap;
 
 import org.springframework.stereotype.Service;
 
-import com.project.namweb.submit.dto.SubmitDTO;
+import com.project.namweb.dto.SubmitDTO;
 import com.project.namweb.submit.mapper.SubmitMapper;
 
 @Service

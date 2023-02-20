@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.project.namweb.submit.dto.SubmitDTO;
+import com.project.namweb.dto.SubmitDTO;
 import com.project.namweb.submit.service.SubmitService;
 
 import lombok.RequiredArgsConstructor;
@@ -30,6 +30,7 @@ public class SubmitController {
 		String address = jObject.getString("address");
 		double latitude = jObject.getDouble("latitude");
 		double longitude = jObject.getDouble("longitude");
+		String book_date = jObject.getString("book_date");
 		JSONArray work_date = jObject.getJSONArray("work_date");
 		
 		ArrayList<HashMap<String, Object>> work_list = new ArrayList<>();
@@ -52,6 +53,7 @@ public class SubmitController {
 		submitDTO.setAddress(address);
 		submitDTO.setLatitude(latitude);
 		submitDTO.setLongitude(longitude);
+		submitDTO.setBook_date(book_date);
 
 		System.out.println("name : " + name);
 		System.out.println("phone : " + phone);

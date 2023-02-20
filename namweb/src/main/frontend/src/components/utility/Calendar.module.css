@@ -255,7 +255,7 @@
   flex-direction: row;
 
   margin: 0 auto;
-  margin-top: 5px;
+  margin-top: 10px;
   width: 200px;
 
   font-size: 14px;
@@ -280,6 +280,7 @@
 .calendar_day_detail {
   width: 210px;
   margin: 7px auto;
+  margin-top : 10px;
 
   font-size: 12px;
 }
