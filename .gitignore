@@ -1,5 +1,5 @@
 .metadata/
 
-/namweb/src/main/java/com/project/namweb/constant/*
+namweb/constant/
 
 *.properties
