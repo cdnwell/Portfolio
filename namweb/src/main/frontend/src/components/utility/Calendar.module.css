@@ -16,9 +16,11 @@
   flex-direction: row;
 }
 
-.calendar_weeks div:hover {
-  background-color: cornflowerblue;
-  color: white;
+@media (hover: hover) {
+  .calendar_weeks div:hover {
+    background-color: cornflowerblue;
+    color: white;
+  }
 }
 
 .month_move {
@@ -30,50 +32,51 @@
 }
 
 .arrow_button:first-of-type {
-    background-color: white;
-    border: none;
-    border-top: 1px solid black;
-    border-left: 1px solid black;
-    border-bottom: 1px solid black;
-    border-radius: 3px;
+  background-color: white;
+  border: none;
+  border-top: 1px solid black;
+  border-left: 1px solid black;
+  border-bottom: 1px solid black;
+  border-radius: 3px;
 
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .arrow_button:last-of-type {
-    background-color: white;
-    border: none;
-    border-top: 1px solid black;
-    border-right: 1px solid black;
-    border-bottom: 1px solid black;
-    border-radius: 3px;
+  background-color: white;
+  border: none;
+  border-top: 1px solid black;
+  border-right: 1px solid black;
+  border-bottom: 1px solid black;
+  border-radius: 3px;
 
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .month_button {
-    background-color: white;
-    border: 1px solid black;
+  background-color: white;
+  border: 1px solid black;
 
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .today {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 
-    width: 24px;
-    height: 24px;
-    
-    border: 1px solid black;
-    border-radius: 3px;
-    margin: 2px;
-    margin-left : 15px;
-    padding-bottom: 1px;
+  width: 24px;
+  height: 24px;
 
-    cursor: pointer;
+  border: 1px solid black;
+  border-radius: 3px;
+  margin: 2px;
+  margin-left: 15px;
+  padding-bottom: 1px;
+  padding-right: 1px;
+
+  cursor: pointer;
 }
 
 .calendar_box {
@@ -182,8 +185,10 @@
   flex-direction: row;
 }
 
-.morning_div, .afternoon_div, .extra_div {
-    margin-left: 1px;
+.morning_div,
+.afternoon_div,
+.extra_div {
+  margin-left: 1px;
 }
 
 .morning_div {
@@ -214,35 +219,35 @@
 }
 
 .calendar_month_box {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 
-    margin-top : 10px;
-    margin-bottom: 30px;
+  margin-top: 10px;
+  margin-bottom: 30px;
 }
 
 .months_box {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
 
 .months {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 
-    width: 52.5px;
-    height: 52.5px;
+  width: 52.5px;
+  height: 52.5px;
 }
 
 .months:hover {
-    background-color: cornflowerblue;
-    color: white;
+  background-color: cornflowerblue;
+  color: white;
 }
 
 .calendar_day_pick {

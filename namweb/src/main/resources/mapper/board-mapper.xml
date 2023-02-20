@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.namweb.submit.mapper.SubmitMapper">
+	<insert id="insertBookData" parameterType="submit">
+		insert into
+		book_table(name,phone,content,address,latitude,longitude,date_str,morning,afternoon,extra)
+		values(#{name},#{phone},#{content},#{address},#{latitude},#{longitude},#{date_str},#{morning},#{afternoon},#{extra})
+	</insert>
+</mapper>

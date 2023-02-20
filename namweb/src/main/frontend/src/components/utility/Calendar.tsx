@@ -1,7 +1,10 @@
-import { ReactNode, useEffect, useRef } from "react";
+import { ReactNode, useEffect } from "react";
 import { useState } from "react";
 
 import classes from "./Calendar.module.css";
+import { useDispatch } from "react-redux";
+
+import { namwebActions } from "../store";
 
 const DUMMY_PLAN = [
   { date: "2023-02-02", when: "afternoon" },
@@ -32,6 +35,8 @@ const Calendar = () => {
   const [morningStatus, setMorningStatus] = useState(false);
   const [afternoonStatus, setAfternoonStatus] = useState(false);
   const [extraStatus, setExtraStatus] = useState(false);
+
+  const dispatch = useDispatch();
 
   const isSelectedChecker = (date: Date) => {
     if (
@@ -132,6 +137,7 @@ const Calendar = () => {
     }
   };
 
+  // 달력을 그려주는 useEffect 훅
   useEffect(() => {
     let selectedFirstDate = new Date(selectedDate);
     selectedFirstDate.setDate(1);
@@ -143,13 +149,12 @@ const Calendar = () => {
       selectedDate.getMonth() + 1,
       0
     );
-    let calendarLastDay = totalDateCount.getDay();
     let lastDate = totalDateCount.getDate();
-    let lastDayCal = 6 - calendarLastDay;
-    let firstDayCal = selectedFirstDay;
+    let lastDay = 6 - totalDateCount.getDay();
+    let firstDay = selectedFirstDay;
 
-    let totalDate = lastDate + firstDayCal + lastDayCal; // 표시되는 전체 날짜
-    let dividedWeeksTotal = totalDate / 7; // 표시되는 전체 날짜를 1주(7일)로 나눈 값
+    let totalDate = lastDate + firstDay + lastDay; // 표시되는 전체 날짜
+    let dividedWeeks = totalDate / 7; // 표시되는 전체 날짜를 1주(7일)로 나눈 값
     let firstDate = selectedFirstDate;
 
     const date: Date[] = [];
@@ -161,7 +166,7 @@ const Calendar = () => {
 
     const weekArray: ReactNode[] = [];
 
-    for (let i = 0; i < dividedWeeksTotal; i++) {
+    for (let i = 0; i < dividedWeeks; i++) {
       const isSelected = [];
       const isMorning = [];
       const isAfternoon = [];
@@ -208,6 +213,7 @@ const Calendar = () => {
     setDateArray([...weekArray]);
   }, [selectedDate, selectedDateArray, isOneDay, selectedDateStatus]);
 
+  // ** //
   const onSelectedDateHandler = (date: Date) => {
     if (isOneDay) {
       setSelectedDate(date);
@@ -231,7 +237,7 @@ const Calendar = () => {
           }
         }
         const tmpArray = prevState.concat(date);
-        return [...tmpArray];
+        return tmpArray;
       });
     }
   };
@@ -386,7 +392,7 @@ const Calendar = () => {
     // isOneDay를 의존성에 넣어 isOneDay가 바뀔 때도 새로 갱신되게 해준다.
   }, [selectedDate, selectedDateArray, isOneDay]);
 
-  const onSelectHandler = (e:React.ChangeEvent<HTMLSelectElement> ) => {
+  const onSelectHandler = (e: React.ChangeEvent<HTMLSelectElement>) => {
     // select에서 onChange 속성을 이용해 값을 받아오는 함수
     // e.target.value로 값을 받아오자 값이 String으로 받아와짐
     // 일관성을 위해 앞에 +를 붙여 정수로 형변환
@@ -463,6 +469,26 @@ const Calendar = () => {
       });
     }
 
+    const workArray = tmpArray.map((item) => {
+      const tmpMonth = item.date.getMonth() + 1;
+      const date_str =
+        item.date.getFullYear() +
+        "년 " +
+        tmpMonth + 
+        "월 " +
+        item.date.getDate() +
+        "일";
+        const morning = item.morning;
+        const afternoon = item.afternoon;
+        const extra = item.extra;
+
+        return { date_str, morning, afternoon, extra};
+    });
+    dispatch(
+      namwebActions.setWorkDate({
+        work_date: workArray,
+      })
+    );
     setSelectedDateStatus(tmpArray);
   }, [
     morningStatus,

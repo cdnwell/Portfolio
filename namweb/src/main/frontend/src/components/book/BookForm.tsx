@@ -13,12 +13,30 @@ const BookForm = () => {
   const lng_store_base = useReduxSelector(
     (state: { base_lng: number }) => state.base_lng
   );
+  const work_date_base = useReduxSelector(
+    (state: {
+      work_date: {
+        date: Date;
+        morning: boolean;
+        afternoon: boolean;
+        extra: boolean;
+      }[];
+    }) => state.work_date
+  );
 
   const [posData, setPosData] = useState({
     lat: lat_store_base,
     lng: lng_store_base,
   });
   const [addressName, setAddressName] = useState("");
+  const [workDate, setWorkDate] = useState<
+    {
+      date: Date;
+      morning: boolean;
+      afternoon: boolean;
+      extra: boolean;
+    }[]
+  >();
 
   const nameRef = useRef<HTMLInputElement>(null);
   const phoneRef = useRef<HTMLInputElement>(null);
@@ -32,6 +50,7 @@ const BookForm = () => {
     console.log("내용", textRef.current?.value);
     console.log("위치", posData);
     console.log("주소", addressName);
+    console.log("일하는 날짜", workDate);
 
     const name = nameRef.current?.value;
     const phone = phoneRef.current?.value;
@@ -39,6 +58,7 @@ const BookForm = () => {
     const latitude = posData.lat;
     const longitude = posData.lng;
     const address = addressName;
+    const work_date = work_date_base;
 
     // axios({
     //   method: "POST",
@@ -48,7 +68,15 @@ const BookForm = () => {
     //   .then((response) => console.log(response))
     //   .catch((error) => console.log(error));
     axios
-      .post("http://localhost:9997/submit", { name, phone, content, latitude, longitude, address })
+      .post("http://localhost:9997/submit", {
+        name,
+        phone,
+        content,
+        latitude,
+        longitude,
+        address,
+        work_date,
+      })
       .then((response) => console.log(response))
       .catch((error) => console.log(error));
   };
@@ -62,6 +90,11 @@ const BookForm = () => {
       setAddressName(address_name);
     });
   }, [lat_store_base, lng_store_base]);
+
+  // redux에서 work_date 바뀔 때 마다 업데이트
+  useEffect(() => {
+    setWorkDate([...work_date_base]);
+  }, [work_date_base]);
 
   return (
     <form className={classes.book_form} onSubmit={submitBookHandler}>
