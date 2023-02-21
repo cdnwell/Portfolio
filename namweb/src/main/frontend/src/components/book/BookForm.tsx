@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { useSelector as useReduxSelector } from "react-redux";
 
 import classes from "./BookForm.module.css";
-import axios from "axios";
+import axios from "../../common/axiosInstance";
 
 const { kakao } = window;
 
@@ -45,8 +45,8 @@ const BookForm = () => {
   const submitBookHandler = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const book_date = new Date();
-    const book_date_string = book_date.toLocaleDateString() + " " + book_date.toLocaleTimeString();
+    let book_date_object = new Date();
+    const book_date = book_date_object.toLocaleDateString() + " " + book_date_object.toLocaleTimeString();
 
     console.log("이름", nameRef.current?.value);
     console.log("전화번호", phoneRef.current?.value);
@@ -54,7 +54,7 @@ const BookForm = () => {
     console.log("위치", posData);
     console.log("주소", addressName);
     console.log("일하는 날짜", workDate);
-    console.log("발주 날짜", book_date_string);
+    console.log("발주 날짜", book_date);
 
     const name = nameRef.current?.value;
     const phone = phoneRef.current?.value;
@@ -72,7 +72,7 @@ const BookForm = () => {
     //   .then((response) => console.log(response))
     //   .catch((error) => console.log(error));
     axios
-      .post("http://localhost:9997/submit", {
+      .post("/submit", {
         name,
         phone,
         content,
@@ -80,6 +80,7 @@ const BookForm = () => {
         longitude,
         address,
         work_date,
+        book_date,
       })
       .then((response) => console.log(response))
       .catch((error) => console.log(error));

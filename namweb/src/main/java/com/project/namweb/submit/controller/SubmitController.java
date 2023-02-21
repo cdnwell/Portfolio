@@ -38,10 +38,17 @@ public class SubmitController {
 			JSONObject obj = work_date.getJSONObject(i);
 			HashMap<String, Object> tmpMap = new HashMap<>();
 
+			boolean morning = obj.getBoolean("morning");
+			boolean afternoon = obj.getBoolean("afternoon");
+			boolean extra = obj.getBoolean("extra");
+			
+			// 모든 값이 false라면 db에 전달하지 않는다.
+			if(!extra && !afternoon && !morning) continue;
+			
 			tmpMap.put("date_str", obj.getString("date_str"));
-			tmpMap.put("morning", obj.getBoolean("morning"));
-			tmpMap.put("afternoon", obj.getBoolean("afternoon"));
-			tmpMap.put("extra", obj.getBoolean("extra"));
+			tmpMap.put("morning", morning);
+			tmpMap.put("afternoon", afternoon);
+			tmpMap.put("extra", extra);
 
 			work_list.add(tmpMap);
 		}
