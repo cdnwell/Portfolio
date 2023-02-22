@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.project.namweb.submit.mapper.SubmitMapper">
+<mapper namespace="com.namweb.domain.submit.mapper.SubmitMapper">
 	<insert id="insertBookData" parameterType="submit">
 		insert into
 		book(name,phone,content,address,latitude,longitude,book_date,date_str,morning,afternoon,extra)

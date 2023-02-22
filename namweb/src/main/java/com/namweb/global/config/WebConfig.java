@@ -1,4 +1,4 @@
-package com.project.namweb.config;
+package com.namweb.global.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;

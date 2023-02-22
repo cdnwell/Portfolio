@@ -1,4 +1,4 @@
-import classes from "./Book.module.css";
+import classes from "./Book.module.scss";
 
 import KakaoMap from "../components/api/KakaoMap";
 import KakaoPost from "../components/api/KakaoPost";

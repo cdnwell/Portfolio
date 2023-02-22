@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-import classes from './Menu.module.css';
+import classes from './Menu.module.scss';
 import {CgMenuRound} from 'react-icons/cg';
 
 const Menu = () => {

@@ -1,4 +1,5 @@
 import axios from "../../common/axiosInstance";
+import kakao_btn from "../../assets/images/icons/kakao_btn.png";
 import { REST_API_KEY, REDIRECT_URI } from "../../constant/KakaoConstant";
 import classes from "./KakaoLogin.module.scss";
 
@@ -13,7 +14,7 @@ const KakaoLogin = () => {
   return (
     <div>
       <img
-        src="icons/kakao_btn.png"
+        src={kakao_btn}
         className={classes.kakao_btn}
         onClick={onKakaoClick}
         alt="카카오 로그인.png"

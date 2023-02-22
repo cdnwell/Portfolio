@@ -1,12 +1,12 @@
-package com.project.namweb.submit.service;
+package com.namweb.domain.submit.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.springframework.stereotype.Service;
 
-import com.project.namweb.dto.SubmitDTO;
-import com.project.namweb.submit.mapper.SubmitMapper;
+import com.namweb.domain.submit.dto.SubmitDTO;
+import com.namweb.domain.submit.mapper.SubmitMapper;
 
 @Service
 public class SubmitService {

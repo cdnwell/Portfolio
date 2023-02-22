@@ -1,27 +1,29 @@
 import { useEffect, useRef, useState } from "react";
 import { useSelector as useReduxSelector } from "react-redux";
 
-import classes from "./BookForm.module.css";
+import classes from "./BookForm.module.scss";
 import axios from "../../common/axiosInstance";
 
 const { kakao } = window;
 
 const BookForm = () => {
   const lat_store_base = useReduxSelector(
-    (state: { base_lat: number }) => state.base_lat
+    (state: { book: { base_lat: number } }) => state.book.base_lat
   );
   const lng_store_base = useReduxSelector(
-    (state: { base_lng: number }) => state.base_lng
+    (state: { book: { base_lng: number } }) => state.book.base_lng
   );
   const work_date_base = useReduxSelector(
     (state: {
-      work_date: {
-        date: Date;
-        morning: boolean;
-        afternoon: boolean;
-        extra: boolean;
-      }[];
-    }) => state.work_date
+      book: {
+        work_date: {
+          date: Date;
+          morning: boolean;
+          afternoon: boolean;
+          extra: boolean;
+        }[];
+      };
+    }) => state.book.work_date
   );
 
   const [posData, setPosData] = useState({
@@ -46,7 +48,10 @@ const BookForm = () => {
     event.preventDefault();
 
     let book_date_object = new Date();
-    const book_date = book_date_object.toLocaleDateString() + " " + book_date_object.toLocaleTimeString();
+    const book_date =
+      book_date_object.toLocaleDateString() +
+      " " +
+      book_date_object.toLocaleTimeString();
 
     console.log("이름", nameRef.current?.value);
     console.log("전화번호", phoneRef.current?.value);

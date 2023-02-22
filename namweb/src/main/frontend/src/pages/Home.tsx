@@ -1,4 +1,4 @@
-import classes from "./Home.module.css";
+import sky_constructor from "../assets/images/constructor/sky-constructor-01.jpg";
 
 const INTRODUCTION: string[] = [
   "건설 장비 Sky는 건축 및 건설 산업에서 사용되는 중장비 및 도구의 배열을 설명하는 데 사용되는 용어입니다. ",
@@ -18,7 +18,7 @@ const Home = () => {
       <p>사업 소개</p>
       <section>
         <img
-          src="images/constructor/sky-constructor-01.jpg"
+          src={sky_constructor}
           alt="스카이 건설 장비.jpg"
         />
         {introduce_tray}

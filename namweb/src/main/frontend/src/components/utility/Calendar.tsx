@@ -1,10 +1,10 @@
 import { ReactNode, useEffect } from "react";
 import { useState } from "react";
 
-import classes from "./Calendar.module.css";
+import classes from "./Calendar.module.scss";
 import { useDispatch } from "react-redux";
 
-import { namwebActions } from "../store";
+import { bookActions } from "../store/book";
 
 const DUMMY_PLAN = [
   { date: "2023-02-02", when: "afternoon" },
@@ -485,7 +485,7 @@ const Calendar = () => {
         return { date_str, morning, afternoon, extra};
     });
     dispatch(
-      namwebActions.setWorkDate({
+      bookActions.setWorkDate({
         work_date: workArray,
       })
     );

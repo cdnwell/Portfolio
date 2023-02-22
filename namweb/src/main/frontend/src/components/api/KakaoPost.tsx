@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 
-import classes from "./KakaoPost.module.css";
+import classes from "./KakaoPost.module.scss";
 import { useSelector as useReduxSelector, useDispatch } from "react-redux";
 
-import { namwebActions } from "../store";
+import { bookActions } from "../store/book";
 
 import DaumPostcodeEmbed from "react-daum-postcode";
 import Overlay from "../layout/Overlay";
@@ -22,10 +22,10 @@ const KakaoPost = () => {
   const dispatch = useDispatch();
 
   const lat_store_base = useReduxSelector(
-    (state: { base_lat: number }) => state.base_lat
+    (state: { book: { base_lat: number } }) => state.book.base_lat
   );
   const lng_store_base = useReduxSelector(
-    (state: { base_lng: number }) => state.base_lng
+    (state: { book: { base_lng: number } }) => state.book.base_lng
   );
 
   const completeHandler = (data: any) => {
@@ -40,9 +40,7 @@ const KakaoPost = () => {
         setIsWaiting(false);
         const lat = parseFloat(result[0].road_address.y);
         const lng = parseFloat(result[0].road_address.x);
-        dispatch(
-          namwebActions.setPostPosition({ post_lat: lat, post_lng: lng })
-        );
+        dispatch(bookActions.setPostPosition({ post_lat: lat, post_lng: lng }));
       } else {
         setIsWaiting(true);
       }
@@ -88,7 +86,7 @@ const KakaoPost = () => {
             autoClose={false}
             onComplete={completeHandler}
             className={classes.post_overlay}
-            style={{ width: "80%", height: "450px", maxWidth : "1080px" }}
+            style={{ width: "80%", height: "450px", maxWidth: "1080px" }}
           />,
           document.getElementById("backdrop-item") as HTMLElement
         )}

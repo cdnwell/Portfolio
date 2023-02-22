@@ -7,10 +7,9 @@ import {
   ZoomControl,
   MapTypeControl,
 } from "react-kakao-maps-sdk";
-import { namwebActions } from "../store";
+import { bookActions } from "../store/book";
 
-const CENTER_POS_Y = 37.64836248151049;
-const CENTER_POS_X = 127.2455233464401;
+import { CENTER_POS_Y, CENTER_POS_X } from "../../constant/KakaoConstant";
 
 let REDUX_POS_FLAG = false;
 
@@ -29,10 +28,10 @@ const KakaoMap = () => {
   const dispatch = useDispatch();
 
   const lat_store = useReduxSelector(
-    (state: { post_lat: number }) => state.post_lat
+    (state: { book: { post_lat: number } }) => state.book.post_lat
   );
   const lng_store = useReduxSelector(
-    (state: { post_lng: number }) => state.post_lng
+    (state: { book: { post_lng: number } }) => state.book.post_lng
   );
 
   useEffect(() => {
@@ -62,7 +61,7 @@ const KakaoMap = () => {
       lng: mouseEvent.latLng.getLng(),
     });
     dispatch(
-      namwebActions.setPosition({
+      bookActions.setPosition({
         base_lat: mouseEvent.latLng.getLat(),
         base_lng: mouseEvent.latLng.getLng(),
       })

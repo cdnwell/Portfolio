@@ -1,4 +1,4 @@
-import classes from './Layout.module.css';
+import classes from './Layout.module.scss';
 
 import Footer from "./Footer";
 import Header from "./Header";

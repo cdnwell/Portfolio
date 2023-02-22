@@ -1,4 +1,4 @@
-package com.project.namweb.dto;
+package com.namweb.domain.submit.dto;
 
 import org.apache.ibatis.type.Alias;
 

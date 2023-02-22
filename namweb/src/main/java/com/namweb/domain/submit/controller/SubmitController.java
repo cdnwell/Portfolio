@@ -1,4 +1,4 @@
-package com.project.namweb.submit.controller;
+package com.namweb.domain.submit.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.project.namweb.dto.SubmitDTO;
-import com.project.namweb.submit.service.SubmitService;
+import com.namweb.domain.submit.dto.SubmitDTO;
+import com.namweb.domain.submit.service.SubmitService;
 
 import lombok.RequiredArgsConstructor;
 
