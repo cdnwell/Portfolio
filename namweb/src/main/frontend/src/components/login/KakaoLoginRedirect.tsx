@@ -14,7 +14,7 @@ const KakaoLoginRedirect = () => {
       .then((response) => {
         console.log(response);
 
-        navigate("/login");
+        navigate("/");
       })
       .catch((error) => {
         console.log(error);

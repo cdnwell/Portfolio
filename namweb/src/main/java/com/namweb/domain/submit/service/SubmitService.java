@@ -16,17 +16,23 @@ public class SubmitService {
 		this.submitMapper = submitMapper;
 	}
 
-	public int insertBookData(SubmitDTO submitDTO, ArrayList<HashMap<String, Object>> work_list) {
+	public int insertBookWait(SubmitDTO submitDTO) {
+		int seq = submitMapper.selectBookWaitSeq();
 		int count = 0;
-		for (HashMap<String, Object> map : work_list) {
-			submitDTO.setDate_str((String)map.get("date_str"));
-			submitDTO.setMorning((boolean)map.get("morning"));
-			submitDTO.setAfternoon((boolean)map.get("afternoon"));
-			submitDTO.setExtra((boolean)map.get("extra"));
-			
-			count += submitMapper.insertBookData(submitDTO);
+		
+		submitDTO.setSeq(seq);
+		
+		count += submitMapper.insertBookWait(submitDTO);
+		
+		ArrayList<HashMap<String,Object>> list = submitDTO.getWork_list();
+		
+		for(HashMap<String,Object> map : list) {
+			map.put("book_wait_seq", seq);
+			count += submitMapper.insertBookWaitList(map);
 		}
+		
 		return count;
 	}
+
 
 }

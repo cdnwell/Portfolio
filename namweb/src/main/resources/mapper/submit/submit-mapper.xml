@@ -3,9 +3,19 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.namweb.domain.submit.mapper.SubmitMapper">
-	<insert id="insertBookData" parameterType="submit">
-		insert into
-		book(name,phone,content,address,latitude,longitude,book_date,date_str,morning,afternoon,extra)
-		values(#{name},#{phone},#{content},#{address},#{latitude},#{longitude},#{book_date},#{date_str},#{morning},#{afternoon},#{extra})
+
+	<select id="selectBookWaitSeq" resultType="int">
+		select nextval('BOOK_WAIT_SEQ') from dual
+	</select>
+	
+	<insert id="insertBookWait" parameterType="submit">
+		insert into book_wait(seq,nick,email,name,phone,content,book_date,con_address,con_latitude,con_longitude)
+		values(#{seq},#{nick},#{email},#{name},#{phone},#{content},#{book_date},#{con_address},#{con_latitude},#{con_longitude})
 	</insert>
+	
+	<insert id="insertBookWaitList" parameterType="map">
+		insert into book_wait_list(seq, book_wait_seq, con_date, morning, afternoon, extra)
+		values (nextval('BOOK_WAIT_LIST_SEQ'),#{book_wait_seq},#{con_date},#{morning},#{afternoon},#{extra})
+	</insert>
+	
 </mapper>

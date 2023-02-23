@@ -31,7 +31,7 @@ const Calendar = () => {
     { date: Date; morning: boolean; afternoon: boolean; extra: boolean }[]
   >([]);
   const [currentOption, setCurrentOption] = useState<number>();
-  const [selectValue, setSelectValue] = useState();
+  // const [selectValue, setSelectValue] = useState<number>();
   const [morningStatus, setMorningStatus] = useState(false);
   const [afternoonStatus, setAfternoonStatus] = useState(false);
   const [extraStatus, setExtraStatus] = useState(false);
@@ -213,7 +213,6 @@ const Calendar = () => {
     setDateArray([...weekArray]);
   }, [selectedDate, selectedDateArray, isOneDay, selectedDateStatus]);
 
-  // ** //
   const onSelectedDateHandler = (date: Date) => {
     if (isOneDay) {
       setSelectedDate(date);
@@ -395,7 +394,7 @@ const Calendar = () => {
   const onSelectHandler = (e: React.ChangeEvent<HTMLSelectElement>) => {
     // select에서 onChange 속성을 이용해 값을 받아오는 함수
     // e.target.value로 값을 받아오자 값이 String으로 받아와짐
-    // 일관성을 위해 앞에 +를 붙여 정수로 형변환
+    // parseInt 함수로 값을 변경해준다.
     setCurrentOption(parseInt(e.target.value));
   };
 
@@ -600,7 +599,7 @@ const Calendar = () => {
           </div>
           <div className={classes.calendar_day_detail}>
             <span className={classes.checkbox_box}>
-              <select onChange={onSelectHandler} value={selectValue}>
+              <select onChange={onSelectHandler} value={currentOption}>
                 {options}
               </select>
               <label className={classes.checkbox} htmlFor="morning">

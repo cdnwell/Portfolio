@@ -67,7 +67,9 @@ const BookForm = () => {
     const latitude = posData.lat;
     const longitude = posData.lng;
     const address = addressName;
-    const work_date = work_date_base;
+    const work_date = JSON.stringify(work_date_base);
+
+    console.log('not json : ', work_date);
 
     // axios({
     //   method: "POST",
@@ -84,14 +86,14 @@ const BookForm = () => {
         latitude,
         longitude,
         address,
-        work_date,
         book_date,
+        work_date
       })
       .then((response) => console.log(response))
       .catch((error) => console.log(error));
   };
 
-  // redux에서 값이 바뀔 때마다 자동으로 위치 좌표, 주소 세팅
+  // redux에서 위치 값이 바뀔 때마다 자동으로 위치 좌표, 주소 세팅
   useEffect(() => {
     setPosData({ lat: lat_store_base, lng: lng_store_base });
     const geocoder = new kakao.maps.services.Geocoder();
