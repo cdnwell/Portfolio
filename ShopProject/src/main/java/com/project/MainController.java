@@ -1001,7 +1001,6 @@ public class MainController {
 		List<MemberDTO> list = null;
 		
 		int count = 0;
-//		int pageNoLimit = (pageNo-1)*15;
 		
 		if (search == null || type == null || search.equals("") || type.equals("")) {
 			list = memberService.selectMemberList(pageNo);

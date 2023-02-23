@@ -3,243 +3,302 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.project.mapper.ProductMapper">
- 	<select id="selectProduct" resultType="product">
- 		select p.categoryno, p.colors, p.cost, p.inquantity, p.price, p.productname, p.productno, p.sizes, to_char(p.receivingdate,'yyyy/mm/dd') as receivingdate 
+	<select id="selectProduct" resultType="product">
+		select p.categoryno, p.colors, p.cost, p.inquantity, p.price, p.productname,
+		p.productno, p.sizes, to_char(p.receivingdate,'yyyy/mm/dd') as
+		receivingdate
 		from product p
- 	</select>
+	</select>
 	<select id="selectProductList" resultType="product">
-		select 
-		distinct first_value(pp.productphotono) over(partition by pp.productno order by productphotono) as productphotono
-		, p.categoryno, p.colors, p.cost, p.inquantity, p.price, p.productname, p.productno, p.sizes, to_char(p.receivingdate,'yyyy/mm/dd') as receivingdate 
+		select
+		distinct first_value(pp.productphotono) over(partition by pp.productno order
+		by productphotono) as productphotono
+		, p.categoryno, p.colors, p.cost,
+		p.inquantity, p.price, p.productname, p.productno, p.sizes,
+		to_char(p.receivingdate,'yyyy/mm/dd') as receivingdate
 		from product p, productphoto pp where p.productno = pp.productno
- 	</select>
-	<select id="selectProductDTO" parameterType="String" resultType="product">
-		select p.categoryno,p.colors,p.cost,p.inquantity,p.price,p.productname,p.productno,p.sizes,to_char(p.receivingdate,'yyyy/mm/dd')as receivingdate 
+	</select>
+	<select id="selectProductDTO" parameterType="String"
+		resultType="product">
+		select
+		p.categoryno,p.colors,p.cost,p.inquantity,p.price,p.productname,p.productno,p.sizes,to_char(p.receivingdate,'yyyy/mm/dd')as
+		receivingdate
 		from product p where productno = #{productno}
 	</select>
-	<select id="selectFilePath" parameterType="String" resultType="file">
- 		select * from productphoto where productno = #{productno}
- 	</select>
- 	<select id="selectFilePathDummy" parameterType="String" resultType="file">
- 		select * from productphoto where productno = #{productno}
- 	</select>
- 	<select id="selectFilePathAddColor" parameterType="String" resultType="file">
- 		select p.*, c.colorname 
+	<select id="selectFilePath" parameterType="String"
+		resultType="file">
+		select * from productphoto where productno = #{productno}
+	</select>
+	<select id="selectFilePathDummy" parameterType="String"
+		resultType="file">
+		select * from productphoto where productno = #{productno}
+	</select>
+	<select id="selectFilePathAddColor" parameterType="String"
+		resultType="file">
+		select p.*, c.colorname
 		from productphoto p, color c
-		where productno = #{productno} and 
-		p.colorno = c.colorno 
- 	</select>
- 	<select id="selectProductNO" resultType="String">
- 		select productno_seq.nextval from dual
- 	</select>
- 	<select id="selectFile" parameterType="map" resultType="String">
- 		select photopath from productphoto where productno = #{productno} and productphotono = #{productphotono}
- 	</select>
- 	<delete id="deleteProduct" parameterType="String">
-			delete from product where productno = #{index}
+		where productno = #{productno} and
+		p.colorno = c.colorno
+	</select>
+	<select id="selectProductNO" resultType="String">
+		select productno_seq.nextval from dual
+	</select>
+	<select id="selectFile" parameterType="map" resultType="String">
+		select photopath from productphoto where productno = #{productno} and
+		productphotono = #{productphotono}
+	</select>
+	<delete id="deleteProduct" parameterType="String">
+		delete from product where productno = #{index}
 	</delete>
-	 <insert id="insertProduct" parameterType="product">
+	<insert id="insertProduct" parameterType="product">
 		insert into
 		product(productno,productname,receivingdate,productstock,inquantity,cost,price,colors,categoryno,sizes)
 		values(#{productno},#{productname},to_date(#{receivingdate},'yyyy/mm/dd'),#{productstock},#{inquantity},#{cost},#{price},#{colors},#{categoryno},#{sizes})
 	</insert>
 	<insert id="insertFileList" parameterType="file">
- 		insert into productphoto(productno,productphotono,photopath)
- 		values(#{productno},prphotono_seq.nextval,#{photopath})
- 	</insert>
- 	<insert id="insertFileListAddColor" parameterType="file">
- 		insert into productphoto(productno, productphotono, photopath, colorno)
- 		values(#{productno}, prphotono_seq.nextval, #{photopath}, #{colorno})
- 	</insert>
- 	<select id="selectcategoryList" resultType="category">
- 		select categoryno,categoryname from productcategory where MOD(categoryno , 100 ) = 0
- 	</select>
-   <insert id="insertCartProduct" parameterType="cart">
-      insert into cart(productno, quantity, memberid, cartdate, colorno, sizeno, cartno)
-      values(#{productno}, #{quantity}, #{memberid}, sysdate, #{colorno}, #{sizeno}, cartno_seq.nextval )
-   </insert>
-   <!-- 
- 	<select id="selectCartProduct" parameterType="String" resultType="cart">
-      select c.*,s.sizekind,co.colorname,pp.productphotono from cart c,sizes s,color co, productphoto pp
-      where c.memberid = #{memberId} and  c.sizeno= s.sizeno and c.colorno = co.colorno and c.productno = pp.productno
-   </select>
-    -->
-    <select id="selectCartProduct" parameterType="String" resultType="cart">
-    	select c.*, s.sizekind, co.colorname, 
+		insert into productphoto(productno,productphotono,photopath)
+		values(#{productno},prphotono_seq.nextval,#{photopath})
+	</insert>
+	<insert id="insertFileListAddColor" parameterType="file">
+		insert into productphoto(productno, productphotono, photopath, colorno)
+		values(#{productno}, prphotono_seq.nextval, #{photopath}, #{colorno})
+	</insert>
+	<select id="selectcategoryList" resultType="category">
+		select categoryno,categoryname from productcategory where MOD(categoryno ,
+		100 ) = 0
+	</select>
+	<insert id="insertCartProduct" parameterType="cart">
+		insert into cart(productno, quantity, memberid, cartdate, colorno, sizeno,
+		cartno)
+		values(#{productno}, #{quantity}, #{memberid}, sysdate, #{colorno}, #{sizeno},
+		cartno_seq.nextval )
+	</insert>
+	<!-- <select id="selectCartProduct" parameterType="String" resultType="cart"> 
+		select c.*,s.sizekind,co.colorname,pp.productphotono from cart c,sizes s,color 
+		co, productphoto pp where c.memberid = #{memberId} and c.sizeno= s.sizeno 
+		and c.colorno = co.colorno and c.productno = pp.productno </select> -->
+	<select id="selectCartProduct" parameterType="String"
+		resultType="cart">
+		select c.*, s.sizekind, co.colorname,
 		(
-			select pp.productphotono 
-			from productphoto pp
-			where c.productno  = pp.productno and
-			c.colorno = pp.colorno 
-		) as productphotono, 
-		p.productname, p.price 
+		select pp.productphotono
+		from productphoto pp
+		where c.productno = pp.productno and
+		c.colorno = pp.colorno
+		) as productphotono,
+		p.productname, p.price
 		from cart c, sizes s, color co, product p
-		where c.memberid = 'id01' and 
+		where c.memberid = 'id01' and
 		c.colorno = co.colorno and
 		c.sizeno = s.sizeno and
-		c.productno = p.productno 
-    </select>
- 	<delete id="deleteCart" parameterType="map">
+		c.productno =
+		p.productno
+	</select>
+	<delete id="deleteCart" parameterType="map">
 		delete from cart
-		where memberid = #{memberId} and productno = #{productno}
+		where
+		memberid = #{memberId} and productno = #{productno}
 	</delete>
- 	<select id="selectCart" parameterType="cart" resultType="int">
-		select count(*) from cart c, product p 
+	<select id="selectCart" parameterType="cart" resultType="int">
+		select
+		count(*) from cart c, product p
 		where c.memberid = #{memberid} and
 		c.productno = #{productno} and
-		c.colorno = #{colorno} and
+		c.colorno =
+		#{colorno} and
 		c.sizeno = #{sizeno} and
 		p.productno = c.productno
 	</select>
- 	<select id="ProductDetailView" parameterType="String"
+	<select id="ProductDetailView" parameterType="String"
 		resultType="product">
-		select * from product where productname = #{productname} and rownum = 1
+		select * from product where productname = #{productname}
+		and rownum = 1
 	</select>
 	<select id="selectProductColorList" parameterType="String"
-      resultType="String">
-      	select colors from product
+		resultType="String">
+		select colors from product
 		where productno = #{productno}
-   </select>
-   <select id="selectProductColorArray" parameterType="String" resultType="color">
-   		select colorno, colorname from color where colorno = #{colorno}
-   </select>
-   <select id="selectProductSizesList" parameterType="String" resultType="String">
-      	select sizes from product
-      	where productno = #{productno}
-   </select>
-   <select id="selectProductSizesArray" parameterType="String" resultType="sizes">
-   		select sizeno, sizekind from sizes where sizeno = #{sizeno}
-   </select>
-   <!-- ### -->
- 	<select id="selectProductDetailList" parameterType="String" resultType="product">
-		select distinct first_value(pp.productphotono) over(partition by pp.productno order by productphotono) as productphotono
-			, p.categoryno, p.colors, p.cost, p.inquantity, p.price, p.productname, p.productno, p.sizes, to_char(p.receivingdate,'yyyy/mm/dd') as receivingdate 
-		from 
+	</select>
+	<select id="selectProductColorArray" parameterType="String"
+		resultType="color">
+		select colorno, colorname from color where colorno = #{colorno}
+	</select>
+	<select id="selectProductSizesList" parameterType="String"
+		resultType="String">
+		select sizes from product
+		where productno = #{productno}
+	</select>
+	<select id="selectProductSizesArray" parameterType="String"
+		resultType="sizes">
+		select sizeno, sizekind from sizes where sizeno = #{sizeno}
+	</select>
+	<!-- ### -->
+	<select id="selectProductDetailList" parameterType="String"
+		resultType="product">
+		select distinct first_value(pp.productphotono)
+		over(partition by pp.productno order by productphotono) as
+		productphotono
+		, p.categoryno, p.colors, p.cost, p.inquantity, p.price, p.productname,
+		p.productno, p.sizes, to_char(p.receivingdate,'yyyy/mm/dd') as
+		receivingdate
+		from
 		(select *
 		from product
-		where categoryno like concat(floor(#{categoryno} / 10), '%')) p
+		where categoryno like concat(floor(#{categoryno} / 10),
+		'%')) p
 		, productphoto pp
 		where p.productno = pp.productno
- 	</select>
-	 <select id="selectProductSimpleList" parameterType="String" resultType="product">
-	 	select distinct first_value(pp.productphotono) over(partition by pp.productno order by productphotono) as productphotono
-			, p.categoryno, p.colors, p.cost, p.inquantity, p.price, p.productname, p.productno, p.sizes, to_char(p.receivingdate,'yyyy/mm/dd') as receivingdate 
-		from 
+	</select>
+	<select id="selectProductSimpleList" parameterType="String"
+		resultType="product">
+		select distinct first_value(pp.productphotono) over(partition by
+		pp.productno order by productphotono) as productphotono
+		, p.categoryno, p.colors, p.cost, p.inquantity, p.price, p.productname,
+		p.productno, p.sizes, to_char(p.receivingdate,'yyyy/mm/dd') as
+		receivingdate
+		from
 		(select *
 		from product
-		where categoryno like concat(floor(#{categoryno} / 100), '%')) p
+		where categoryno like concat(floor(#{categoryno} / 100),
+		'%')) p
 		, productphoto pp
 		where p.productno = pp.productno
-	 </select>
-	 <select id="selectProductSimpleCount" parameterType="String" resultType="int">
-	 	select count(*)
+	</select>
+	<select id="selectProductSimpleCount" parameterType="String"
+		resultType="int">
+		select count(*)
 		from product
-		where categoryno like concat(floor(#{categoryno} / 100), '%')
-	 </select>
- 	<select id="selectCartDTO" parameterType="cart" resultType="cart">
-     	select c.*, s.sizekind, co.colorname 
+		where categoryno like concat(floor(#{categoryno}
+		/ 100), '%')
+	</select>
+	<select id="selectCartDTO" parameterType="cart"
+		resultType="cart">
+		select c.*, s.sizekind, co.colorname
 		from cart c, sizes s, color co
-		where c.memberid = #{memberid} and 
-		#{sizeno} = s.sizeno and 
-		#{colorno} = co.colorno and 
-		c.sizeno = #{sizeno} and 
-		c.colorno = #{colorno} and 
+		where c.memberid = #{memberid} and
+		#{sizeno} = s.sizeno and
+		#{colorno} = co.colorno and
+		c.sizeno = #{sizeno} and
+		c.colorno = #{colorno} and
 		c.productno = #{productno}
-   </select>
- 	<update id="updateQuantity" parameterType="cart">
-      UPDATE cart SET
-      quantity = quantity + #{quantity} , cartdate = sysdate
-      WHERE
-      memberid = #{memberid} and productno = #{productno} and colorno = #{colorno} and sizeno = #{sizeno}
-   </update>
-	<select id="selectColorList"  resultType="color">
-          select colorno,colorname from color
-   </select>
-   <select id="selectSizeList"  resultType="sizes">
-          select sizeno,sizekind from sizes order by to_number(sizeno)
-   </select>
-    <select id="shopNewProductList" parameterType="string" resultType="product">
-     select p.productno, p.productname, p.price, p.receivingdate,pp.productphotono from product p,productphoto pp
-     where receivingdate between sysdate - 30 and sysdate and p.productno = pp.productno
-     order by receivingdate asc
-    </select>
-    <select id="selectProductNo" parameterType="cart" resultType="String">
-       select productno from product where sizeno = #{sizeno} and colorno = #{colorno} and productname = #{productname}
 	</select>
-   <select id="selectproductsizelist" parameterType="product" resultType="sizes">
-	       select s.sizeno,s.sizekind from sizes s,(select p.sizeno from product p where colorno = #{colorno} and productname = #{productname}) ps where ps.sizeno = s.sizeno
+	<update id="updateQuantity" parameterType="cart">
+		UPDATE cart SET
+		quantity = quantity + #{quantity} , cartdate = sysdate
+		WHERE
+		memberid = #{memberid} and productno = #{productno} and colorno = #{colorno}
+		and sizeno = #{sizeno}
+	</update>
+	<select id="selectColorList" resultType="color">
+		select colorno,colorname from color
 	</select>
-	<select id="shopBestProductList" parameterType="string" resultType="product">
-     	select p1.*,pp.productphotono from(select p.productno, p.productname, p.price, sum(m.orderquantity)
-		from memberorder m, product p 
-		where p.productno = m.productno 
+	<select id="selectSizeList" resultType="sizes">
+		select sizeno,sizekind from sizes order by to_number(sizeno)
+	</select>
+	<select id="shopNewProductList" parameterType="string"
+		resultType="product">
+		select p.productno, p.productname, p.price,
+		p.receivingdate,pp.productphotono from product p,productphoto pp
+		where receivingdate between sysdate - 30 and sysdate and p.productno =
+		pp.productno
+		order by receivingdate asc
+	</select>
+	<select id="selectProductNo" parameterType="cart"
+		resultType="String">
+		select productno from product where sizeno = #{sizeno} and colorno =
+		#{colorno} and productname = #{productname}
+	</select>
+	<select id="selectproductsizelist" parameterType="product"
+		resultType="sizes">
+		select s.sizeno,s.sizekind from sizes s,(select p.sizeno from product p
+		where colorno = #{colorno} and productname = #{productname}) ps where
+		ps.sizeno = s.sizeno
+	</select>
+	<select id="shopBestProductList" parameterType="string"
+		resultType="product">
+		select p1.*,pp.productphotono from(select p.productno, p.productname,
+		p.price, sum(m.orderquantity)
+		from memberorder m, product p
+		where p.productno = m.productno
 		group by p.productno, m.productno, p.productname, p.price
-		order by sum(m.orderquantity) desc)p1,productphoto pp
-        where p1.productno = pp.productno
-    </select>
-    <update id="updateProduct" parameterType="product">
-    	update product
-		set 
+		order by
+		sum(m.orderquantity) desc)p1,productphoto pp
+		where p1.productno = pp.productno
+	</select>
+	<update id="updateProduct" parameterType="product">
+		update product
+		set
 		categoryno = #{categoryno},
 		sizes = #{sizes},
 		colors = #{colors},
-		productname = #{productname},
+		productname =
+		#{productname},
 		receivingdate = #{receivingdate},
-		productstock = #{productstock},
+		productstock =
+		#{productstock},
 		inquantity = #{inquantity},
 		cost = #{cost},
-		price = #{price}
+		price =
+		#{price}
 		where productno = #{productno}
-    </update>
-    <select id="selectSizesSelectList" parameterType="String" resultType="sizes">
-	    select so.sizeno,so.sizekind,st.sizesel
+	</update>
+	<select id="selectSizesSelectList" parameterType="String"
+		resultType="sizes">
+		select so.sizeno,so.sizekind,st.sizesel
 		from sizes so
-		left outer join (select s.sizeno, 'sel' as sizesel from sizes s where sizeno in (${sizelist})) st
+		left outer join (select
+		s.sizeno, 'sel' as sizesel from sizes s where sizeno in (${sizelist}))
+		st
 		on so.sizeno = st.sizeno
 		order by so.sizeno
-    </select>
-    <select id="selectColorSelectList" parameterType="String" resultType="color">
-	    select co.colorno, co.colorname, ct.colorsel
+	</select>
+	<select id="selectColorSelectList" parameterType="String"
+		resultType="color">
+		select co.colorno, co.colorname, ct.colorsel
 		from color co
-		left outer join (select c.colorno, 'sel' as colorsel from color c where c.colorno in (${colorlist})) ct
+		left outer join
+		(select c.colorno, 'sel' as colorsel from color c where c.colorno in
+		(${colorlist})) ct
 		on co.colorno = ct.colorno
 		order by co.colorno
-    </select>
-    <select id="selectCategoryno" parameterType="String" resultType="String">
-    	select categoryno
+	</select>
+	<select id="selectCategoryno" parameterType="String"
+		resultType="String">
+		select categoryno
 		from product
 		where productno = #{productno}
-    </select>
-    <select id="selectProductListCategory" parameterType="String" resultType="product">
-    	select distinct first_value(pp.productphotono) over(partition by pp.productno order by productphotono) as productphotono
-			, p.categoryno, p.colors, p.cost, p.inquantity, p.price, p.productname, p.productno, p.sizes, to_char(p.receivingdate,'yyyy/mm/dd') as receivingdate 
-		from 
+	</select>
+	<select id="selectProductListCategory" parameterType="String"
+		resultType="product">
+		select distinct first_value(pp.productphotono) over(partition by
+		pp.productno order by productphotono) as productphotono
+		, p.categoryno, p.colors, p.cost, p.inquantity, p.price, p.productname,
+		p.productno, p.sizes, to_char(p.receivingdate,'yyyy/mm/dd') as
+		receivingdate
+		from
 		(select *
 		from product
-		where categoryno like concat(floor(#{categoryno} / 10), '%')) p
+		where categoryno like concat(floor(#{categoryno} / 10),
+		'%')) p
 		, productphoto pp
 		where p.productno = pp.productno
-    </select>
-    <select id="selectFileEa" parameterType="String" resultType="int">
-    	select count(*) from productphoto where productno = #{productno}
-    </select>
-    <!-- 
-    <delete id="deletePrevFile" parameterType="String">
-    	delete from productphoto
-		where 
-		productno = #{productno}
-		and productphotono in(
-			select * from
-			(select productphotono from productphoto where productno = #{productno} order by productphotono limit 1) tp
-		)
-    </delete>
-     -->
-    <delete id="deletePrevFile" parameterType="String">
-     	delete from productphoto where productno = #{productno}
-    </delete>
-    <select id="selectDeleteFilePath" parameterType="String" resultType="String">
-    	select photopath from productphoto where productno = #{productno} order by productphotono
-    </select>
+	</select>
+	<select id="selectFileEa" parameterType="String"
+		resultType="int">
+		select count(*) from productphoto where productno = #{productno}
+	</select>
+	<!-- <delete id="deletePrevFile" parameterType="String"> delete from productphoto 
+		where productno = #{productno} and productphotono in( select * from (select 
+		productphotono from productphoto where productno = #{productno} order by 
+		productphotono limit 1) tp ) </delete> -->
+	<delete id="deletePrevFile" parameterType="String">
+		delete from productphoto where productno = #{productno}
+	</delete>
+	<select id="selectDeleteFilePath" parameterType="String"
+		resultType="String">
+		select photopath from productphoto where productno = #{productno} order by
+		productphotono
+	</select>
 </mapper>
 
 

@@ -45,29 +45,36 @@
 	</select>
 	<select id="selectMemberList" resultType="member"
 		parameterType="int">
-		select m.*
+		select mm.*
+		from(select m.*, rownum rn
 		from(select
 		memberId, memberName, address,
-		to_char(birthDate,'yyyy/mm/dd') as birthDate
+		to_char(birthDate,'yyyy/mm/dd') as
+		birthDate
 		,memberTelNo, gender,
 		withdraw, addressdetail, postno
-		from member) m
-		where rownum between
-		(#{pageNo} - 1) * 15 + 1 and #{pageNo} * 15
+		from
+		member) m) mm
+		where mm.rn between
+		(#{pageNo} - 1) * 15 + 1 and #{pageNo}
+		* 15
 	</select>
 	<select id="selectSearchMember" parameterType="map"
 		resultType="member">
-		select m.*
+		select mm.*
+		from(select m.*, rownum rn
 		from(select
-		memberId, memberName, address,
+		memberId,
+		memberName, address,
 		to_char(birthDate,'YYYY/MM/DD') as birthDate
 		,memberTelNo, gender,
 		withdraw , addressdetail, postno
 		from member
 		where
 		${type} like '%' ||
-		#{search} || '%') m
-		where rownum between (#{pageNo} - 1) * 15 + 1 and
+		#{search} || '%') m) mm
+		where mm.rn between
+		(#{pageNo} - 1) * 15 + 1 and
 		#{pageNo} * 15
 	</select>
 	<select id="selectSearchMemberCount" parameterType="map"
@@ -84,33 +91,42 @@
 	</select>
 	<select id="selectMemberOrderList" parameterType="int"
 		resultType="memberOrder">
-		select mo.*
+		select mmo.*
+		from(select mo.*, rownum rn
 		from(select *
-		from memberorder) mo
-		where rownum
-		between (#{pageNo} - 1) * 15 + 1 and #{pageNo} * 15
+		from
+		memberorder) mo ) mmo
+		where mmo.rn
+		between (#{pageNo} - 1) * 15 + 1 and
+		#{pageNo} * 15
 	</select>
 	<select id="selectSearchMemberOrder" parameterType="map"
 		resultType="memberOrder">
-		select mo.*
+		select mmo.*
+		from(select mo.*, rownum rn
 		from(select *
-		from memberorder
+		from
+		memberorder
 		where
 		${type} like
 		'%' || #{search}
-		|| '%') mo
-		where rownum between (#{pageNo} - 1) * 15 +
+		|| '%') mo ) mmo
+		where
+		mmo.rn between (#{pageNo} - 1) * 15 +
 		1 and #{pageNo} * 15
 	</select>
 	<select id="selectLoginMemberOrderList" parameterType="map"
 		resultType="map">
-		select mo.*
+		select mmo.*
+		from(select mo.*, rownum rn
 		from(select *
-		from memberorder
+		from
+		memberorder
 		where
 		memberId =
-		#{memberId})mo
-		where rownum between (#{pageNo} - 1) * 15 + 1 and
+		#{memberId})mo ) mmo
+		where mmo.rn between
+		(#{pageNo} - 1) * 15 + 1 and
 		#{pageNo} * 15
 	</select>
 	<select id="selectSearchMemberOrderCount" resultType="int">
