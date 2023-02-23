@@ -5,10 +5,11 @@
 <mapper namespace="com.project.mapper.BoardMapper">
 	<select id="selectNoticeContent" parameterType="int" resultType="ntMain">
 		<![CDATA[
-		select n.noticeno as noticeno,
+		select nc.*
+		from(select n.noticeno as noticeno,
 		n.title as title, concat( substr((REGEXP_REPLACE(n.content, '<[^>]*>', ' ')),1,200),
 		case when length(REGEXP_REPLACE(n.content, '<[^>]*>', ' '))> 200 then '...' else '' end) as content,
-		n.writer as writer, date_format(n.wdate,'%Y/%m/%d') as wdate, photono
+		n.writer as writer, to_char(n.wdate,'yyyy/mm/dd') as wdate, photono
 		from notice n
 		left outer join
 		(select 
@@ -17,8 +18,9 @@
 		from noticephoto
 		) np
 		on n.noticeno = np.noticeno
-		order by n.wdate desc
-		limit ${pageNo}, 5 
+		order by n.wdate desc ) nc
+		where rownum between
+		(#{pageNo} - 1) * 15 + 1 and #{pageNo} * 15
 		]]>
 	</select>
 	<select id="selectNoticeCount" resultType="int">
@@ -28,24 +30,24 @@
 		select photopath from noticephoto where photono = #{photono}
 	</select>
 	<select id="selectBoardImageNo" resultType="String">
-		select nextval('ntphotono_seq') from dual
+		select ntphotono_seq.nextval from dual
 	</select>
 	<insert id="insertBoardImage" parameterType="map">
 		insert into noticephoto values(#{photono},#{path},#{noticeno})
 	</insert>
 	<select id="selectNoticeNo" resultType="String">
-		select nextval('noticeno_seq') from dual
+		select noticeno_seq.nextval from dual
 	</select>
 	<insert id="insertNoticeBoard" parameterType="notice">
 		insert into notice(noticeno,title,content,wdate,writer)
-		values(#{noticeno},#{title},#{content},sysdate(),#{writer})
+		values(#{noticeno},#{title},#{content},sysdate,#{writer})
 	</insert>
 	<insert id="insertFileList" parameterType="file">
 		insert into noticefile
 		values(#{productno},#{productphotono},#{photopath})
 	</insert>
 	<select id="selectNoticeDetail" parameterType="String" resultType="notice">
-		select noticeno,title,content,writer,date_format(wdate,'%Y/%m/%d') as wdate from notice where noticeno = #{noticeno}
+		select noticeno,title,content,writer,to_char(wdate,'yyyy/mm/dd') as wdate from notice where noticeno = #{noticeno}
 	</select>
 	<delete id="deleteNotUploadImg" parameterType="int">
 		delete from noticephoto where photono = #{imgNo}
@@ -57,7 +59,7 @@
 		select photopath from noticephoto where photono = #{imgNo}
 	</select>
 	<update id="updateNoticeContent" parameterType="notice">
-		update notice set title = #{title}, content = #{content}, wdate = sysdate()
+		update notice set title = #{title}, content = #{content}, wdate = sysdate
 		where noticeno = #{noticeno}
 	</update>
 	<select id="selectNoticeReply" parameterType="String" resultType="noticere">
@@ -67,11 +69,11 @@
 	</select>
 	<insert id="insertNoticeReply" parameterType="noticere">
 		insert into noticereply(noticeno,replyforno,content,rdate,writer,replyno,memberid)
-		values (#{noticeno},0,#{content},sysdate(),#{writer},nextval('noticereplyno_seq'),#{memberid})
+		values (#{noticeno},0,#{content},sysdate,#{writer},noticereplyno_seq.nextval,#{memberid})
 	</insert>
 	<insert id="insertNoticeReplyRe" parameterType="noticere">
 		insert into noticereply(noticeno,replyforno,content,rdate,writer,replyno,memberid)
-		values (#{noticeno},#{replyno},#{content},sysdate(),#{writer},nextval('noticereplyno_seq'),#{memberid})
+		values (#{noticeno},#{replyno},#{content},sysdate,#{writer},noticereplyno_seq.nextval,#{memberid})
 	</insert>
 	<delete id="deleteNoticeContent" parameterType="String">
 		delete from notice
@@ -79,17 +81,19 @@
 	</delete>
 	<select id="selectNoticeRecent3Reply" resultType="noticere">
 		<![CDATA[
-		select noticeno,replyforno,
+		select nr.*
+		from(select noticeno,replyforno,
         case when length(content) >= 50 then concat( substr(content,1,50), '...') else content end as content,
         rdate,writer,replyno,memberid
 		from noticereply
-		order by rdate desc
-		limit 3
+		order by rdate desc) nr
+		where rownum <= 3
 		]]>
 	</select>
 	<select id="selectNoticeRecent3" resultType="ntMain">
 		<![CDATA[
-		select
+		select nr.*
+		from(select
 		n.*, np.photono
 		from
 		(select noticeno, 
@@ -104,8 +108,8 @@
 		from noticephoto
 		) np
 		on n.noticeno = np.noticeno
-		order by wdate desc
-		limit 3
+		order by wdate desc) nr
+		where rownum <= 3
 		]]>
 	</select>
 	<delete id="deleteNoticeImgLoc" parameterType="String">
@@ -122,10 +126,11 @@
 	</delete>
 	<select id="selectNoticeSearch" parameterType="map" resultType="ntMain">
 		<![CDATA[
-		select n.noticeno as noticeno,
+		select ns.*
+		from(select n.noticeno as noticeno,
 		n.title as title, concat (substr((REGEXP_REPLACE(n.content, '<[^>]*>', ' ')),1,200),
 		case when length(REGEXP_REPLACE(n.content, '<[^>]*>', ' '))> 200 then '...' else '' end) as content,
-		n.writer as writer, date_format(n.wdate,'%Y/%m/%d') as wdate, photono
+		n.writer as writer, to_char(n.wdate,'yyyy/mm/dd') as wdate, photono
 		from notice n
 		left outer join
 		(select 
@@ -136,8 +141,9 @@
 		on n.noticeno = np.noticeno
 		where
 		n.title like concat ('%', #{search}, '%')
-		order by n.wdate desc
-		limit ${pageNo}, 5
+		order by n.wdate desc) ns
+		where rownum between
+		(#{pageNo} - 1) * 5 + 1 and #{pageNo} * 5
 		]]>
 	</select>
 	<select id="selectNoticeSearchCount" parameterType="String" resultType="int">

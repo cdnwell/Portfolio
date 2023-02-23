@@ -5,14 +5,14 @@
 <mapper namespace="com.project.mapper.QnAMapper">
 	<insert id="insertBoard" parameterType="qna">
 		insert into qna(qno,memberid,qnacontent,title,qnadate)
-		values(#{qno},#{memberid},#{qnacontent},#{title},sysdate())
+		values(#{qno},#{memberid},#{qnacontent},#{title},sysdate)
 	</insert>
 	<insert id="insertFileList" parameterType="img">
-		insert into qnaimge(productphotono,qno,photopath)
+		insert into qnaimage(productphotono,qno,photopath)
 		values(#{productphotono},#{qno},#{photopath})
 	</insert>
 	<select id="selectBoardNo" resultType="int">
-		select nextval('qno_seq') from dual
+		select qno_seq.nextval from dual
 	</select>
 	<select id="Allqnalist" resultType="qna">
 		select * from qna

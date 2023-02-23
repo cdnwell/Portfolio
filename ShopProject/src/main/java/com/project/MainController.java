@@ -93,12 +93,12 @@ public class MainController {
 	 */
 	@RequestMapping("/category_simple_view.do")
 	public String categorySimpleView(Model model, HttpSession session, String categoryno,
-			@RequestParam(name = "pageNo", defaultValue = "1") String pageNo) {
+			@RequestParam(name = "pageNo", defaultValue = "1") int pageNo) {
 		List<ProductDTO> productlist = productService.selectProductSimpleList(categoryno); /* 카테고리별 리스트 뽑는 부분 */
 		model.addAttribute("productlist", productlist);
 
 		int count = productService.selectProductSimpleCount(categoryno);
-		PagingVO vo = new PagingVO(count, Integer.parseInt(pageNo), 12, 5);
+		PagingVO vo = new PagingVO(count, pageNo, 12, 5);
 		model.addAttribute("paging", vo);
 		
 		return "shop-fullwidth";
@@ -109,12 +109,12 @@ public class MainController {
 	 */
 	@RequestMapping("/category_detail_view.do")
 	public String categoryDetailView(Model model, HttpSession session, String categoryno,
-			@RequestParam(name = "pageNo", defaultValue = "1") String pageNo) {
+			@RequestParam(name = "pageNo", defaultValue = "1") int pageNo) {
 		List<ProductDTO> productlist = productService.selectProductDetailList(categoryno); /* 카테고리별 리스트 뽑는 부분 */
 		model.addAttribute("productlist", productlist);
 		
 		int count = productService.selectProductSimpleCount(categoryno);
-		PagingVO vo = new PagingVO(count, Integer.parseInt(pageNo), 12, 5);
+		PagingVO vo = new PagingVO(count, pageNo, 12, 5);
 		model.addAttribute("paging", vo);
 
 		return "shop-fullwidth";
@@ -134,7 +134,7 @@ public class MainController {
 
 	@RequestMapping("/shop-fullwidth-best.do")
 	public String shopfullwidthbest(Model model, HttpSession session, String productno, ProductDTO productdto,
-			@RequestParam(name = "pageNo", defaultValue = "1") String pageNo) {
+			@RequestParam(name = "pageNo", defaultValue = "1") int pageNo) {
 		List<ProductDTO> shopBestProductList = productService.shopBestProductList(productno);
 		model.addAttribute("shopBestProductList", shopBestProductList);
 		return "shop-fullwidth-best";
@@ -425,8 +425,8 @@ public class MainController {
 	@RequestMapping("/notice.do")
 	public String selectNoticeContent(Model model, HttpSession session,
 			@RequestParam(name = "pageNo", defaultValue = "1") int pageNo) {
-		int pageNoLimit = (pageNo-1)*5;
-		List<NoticeMainDTO> list = boardService.selectNoticeContent(pageNoLimit);
+//		int pageNoLimit = (pageNo-1)*5;
+		List<NoticeMainDTO> list = boardService.selectNoticeContent(pageNo);
 		List<NoticeReplyDTO> reDto3 = boardService.selectNoticeRecent3Reply();
 		List<NoticeDTO> reNotice3 = boardService.selectNoticeRecent3();
 
@@ -1001,15 +1001,15 @@ public class MainController {
 		List<MemberDTO> list = null;
 		
 		int count = 0;
-		int pageNoLimit = (pageNo-1)*15;
+//		int pageNoLimit = (pageNo-1)*15;
 		
 		if (search == null || type == null || search.equals("") || type.equals("")) {
-			list = memberService.selectMemberList(pageNoLimit);
+			list = memberService.selectMemberList(pageNo);
 			model.addAttribute("member", list);
 
 			count = memberService.selectMemberCount();
 		} else {
-			list = memberService.selectSearchMember(search, type, pageNoLimit);
+			list = memberService.selectSearchMember(search, type, pageNo);
 			model.addAttribute("search", search);
 			model.addAttribute("type", type);
 			model.addAttribute("member", list);
@@ -1231,6 +1231,7 @@ public class MainController {
 	    if(color0 != -1)
 	        color.add(color4);
 	    
+	    System.out.println(productdto);
 		String productno = productService.insertproduct(productdto);
 		
 		String root = "c:\\fileUpload\\";

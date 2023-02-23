@@ -61,7 +61,6 @@
 						console.log('value',vTag);
 						var pTag =$('.cart_item').children('input[value="'+cartno+'"]').parent();
 						pTag.remove();
-						//pr_quantity,pr_price, cart_info-
 						var tagInfo = pTag.children('div[class="cart_info"]').children('[class="pr_quantity"]').text();
 						
 						// 문자('x')를 기준으로 가격과 갯수 나눠서 arr 배열에 넣기
@@ -86,7 +85,6 @@
 						$('.price').html('&#8361; '+price);
 						
 						//숫자 개수 아이콘 그리기
-						//console.log('total_ea',total_ea);
 						var total_ea = $('.item_count').text()-1;
 						if(total_ea > 0)
 							$('.before_item_count').after(`<span class="item_count">`+total_ea+`</span>`);

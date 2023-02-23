@@ -4,17 +4,17 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.project.mapper.ProductMapper">
  	<select id="selectProduct" resultType="product">
- 		select p.categoryno, p.colors, p.cost, p.inquantity, p.price, p.productname, p.productno, p.sizes, date_format(p.receivingdate,'%Y/%m/%d') as receivingdate 
+ 		select p.categoryno, p.colors, p.cost, p.inquantity, p.price, p.productname, p.productno, p.sizes, to_char(p.receivingdate,'yyyy/mm/dd') as receivingdate 
 		from product p
  	</select>
 	<select id="selectProductList" resultType="product">
 		select 
 		distinct first_value(pp.productphotono) over(partition by pp.productno order by productphotono) as productphotono
-		, p.categoryno, p.colors, p.cost, p.inquantity, p.price, p.productname, p.productno, p.sizes, date_format(p.receivingdate,'%Y/%m/%d') as receivingdate 
+		, p.categoryno, p.colors, p.cost, p.inquantity, p.price, p.productname, p.productno, p.sizes, to_char(p.receivingdate,'yyyy/mm/dd') as receivingdate 
 		from product p, productphoto pp where p.productno = pp.productno
  	</select>
 	<select id="selectProductDTO" parameterType="String" resultType="product">
-		select p.categoryno,p.colors,p.cost,p.inquantity,p.price,p.productname,p.productno,p.sizes,date_format(p.receivingdate,'%Y/%m/%d')as receivingdate 
+		select p.categoryno,p.colors,p.cost,p.inquantity,p.price,p.productname,p.productno,p.sizes,to_char(p.receivingdate,'yyyy/mm/dd')as receivingdate 
 		from product p where productno = #{productno}
 	</select>
 	<select id="selectFilePath" parameterType="String" resultType="file">
@@ -30,7 +30,7 @@
 		p.colorno = c.colorno 
  	</select>
  	<select id="selectProductNO" resultType="String">
- 		select nextval('productno_seq') from dual
+ 		select productno_seq.nextval from dual
  	</select>
  	<select id="selectFile" parameterType="map" resultType="String">
  		select photopath from productphoto where productno = #{productno} and productphotono = #{productphotono}
@@ -41,22 +41,22 @@
 	 <insert id="insertProduct" parameterType="product">
 		insert into
 		product(productno,productname,receivingdate,productstock,inquantity,cost,price,colors,categoryno,sizes)
-		values(#{productno},#{productname},date_format(#{receivingdate},'%Y/%m/%d'),#{productstock},#{inquantity},#{cost},#{price},#{colors},#{categoryno},#{sizes})
+		values(#{productno},#{productname},to_date(#{receivingdate},'yyyy/mm/dd'),#{productstock},#{inquantity},#{cost},#{price},#{colors},#{categoryno},#{sizes})
 	</insert>
 	<insert id="insertFileList" parameterType="file">
  		insert into productphoto(productno,productphotono,photopath)
- 		values(#{productno},nextval('prphotono_seq'),#{photopath})
+ 		values(#{productno},prphotono_seq.nextval,#{photopath})
  	</insert>
  	<insert id="insertFileListAddColor" parameterType="file">
  		insert into productphoto(productno, productphotono, photopath, colorno)
- 		values(#{productno}, nextval('prphotono_seq'), #{photopath}, #{colorno})
+ 		values(#{productno}, prphotono_seq.nextval, #{photopath}, #{colorno})
  	</insert>
  	<select id="selectcategoryList" resultType="category">
  		select categoryno,categoryname from productcategory where MOD(categoryno , 100 ) = 0
  	</select>
    <insert id="insertCartProduct" parameterType="cart">
       insert into cart(productno, quantity, memberid, cartdate, colorno, sizeno, cartno)
-      values(#{productno}, #{quantity}, #{memberid}, sysdate(), #{colorno}, #{sizeno}, nextval('cartno_seq'))
+      values(#{productno}, #{quantity}, #{memberid}, sysdate, #{colorno}, #{sizeno}, cartno_seq.nextval )
    </insert>
    <!-- 
  	<select id="selectCartProduct" parameterType="String" resultType="cart">
@@ -93,7 +93,7 @@
 	</select>
  	<select id="ProductDetailView" parameterType="String"
 		resultType="product">
-		select * from product where productname = #{productname} limit 1
+		select * from product where productname = #{productname} and rownum = 1
 	</select>
 	<select id="selectProductColorList" parameterType="String"
       resultType="String">
@@ -113,7 +113,7 @@
    <!-- ### -->
  	<select id="selectProductDetailList" parameterType="String" resultType="product">
 		select distinct first_value(pp.productphotono) over(partition by pp.productno order by productphotono) as productphotono
-			, p.categoryno, p.colors, p.cost, p.inquantity, p.price, p.productname, p.productno, p.sizes, date_format(p.receivingdate,'%Y/%m/%d') as receivingdate 
+			, p.categoryno, p.colors, p.cost, p.inquantity, p.price, p.productname, p.productno, p.sizes, to_char(p.receivingdate,'yyyy/mm/dd') as receivingdate 
 		from 
 		(select *
 		from product
@@ -123,7 +123,7 @@
  	</select>
 	 <select id="selectProductSimpleList" parameterType="String" resultType="product">
 	 	select distinct first_value(pp.productphotono) over(partition by pp.productno order by productphotono) as productphotono
-			, p.categoryno, p.colors, p.cost, p.inquantity, p.price, p.productname, p.productno, p.sizes, date_format(p.receivingdate,'%Y/%m/%d') as receivingdate 
+			, p.categoryno, p.colors, p.cost, p.inquantity, p.price, p.productname, p.productno, p.sizes, to_char(p.receivingdate,'yyyy/mm/dd') as receivingdate 
 		from 
 		(select *
 		from product
@@ -148,7 +148,7 @@
    </select>
  	<update id="updateQuantity" parameterType="cart">
       UPDATE cart SET
-      quantity = quantity + #{quantity} , cartdate = sysdate()
+      quantity = quantity + #{quantity} , cartdate = sysdate
       WHERE
       memberid = #{memberid} and productno = #{productno} and colorno = #{colorno} and sizeno = #{sizeno}
    </update>
@@ -156,11 +156,11 @@
           select colorno,colorname from color
    </select>
    <select id="selectSizeList"  resultType="sizes">
-          select sizeno,sizekind from sizes
+          select sizeno,sizekind from sizes order by to_number(sizeno)
    </select>
     <select id="shopNewProductList" parameterType="string" resultType="product">
      select p.productno, p.productname, p.price, p.receivingdate,pp.productphotono from product p,productphoto pp
-     where receivingdate between sysdate() - 30 and sysdate() and p.productno = pp.productno
+     where receivingdate between sysdate - 30 and sysdate and p.productno = pp.productno
      order by receivingdate asc
     </select>
     <select id="selectProductNo" parameterType="cart" resultType="String">
@@ -212,7 +212,7 @@
     </select>
     <select id="selectProductListCategory" parameterType="String" resultType="product">
     	select distinct first_value(pp.productphotono) over(partition by pp.productno order by productphotono) as productphotono
-			, p.categoryno, p.colors, p.cost, p.inquantity, p.price, p.productname, p.productno, p.sizes, date_format(p.receivingdate,'%Y/%m/%d') as receivingdate 
+			, p.categoryno, p.colors, p.cost, p.inquantity, p.price, p.productname, p.productno, p.sizes, to_char(p.receivingdate,'yyyy/mm/dd') as receivingdate 
 		from 
 		(select *
 		from product
