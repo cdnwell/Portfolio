@@ -5,7 +5,7 @@
 <h2>제작 기간</h2> 
 <p>2022-09 ~ 2022-12</p>
 <h2>기술 스택</h2>
-<p>Java(Spring), JavaScript, jQuery, Oracle, Mysql, Mybatis, Html5, CSS, JSP, bootstrap</p>
+<p>Java(Spring MVC), JavaScript, jQuery, Oracle, Mybatis, Html5, CSS, JSP, bootstrap</p>
 <h2>ERD</h2>
 <img src="../[asset]/shopproject/sql/shopproject_erd.png" />
 <h2>핵심 기능</h2>

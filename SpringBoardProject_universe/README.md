@@ -3,7 +3,7 @@
 <p>국비지원학원에서 게시판 만들기를 할 때 만든 개인 프로젝트입니다.</p>
 <p>기존 css가 없던 게시판을 복습하면서 css를 추가하고 다듬었습니다.</p>
 <h2>ERD</h2>
-<img src="../[asset]/springboard/sql/springboard_erd.png" alt="spring board project ERD.png" />
+<img src="../[asset]/springboard/sql/springboard_erd01.png" alt="spring board project ERD.png" />
 <h2>화면</h2>
 <h3>게시판</h3>
 <img src="../[asset]/springboard/portfolio/main01.png" alt="게시판.png" />
