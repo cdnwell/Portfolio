@@ -25,7 +25,7 @@
 	</select>
 	 -->
 	<select id="selectBoard" parameterType="int" resultType="board">
-		select * from board_content where bno = #{bno}
+		select * from board where bno = #{bno}
 	</select>
 	<select id="selectFileList" parameterType="int" resultType="file">
 		select * from board_file where bno = #{bno}
