@@ -13,6 +13,10 @@
 <img src="../[asset]/shopproject/portfolio/cart01.png" />
 <h4>코드</h4>
 <a href="https://github.com/cdnwell/Portfolio/blob/master/ShopProject/src/main/webapp/js/cart_list.js" >카트 담기기능 코드입니다</a>
+<h3>대댓글 기능</h3>
+<img src="../[asset]/shopproject/portfolio/notice_nested_reply01.png" />
+<h4>코드</h4>
+<a href="https://github.com/cdnwell/Portfolio/blob/master/ShopProject/src/main/webapp/WEB-INF/views/notice_details.jsp">대댓글 데이터를 받아서 출력해주는 jsp 파일입니다.</a>
 <h2>화면</h2>
 <h3>메인 페이지</h3>
 <img src="../[asset]/shopproject/portfolio/main_page01.png" />
