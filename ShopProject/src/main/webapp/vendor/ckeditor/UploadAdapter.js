@@ -16,7 +16,7 @@
 
     _initRequest() {
         const xhr = this.xhr = new XMLHttpRequest();
-        xhr.open('POST', 'http://localhost:9999/fileUpload.do', true);
+        xhr.open('POST', 'http://localhost:9997/fileUpload.do', true);
         xhr.responseType = 'json';
     }
 

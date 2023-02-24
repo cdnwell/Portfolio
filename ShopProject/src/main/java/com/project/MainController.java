@@ -178,11 +178,13 @@ public class MainController {
 			session.setAttribute("login", true);
 			session.setAttribute("id", dto.getMemberId());
 			session.setAttribute("name", dto.getMemberName());
-			System.out.println("로그인 성공");
+			
+			if(session.getAttribute("mLogin") == null)
+			    session.setAttribute("mLogin", false);
+			
 			response.getWriter().write("<script>location.href='/';</script>");
 		} else {
-			session.setAttribute("login", false);
-			System.out.println("로그인 실패");
+			session.setAttribute("login", false);			
 			response.getWriter().write("<script>alert('아이디 혹은 비밀번호가 틀렸습니다.');history.back();</script>");
 		}
 	}
@@ -814,6 +816,7 @@ public class MainController {
 		// filename 취득
 		String noticeno = (String) session.getAttribute("noticeno");
 		String originFileName = fileload.getOriginalFilename();
+		System.out.println("noticeno : " + noticeno);
 		
 		// upload 경로 설정(상대경로)
 		 String root = "c:\\fileUpload\\notice";
@@ -1139,6 +1142,10 @@ public class MainController {
 		session.setAttribute("login", true);
 		session.setAttribute("name", nickname);
 		session.setAttribute("id", email);
+		// 조건 처리 할 때 mLogin 세션이 없으면 script에서 아무런 객체를 가져오지 못하는 오류 발생
+		// 이를 막기 위해 false로 값을 넘겨준다.
+		if(session.getAttribute("mLogin") == null)
+		    session.setAttribute("mLogin", false);
 
 		session.setAttribute("kakaoToken", access_token);
 
@@ -1166,6 +1173,8 @@ public class MainController {
 		session.setAttribute("login", true);
 		session.setAttribute("name", nickname);
 		session.setAttribute("id", email);
+		if(session.getAttribute("mLogin") == null)
+		    session.setAttribute("mLogin", false);
 
 		session.setAttribute("naverToken", access_token);
 
