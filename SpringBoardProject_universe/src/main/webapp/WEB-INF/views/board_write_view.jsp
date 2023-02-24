@@ -227,6 +227,7 @@
     <section>
         <form class="write_box" action="boardWrite.do" method="post" enctype="multipart/form-data">
         	<input type="hidden" name="writer" value="${sessionScope.id }">
+        	<input type="hidden" name="nick" value="${sessionScope.nick }" >
             <div class="title_box">
                 <span class="title_writer">작성자 : <b>${sessionScope.id}</b></span> |
                 <span class="title_bDate"> date : ${sessionScope.date} </span>

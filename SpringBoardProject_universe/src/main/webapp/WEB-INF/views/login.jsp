@@ -89,7 +89,7 @@ legend{
 					<label for="pass" >암호 </label> <span class="pass_span">:</span> <input type="password" name="pass" id="pass">
 					</div>
 					<button type="submit" class="login_btn">로그인</button>
-					<a href="register.do" class="register_a">회원가입</a>
+					<a href="registerView.do" class="register_a">회원가입</a>
 					
 				</form>
 			</fieldset>

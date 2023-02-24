@@ -73,8 +73,16 @@ td>a:hover {
 }
 
 .before-arrow , .next-arrow{
-	
 	width : 15px;
+}
+
+th:nth-child(n+4){
+	width : 120px;
+	text-align : center;
+}
+
+td:nth-child(n+4) {
+	text-align : center;
 }
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -89,10 +97,10 @@ td>a:hover {
 				<th>글번호</th>
 				<th>제목</th>
 				<th>작성자</th>
-				<th>작성일</th>
-				<th>조회수</th>
-				<th>좋아요</th>
-				<th>싫어요</th>
+				<th class="th_wDate">작성일</th>
+				<th class="th_wCount">조회수</th>
+				<th class="th_wLike">좋아요</th>
+				<th class="th_wHate">싫어요</th>
 			</tr>
 			<c:forEach var="b" items="${requestScope.board}">
 				<tr>

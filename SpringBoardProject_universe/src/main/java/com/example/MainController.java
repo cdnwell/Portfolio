@@ -74,6 +74,7 @@ public class MainController {
 			session.setAttribute("id", dto.getId());
 			session.setAttribute("name", dto.getName());
 			session.setAttribute("gradeNo", dto.getGradeNo());
+			session.setAttribute("nick", dto.getNick());
 			session.setAttribute("login", true);
 			
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
