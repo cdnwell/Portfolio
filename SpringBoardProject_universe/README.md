@@ -5,6 +5,8 @@
 <h2>ERD</h2>
 <img src="../[asset]/springboard/sql/springboard_erd.png" alt="spring board project ERD.png" />
 <h2>화면</h2>
+<h3>게시판</h3>
+<img src="../[asset]/springboard/portfolio/main01.png" alt="게시판.png" />
 <h3>회원 가입</h3>
 <img src="../[asset]/springboard/portfolio/register01.png" alt="회원가입.png" />
 <h3>로그인</h3>
