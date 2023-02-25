@@ -1,3 +1,5 @@
+@import "../../assets/scss/_constant";
+
 .calendar {
   display: flex;
   flex-direction: column;
@@ -18,7 +20,7 @@
 
 @media (hover: hover) {
   .calendar_weeks div:hover {
-    background-color: cornflowerblue;
+    background-color: $nw-color;
     color: white;
   }
 }
@@ -73,8 +75,7 @@
   border-radius: 3px;
   margin: 2px;
   margin-left: 15px;
-  padding-bottom: 1px;
-  padding-right: 1px;
+  padding: 1.5px;
 
   cursor: pointer;
 }
@@ -128,7 +129,7 @@
 }
 
 .selectedDate {
-  background-color: cornflowerblue;
+  background-color: $nw-color;
   color: white;
 }
 
@@ -246,7 +247,7 @@
 }
 
 .months:hover {
-  background-color: cornflowerblue;
+  background-color: $nw-color;
   color: white;
 }
 

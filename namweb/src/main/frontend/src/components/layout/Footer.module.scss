@@ -1,3 +1,5 @@
+@import "../../assets/scss/_constant";
+
 footer {
     display: flex;
     flex-direction: column;
@@ -6,7 +8,7 @@ footer {
     width: 100%;
     height: 120px;
     
-    background-color: cornflowerblue;
+    background-color: $nw-footer-color;
 }
 
 footer p {

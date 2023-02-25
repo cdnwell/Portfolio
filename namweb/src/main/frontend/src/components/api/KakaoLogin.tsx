@@ -5,7 +5,7 @@ import classes from "./KakaoLogin.module.scss";
 const KakaoLogin = () => {
   const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
 
-  const onKakaoClick = () => {
+  const onKakaoLoginClick = () => {
     window.location.href = KAKAO_AUTH_URL;
   };
 
@@ -14,7 +14,7 @@ const KakaoLogin = () => {
       <img
         src={kakao_btn}
         className={classes.kakao_btn}
-        onClick={onKakaoClick}
+        onClick={onKakaoLoginClick}
         alt="카카오 로그인.png"
       />
     </div>

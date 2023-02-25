@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.namweb.global.constant.KakaoConstant;
 
 @RestController
-public class KakaoController {
+public class KakaoLoginController {
 
 	@GetMapping("/login/kakaoLoginIntro")
 	public String kakaoLoginIntro() {
@@ -92,7 +92,7 @@ public class KakaoController {
 			
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			
-			conn.setRequestMethod("GET");
+			conn.setRequestMethod("POST");
 			conn.setRequestProperty("Authorization", "Bearer " + access_token);
 			
 			int response_code = conn.getResponseCode();
@@ -137,7 +137,6 @@ public class KakaoController {
 
 	private String getAccessToken(String authorize_code) {
 		String access_token = "";
-		String refresh_token = "";
 		String req_url = "https://kauth.kakao.com/oauth/token";
 		String rest_api_key = KakaoConstant.REST_API_KEY;
 		String redirect_url = KakaoConstant.REDIRECT_URL;
