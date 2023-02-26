@@ -1,4 +1,4 @@
-package com.namweb.domain.naver.controller;
+package com.namweb.domain.naver.login.controller;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -12,6 +12,7 @@ import java.util.HashMap;
 
 import org.json.JSONObject;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.namweb.global.constant.NaverConstant;
@@ -19,7 +20,7 @@ import com.namweb.global.constant.NaverConstant;
 @RestController
 public class NaverLoginController {
 
-	@GetMapping("/login/naverLogin")
+	@PostMapping("/login/naverLogin")
 	public String naverLogin(String code) {
 		System.out.println("naver code : " + code);
 		String access_token = getAccessToken(code);

@@ -6,11 +6,13 @@ import { useNavigate } from 'react-router-dom';
 const NaverLoginRedirect = () => {
     const navigate = useNavigate();
 
-    let code = new URL(window.location.href).searchParams.get("code");
+    const code = new URL(window.location.href).searchParams.get("code");
 
     useEffect(()=>{
         axios
-            .get(`/login/naverLogin?code=${code}`)
+            .post(`/login/naverLogin`,{
+                code : code
+            })
             .then(response => {
                 console.log(response);
 

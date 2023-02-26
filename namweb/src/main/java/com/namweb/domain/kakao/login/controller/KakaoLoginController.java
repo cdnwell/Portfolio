@@ -1,4 +1,4 @@
-package com.namweb.domain.kakao.controller;
+package com.namweb.domain.kakao.login.controller;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -14,6 +14,7 @@ import java.util.HashMap;
 import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.namweb.global.constant.KakaoConstant;
@@ -68,7 +69,7 @@ public class KakaoLoginController {
 		return "connection, failed";
 	}
 	
-	@GetMapping("/login/kakaoLogin")
+	@PostMapping("/login/kakaoLogin")
 	public String kakaoLogin(String code) {
 		System.out.println(code);
 		String access_token = getAccessToken(code);
