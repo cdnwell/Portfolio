@@ -10,9 +10,7 @@ const NaverLoginRedirect = () => {
 
     useEffect(()=>{
         axios
-            .post(`/login/naverLogin`,{
-                code : code
-            })
+            .post(`/login/naverLogin?code=${code}`)
             .then(response => {
                 console.log(response);
 

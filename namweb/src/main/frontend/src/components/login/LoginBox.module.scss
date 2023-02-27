@@ -1,63 +1,82 @@
 @import "../../assets/scss/_constant";
 
 .login_box {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 
-    width: 400px;
-    height: 360px;
-    border: 1px solid black;
-    border-radius: 10px;
+  width: 400px;
+  height: 360px;
+  border: 1px solid black;
+  border-radius: 10px;
+  box-shadow: 3px 3px 10px #b7b7b7, -3px -3px 10px #b7b7b7;
 }
 
 .login_span {
-    font-size: 22px;
-    margin-bottom: 15px;
+  font-size: 22px;
+  margin-bottom: 15px;
+  font-weight: bold;
+
+  background-image: -webkit-linear-gradient(92deg, #f35626, #feab3a);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -webkit-animation: hue 10s infinite linear;
 }
 
-.id_input, .pw_input {
-    font-size: 18px;
-    width: 260px;
-    padding: 10px;
+@-webkit-keyframes hue {
+  from {
+    -webkit-filter: hue-rotate(0deg);
+  }
+  to {
+    -webkit-filter: hue-rotate(-360deg);
+  }
+}
 
-    margin-bottom: 10px;
+.id_input,
+.pw_input {
+  font-size: 18px;
+  width: 260px;
+  padding: 10px;
 
-    outline: none;
+  margin-bottom: 10px;
+
+  outline: none;
 }
 
 .login_button {
-    width: 283px;
-    height: 40px;
+  width: 283px;
+  height: 40px;
 
-    border: none;
-    border-radius: 7px;
-    background-color: $nw-color;
+  border: none;
+  border-radius: 7px;
+  background-color: $nw-color;
 
-    color: white;
+  color: white;
 
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .register_box {
-    padding: 10px;
+  padding: 10px;
 }
 
-.register_link, .id_pw_find_link {
-    font-size: 14px;
-    padding: 0 7px;
-    text-decoration: none;
+.register_link,
+.id_pw_find_link {
+  font-size: 14px;
+  padding: 0 7px;
+  text-decoration: none;
+  color: black;
 }
 
 .login_api_box {
-    display: flex;
-    flex-direction: row;
+  display: flex;
+  flex-direction: row;
 
-    width: 100%;
-    padding-left: 115px;
+  width: 100%;
+  padding-left: 115px;
 }
 
-.login_api_box img{
-    margin-right: 7px;
+.login_api_box img {
+  margin-right: 7px;
 }

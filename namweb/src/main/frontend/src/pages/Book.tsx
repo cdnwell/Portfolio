@@ -7,13 +7,6 @@ import BookForm from "../components/book/BookForm";
 import { useState } from "react";
 
 const Book = () => {
-  const [select , setSelect] = useState<number>();
-
-  const selectHandler = (e : React.ChangeEvent<HTMLSelectElement>) => {
-    console.log(e.target.value);
-    setSelect(parseInt(e.target.value));
-  };
-
   return (
     <div className={classes.book_root}>
       <KakaoMap />
@@ -23,12 +16,6 @@ const Book = () => {
       <br />
       <BookForm />
       <br />
-      <select onChange={selectHandler} value={select}>
-        <option value={1}>1 option</option>
-        <option value={5}>5 option</option>
-        <option value={3}>3 option</option>
-        <option value={0}>0 option</option>
-      </select>
     </div>
   );
 };

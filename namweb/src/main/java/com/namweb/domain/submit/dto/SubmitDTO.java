@@ -112,7 +112,7 @@ public class SubmitDTO {
 
 	public void setWork_date(JSONArray work_date) {
 		ArrayList<HashMap<String, Object>> work_list = new ArrayList<>();
-
+		
 		for (int i = 0; i < work_date.length(); i++) {
 			JSONObject obj = work_date.getJSONObject(i);
 			HashMap<String, Object> tmpMap = new HashMap<>();

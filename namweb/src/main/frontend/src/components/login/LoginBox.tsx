@@ -8,7 +8,7 @@ import classes from "./LoginBox.module.scss";
 const LoginBox = () => {
     return (
         <>
-        <span className={classes.login_span}>로그인</span>
+        <span className={classes.login_span}>Login</span>
         <form className={classes.login_box}>
             <input type="text" className={classes.id_input} placeholder="아이디" />
             <input type="text" className={classes.pw_input} placeholder="비밀번호" />

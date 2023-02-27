@@ -10,9 +10,7 @@ const KakaoLoginRedirect = () => {
 
   useEffect(() => {
     axios
-      .post(`/login/kakaoLogin`,{
-        code : code
-      })
+      .post(`/login/kakaoLogin?code=${code}`,)
       .then((response) => {
         console.log(response);
 
