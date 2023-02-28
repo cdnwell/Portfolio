@@ -10,7 +10,7 @@ const LoginBox = () => {
         <>
         <span className={classes.login_span}>Login</span>
         <form className={classes.login_box}>
-            <input type="text" className={classes.id_input} placeholder="아이디" />
+            <input type="text" className={classes.id_input} placeholder="이메일" />
             <input type="text" className={classes.pw_input} placeholder="비밀번호" />
             <button type="button" className={classes.login_button}>로그인</button>
             <div className={classes.register_box}>

@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.namweb.domain.submit.dto.SubmitDTO;
+import com.namweb.domain.submit.dto.SubmitDto;
 import com.namweb.domain.submit.service.SubmitService;
 
 import lombok.RequiredArgsConstructor;
@@ -16,7 +16,7 @@ public class SubmitController {
 	private final SubmitService submitService;
 
 	@PostMapping("/submit")
-	public String submit(@RequestBody SubmitDTO submitDTO) throws JSONException {
+	public String submit(@RequestBody SubmitDto submitDTO) throws JSONException {
 		System.out.println(submitDTO);
 
 		int count = submitService.insertBookWait(submitDTO);

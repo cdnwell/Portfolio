@@ -51,7 +51,7 @@ const BookForm = () => {
     const book_date =
       book_date_object.toLocaleDateString() +
       " " +
-      book_date_object.toLocaleTimeString();
+      book_date_object.toTimeString().substring(0,8);
 
     console.log("이름", nameRef.current?.value);
     console.log("전화번호", phoneRef.current?.value);
@@ -64,9 +64,9 @@ const BookForm = () => {
     const name = nameRef.current?.value;
     const phone = phoneRef.current?.value;
     const content = textRef.current?.value;
-    const latitude = posData.lat;
-    const longitude = posData.lng;
-    const address = addressName;
+    const con_latitude = posData.lat;
+    const con_longitude = posData.lng;
+    const con_address = addressName;
     const work_date = JSON.stringify(work_date_base);
 
     console.log('not json : ', work_date);
@@ -83,9 +83,9 @@ const BookForm = () => {
         name,
         phone,
         content,
-        latitude,
-        longitude,
-        address,
+        con_latitude,
+        con_longitude,
+        con_address,
         book_date,
         work_date
       })

@@ -10,74 +10,32 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.namweb.domain.kakao.login.service.KakaoLoginService;
 import com.namweb.global.constant.KakaoConstant;
 
+import lombok.RequiredArgsConstructor;
+
 @RestController
+@RequiredArgsConstructor
 public class KakaoLoginController {
-
-	@GetMapping("/login/kakaoLoginIntro")
-	public String kakaoLoginIntro() {
-		String reqURL = "https://kauth.kakao.com/oauth/authorize";
-		String restAPIKey = KakaoConstant.REST_API_KEY;
-
-		try {
-			URL url = new URL(reqURL);
-
-			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-
-			conn.setRequestMethod("GET");
-			conn.setDoOutput(true);
-
-			BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
-			StringBuilder sb = new StringBuilder();
-
-			sb.append("client_id=" + restAPIKey);
-			sb.append("&redirect_url=http://127.0.0.1:9997/kakaoLogin");
-			sb.append("response_type=code");
-
-			bw.write(sb.toString());
-			bw.flush();
-
-			int responseCode = conn.getResponseCode();
-			System.out.println("response code : " + responseCode);
-
-			BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-			String line = "";
-			String result = "";
-			
-			while((line = br.readLine()) != null) {
-				result += line;
-			}
-			
-			System.out.println("response body : " + result);
-			
-			return result;
-			
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-		return "connection, failed";
-	}
 	
+	private final KakaoLoginService kakaoLoginService;
+
 	@PostMapping("/login/kakaoLogin")
-	public String kakaoLogin(String code) {
-		System.out.println(code);
-		String access_token = getAccessToken(code);
+	public Map<String, Object> kakaoLogin(String code) {
+//		System.out.println(code);
+//		String access_token = getAccessToken(code);
 		
-		HashMap<String, Object> user_info = getUserInfo(access_token);
+		Map<String, Object> userInfo = kakaoLoginService.kakaoLogin(code);
 		
-		
-		return "kakao login, success";
+		return userInfo;
 	}
 	
 	private HashMap<String, Object> getUserInfo(String access_token) {
@@ -139,8 +97,6 @@ public class KakaoLoginController {
 	private String getAccessToken(String authorize_code) {
 		String access_token = "";
 		String req_url = "https://kauth.kakao.com/oauth/token";
-		String rest_api_key = KakaoConstant.REST_API_KEY;
-		String redirect_url = KakaoConstant.REDIRECT_URL;
 		
 
 		try {
@@ -155,8 +111,8 @@ public class KakaoLoginController {
 			StringBuilder sb = new StringBuilder();
 			
 			sb.append("grant_type=authorization_code");
-			sb.append("&client_id="+rest_api_key);
-			sb.append("&redirect_url="+redirect_url);
+//			sb.append("&client_id="+rest_api_key);
+//			sb.append("&redirect_url="+redirect_url);
 			sb.append("&code="+authorize_code);
 			
 			bw.write(sb.toString());

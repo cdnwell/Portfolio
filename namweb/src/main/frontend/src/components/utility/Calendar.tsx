@@ -469,19 +469,12 @@ const Calendar = () => {
     }
 
     const workArray = tmpArray.map((item) => {
-      const tmpMonth = item.date.getMonth() + 1;
-      const date_str =
-        item.date.getFullYear() +
-        "년 " +
-        tmpMonth + 
-        "월 " +
-        item.date.getDate() +
-        "일";
-        const morning = item.morning;
-        const afternoon = item.afternoon;
-        const extra = item.extra;
+      const date_str = item.date.toLocaleDateString();
+      const morning = item.morning;
+      const afternoon = item.afternoon;
+      const extra = item.extra;
 
-        return { date_str, morning, afternoon, extra};
+      return { date_str, morning, afternoon, extra };
     });
     dispatch(
       bookActions.setWorkDate({

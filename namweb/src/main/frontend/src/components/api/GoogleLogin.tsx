@@ -9,7 +9,7 @@ const GoogleLogin = () => {
   const GOOGLE_AUTH_URL = `https://accounts.google.com/o/oauth2/v2/auth`+
   `?client_id=${CLIENT_ID}` +
   `&redirect_uri=http://localhost:5173/login/googleLogin` +
-  `&scope=https://www.googleapis.com/auth/userinfo.email`+
+  `&scope=https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile`+
   `&response_type=code`;
 
   const onGoogleLoginClick = () => {

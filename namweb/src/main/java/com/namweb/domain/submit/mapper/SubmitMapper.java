@@ -4,14 +4,14 @@ import java.util.HashMap;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.namweb.domain.submit.dto.SubmitDTO;
+import com.namweb.domain.submit.dto.SubmitDto;
 
 @Mapper
 public interface SubmitMapper {
 
-	int selectBookWaitSeq();
+	int selectBookWaitIdx();
 
-	int insertBookWait(SubmitDTO submitDTO);
+	int insertBookWait(SubmitDto submitDTO);
 
 	int insertBookWaitList(HashMap<String, Object> map);
 
