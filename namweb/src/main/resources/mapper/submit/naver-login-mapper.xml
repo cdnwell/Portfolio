@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.namweb.domain.naver.login.mapper.NaverLoginMapper">
+
+	<select id="selectMemberInfo" resultType="member">
+		select email, nick, register_type from member where email = #{email}
+	</select>
+
+	<insert id="insertMember" parameterType="nMember">
+		insert into member(idx,id,email,pw,name,nick,phone,address,reg_date,register_type)
+		values(nextval('MEMBER_SEQ'),null,#{email},null,null,#{nick},null,null,sysdate(),'naver')
+	</insert>
+	
+</mapper>

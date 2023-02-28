@@ -1,12 +1,12 @@
-package com.namweb.domain.kakao.login.dto;
+package com.namweb.domain.naver.login.dto;
 
 import org.apache.ibatis.type.Alias;
 import org.json.JSONObject;
 
 import com.namweb.global.login.dto.LoginUserInfoDto;
 
-@Alias("kMember")
-public class KakaoMemberInfoDto implements LoginUserInfoDto {
+@Alias("nMember")
+public class NaverMemberInfoDto implements LoginUserInfoDto {
 	private String email;
 	private String nick;
 	private String response;
@@ -20,12 +20,10 @@ public class KakaoMemberInfoDto implements LoginUserInfoDto {
 	public void setResponse(String response) {
 		JSONObject jsonResponse = new JSONObject(response);
 
-		JSONObject properties = jsonResponse.getJSONObject("properties");
-		JSONObject kakao_account = jsonResponse.getJSONObject("kakao_account");
+		JSONObject jResponse = jsonResponse.getJSONObject("response");
 
-		this.nick = properties.getString("nickname");
-		this.email = kakao_account.getString("email");
-		this.response = response;
+		this.nick = jResponse.getString("nickname");
+		this.email = jResponse.getString("email");
 	}
 
 	public String getEmail() {

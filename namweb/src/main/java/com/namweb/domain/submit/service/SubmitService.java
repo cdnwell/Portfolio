@@ -25,7 +25,7 @@ public class SubmitService {
 		
 		count += submitMapper.insertBookWait(submitDTO);
 		
-		ArrayList<HashMap<String,Object>> list = submitDTO.getWork_list();
+		ArrayList<HashMap<String,Object>> list = submitDTO.getWorkList();
 		
 		for(HashMap<String,Object> map : list) {
 			map.put("book_wait_idx", idx);

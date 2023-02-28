@@ -1,29 +1,41 @@
-import { useEffect } from 'react';
-import axios from '../../common/axiosInstance';
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 
-import { useNavigate } from 'react-router-dom';
+import axios from "../../common/axiosInstance";
+
+import { useNavigate } from "react-router-dom";
+import { loginActions } from "../store/login";
 
 const NaverLoginRedirect = () => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-    const code = new URL(window.location.href).searchParams.get("code");
+  const code = new URL(window.location.href).searchParams.get("code");
 
-    useEffect(()=>{
-        axios
-            .post(`/login/naverLogin?code=${code}`)
-            .then(response => {
-                console.log(response);
+  useEffect(() => {
+    axios
+      .post(`/login/naverLogin?code=${code}`)
+      .then((response) => {
+        const data = response.data;
+        console.log(response);
 
-                navigate("/");
-            })
-            .catch((error) => {
-                console.log(error);
+        if (data.error) throw new Error(data.error);
 
-                navigate("/login");
-            })
-    },[]);
+        dispatch(loginActions.setLoginInfo({
+            email : data.email,
+            name : data.name
+        }));
 
-    return <div></div>
-}
+        navigate("/");
+      })
+      .catch((error) => {
+        alert(error);
+
+        navigate("/login");
+      });
+  }, []);
+
+  return <div></div>;
+};
 
 export default NaverLoginRedirect;
