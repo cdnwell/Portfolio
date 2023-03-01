@@ -9,7 +9,6 @@ import lombok.Data;
 @Data
 @Alias("member")
 public class MemberDto {
-	private int idx;
 	private String email;
 	private String nick;
 	private String pw;

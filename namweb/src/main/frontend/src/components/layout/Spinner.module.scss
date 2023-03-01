@@ -1,0 +1,20 @@
+@import "../../assets/scss/_constant";
+
+.spinner {
+  width: 30px;
+  height: 30px;
+
+  border: 5px solid $nw-color;
+  border-radius: 50%;
+
+  animation: spinner 0.8s ease infinite;
+}
+
+@keyframes spinner {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

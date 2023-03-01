@@ -15,7 +15,7 @@ const loginSlice = createSlice({
             state.name = action.payload.name;
             state.email = action.payload.email;
         },
-        setLoginInvalid(state, action) {
+        setLoginInvalid(state) {
             state.isLoggedIn = false;
             state.name = "";
             state.email = "";

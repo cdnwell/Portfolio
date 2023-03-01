@@ -8,6 +8,8 @@ const initialState = {
   base_lng: CENTER_POS_X,
   post_lat: CENTER_POS_Y,
   post_lng: CENTER_POS_X,
+  re_post_lat: CENTER_POS_Y,
+  re_post_lng: CENTER_POS_X,
   work_date: [{}],
 };
 
@@ -29,8 +31,15 @@ const bookSlice = createSlice({
       state.post_lat = action.payload.post_lat;
       state.post_lng = action.payload.post_lng;
     },
+    setRePostPosition(
+      state: { name: string; re_post_lat: number; re_post_lng: number },
+      action: { payload: { re_post_lat: number; re_post_lng: number } }
+    ) {
+      state.re_post_lat = action.payload.re_post_lat;
+      state.re_post_lng = action.payload.re_post_lng;
+    },
     setWorkDate(
-      state ,
+      state,
       action: {
         payload: {
           work_date: {
@@ -46,7 +55,6 @@ const bookSlice = createSlice({
     },
   },
 });
-
 
 export const bookActions = bookSlice.actions;
 

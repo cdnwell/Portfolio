@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSelector as useReduxSelector, useDispatch } from "react-redux";
+import { bookActions } from "../store/book";
 
 import {
   Map,
@@ -7,13 +8,14 @@ import {
   ZoomControl,
   MapTypeControl,
 } from "react-kakao-maps-sdk";
-import { bookActions } from "../store/book";
 
 import { CENTER_POS_Y, CENTER_POS_X } from "../../constant/KakaoConstant";
 
 let REDUX_POS_FLAG = false;
 
-const KakaoMap = () => {
+const KakaoMap: React.FC<{
+  onPostPos: (pos: { lat: number; lng: number }) => void;
+}> = ({ onPostPos }) => {
   const [position, setPosition] = useState({
     lat: CENTER_POS_Y,
     lng: CENTER_POS_X,
@@ -24,7 +26,6 @@ const KakaoMap = () => {
   });
   const [isClicked, setIsClicked] = useState(false);
   const [isStored, setIsStored] = useState(false);
-
   const dispatch = useDispatch();
 
   const lat_store = useReduxSelector(
@@ -60,10 +61,14 @@ const KakaoMap = () => {
       lat: mouseEvent.latLng.getLat(),
       lng: mouseEvent.latLng.getLng(),
     });
+    onPostPos({
+      lat: mouseEvent.latLng.getLat(),
+      lng: mouseEvent.latLng.getLng(),
+    });
     dispatch(
-      bookActions.setPosition({
-        base_lat: mouseEvent.latLng.getLat(),
-        base_lng: mouseEvent.latLng.getLng(),
+      bookActions.setRePostPosition({
+        re_post_lat: mouseEvent.latLng.getLat(),
+        re_post_lng: mouseEvent.latLng.getLng(),
       })
     );
   };

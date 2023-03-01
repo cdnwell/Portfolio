@@ -1,18 +1,22 @@
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
-
-import axios from "../../common/axiosInstance";
-
 import { useNavigate } from "react-router-dom";
-import { loginActions } from "../store/login";
 
-const NaverLoginRedirect = () => {
+import axios from "../../../common/axiosInstance";
+
+import { useDispatch } from "react-redux";
+import { loginActions } from "../../store/login";
+import Spinner from "../../layout/Spinner";
+
+const NaverLoginRedirect: React.FC<{
+  onLoginHandler: (status: boolean) => void;
+}> = ({ onLoginHandler }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const code = new URL(window.location.href).searchParams.get("code");
 
   useEffect(() => {
+    onLoginHandler(true);
     axios
       .post(`/login/naverLogin?code=${code}`)
       .then((response) => {
@@ -21,10 +25,12 @@ const NaverLoginRedirect = () => {
 
         if (data.error) throw new Error(data.error);
 
-        dispatch(loginActions.setLoginInfo({
-            email : data.email,
-            name : data.name
-        }));
+        dispatch(
+          loginActions.setLoginInfo({
+            email: data.email,
+            name: data.name,
+          })
+        );
 
         navigate("/");
       })
@@ -32,10 +38,11 @@ const NaverLoginRedirect = () => {
         alert(error);
 
         navigate("/login");
-      });
+      })
+      .finally(() => onLoginHandler(false));
   }, []);
 
-  return <div></div>;
+  return <Spinner />;
 };
 
 export default NaverLoginRedirect;
