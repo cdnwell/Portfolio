@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.namweb.domain.member.mapper.MemberUpdateMapper">
+
+	<update id="updatePhone" parameterType="member">
+		update member 
+		set phone = #{phone}
+		where email = #{email}
+	</update>
+	
+	<update id="updateName" parameterType="member">
+		update member
+		set name = #{name}
+		where email = #{email}
+	</update>
+	
+	<update id="updateNick" parameterType="member">
+		update member
+		set nick = #{nick}
+		where email = #{email}
+	</update>
+	
+</mapper>

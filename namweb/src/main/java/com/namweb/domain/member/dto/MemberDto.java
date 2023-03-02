@@ -15,6 +15,7 @@ public class MemberDto {
 	private String name;
 	private String phone;
 	private String address;
+	private String address_detail;
 	private LocalDateTime reg_date;
 	private String register_type;
 }

@@ -69,15 +69,6 @@ const BookForm = () => {
     const con_address = addressName;
     const work_date = JSON.stringify(work_date_base);
 
-    console.log('not json : ', work_date);
-
-    // axios({
-    //   method: "POST",
-    //   url: "http://localhost:9997/sumbit",
-    //   data: { name, phone, content, latitude, longitude, address },
-    // })
-    //   .then((response) => console.log(response))
-    //   .catch((error) => console.log(error));
     axios
       .post("/submit", {
         name,
@@ -89,7 +80,7 @@ const BookForm = () => {
         book_date,
         work_date
       })
-      .then((response) => console.log(response))
+      .then((response) => {console.log(response)})
       .catch((error) => console.log(error));
   };
 

@@ -12,8 +12,8 @@ const DAUM_POST_URL =
   "//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js";
 
 const KakaoPost: React.FC<{
-  onPostPos: (pos: { lat: number; lng: number }) => void;
-}> = ({ onPostPos }) => {
+  onResult : (result : any) => void;
+}> = ({ onResult }) => {
   const [isPostClicked, setIsPostClicked] = useState(false);
 
   const completeHandler = (data: any) => {
@@ -23,9 +23,7 @@ const KakaoPost: React.FC<{
     const geocoder = new kakao.maps.services.Geocoder();
     geocoder.addressSearch(data.address, (result, status) => {
       if (status === kakao.maps.services.Status.OK) {
-        const lat = parseFloat(result[0].road_address.y);
-        const lng = parseFloat(result[0].road_address.x);
-        onPostPos({ lat: lat, lng: lng });
+        onResult(result);
       }
     });
   };
@@ -50,7 +48,7 @@ const KakaoPost: React.FC<{
             autoClose={false}
             onComplete={completeHandler}
             className={classes.post_overlay}
-            style={{ width: "80%", height: "450px", maxWidth: "1080px" }}
+            style={{ width: "80%", height: "450px", maxWidth: "600px" }}
           />,
           document.getElementById("backdrop-item") as HTMLElement
         )}

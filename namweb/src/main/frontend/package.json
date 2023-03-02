@@ -20,7 +20,8 @@
     "react-kakao-maps-sdk": "^1.1.6",
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.8.1",
-    "redux": "^4.2.1"
+    "redux": "^4.2.1",
+    "redux-persist": "^6.0.0"
   },
   "devDependencies": {
     "@types/react": "^18.0.27",

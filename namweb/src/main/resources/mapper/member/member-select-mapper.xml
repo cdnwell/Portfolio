@@ -5,7 +5,7 @@
 <mapper namespace="com.namweb.domain.member.mapper.MemberSelectMapper">
 
 	<select id="selectMemberInfo" parameterType="String" resultType="member">
-		select email, name, nick, phone, register_type from member where email = #{email}
+		select email, name, nick, phone, register_type, address, address_detail from member where email = #{email}
 	</select>
 	
 </mapper>

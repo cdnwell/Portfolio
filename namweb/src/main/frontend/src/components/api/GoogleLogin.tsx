@@ -13,23 +13,6 @@ const GoogleLogin = () => {
   `&response_type=code`;
 
   const onGoogleLoginClick = () => {
-    // fetch(GOOGLE_AUTH_URL,{
-    //     method : "POST",
-    //     body : JSON.stringify({
-    //         token : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c",
-    //         returnSecureToken : true
-    //     })
-    // })
-    // .then((response) => response.json())
-    // .then((json) => console.log(json));
-    // axios
-    //   .post(GOOGLE_AUTH_URL,{
-    //     token : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c",
-    //     returnSecureToken : true
-    //   })
-    //   .then((response) => console.log(response))
-    //   .catch((error) => console.log(error));
-
     window.location.href = GOOGLE_AUTH_URL;
   };
 

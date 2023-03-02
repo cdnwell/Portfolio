@@ -1,6 +1,6 @@
 import classes from "./Login.module.scss";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector as useReduxSelector } from "react-redux";
 
 import { Routes } from "react-router-dom";
@@ -19,18 +19,27 @@ const Login = () => {
     (state: { login: { isLoggedIn: boolean } }) => state.login.isLoggedIn
   );
 
-  const onLoginHandler = (status : boolean) => {
+  const onLoginHandler = (status: boolean) => {
     setIsLoading(status);
-  }
+  };
 
   return (
     <div className={classes.login_root}>
       {!isLoggedIn && !isLoading && <LoginBox />}
       {isLoggedIn && !isLoading && <LoginInfo />}
       <Routes>
-        <Route path="kakaoLogin" element={<KakaoLoginRedirect onLoginHandler={onLoginHandler} />} />
-        <Route path="naverLogin" element={<NaverLoginRedirect onLoginHandler={onLoginHandler} />} />
-        <Route path="googleLogin" element={<GoogleLoginRedirect  onLoginHandler={onLoginHandler} />} />
+        <Route
+          path="kakaoLogin"
+          element={<KakaoLoginRedirect onLoginHandler={onLoginHandler} />}
+        />
+        <Route
+          path="naverLogin"
+          element={<NaverLoginRedirect onLoginHandler={onLoginHandler} />}
+        />
+        <Route
+          path="googleLogin"
+          element={<GoogleLoginRedirect onLoginHandler={onLoginHandler} />}
+        />
       </Routes>
     </div>
   );

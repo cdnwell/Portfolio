@@ -1,47 +1,127 @@
 @import "../../assets/scss/_constant";
 
 .login_info {
+  display: flex;
+  flex-direction: column;
 
-    width: 80%;
-    max-width: 800px;
-    box-sizing: border-box;
+  width: 80%;
+  max-width: 800px;
+  box-sizing: border-box;
 
-    padding: 50px;
+  padding: 50px;
 
-    border: 1px solid black;
-    border-radius: 10px;
-    box-shadow: 3px 3px 5px #b7b7b7, -3px -3px 5px #b7b7b7;
-    
+  border: 1px solid black;
+  border-radius: 10px;
+  box-shadow: 3px 3px 5px #b7b7b7, -3px -3px 5px #b7b7b7;
 }
 
-.login_info > h2{
-    text-align: center;
-    color: $nw-color;
-    margin-bottom: 40px;
+.login_info > h2 {
+  text-align: center;
+  color: $nw-color;
+  margin-bottom: 40px;
 }
 
-.login_info span {
-    display: block;
-    font-size: 18px;
-    font-weight: bold;
+.email_p,
+.name_p,
+.nick_p,
+.address_name_p,
+.phone_p,
+.register_type_p {
+  padding: 7px;
 
-    margin: 5px 0;
+  border-bottom: 1px solid black;
+}
+
+.email_span,
+.password_span,
+.name_span,
+.nick_span,
+.address_span,
+.address_detail_span,
+.phone_span,
+.register_type_span {
+  font-size: 18px;
+  font-weight: bold;
+
+  padding-left: 5px;
+}
+
+.phone_span,
+.name_span,
+.address_span,
+.nick_span {
+  margin: 16px 0;
+}
+
+.register_type_span {
+  margin-top: 16px;
+}
+
+.password_span,
+.address_detail_span {
+  margin-bottom: 16px;
+}
+
+.nick_button,
+.address_button {
+  width: 40%;
+  max-width: 100px;
+  height: 38.5px;
+
+  border: none;
+  border-radius: 5px;
+  background-color: $nw-color;
+
+  color: white;
+
+  cursor: pointer;
+}
+
+.password_button {
+  width: 45%;
+  max-width: 120px;
+  height: 38.5px;
+
+  border: none;
+  border-radius: 5px;
+  background-color: $nw-color;
+
+  color: white;
+
+  cursor: pointer;
+}
+
+.address_detail_input,
+.phone_input,
+.name_input,
+.nick_input {
+  height: 30px;
+  box-sizing: border-box;
+  padding: 5px;
+  border: none;
+  border-bottom: 1px solid black;
+  outline: none;
+  font-size: 16px;
+
+  margin-bottom: 16.5px;
 }
 
 .logout_button_box {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 }
 
 .logout_button {
-    width: 40%;
-    max-width: 130px;
-    height: 40px;
+  width: 40%;
+  max-width: 130px;
+  height: 40px;
 
-    border: none;
-    border-radius: 5px;
-    background-color: $nw-color;
-    
-    color: white;
+  border: none;
+  border-radius: 5px;
+  background-color: $nw-color;
+
+  color: white;
+
+  cursor: pointer;
 }

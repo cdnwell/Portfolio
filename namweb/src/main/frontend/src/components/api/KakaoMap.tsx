@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import { useSelector as useReduxSelector, useDispatch } from "react-redux";
-import { bookActions } from "../store/book";
+import { useSelector as useReduxSelector } from "react-redux";
 
 import {
   Map,
@@ -26,7 +25,6 @@ const KakaoMap: React.FC<{
   });
   const [isClicked, setIsClicked] = useState(false);
   const [isStored, setIsStored] = useState(false);
-  const dispatch = useDispatch();
 
   const lat_store = useReduxSelector(
     (state: { book: { post_lat: number } }) => state.book.post_lat
@@ -65,12 +63,6 @@ const KakaoMap: React.FC<{
       lat: mouseEvent.latLng.getLat(),
       lng: mouseEvent.latLng.getLng(),
     });
-    dispatch(
-      bookActions.setRePostPosition({
-        re_post_lat: mouseEvent.latLng.getLat(),
-        re_post_lng: mouseEvent.latLng.getLng(),
-      })
-    );
   };
 
   return (
