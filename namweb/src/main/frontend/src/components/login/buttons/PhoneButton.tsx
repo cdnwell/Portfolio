@@ -4,21 +4,37 @@ import classes from "./PhoneButton.module.scss";
 import axios from "../../../common/axiosInstance";
 
 import { useSelector as useReduxSelector } from "react-redux";
+import UpdateAni from "../../animation/UpdateAni";
 
-const PhoneButton: React.FC<{ phoneNumber: string }> = ({ phoneNumber }) => {
-  const [phone, setPhone] = useState(phoneNumber);
+const PhoneButton: React.FC<{
+  phoneP: string;
+  phoneInit: string;
+  onReloadClick: () => void;
+}> = ({ phoneP, phoneInit, onReloadClick }) => {
+  const [phone, setPhone] = useState("");
+  const [initPhone, setInitPhone] = useState("");
   const [isZeroStart, setIsZeroStart] = useState(false);
   const [isFullNumber, setIsFullNumber] = useState(false);
+  const [isInitPhone, setIsInitPhone] = useState(false);
+  const [isUpdate, setIsUpdate] = useState(false);
 
   const user_email = useReduxSelector(
     (state: { login: { email: string } }) => state.login.email
   );
 
   useEffect(() => {
-    setPhone(phoneNumber);
-  }, [phoneNumber]);
+    setPhone(phoneP);
+  }, [phoneP]);
+
+  useEffect(() => {
+    setInitPhone(phoneInit);
+  }, [phoneInit]);
 
   const onPhoneClick = () => {
+    setIsInitPhone(false);
+    setIsZeroStart(false);
+    setIsFullNumber(false);
+
     let phoneRep = phone;
 
     let phoneFront = phoneRep.substring(0, 3);
@@ -35,6 +51,16 @@ const PhoneButton: React.FC<{ phoneNumber: string }> = ({ phoneNumber }) => {
     }
     setIsFullNumber(false);
 
+    if (initPhone === phone) {
+      setIsInitPhone(true);
+      return;
+    }
+    setIsInitPhone(false);
+
+    const changeSelect = confirm("전화번호를 변경하시겠습니까?");
+
+    if (!changeSelect) return;
+
     phoneUpdate(phoneRep);
   };
 
@@ -42,7 +68,11 @@ const PhoneButton: React.FC<{ phoneNumber: string }> = ({ phoneNumber }) => {
     axios
       .post("/member/update/phone", { phone: phoneRep, email: user_email })
       .then((response) => {
-        console.log(response);
+        onReloadClick();
+        setIsUpdate(true);
+        setTimeout(() => {
+          setIsUpdate(false);
+        }, 2000);
       })
       .catch((error) => console.log(error));
   };
@@ -60,6 +90,12 @@ const PhoneButton: React.FC<{ phoneNumber: string }> = ({ phoneNumber }) => {
       {isFullNumber && (
         <p className={classes.phone_right}>전화번호를 모두 적어주세요.</p>
       )}
+      {isInitPhone && (
+        <p className={classes.phone_right}>
+          기존의 전화번호와 같은 이름입니다.
+        </p>
+      )}
+      {isUpdate && <UpdateAni />}
     </>
   );
 };

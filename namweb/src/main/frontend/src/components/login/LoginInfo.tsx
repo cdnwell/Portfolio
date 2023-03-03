@@ -10,6 +10,7 @@ import KakaoPost from "../api/KakaoPost";
 import PhoneButton from "./buttons/PhoneButton";
 import NameButton from "./buttons/NameButton";
 import NickButton from "./buttons/NickButton";
+import AddressButton from "./buttons/AddressButton";
 
 const NO_ADDRESS_STR = "주소 정보 없음";
 const NO_ADDRESS_DETAIL_STR = "상세 주소 정보 없음";
@@ -24,9 +25,13 @@ const LoginInfo = () => {
   const [nick, setNick] = useState("");
   const [initNick, setInitNick] = useState("");
   const [address, setAddress] = useState("");
+  const [initAddress, setInitAddress] = useState("");
   const [addressDetail, setAddressDetail] = useState("");
+  const [initAddressDetail, setInitAddressDetail] = useState("");
   const [phone, setPhone] = useState("");
+  const [initPhone, setInitPhone] = useState("");
   const [registerType, setRegisterType] = useState("");
+  const [isReload, setIsReload] = useState(true);
 
   const searchEmail = useReduxSelector(
     (state: { login: { email: string } }) => state.login.email
@@ -43,33 +48,58 @@ const LoginInfo = () => {
     setAddress(address_name);
   };
 
+  const onReloadClick = () => {
+    setIsReload(true);
+  };
+
   useEffect(() => {
+    if (!isReload) return;
+
     axios
       .get(`/member/info?email=${searchEmail}`)
       .then((response) => {
         const data = response.data;
-        console.log(response);
+        console.log(data);
 
         const email = data.email;
         const name = data.name;
         const nick = data.nick;
         const address = data.address;
+        const address_detail = data.address_detail;
         const phone = data.phone;
         const registerType = data.register_type;
 
         setEmail(email);
-        if (address) setAddress(address);
-        else setAddress(NO_ADDRESS_STR);
+        if (address) {
+          setAddress(address);
+          setInitAddress(address);
+        } else {
+          setAddress(NO_ADDRESS_STR);
+        }
+        if (address_detail) {
+          setAddressDetail(address_detail);
+          setInitAddressDetail(address_detail);
+        } else {
+          setAddressDetail(NO_ADDRESS_DETAIL_STR);
+        }
         if (name) {
           setName(name);
           setInitName(name);
-        } else setName(NO_NAME_STR);
+        } else {
+          setName(NO_NAME_STR);
+        }
         if (nick) {
           setNick(nick);
           setInitNick(nick);
-        } else setNick(NO_NICK_STR);
-        if (phone) setPhone(phone);
-        else setPhone(NO_PHONE_STR);
+        } else {
+          setNick(NO_NICK_STR);
+        }
+        if (phone) {
+          setPhone(phone);
+          setInitPhone(phone);
+        } else {
+          setPhone(NO_PHONE_STR);
+        }
 
         if (registerType === "kakao") setRegisterType("카카오(로그인) 가입");
         else if (registerType === "naver")
@@ -77,12 +107,18 @@ const LoginInfo = () => {
         else if (registerType === "google")
           setRegisterType("구글(로그인) 가입");
         else setRegisterType("홈페이지 가입");
+
+        setIsReload(false);
       })
       .catch((error) => console.log(error));
-  }, []);
+  }, [isReload]);
 
   const onChangeAddressDetail = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setAddressDetail(e.target.value);
+    const addressDetailTmp = e.target.value;
+
+    if (addressDetailTmp.trim().length > 40) return;
+
+    setAddressDetail(addressDetailTmp);
   };
 
   const addressDetailPlaceholder =
@@ -149,7 +185,11 @@ const LoginInfo = () => {
         value={name !== NO_NAME_STR ? name : ""}
         placeholder={namePlaceholder}
       />
-      <NameButton nameP={name} nameInit={initName} />
+      <NameButton
+        nameP={name}
+        nameInit={initName}
+        onReloadClick={onReloadClick}
+      />
       <span className={classes.nick_span}>닉네임</span>
       <input
         className={classes.nick_input}
@@ -157,7 +197,11 @@ const LoginInfo = () => {
         value={nick !== NO_NICK_STR ? nick : ""}
         placeholder={nickPlaceholder}
       />
-      <NickButton nickP={nick} nickInit={initNick} />
+      <NickButton
+        nickP={nick}
+        nickInit={initNick}
+        onReloadClick={onReloadClick}
+      />
       <span className={classes.address_span}>주소</span>
       <KakaoPost onResult={onResultHandler} />
       <p className={classes.address_name_p}>{address}</p>
@@ -169,9 +213,13 @@ const LoginInfo = () => {
         value={addressDetail !== NO_ADDRESS_DETAIL_STR ? addressDetail : ""}
         placeholder={addressDetailPlaceholder}
       />
-      <button type="button" className={classes.address_button}>
-        주소 변경
-      </button>
+      <AddressButton
+        addressP={address}
+        addressInit={initAddress}
+        addressDetailP={addressDetail}
+        addressDetailInit={initAddressDetail}
+        onReloadClick={onReloadClick}
+      />
       <span className={classes.phone_span}>전화번호</span>
       <input
         className={classes.phone_input}
@@ -179,7 +227,11 @@ const LoginInfo = () => {
         value={phone !== NO_PHONE_STR ? phone : ""}
         placeholder={phonePlaceholder}
       />
-      <PhoneButton phoneNumber={phone} />
+      <PhoneButton
+        phoneP={phone}
+        phoneInit={initPhone}
+        onReloadClick={onReloadClick}
+      />
       <span className={classes.register_type_span}>가입 방법</span>
       <p className={classes.register_type_p}>{registerType}</p>
       <div className={classes.logout_button_box}>

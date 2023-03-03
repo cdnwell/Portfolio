@@ -22,4 +22,11 @@
 		where email = #{email}
 	</update>
 	
+	<update id="updateAddress" parameterType="member">
+		update member
+		set address = #{address},
+		address_detail = #{address_detail}
+		where email = #{email}
+	</update>
+	
 </mapper>

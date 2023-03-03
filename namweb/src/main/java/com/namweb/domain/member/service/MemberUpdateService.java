@@ -25,4 +25,8 @@ public class MemberUpdateService {
 		memberUpdateMapper.updateNick(memberDto);
 	}
 
+	public void updateAddress(MemberDto memberDto) {
+		memberUpdateMapper.updateAddress(memberDto);
+	}
+
 }

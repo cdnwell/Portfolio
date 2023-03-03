@@ -4,16 +4,19 @@ import classes from "./NickButton.module.scss";
 
 import axios from "../../../common/axiosInstance";
 import { useSelector as useReduxSelector } from "react-redux";
+import UpdateAni from "../../animation/UpdateAni";
 
-const NickButton: React.FC<{ nickP: string; nickInit: string }> = ({
-  nickP,
-  nickInit,
-}) => {
+const NickButton: React.FC<{
+  nickP: string;
+  nickInit: string;
+  onReloadClick: () => void;
+}> = ({ nickP, nickInit, onReloadClick }) => {
   const [nick, setNick] = useState("");
   const [initNick, setInitNick] = useState("");
   const [isLength, setIsLength] = useState(false);
   const [isNotWord, setIsNotWord] = useState(false);
   const [isInitNick, setIsInitNick] = useState(false);
+  const [isUpdate, setIsUpdate] = useState(false);
 
   const userEmail = useReduxSelector(
     (state: { login: { email: string } }) => state.login.email
@@ -28,6 +31,10 @@ const NickButton: React.FC<{ nickP: string; nickInit: string }> = ({
   }, [nickInit]);
 
   const onNickClick = () => {
+    setIsLength(false);
+    setIsNotWord(false);
+    setIsInitNick(false);
+
     let nickTmp = nick;
 
     if (nickTmp.trim().length === 0) {
@@ -56,7 +63,13 @@ const NickButton: React.FC<{ nickP: string; nickInit: string }> = ({
 
     axios
       .post("/member/update/nick", { email: userEmail, nick: nick })
-      .then((response) => console.log(response))
+      .then((response) => {
+        onReloadClick();
+        setIsUpdate(true);
+        setTimeout(()=>{
+          setIsUpdate(false);
+        },2000);
+      })
       .catch((error) => console.log(error));
   };
 
@@ -74,6 +87,7 @@ const NickButton: React.FC<{ nickP: string; nickInit: string }> = ({
       {isInitNick && (
         <p className={classes.nick_right}>기존의 닉네임과 같은 닉네임입니다.</p>
       )}
+      {isUpdate && <UpdateAni />}
     </>
   );
 };

@@ -1,0 +1,38 @@
+@import "../../assets/scss/_constant";
+
+.update_ani {
+  position: absolute;
+  top: 140px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  z-index: 11;
+
+  width: 120px;
+  height: 38.5px;
+
+  border: none;
+  border-radius: 5px;
+  background-color: $nw-color;
+
+  color: white;
+
+  cursor: pointer;
+
+  animation: fadeinout 2s;
+}
+
+@keyframes fadeinout {
+  0% {
+    top : 280px;
+    opacity: 0;
+  }
+  50% {
+    top :140px;
+    opacity: 1;
+  }
+  100% {
+    top : 0px;
+    opacity: 0;
+  }
+}

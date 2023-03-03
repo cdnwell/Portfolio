@@ -13,4 +13,6 @@ public interface MemberUpdateMapper {
 
 	void updateNick(MemberDto memberDto);
 
+	void updateAddress(MemberDto memberDto);
+
 }

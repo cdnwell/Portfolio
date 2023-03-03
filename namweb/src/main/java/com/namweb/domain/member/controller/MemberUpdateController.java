@@ -34,10 +34,16 @@ public class MemberUpdateController {
 	
 	@PostMapping("/update/nick")
 	public String updateNick(@RequestBody MemberDto memberDto) {
-		System.out.println(memberDto);
 		memberUpdateService.updateNick(memberDto);
 		
 		return "update nick, success";
+	}
+	
+	@PostMapping("/update/address")
+	public String updateAddress(@RequestBody MemberDto memberDto) {
+		memberUpdateService.updateAddress(memberDto);
+		
+		return "update Address, success";
 	}
 	
 }
