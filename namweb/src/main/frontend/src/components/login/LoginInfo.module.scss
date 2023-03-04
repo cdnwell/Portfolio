@@ -109,4 +109,13 @@
   color: white;
 
   cursor: pointer;
+
+  transition : 0.3s all;
+}
+
+.logout_button:hover {
+  background-color: white;
+  border: 1px solid $nw-color;
+  color: $nw-footer-color;
+  transition: 0.3s all;
 }

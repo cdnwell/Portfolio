@@ -10,12 +10,12 @@
 	
 	<insert id="insertBookWait" parameterType="submit">
 		insert into book_wait(idx,nick,email,name,phone,content,book_date,con_address,con_latitude,con_longitude)
-		values(#{idx},#{nick},#{email},#{name},#{phone},#{content},str_to_date(#{book_date},'%Y. %m. %d. %H:%i:%s'),#{con_address},#{con_latitude},#{con_longitude})
+		values(#{idx},#{nick},#{email},#{name},#{phone},#{content},str_to_date(#{bookDate},'%Y. %m. %d. %H:%i:%s'),#{conAddress},#{conLatitude},#{conLongitude})
 	</insert>
 	
 	<insert id="insertBookWaitList" parameterType="map">
 		insert into book_wait_list(idx, book_wait_idx, con_date, morning, afternoon, extra)
-		values (nextval('BOOK_WAIT_LIST_SEQ'),#{book_wait_idx},str_to_date(#{con_date},'%Y. %m. %d.'),#{morning},#{afternoon},#{extra})
+		values (nextval('BOOK_WAIT_LIST_SEQ'),#{bookWaitIdx},str_to_date(#{conDate},'%Y. %m. %d.'),#{morning},#{afternoon},#{extra})
 	</insert>
 	
 </mapper>

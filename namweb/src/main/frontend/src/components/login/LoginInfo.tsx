@@ -59,7 +59,6 @@ const LoginInfo = () => {
       .get(`/member/info?email=${searchEmail}`)
       .then((response) => {
         const data = response.data;
-        console.log(data);
 
         const email = data.email;
         const name = data.name;

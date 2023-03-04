@@ -78,7 +78,7 @@ const NameButton: React.FC<{
       {isInitName && (
         <p className={classes.name_right}>기존의 이름과 같은 이름입니다.</p>
       )}
-      {isUpdate && <UpdateAni />}
+      {isUpdate && <UpdateAni content="업데이트 완료" />}
     </>
   );
 };

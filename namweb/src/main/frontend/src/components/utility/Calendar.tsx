@@ -469,16 +469,16 @@ const Calendar = () => {
     }
 
     const workArray = tmpArray.map((item) => {
-      const date_str = item.date.toLocaleDateString();
+      const dateStr = item.date.toLocaleDateString();
       const morning = item.morning;
       const afternoon = item.afternoon;
       const extra = item.extra;
 
-      return { date_str, morning, afternoon, extra };
+      return { dateStr, morning, afternoon, extra };
     });
     dispatch(
       bookActions.setWorkDate({
-        work_date: workArray,
+        workDate: workArray,
       })
     );
     setSelectedDateStatus(tmpArray);

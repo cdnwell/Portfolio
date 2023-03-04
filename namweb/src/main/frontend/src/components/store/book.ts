@@ -8,7 +8,7 @@ const initialState = {
   base_lng: CENTER_POS_X,
   post_lat: CENTER_POS_Y,
   post_lng: CENTER_POS_X,
-  work_date: [{}],
+  workDate: [{}],
 };
 
 const bookSlice = createSlice({
@@ -33,8 +33,8 @@ const bookSlice = createSlice({
       state,
       action: {
         payload: {
-          work_date: {
-            date_str: string;
+          workDate: {
+            dateStr: string;
             morning: boolean;
             afternoon: boolean;
             extra: boolean;
@@ -42,7 +42,7 @@ const bookSlice = createSlice({
         };
       }
     ) {
-      state.work_date = action.payload.work_date;
+      state.workDate = action.payload.workDate;
     },
   },
 });

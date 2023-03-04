@@ -87,7 +87,7 @@ const NickButton: React.FC<{
       {isInitNick && (
         <p className={classes.nick_right}>기존의 닉네임과 같은 닉네임입니다.</p>
       )}
-      {isUpdate && <UpdateAni />}
+      {isUpdate && <UpdateAni content="업데이트 완료" />}
     </>
   );
 };

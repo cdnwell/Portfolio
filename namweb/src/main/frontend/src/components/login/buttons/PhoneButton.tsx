@@ -95,7 +95,7 @@ const PhoneButton: React.FC<{
           기존의 전화번호와 같은 이름입니다.
         </p>
       )}
-      {isUpdate && <UpdateAni />}
+      {isUpdate && <UpdateAni content="업데이트 완료" />}
     </>
   );
 };

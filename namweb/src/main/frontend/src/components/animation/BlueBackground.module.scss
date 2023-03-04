@@ -1,0 +1,16 @@
+@import "../../assets/scss/_constant";
+
+.blue_background {
+    width: 100%;
+    height: 100%;
+    animation: blue_background 1s ease-out;
+}
+
+@keyframes blue_background {
+    from {
+        background-color: white;
+    }
+    to {
+        background-color: $nw-color;
+    }
+}

@@ -6,6 +6,8 @@ import axios from "../../../common/axiosInstance";
 import { useDispatch } from "react-redux";
 import { loginActions } from "../../store/login";
 import Spinner from "../../layout/Spinner";
+import Empty from "../../layout/Empty";
+import BlueBackground from "../../animation/BlueBackground";
 
 const KakaoLoginRedirect: React.FC<{
   onLoginHandler: (status: boolean) => void;
@@ -17,11 +19,11 @@ const KakaoLoginRedirect: React.FC<{
 
   useEffect(() => {
     onLoginHandler(true);
+    console.log(code);
     axios
       .post(`/login/kakaoLogin?code=${code}`)
       .then((response) => {
         const data = response.data;
-        console.log(response);
 
         if (data.error) throw new Error(data.error);
 
@@ -42,7 +44,7 @@ const KakaoLoginRedirect: React.FC<{
       .finally(() => onLoginHandler(false));
   }, []);
 
-  return <Spinner />;
+  return <BlueBackground />;
 };
 
 export default KakaoLoginRedirect;

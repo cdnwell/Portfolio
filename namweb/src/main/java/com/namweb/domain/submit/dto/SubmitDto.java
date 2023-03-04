@@ -129,7 +129,7 @@ public class SubmitDto {
 			if (!extra && !afternoon && !morning)
 				continue;
 
-			tmpMap.put("con_date", obj.getString("date_str"));
+			tmpMap.put("conDate", obj.getString("dateStr"));
 			tmpMap.put("morning", morning);
 			tmpMap.put("afternoon", afternoon);
 			tmpMap.put("extra", extra);

@@ -6,6 +6,7 @@ import axios from "../../../common/axiosInstance";
 import { useDispatch } from "react-redux";
 import { loginActions } from "../../store/login";
 import Spinner from "../../layout/Spinner";
+import Empty from "../../layout/Empty";
 
 const GoogleLoginRedirect: React.FC<{
   onLoginHandler: (status: boolean) => void;
@@ -21,7 +22,6 @@ const GoogleLoginRedirect: React.FC<{
       .post(`/login/googleLogin?code=${code}`)
       .then((response) => {
         const data = response.data;
-        console.log(response);
 
         if (data.error) throw new Error(data.error);
 
@@ -42,7 +42,7 @@ const GoogleLoginRedirect: React.FC<{
       .finally(() => onLoginHandler(false));
   }, []);
 
-  return <Spinner />;
+  return <Empty />;
 };
 
 export default GoogleLoginRedirect;

@@ -110,7 +110,7 @@ const AddressButton: React.FC<{
       {isInitAddress && (
         <p className={classes.address_right}>기존의 주소와 같습니다.</p>
       )}
-      {isUpdate && <UpdateAni />}
+      {isUpdate && <UpdateAni content="업데이트 완료" />}
     </>
   );
 };

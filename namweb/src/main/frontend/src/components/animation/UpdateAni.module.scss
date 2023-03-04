@@ -1,7 +1,8 @@
 @import "../../assets/scss/_constant";
 
 .update_ani {
-  position: absolute;
+  position: fixed;
+  
   top: 140px;
   left: 50%;
   transform: translateX(-50%);

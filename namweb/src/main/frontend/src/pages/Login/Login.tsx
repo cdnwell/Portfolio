@@ -6,11 +6,12 @@ import { useSelector as useReduxSelector } from "react-redux";
 import { Routes } from "react-router-dom";
 import { Route } from "react-router";
 
-import LoginBox from "../components/login/LoginBox";
-import KakaoLoginRedirect from "../components/login/redirect/KakaoLoginRedirect";
-import NaverLoginRedirect from "../components/login/redirect/NaverLoginRedirect";
-import GoogleLoginRedirect from "../components/login/redirect/GoogleLoginRedirect";
-import LoginInfo from "../components/login/LoginInfo";
+import LoginBox from "../../components/login/LoginBox";
+import KakaoLoginRedirect from "../../components/login/redirect/KakaoLoginRedirect";
+import NaverLoginRedirect from "../../components/login/redirect/NaverLoginRedirect";
+import GoogleLoginRedirect from "../../components/login/redirect/GoogleLoginRedirect";
+import LoginInfo from "../../components/login/LoginInfo";
+import Register from "./Register/Register";
 
 const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -24,9 +25,11 @@ const Login = () => {
   };
 
   return (
-    <div className={classes.login_root}>
-      {!isLoggedIn && !isLoading && <LoginBox />}
-      {isLoggedIn && !isLoading && <LoginInfo />}
+    <>
+      <div className={classes.login_root}>
+        {!isLoggedIn && !isLoading && <LoginBox />}
+        {isLoggedIn && !isLoading && <LoginInfo />}
+      </div>
       <Routes>
         <Route
           path="kakaoLogin"
@@ -41,7 +44,7 @@ const Login = () => {
           element={<GoogleLoginRedirect onLoginHandler={onLoginHandler} />}
         />
       </Routes>
-    </div>
+    </>
   );
 };
 
