@@ -215,6 +215,7 @@ const BookForm = () => {
         type="text"
         onChange={onNameEntered}
         value={name}
+        placeholder="이름을 입력해주세요."
       />
       {isNameCorrect && <p className={classes.regex_right}>이름이 올바르지 않습니다. {"["}문자, 띄어쓰기 1회만 가능{"]"}</p>}
       <label className={classes.phone_label} htmlFor="book_phone">
@@ -226,6 +227,7 @@ const BookForm = () => {
         type="text"
         onChange={onPhoneEntered}
         value={phone}
+        placeholder="전화번호를 입력해주세요"
       />
       {isPhoneContent && <p className={classes.regex_right}>올바른 전화번호를 입력해주세요.</p>}
       <label className={classes.book_label} htmlFor="book_text">

@@ -16,7 +16,13 @@ public class MemberSelectService {
 	public MemberDto selectMemberInfo(String email) {
 		return memberSelectMapper.selectMemberInfo(email);
 	}
-	
-	
+
+	public MemberDto selectMemberExist(String email) {
+		return memberSelectMapper.selectMemberExist(email);
+	}
+
+	public MemberDto selectMemberLogin(MemberDto memberDto) {
+		return memberSelectMapper.selectMemberLogin(memberDto);
+	}
 
 }

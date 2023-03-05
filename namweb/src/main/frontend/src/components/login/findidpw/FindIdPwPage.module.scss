@@ -1,0 +1,40 @@
+@import "../../../assets/scss/_constant";
+
+.find_id_pw {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  max-width: 400px;
+  width: 80%;
+  height: 360px;
+  border: 1px solid black;
+  border-radius: 10px;
+  box-shadow: 3px 3px 10px #b7b7b7, -3px -3px 10px #b7b7b7;
+}
+
+.backward_button {
+  width: 40%;
+  max-width: 130px;
+  height: 40px;
+  margin : 0 5px;
+
+  border: none;
+  border-radius: 5px;
+  background-color: $nw-color;
+
+  color: white;
+
+  cursor: pointer;
+
+  transition: 0.3s all;
+}
+
+.backward_button:hover {
+  background-color: white;
+  color: $nw-color;
+  border: 1px solid $nw-color;
+
+  transition: 0.3s all;
+}

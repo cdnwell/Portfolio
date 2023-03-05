@@ -9,4 +9,8 @@ public interface MemberSelectMapper {
 
 	MemberDto selectMemberInfo(String email);
 
+	MemberDto selectMemberExist(String email);
+
+	MemberDto selectMemberLogin(MemberDto memberDto);
+
 }

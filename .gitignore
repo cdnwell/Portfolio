@@ -2,6 +2,8 @@
 
 constant/
 
+config/
+
 *.properties
 
 axiosInstance.ts

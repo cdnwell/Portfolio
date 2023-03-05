@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.namweb.domain.member.mapper.MemberInsertMapper">
+
+	<insert id="insertMember" parameterType="member">
+		insert into
+		member(idx,email,pw,name,nick,phone,address,address_detail,reg_date,register_type)
+		values(nextval('MEMBER_SEQ'),#{email},#{pw},#{name},#{nick},#{phone},#{address},#{address_detail},sysdate(),'home')
+	</insert>
+
+</mapper>

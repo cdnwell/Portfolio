@@ -9,8 +9,8 @@
 	</select>
 
 	<insert id="insertMember" parameterType="gMember">
-		insert into member(idx,id,email,pw,name,nick,phone,address,reg_date,register_type)
-		values(nextval('MEMBER_SEQ'),null,#{email},null,#{name},null,null,null,sysdate(),'google')
+		insert into member(idx,email,pw,name,nick,phone,address,reg_date,register_type)
+		values(nextval('MEMBER_SEQ'),#{email},null,#{name},null,null,null,sysdate(),'google')
 	</insert>
 	
 </mapper>

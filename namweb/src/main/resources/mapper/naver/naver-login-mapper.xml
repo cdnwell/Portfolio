@@ -9,8 +9,8 @@
 	</select>
 
 	<insert id="insertMember" parameterType="nMember">
-		insert into member(idx,id,email,pw,name,nick,phone,address,reg_date,register_type)
-		values(nextval('MEMBER_SEQ'),null,#{email},null,null,#{nick},null,null,sysdate(),'naver')
+		insert into member(idx,email,pw,name,nick,phone,address,reg_date,register_type)
+		values(nextval('MEMBER_SEQ'),#{email},null,null,#{nick},null,null,sysdate(),'naver')
 	</insert>
 	
 </mapper>

@@ -8,4 +8,12 @@
 		select email, name, nick, phone, register_type, address, address_detail from member where email = #{email}
 	</select>
 	
+	<select id="selectMemberExist" parameterType="string" resultType="member">
+		select email from member where email = #{email}
+	</select>
+	
+	<select id="selectMemberLogin" parameterType="member" resultType="member">
+		select email, name, nick from member where email = #{email} and pw = #{pw}
+	</select>
+	
 </mapper>

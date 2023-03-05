@@ -1,0 +1,23 @@
+@import "../../../../assets/scss/_constant";
+
+.email_button {
+  width: 40%;
+  max-width: 140px;
+  height: 38.5px;
+
+  border: none;
+  border-radius: 5px;
+  background-color: $nw-color;
+
+  color: white;
+
+  cursor: pointer;
+}
+
+.email_right {
+  margin-bottom: 0;
+  padding-left: 5px;
+
+  font-size: 14px;
+  color: red;
+}
