@@ -1,0 +1,95 @@
+@import "../../../../assets/scss/_constant";
+
+.find_id {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  max-width: 400px;
+  width: 80%;
+  height: 360px;
+  border: 1px solid black;
+  border-radius: 10px;
+  box-shadow: 3px 3px 10px #b7b7b7, -3px -3px 10px #b7b7b7;
+}
+
+.find_id_div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  
+  width: 100%;
+}
+
+.find_id_span_div {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+
+  width: 100%;
+
+  margin-top: 24px;
+
+  padding-left: 23%;
+}
+
+.find_id_span{
+  font-weight: bold;
+}
+
+.find_id_button,
+.find_id_span {
+  margin-bottom: 16px;
+}
+
+.find_id_input {
+  margin-bottom: 40px;
+}
+
+.find_id_input {
+  width: 80%;
+
+  border: none;
+  outline: none;
+
+  padding: 5px;
+  height: 30px;
+  box-sizing: border-box;
+  font-size: 16px;
+
+  border-bottom: 1px solid black;
+}
+
+.find_id_button_div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.find_id_button {
+  width: 40%;
+  max-width: 130px;
+  height: 40px;
+  margin: 0 5px;
+  margin-bottom: 15px;
+
+  border: none;
+  border-radius: 5px;
+  background-color: $nw-color;
+
+  color: white;
+
+  cursor: pointer;
+
+  transition: 0.3s all;
+}
+
+.find_id_button:hover {
+  background-color: white;
+  border: 1px solid $nw-color;
+  color: $nw-footer-color;
+  transition: 0.3s all;
+}

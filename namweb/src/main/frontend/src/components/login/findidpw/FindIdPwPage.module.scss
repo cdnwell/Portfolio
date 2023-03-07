@@ -14,11 +14,56 @@
   box-shadow: 3px 3px 10px #b7b7b7, -3px -3px 10px #b7b7b7;
 }
 
+.find_id_pw_p {
+  margin: 10px;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.find_id_div,
+.find_pw_div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.find_id_div {
+  margin-bottom: 5px;
+}
+
+.find_pw_div {
+  margin-bottom: 25px;
+}
+
+.email_id_link,
+.email_pw_link {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 14px;
+
+  width: 190px;
+  height: 40px;
+  margin: 0 5px;
+
+  border: none;
+  border-radius: 5px;
+  background-color: $nw-color;
+
+  text-decoration: none;
+
+  color: white;
+
+  cursor: pointer;
+}
+
 .backward_button {
   width: 40%;
   max-width: 130px;
   height: 40px;
-  margin : 0 5px;
+  margin: 0 5px;
 
   border: none;
   border-radius: 5px;

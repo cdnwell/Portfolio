@@ -8,6 +8,7 @@ import EmailButton from "./buttons/EmailButton";
 import { AiFillCheckCircle } from "react-icons/ai";
 import axios from "../../../common/axiosInstance";
 import { useNavigate } from "react-router-dom";
+import BackwardButton from "../buttons/BackwardButton";
 
 const RegisterPage = () => {
   const [email, setEmail] = useState("");
@@ -391,11 +392,7 @@ const RegisterPage = () => {
         <button className={classes.register_button} onClick={onRegisterClick}>
           회원가입
         </button>
-        <button
-          type="button"
-          className={classes.backward_button}
-          onClick={() => navigate(-1)}
-        >뒤로 가기</button>
+        <BackwardButton path="/login" />
       </div>
     </form>
   );

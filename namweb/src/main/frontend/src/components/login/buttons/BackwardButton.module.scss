@@ -1,0 +1,24 @@
+@import "../../../assets/scss/_constant";
+
+.backward_button {
+  width: 130px;
+  height: 40px;
+  margin : 0 5px;
+
+  border: none;
+  border-radius: 5px;
+  background-color: $nw-color;
+
+  color: white;
+
+  cursor: pointer;
+
+  transition: 0.3s all;
+}
+
+.backward_button:hover {
+  background-color: white;
+  border: 1px solid $nw-color;
+  color: $nw-footer-color;
+  transition: 0.3s all;
+}
