@@ -77,8 +77,8 @@ const LoginBox = () => {
               회원가입
             </Link>
             {"|"}
-            <Link className={classes.id_pw_find_link} to="/login/find-id-pw">
-              아이디/비밀번호 찾기
+            <Link className={classes.id_pw_find_link} to="/login/find-pw">
+              비밀번호 찾기
             </Link>
           </div>
           <div className={classes.login_api_box}>

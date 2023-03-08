@@ -1,6 +1,6 @@
-@import "../../../../assets/scss/_constant";
+@import "../../../assets/scss/_constant";
 
-.find_id {
+.find_pw {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -12,9 +12,16 @@
   border: 1px solid black;
   border-radius: 10px;
   box-shadow: 3px 3px 10px #b7b7b7, -3px -3px 10px #b7b7b7;
+
+  overflow: hidden;
 }
 
-.find_id_div {
+.find_pw_p {
+  color: $nw-color;
+  font-size: 18px;
+}
+
+.find_pw_div {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -23,7 +30,12 @@
   width: 100%;
 }
 
-.find_id_span_div {
+.find_pw_div_change {
+  transform: translateX(-100%);
+  transition: 0.5s all;
+}
+
+.find_pw_span_div {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
@@ -35,20 +47,20 @@
   padding-left: 23%;
 }
 
-.find_id_span{
+.find_pw_span{
   font-weight: bold;
 }
 
-.find_id_button,
-.find_id_span {
+.find_pw_button,
+.find_pw_span {
   margin-bottom: 16px;
 }
 
-.find_id_input {
+.find_pw_input {
   margin-bottom: 40px;
 }
 
-.find_id_input {
+.find_pw_input {
   width: 80%;
 
   border: none;
@@ -62,16 +74,22 @@
   border-bottom: 1px solid black;
 }
 
-.find_id_button_div {
+.not_right {
+  font-size: 14px;
+  color: red;
+  margin-top: -25px;
+}
+
+.find_pw_button_div {
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
 }
 
-.find_id_button {
+.find_pw_button {
   width: 40%;
-  max-width: 130px;
+  width: 130px;
   height: 40px;
   margin: 0 5px;
   margin-bottom: 15px;
@@ -87,9 +105,21 @@
   transition: 0.3s all;
 }
 
-.find_id_button:hover {
+.find_pw_button:hover {
   background-color: white;
   border: 1px solid $nw-color;
   color: $nw-footer-color;
   transition: 0.3s all;
+}
+
+.find_pw_fail {
+  width: 300px;
+  background-color: red;
+}
+
+.find_pw_fail:hover{
+  background-color: white;
+  border: 1px solid red;
+  color: red;
+  transform: 0.3s all;
 }

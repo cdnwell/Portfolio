@@ -9,11 +9,14 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class GoogleEmailService {
-	
+
 	private final GoogleEmailSender googleEmailSender;
-	
-	public void sendGoogleEmail() {
-		googleEmailSender.mailSend();
+
+	public int sendGoogleEmail(String email) {
+		boolean emailCheck = googleEmailSender.emailCheck(email);
+		System.out.println("Email : " + emailCheck);
+		if (emailCheck) return googleEmailSender.mailSend(email);
+		return -1;
 	}
 
 }

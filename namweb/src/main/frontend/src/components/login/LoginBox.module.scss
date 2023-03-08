@@ -75,7 +75,10 @@
 }
 
 .register_box {
-  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: 10px 0;
 }
 
 .register_link,

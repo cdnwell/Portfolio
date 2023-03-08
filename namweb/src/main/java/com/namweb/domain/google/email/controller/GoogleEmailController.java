@@ -13,10 +13,8 @@ public class GoogleEmailController {
 	
 	private final GoogleEmailService googleEmailService;
 	
-	@GetMapping("/login/find-id-pw/find-by-email")
-	public String googleEMailSender() {
-		googleEmailService.sendGoogleEmail();
-		
-		return "google mail has send";
+	@GetMapping("/login/find-email")
+	public int googleEMailSender(String email) {
+		return googleEmailService.sendGoogleEmail(email);
 	}
 }

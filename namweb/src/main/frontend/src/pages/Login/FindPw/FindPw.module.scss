@@ -1,0 +1,31 @@
+@import "../../../assets/scss/_constant";
+
+.find_pw_root {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  min-height: inherit;
+}
+
+.find_pw_box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  max-width: 400px;
+  width: 80%;
+  height: 360px;
+  border: 1px solid black;
+  border-radius: 10px;
+  box-shadow: 3px 3px 10px #b7b7b7, -3px -3px 10px #b7b7b7;
+
+  overflow: hidden;
+}
+
+.find_pw_p {
+  color: $nw-color;
+  font-size: 18px;
+}
