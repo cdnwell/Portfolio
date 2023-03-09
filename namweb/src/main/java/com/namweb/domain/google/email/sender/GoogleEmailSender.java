@@ -60,10 +60,10 @@ public class GoogleEmailSender {
 
 		String message = "";
 		message += "안녕하세요.\n";
-		message += "아이디 찾기 서비스입니다.\n";
+		message += "비밀번호 찾기 서비스입니다.\n";
 		message += "인증 번호는 아래와 같습니다.\n";
 		message += "인증 번호 : " + randomNumber + "\n";
-		message += "아이디 찾기 페이지에 인증 번호를 입력해주시길 바랍니다.\n";
+		message += "비밀번호 찾기 페이지에 인증 번호를 입력해주시길 바랍니다.\n";
 
 		try {
 			msg.setSentDate(new Date());
@@ -71,7 +71,7 @@ public class GoogleEmailSender {
 			msg.setFrom(new InternetAddress("cdnwellhk@gmail.com", "Admin"));
 			InternetAddress to = new InternetAddress(email);
 			msg.setRecipient(Message.RecipientType.TO, to);
-			msg.setSubject("가입된 아이디 찾기 : 인증 번호", "UTF-8");
+			msg.setSubject("비밀번호 찾기 : 인증 번호", "UTF-8");
 			msg.setText(message);
 
 			Transport.send(msg);
