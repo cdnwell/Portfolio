@@ -6,6 +6,11 @@
 <p>2023-02 ~</p>
 <h2>기술 스택</h2>
 <p>Java(Spring), React.js, Mysql, Mybatis, Html5, CSS</p>
+<h2>핵심 기능</h2>
+<h3>달력 컴포넌트</h3>
+<img src="../[asset]/namweb/portfolio/calendar01.png" alt="예약 페이지-달력.png" />
+<h4>코드</h4>
+<a href="https://github.com/cdnwell/Portfolio/blob/master/namweb/src/main/frontend/src/components/utility/Calendar.tsx">달력 컴포넌트 코드입니다</a>
 <h2>화면</h2>
 <h3>메인 페이지</h3>
 <img src="../[asset]/namweb/portfolio/main01.png" alt="메인 페이지.png" />
