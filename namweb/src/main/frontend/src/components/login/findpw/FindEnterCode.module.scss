@@ -1,1 +1,110 @@
 @import "../../../assets/scss/_constant";
+
+.find_enter_code {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  
+  height: 225.67px;
+  width: 400px;
+}
+
+.find_enter_left {
+  transform: translateX(-100%);
+  transition: 0.5s all;
+}
+
+.find_enter_right {
+  transform: translateX(0);
+  transition: 0.5s all;
+}
+
+.code_input {
+  width: 80%;
+
+  border: none;
+  outline: none;
+
+  padding: 5px;
+  height: 30px;
+  box-sizing: border-box;
+  font-size: 16px;
+
+  border-bottom: 1px solid black;
+
+  margin : 20px 0;
+}
+
+.email_send_btn {
+  width: 40%;
+  width: 150px;
+  height: 40px;
+  margin: 0 5px;
+  margin-bottom: 15px;
+
+  border: none;
+  border-radius: 5px;
+  background-color: $nw-color;
+
+  color: white;
+
+  cursor: pointer;
+
+  transition: 0.3s all;
+}
+
+:is(.email_send_btn, .enter_code_btn):hover {
+  background-color: white;
+  border: 1px solid $nw-color;
+  color: $nw-footer-color;
+  transition: 0.3s all;
+}
+
+.enter_code_btn {
+  width: 40%;
+  width: 110px;
+  height: 40px;
+  margin: 0 5px;
+  margin-bottom: 15px;
+
+  border: none;
+  border-radius: 5px;
+  background-color: $nw-color;
+
+  color: white;
+
+  cursor: pointer;
+
+  transition: 0.3s all;
+}
+
+.btn_box {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.backward_button {
+  width: 130px;
+  height: 40px;
+  margin : 0 5px;
+
+  border: none;
+  border-radius: 5px;
+  background-color: $nw-color;
+
+  color: white;
+
+  cursor: pointer;
+
+  transition: 0.3s all;
+}
+
+.backward_button:hover {
+  background-color: white;
+  border: 1px solid $nw-color;
+  color: $nw-footer-color;
+  transition: 0.3s all;
+}

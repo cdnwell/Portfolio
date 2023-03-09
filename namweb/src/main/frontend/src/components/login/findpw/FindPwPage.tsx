@@ -6,11 +6,13 @@ import axios from "../../../common/axiosInstance";
 
 import BackwardButton from "../buttons/BackwardButton";
 
-const FindPwPage: React.FC<{ onSuccess: (code : number) => void }> = ({ onSuccess }) => {
+const FindPwPage: React.FC<{
+  onSuccess: (data: { code: number; email: string }) => void;
+  moveDirection : string;
+}> = ({ onSuccess, moveDirection }) => {
   const [email, setEmail] = useState("");
   const [buttonStr, setButtonStr] = useState("비밀번호 찾기");
   const [isFail, setIsFail] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(false);
   const [isEmpty, setIsEmpty] = useState(false);
   const [isFormNotCorrect, setIsFormNotCorrect] = useState(false);
 
@@ -37,8 +39,6 @@ const FindPwPage: React.FC<{ onSuccess: (code : number) => void }> = ({ onSucces
       return;
     }
 
-    console.log(email);
-
     axios
       .get(`/login/find-email?email=${email}`)
       .then((response) => {
@@ -50,7 +50,7 @@ const FindPwPage: React.FC<{ onSuccess: (code : number) => void }> = ({ onSucces
         setIsChange(true);
 
         setTimeout(() => {
-          onSuccess(code);
+          onSuccess({ code, email });
         }, 500);
       })
       .catch((error) => {
@@ -69,7 +69,12 @@ const FindPwPage: React.FC<{ onSuccess: (code : number) => void }> = ({ onSucces
 
   const fail_class = isFail ? classes.find_pw_fail : "";
 
-  const success_class = isChange ? classes.find_pw_div_change : "";
+  let success_class = "";
+  if(moveDirection === "left"){
+    success_class = classes.find_pw_div_left;
+  } else if (moveDirection === "right") {
+    success_class = classes.find_pw_div_right;
+  }
 
   return (
     <div className={`${classes.find_pw_div} ${success_class}`}>

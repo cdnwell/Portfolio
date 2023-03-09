@@ -29,3 +29,10 @@
   color: $nw-color;
   font-size: 18px;
 }
+
+.find_pw_pages {
+  display: flex;
+  flex-direction: row;
+  
+  transform: translateX(25%);
+}

@@ -7,20 +7,30 @@ import FindEnterCode from "../../../components/login/findpw/FindEnterCode";
 
 const FindPw = () => {
   const [code, setCode] = useState(-1);
+  const [email, setEmail] = useState("");
+  const [moveDirection, setMoveDirection] = useState("");
   const [isSuccess, setIsSuccess] = useState(false);
 
-  const onSuccess = (code: number) => {
-    setIsSuccess(true);
-    setCode(code);
-    console.log("code", code);
+  const onSuccess = (data: { code: number; email: string }) => {
+    // setIsSuccess(true);
+    setCode(data.code);
+    setEmail(data.email);
+    console.log("code", data.code);
+    setMoveDirection("left");
+  };
+
+  const onBackward = () => {
+    setMoveDirection("right");
   };
 
   return (
     <div className={classes.find_pw_root}>
       <div className={classes.find_pw_box}>
         <p className={classes.find_pw_p}>비밀번호 찾기</p>
-        {!isSuccess && <FindPwPage onSuccess={onSuccess} />}
-        {isSuccess && <FindEnterCode code={code}/>}
+        <div className={classes.find_pw_pages}>
+          <FindPwPage moveDirection={moveDirection} onSuccess={onSuccess} />
+          <FindEnterCode moveDirection={moveDirection} code={code} email={email} onBackward={onBackward} />
+        </div>
       </div>
     </div>
   );

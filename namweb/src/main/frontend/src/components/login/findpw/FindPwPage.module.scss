@@ -1,12 +1,20 @@
 @import "../../../assets/scss/_constant";
 
+.find_pw_div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  width: 400px;
+}
+
 .find_pw {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 
-  max-width: 400px;
   width: 80%;
   height: 360px;
   border: 1px solid black;
@@ -21,17 +29,13 @@
   font-size: 18px;
 }
 
-.find_pw_div {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  
-  width: 100%;
+.find_pw_div_left {
+  transform: translateX(-100%);
+  transition: 0.5s all;
 }
 
-.find_pw_div_change {
-  transform: translateX(-100%);
+.find_pw_div_right {
+  transform: translateX(0);
   transition: 0.5s all;
 }
 
@@ -47,7 +51,7 @@
   padding-left: 23%;
 }
 
-.find_pw_span{
+.find_pw_span {
   font-weight: bold;
 }
 
@@ -117,7 +121,7 @@
   background-color: red;
 }
 
-.find_pw_fail:hover{
+.find_pw_fail:hover {
   background-color: white;
   border: 1px solid red;
   color: red;
