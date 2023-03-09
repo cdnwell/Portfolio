@@ -14,7 +14,7 @@
 <h4>코드</h4>
 <a href="https://github.com/cdnwell/Portfolio/blob/master/namweb/src/main/frontend/src/components/utility/Calendar.tsx">달력 컴포넌트 코드입니다</a>
 <h3>이메일 전송 서비스</h3>
-<img src="../[asset]/namweb/portfolio/email01.png" alt="이메일 전송 확인.png" />
+<img src="../[asset]/namweb/portfolio/email02.png" alt="이메일 전송 확인.png" />
 <h4>코드</h4>
 <a href="https://github.com/cdnwell/Portfolio/blob/master/namweb/src/main/java/com/namweb/domain/google/email/sender/GoogleEmailSender.java">이메일 전송 코드입니다(자바)</a>
 <h2>화면</h2>
