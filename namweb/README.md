@@ -6,6 +6,8 @@
 <p>2023-02 ~</p>
 <h2>기술 스택</h2>
 <p>Java(Spring), React.js, Mysql, Mybatis, Html5, CSS</p>
+<h2>ERD</h2>
+<img src="../[asset]/namweb/sql/namweb_erd.png" alt="namweb erd 스크린샷.png" />
 <h2>핵심 기능</h2>
 <h3>달력 컴포넌트</h3>
 <img src="../[asset]/namweb/portfolio/calendar01.png" alt="예약 페이지-달력.png" />
