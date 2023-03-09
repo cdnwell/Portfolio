@@ -1,11 +1,11 @@
 <h1>namweb</h1>
 <p>프로젝트 주제 : 건설장비 차량 스카이 작업 예약 사이트</p>
 <p>소개 : 리액트와 스프링을 기반으로 한 프로젝트입니다.</p>
-<p>약 2달 간 공부한 리액트를 직접 사용해보고 여러 기능을 만들어보았습니다.</p>
+<p>약 2달 간 공부한 리액트와 타입스크립트를 사용해보고 여러 기능을 만들어보았습니다.</p>
 <h2>제작 기간</h2>
 <p>2023-02 ~</p>
 <h2>기술 스택</h2>
-<p>Java(Spring), React.js, Mysql, Mybatis, Html5, CSS</p>
+<p>Java(Spring), React.js, Typescript, Mysql, Mybatis, Html5, CSS</p>
 <h2>ERD</h2>
 <img src="../[asset]/namweb/sql/namweb_erd.png" alt="namweb erd 스크린샷.png" />
 <h2>핵심 기능</h2>
