@@ -74,7 +74,7 @@ public class GoogleEmailSender {
 			msg.setSubject("비밀번호 찾기 : 인증 번호", "UTF-8");
 			msg.setText(message);
 
-			Transport.send(msg);
+//			Transport.send(msg);
 
 			return randomNumber;
 

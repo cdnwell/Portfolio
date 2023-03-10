@@ -29,4 +29,10 @@
 		where email = #{email}
 	</update>
 	
+	<update id="updatePassword" parameterType="member">
+		update member
+		set pw = #{pw}
+		where email = #{email} 
+	</update>
+	
 </mapper>

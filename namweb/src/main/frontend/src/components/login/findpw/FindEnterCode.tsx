@@ -10,7 +10,8 @@ const FindEnterCode: React.FC<{
   email: string;
   moveDirection: string;
   onBackward: () => void;
-}> = ({ code, email, moveDirection, onBackward }) => {
+  onCodeComplete : () => void;
+}> = ({ code, email, moveDirection, onBackward, onCodeComplete }) => {
   const [codeEntered, setCodeEntered] = useState<number | null>(null);
   const [codeOrigin, setCodeOrigin] = useState<number>();
   const [isBackward, setIsBackward] = useState(false);
@@ -38,7 +39,9 @@ const FindEnterCode: React.FC<{
   }, [code]);
 
   const onCodeBtnClick = () => {
-    
+    if (codeOrigin === codeEntered) {
+      onCodeComplete();
+    }
   };
 
   const onReSendClick = () => {
@@ -61,15 +64,14 @@ const FindEnterCode: React.FC<{
     onBackward();
   };
 
-  let move_class = "";
-
-  if (moveDirection === "left") {
-    move_class = classes.find_enter_left;
-  } else if (moveDirection === "right") {
-    move_class = classes.find_enter_right;
-  }
-
-  const backward_class = isBackward ? classes.find_enter_change : "";
+  const move_class =
+    moveDirection === "left"
+      ? classes.find_enter_left
+      : moveDirection === "right"
+      ? classes.find_enter_right
+      : moveDirection === "re_left"
+      ? classes.find_enter_re_left
+      : "";
 
   return (
     <div className={`${classes.find_enter_code} ${move_class}`}>

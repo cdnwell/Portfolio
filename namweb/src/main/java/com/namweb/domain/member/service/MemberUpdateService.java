@@ -29,4 +29,8 @@ public class MemberUpdateService {
 		memberUpdateMapper.updateAddress(memberDto);
 	}
 
+	public void updatePassword(MemberDto memberDto) {
+		memberUpdateMapper.updatePassword(memberDto);
+	}
+
 }

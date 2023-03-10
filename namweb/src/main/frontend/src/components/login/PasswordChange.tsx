@@ -6,9 +6,9 @@ const PasswordChange = () => {
         기존 비밀번호
         <input type="password" id="password" />
     </label>
-    <label htmlFor="passwordre">
+    <label htmlFor="passwordRe">
         변경할 비밀번호
-        <input type="text" id="passwordre" />
+        <input type="text" id="passwordRe" />
     </label>
     </form>
 }

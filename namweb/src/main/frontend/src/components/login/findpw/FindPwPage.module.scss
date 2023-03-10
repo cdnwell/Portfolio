@@ -9,21 +9,6 @@
   width: 400px;
 }
 
-.find_pw {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-
-  width: 80%;
-  height: 360px;
-  border: 1px solid black;
-  border-radius: 10px;
-  box-shadow: 3px 3px 10px #b7b7b7, -3px -3px 10px #b7b7b7;
-
-  overflow: hidden;
-}
-
 .find_pw_p {
   color: $nw-color;
   font-size: 18px;
@@ -92,7 +77,6 @@
 }
 
 .find_pw_button {
-  width: 40%;
   width: 130px;
   height: 40px;
   margin: 0 5px;

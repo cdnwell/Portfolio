@@ -16,8 +16,6 @@ const FindPwPage: React.FC<{
   const [isEmpty, setIsEmpty] = useState(false);
   const [isFormNotCorrect, setIsFormNotCorrect] = useState(false);
 
-  const [isChange, setIsChange] = useState(false);
-
   const onEmailEntered = (e: React.ChangeEvent<HTMLInputElement>) => {
     const emailEntered = e.target.value;
     setIsEmpty(false);
@@ -47,8 +45,6 @@ const FindPwPage: React.FC<{
 
         if (code === -1) throw new Error();
 
-        setIsChange(true);
-
         setTimeout(() => {
           onSuccess({ code, email });
         }, 500);
@@ -74,6 +70,8 @@ const FindPwPage: React.FC<{
     success_class = classes.find_pw_div_left;
   } else if (moveDirection === "right") {
     success_class = classes.find_pw_div_right;
+  } else if (moveDirection === "re_left") {
+    success_class = classes.find_pw_div_left;
   }
 
   return (

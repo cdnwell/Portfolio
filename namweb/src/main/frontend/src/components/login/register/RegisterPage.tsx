@@ -80,6 +80,8 @@ const RegisterPage = () => {
 
     if (pwTmp.length > 20) return;
 
+    comparePw(pwTmp, pwRe);
+
     setPw(pwTmp);
   };
 
@@ -90,22 +92,27 @@ const RegisterPage = () => {
 
     if (pwReTmp.length > 20) return;
 
-    if (pw.length < 5 || pwReTmp.length < 5) {
+    comparePw(pwReTmp, pw);
+
+    setPwRe(pwReTmp);
+  };
+
+  // 비밀번호 비교 함수
+  const comparePw = (pw:string, cmpPw : string) => {
+    if (pw.length < 5 || cmpPw.length < 5) {
       setIsPwNotEqual(false);
       setIsPwEqual(false);
       setIsPwLength(true);
-    } else if (pw !== pwReTmp) {
+    } else if (pw !== cmpPw) {
       setIsPwLength(false);
       setIsPwEqual(false);
       setIsPwNotEqual(true);
-    } else if (pw === pwReTmp) {
+    } else if (pw === cmpPw) {
       setIsPwNotEqual(false);
       setIsPwLength(false);
       setIsPwEqual(true);
     }
-
-    setPwRe(pwReTmp);
-  };
+  }
 
   const onChangeAddressDetail = (e: React.ChangeEvent<HTMLInputElement>) => {
     const addressDetailTmp = e.target.value;

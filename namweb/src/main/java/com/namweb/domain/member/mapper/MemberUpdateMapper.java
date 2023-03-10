@@ -15,4 +15,6 @@ public interface MemberUpdateMapper {
 
 	void updateAddress(MemberDto memberDto);
 
+	void updatePassword(MemberDto memberDto);
+
 }

@@ -46,4 +46,12 @@ public class MemberUpdateController {
 		return "update Address, success";
 	}
 	
+	@PostMapping("/update/pw")
+	public String changePassword(@RequestBody MemberDto memberDto) {
+		System.out.println(memberDto);
+		memberUpdateService.updatePassword(memberDto);
+		
+		return "change password, success";
+	}
+	
 }
