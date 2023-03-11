@@ -1,0 +1,117 @@
+@import "../../../assets/scss/_constant";
+
+.change_pw {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  max-width: 400px;
+  width: 80%;
+  border: 1px solid black;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 3px 3px 10px #b7b7b7, -3px -3px 10px #b7b7b7;
+}
+
+.change_pw_h3 {
+    color: $nw-color;
+}
+
+.msg_p {
+  font-weight: bold;
+}
+
+.exist_pw_div {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.exist_pw_p_div {
+    width: 100%;
+    padding-left: 76.5px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+.exist_pw_p,
+.new_pw_p {
+  margin: 10px 0;
+  font-size: 15px;
+}
+
+.exist_pw_input,
+.new_pw_input,
+.new_pw_re_input {
+  font-size: 18px;
+  width: 80%;
+  padding: 10px;
+  box-sizing: border-box;
+
+  margin-bottom: 10px;
+
+  outline: none;
+}
+
+.new_pw_div {
+  width: 100%;
+  padding-left: 80px;
+  margin-bottom: 25px;
+}
+
+.not_right {
+    color : red;
+    font-size: 14px;
+    
+    margin-top : -20px;
+}
+
+.right {
+    color: green;
+    font-size: 14px;
+
+    margin-top : -20px;
+}
+
+.not_right_p_box {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.not_right_sub {
+    color : red;
+    font-size: 14px;
+
+    margin : 0;
+}
+
+.set_pw_btn {
+  width: 130px;
+  height: 40px;
+  margin: 0 5px;
+  margin-bottom: 15px;
+
+  border: none;
+  border-radius: 5px;
+  background-color: $nw-color;
+
+  color: white;
+
+  cursor: pointer;
+
+  transition: 0.3s all;
+}
+
+.set_pw_btn:hover {
+  background-color: white;
+  color: $nw-color;
+  border: 1px solid $nw-color;
+}

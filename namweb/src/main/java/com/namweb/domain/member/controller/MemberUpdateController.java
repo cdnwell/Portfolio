@@ -13,45 +13,50 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/member")
 public class MemberUpdateController {
 	
 	private final MemberUpdateService memberUpdateService;
 
-	@PostMapping("/update/phone")
-	public String updatePhone(@RequestBody MemberDto memberDto) {
+	@PostMapping("/member/update/phone")
+	public boolean updatePhone(@RequestBody MemberDto memberDto) {
 		memberUpdateService.updatePhone(memberDto);
 		
-		return "update phone, success";
+		return true;
 	}
 	
-	@PostMapping("/update/name")
-	public String updateName(@RequestBody MemberDto memberDto) {
+	@PostMapping("/member/update/name")
+	public boolean updateName(@RequestBody MemberDto memberDto) {
 		memberUpdateService.updateName(memberDto);
 		
-		return "update name, success";
+		return true;
 	}
 	
-	@PostMapping("/update/nick")
-	public String updateNick(@RequestBody MemberDto memberDto) {
+	@PostMapping("/member/update/nick")
+	public boolean updateNick(@RequestBody MemberDto memberDto) {
 		memberUpdateService.updateNick(memberDto);
 		
-		return "update nick, success";
+		return true;
 	}
 	
-	@PostMapping("/update/address")
-	public String updateAddress(@RequestBody MemberDto memberDto) {
+	@PostMapping("/member/update/address")
+	public boolean updateAddress(@RequestBody MemberDto memberDto) {
 		memberUpdateService.updateAddress(memberDto);
 		
-		return "update Address, success";
+		return true;
 	}
 	
-	@PostMapping("/update/pw")
-	public String changePassword(@RequestBody MemberDto memberDto) {
-		System.out.println(memberDto);
+	@PostMapping("/member/update/pw")
+	public boolean updatePassword(@RequestBody MemberDto memberDto) {
 		memberUpdateService.updatePassword(memberDto);
 		
-		return "change password, success";
+		return true;
+	}
+	
+	@PostMapping("/member/update/exist-pw")
+	public boolean updateExistPassword(@RequestBody MemberDto memberDto) {
+		boolean result = memberUpdateService.updateExistPassword(memberDto);
+		
+		return result;
 	}
 	
 }

@@ -74,6 +74,19 @@
   transition : 0.3s all;
 }
 
+.login_btn_not_right {
+  background-color: red;
+  transition : 0.3s all;
+}
+
+.login_btn_not_right:hover {
+  background-color: white;
+  color: red;
+  border : 1px solid red;
+
+  transition : 0.3s all;
+}
+
 .register_box {
   display: flex;
   flex-direction: row;

@@ -1,0 +1,12 @@
+.board_main {
+    display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  width: 1200px;
+  min-height: 360px;
+  border: 1px solid black;
+  border-radius: 10px;
+  box-shadow: 1px 1px 5px #b7b7b7, -1px -1px 5px #b7b7b7;
+}

@@ -17,20 +17,26 @@ public class MemberSelectController {
 	private final MemberSelectService memberSelectService;
 	
 	@GetMapping("/member/info")
-	public MemberDto memberInfo(String email) {
+	public MemberDto selectMemberInfo(String email) {
 		MemberDto result = memberSelectService.selectMemberInfo(email);
 		return result;
 	}
 	
 	@GetMapping("/member/exist")
-	public MemberDto memberExist(String email) {
+	public MemberDto selectMemberExist(String email) {
 		MemberDto result = memberSelectService.selectMemberExist(email);
 		return result;
 	}
 	
 	@PostMapping("/member/login")
-	public MemberDto memberLogin(@RequestBody MemberDto memberDto) {
+	public MemberDto selectMemberLogin(@RequestBody MemberDto memberDto) {
 		MemberDto result = memberSelectService.selectMemberLogin(memberDto);
+		return result;
+	}
+	
+	@GetMapping("/member/pw")
+	public boolean selectMemberPassword(String email) {
+		boolean result = memberSelectService.selectMemberPassword(email);
 		return result;
 	}
  

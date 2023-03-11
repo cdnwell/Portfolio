@@ -13,4 +13,7 @@ public interface MemberSelectMapper {
 
 	MemberDto selectMemberLogin(MemberDto memberDto);
 
+	MemberDto selectMemberPassword(String email);
+
+	MemberDto selectMemberPasswordByPassword(MemberDto memberDto);
 }

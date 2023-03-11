@@ -111,3 +111,13 @@
   color: red;
   transform: 0.3s all;
 }
+
+.find_pw_loading {
+  background-color: gray;
+}
+
+.find_pw_loading:hover {
+  cursor: not-allowed;
+  color: gray;
+  border : 1px solid gray;
+}

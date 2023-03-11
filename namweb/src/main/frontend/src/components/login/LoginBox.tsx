@@ -53,6 +53,11 @@ const LoginBox = () => {
     setPw(e.target.value);
   };
 
+  const login_btn_class =
+    loginContent === "로그인 정보가 올바르지 않습니다."
+      ? classes.login_btn_not_right
+      : "";
+
   return (
     <>
       <span className={classes.login_span}>Login</span>
@@ -71,7 +76,9 @@ const LoginBox = () => {
             onChange={onPwEntered}
             value={pw}
           />
-          <button className={classes.login_button}>{loginContent}</button>
+          <button className={`${classes.login_button} ${login_btn_class}`}>
+            {loginContent}
+          </button>
           <div className={classes.register_box}>
             <Link className={classes.register_link} to="/login/register">
               회원가입

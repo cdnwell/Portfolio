@@ -14,7 +14,6 @@ public class GoogleEmailService {
 
 	public int sendGoogleEmail(String email) {
 		boolean emailCheck = googleEmailSender.emailCheck(email);
-		System.out.println("Email : " + emailCheck);
 		if (emailCheck) return googleEmailSender.mailSend(email);
 		return -1;
 	}

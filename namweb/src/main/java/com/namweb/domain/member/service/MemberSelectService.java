@@ -25,4 +25,11 @@ public class MemberSelectService {
 		return memberSelectMapper.selectMemberLogin(memberDto);
 	}
 
+	public boolean selectMemberPassword(String email) {
+		MemberDto memberDto = memberSelectMapper.selectMemberPassword(email);
+		
+		if(memberDto == null) return false;
+		return true;
+	}
+
 }

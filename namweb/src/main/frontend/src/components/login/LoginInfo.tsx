@@ -11,6 +11,7 @@ import PhoneButton from "./buttons/PhoneButton";
 import NameButton from "./buttons/NameButton";
 import NickButton from "./buttons/NickButton";
 import AddressButton from "./buttons/AddressButton";
+import { useNavigate } from "react-router-dom";
 
 const NO_ADDRESS_STR = "주소 정보 없음";
 const NO_ADDRESS_DETAIL_STR = "상세 주소 정보 없음";
@@ -38,6 +39,7 @@ const LoginInfo = () => {
   );
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const onLogoutHandler = () => {
     dispatch(loginActions.setLoginInvalid());
@@ -168,14 +170,18 @@ const LoginInfo = () => {
   const nickPlaceholder =
     nick === NO_NICK_STR ? nick : nick.trim().length === 0 ? NO_NICK_STR : "";
 
+  const pwChangeHandler = () => {
+    navigate("/login/pw-change");
+  }
+
   return (
     <div className={classes.login_info}>
       <h2>Info</h2>
       <span className={classes.email_span}>이메일</span>
       <p className={classes.email_p}>{email}</p>
       <span className={classes.password_span}>비밀번호</span>
-      <button type="button" className={classes.password_button}>
-        비밀번호 변경
+      <button type="button" className={classes.password_button} onClick={pwChangeHandler}>
+        비밀번호 변경 / 설정
       </button>
       <span className={classes.name_span}>이름</span>
       <input

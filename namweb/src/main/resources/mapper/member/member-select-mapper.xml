@@ -16,4 +16,12 @@
 		select email, name, nick from member where email = #{email} and pw = #{pw}
 	</select>
 	
+	<select id="selectMemberPassword" parameterType="String" resultType="member">
+		select pw from member where email = #{email}
+	</select>
+	
+	<select id="selectMemberPasswordByPassword" parameterType="member" resultType="member">
+		select email from member where email = #{email} and pw = #{pw}
+	</select>
+	
 </mapper>

@@ -1,5 +1,11 @@
-const Notice = () => {
-    return <div></div>
+import classes from "./Board.module.scss";
+
+import BoardMain from "../components/board/BoardMain";
+
+const Board = () => {
+    return <div className={classes.board_root}>
+        <BoardMain />
+    </div>
 };
 
-export default Notice;
+export default Board;
