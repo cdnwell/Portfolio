@@ -17,10 +17,10 @@ const Home = () => {
     <div>
       <p>사업 소개</p>
       <section>
-        {/* <img
+        <img
           src={sky_constructor}
           alt="스카이 건설 장비.jpg"
-        /> */}
+        />
         {introduce_tray}
       </section>
     </div>

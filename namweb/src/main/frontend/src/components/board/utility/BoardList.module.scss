@@ -1,0 +1,33 @@
+@import "../../../assets/scss/_constant";
+
+.board_table {
+    width: 1000px;
+    margin-top: 20px;
+
+    border-collapse: collapse;
+}
+
+.table_th_tr > th:nth-child(1) {
+    width: 70px;
+}
+
+.table_th_tr > th:nth-child(2) {
+    width: 600px;
+}
+
+.table_th_tr > th:nth-child(3) {
+    width: 110px;
+}
+
+.table_th_tr > th:nth-child(4) {
+    width: 140px;
+}
+
+.table_th_tr > th:nth-child(5) {
+    width: 90px;
+}
+
+.table_th_tr > th {
+    border-bottom: 1px solid $nw-footer-color;
+    height: 40px;
+}

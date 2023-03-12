@@ -1,0 +1,32 @@
+@import "../../../assets/scss/_constant";
+
+.board_page_span,
+.after_arrow,
+.before_arrow {
+  vertical-align: middle;
+}
+
+.board_page_span {
+    padding: 5px;
+    margin: 0 2px;
+}
+
+.before_arrow,
+.after_arrow {
+    margin : 0 5px;
+    margin-top : 3px;
+}
+
+.board_page_span,
+.before_arrow,
+.after_arrow {
+  color: $nw-footer-color;
+
+  cursor: pointer;
+
+  transition: 0.3s all;
+}
+
+:is(.board_page_span, .before_arrow, .after_arrow):hover {
+  color: $nw-color;
+}

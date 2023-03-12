@@ -1,0 +1,32 @@
+@import "../../../assets/scss/_constant";
+
+.board_search_input {
+    width: 400px;
+    height: 40px;
+
+    outline: none;
+  
+    padding: 10px;
+    font-size: 16px;
+    box-sizing: border-box;
+  
+    border : 1px solid black;
+    border-radius: 5px;
+
+    margin-right : 10px;
+}
+
+.board_search_btn {
+    width: 70px;
+    height: 40px;
+
+    border-radius: 5px;
+    border: none;
+    background-color: $nw-color;
+
+    color : white;
+
+    margin: 20px 0;
+
+    cursor: pointer;
+}

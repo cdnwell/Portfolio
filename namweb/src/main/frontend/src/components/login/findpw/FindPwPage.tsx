@@ -15,7 +15,6 @@ const FindPwPage: React.FC<{
   const [isFail, setIsFail] = useState(false);
   const [isEmpty, setIsEmpty] = useState(false);
   const [isFormNotCorrect, setIsFormNotCorrect] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
 
   const onEmailEntered = (e: React.ChangeEvent<HTMLInputElement>) => {
     const emailEntered = e.target.value;
@@ -38,8 +37,6 @@ const FindPwPage: React.FC<{
       return;
     }
 
-    // loading 동안 button을 비활성화한다.
-    setIsLoading(true);
     axios
       .get(`/login/find-email?email=${email}`)
       .then((response) => {
@@ -50,7 +47,6 @@ const FindPwPage: React.FC<{
         // timeout : 슬라이드 시간 0.5s
         setTimeout(() => {
           onSuccess({ code, email });
-          setIsLoading(false);
         }, 500);
       })
       .catch((error) => {
@@ -77,8 +73,6 @@ const FindPwPage: React.FC<{
       ? classes.find_pw_div_left
       : "";
 
-  const loading_class = isLoading ? classes.find_pw_loading : "";
-
   return (
     <div className={`${classes.find_pw_div} ${success_class}`}>
       <div className={classes.find_pw_span_div}>
@@ -102,9 +96,8 @@ const FindPwPage: React.FC<{
       )}
       <div className={classes.find_pw_button_div}>
         <button
-          className={`${classes.find_pw_button} ${fail_class} ${loading_class}`}
+          className={`${classes.find_pw_button} ${fail_class}`}
           onClick={onPwFindClick}
-          disabled={isLoading}
         >
           {buttonStr}
         </button>
