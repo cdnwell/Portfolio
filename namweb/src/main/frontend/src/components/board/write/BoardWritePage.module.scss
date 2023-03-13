@@ -1,3 +1,5 @@
+@import "../../../assets/scss/_constant";
+
 .board_write_page {
   display: flex;
   flex-direction: column;
@@ -5,13 +7,110 @@
   justify-content: center;
 
   width: 1200px;
-  height: 1200px;
+  height: 800px;
   border: 1px solid black;
   border-radius: 10px;
   box-shadow: 1px 1px 5px #b7b7b7, -1px -1px 5px #b7b7b7;
 }
 
+.board_title_box {
+  width: 80%;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  
+  margin: 30px 0 15px 0;
+}
+
+.board_title_select {
+  width: 80px;
+  height: 100%;
+
+  text-align: center;
+
+  margin-right: 10px;
+}
+
+.board_title_input {
+  width: 100%;
+  height: 20px;
+
+  padding: 10px;
+
+  border-radius: 5px;
+  border: 1px solid black;
+  outline: none;
+}
+
 .react_quill {
-    width: 80%;
-    height: 800px;
+  width: 80%;
+  height: 800px;
+}
+
+.board_file_box {
+  position: relative;
+
+  width: 100%;
+
+  margin-top: 60px;
+  margin-left: 240px;
+  margin-bottom: 10px;
+}
+
+.board_file_span {
+  position: absolute;
+  top: 28px;
+  left: 160px;
+}
+
+.board_file_icon {
+  position: absolute;
+  top: 30px;
+  left: 130px;
+  font-size: 20px;
+}
+
+.board_file_label {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  
+  width: 120px;
+  height: 40px;
+
+  font-size: 14px;
+  box-sizing: border-box;
+
+  border-radius: 5px;
+  border: none;
+  background-color: $nw-color;
+
+  color: white;
+
+  margin: 20px 0;
+
+  cursor: pointer;
+}
+
+.board_file_input {
+  width: 0;
+  height: 0;
+}
+
+.board_write_btn {
+  width: 130px;
+  height: 40px;
+
+  border-radius: 5px;
+  border: none;
+  background-color: $nw-color;
+
+  color: white;
+
+  margin: 20px 0;
+
+  cursor: pointer;
 }
