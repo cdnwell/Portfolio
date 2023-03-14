@@ -5,16 +5,18 @@ import org.json.JSONObject;
 
 import com.namweb.global.login.dto.LoginUserInfoDto;
 
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Setter;
+
 @Alias("nMember")
+@Getter
+@Setter
 public class NaverMemberInfoDto implements LoginUserInfoDto {
 	private String email;
 	private String nick;
+	@Setter(AccessLevel.NONE)
 	private String response;
-
-	@Override
-	public String getResponse() {
-		return response;
-	}
 
 	@Override
 	public void setResponse(String response) {
@@ -24,22 +26,6 @@ public class NaverMemberInfoDto implements LoginUserInfoDto {
 
 		this.nick = jResponse.getString("nickname");
 		this.email = jResponse.getString("email");
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getNick() {
-		return nick;
-	}
-
-	public void setNick(String nick) {
-		this.nick = nick;
 	}
 
 }

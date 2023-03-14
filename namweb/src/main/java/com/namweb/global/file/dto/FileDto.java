@@ -11,25 +11,23 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@Alias("image")
+@Alias("file")
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 @Getter
 @Setter
-@ToString
-public class FileImageDto {
-	private int bno; // 이미지가 속한 게시글 시퀀스 번호
-	private int photoNo; // 이미지의 개별 시퀀스 번호
+public class FileDto {
 	@Setter(AccessLevel.NONE)
-	private String photoPath;
+	private String filePath;
 	private String fileName;
 	private String type;
-
-	public FileImageDto(File file, int photoNo) {
-		this.photoPath = file.getAbsolutePath();
+	private int fileNo;
+	
+	public FileDto(File file, int fileNo) {
+		this.filePath = file.getAbsolutePath();
 		this.fileName = file.getName();
-
-		switch (fileName.substring(fileName.lastIndexOf(".") + 1).toLowerCase()) {
+		switch(fileName.substring(fileName.lastIndexOf(".") + 1).toLowerCase()) {
 		case "png":
 		case "bmp":
 		case "jpg":
@@ -39,15 +37,14 @@ public class FileImageDto {
 		default:
 			this.type = "normal";
 		}
-
-		this.photoNo = photoNo;
+		this.fileNo = fileNo;
 	}
 
-	public void setPhotoPath(String photoPath) {
-		File file = new File(photoPath);
-		this.fileName = file.getName();
 
-		switch (fileName.substring(fileName.lastIndexOf(".") + 1).toLowerCase()) {
+	public void setFilePath(String filePath) {
+		File file = new File(filePath);
+		this.fileName = file.getName();
+		switch(fileName.substring(fileName.lastIndexOf(".") + 1).toLowerCase()) {
 		case "png":
 		case "bmp":
 		case "jpg":
@@ -57,8 +54,7 @@ public class FileImageDto {
 		default:
 			this.type = "normal";
 		}
-
-		this.photoPath = photoPath;
+		this.filePath = filePath;
 	}
 
 }

@@ -5,16 +5,18 @@ import org.json.JSONObject;
 
 import com.namweb.global.login.dto.LoginUserInfoDto;
 
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Setter;
+
 @Alias("kMember")
+@Getter
+@Setter
 public class KakaoMemberInfoDto implements LoginUserInfoDto {
 	private String email;
 	private String nick;
+	@Setter(AccessLevel.NONE)
 	private String response;
-
-	@Override
-	public String getResponse() {
-		return response;
-	}
 
 	@Override
 	public void setResponse(String response) {
@@ -26,22 +28,6 @@ public class KakaoMemberInfoDto implements LoginUserInfoDto {
 		this.nick = properties.getString("nickname");
 		this.email = kakao_account.getString("email");
 		this.response = response;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getNick() {
-		return nick;
-	}
-
-	public void setNick(String nick) {
-		this.nick = nick;
 	}
 
 }

@@ -5,6 +5,6 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface BoardImageMapper {
 
-	String selectImagePath(String photoNo);
+	String selectImagePath(int photoNo);
 
 }

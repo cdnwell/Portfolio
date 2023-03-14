@@ -5,31 +5,18 @@ import org.json.JSONObject;
 
 import com.namweb.global.login.dto.LoginUserInfoDto;
 
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Setter;
+
 @Alias("gMember")
+@Getter
+@Setter
 public class GoogleMemberInfoDto implements LoginUserInfoDto {
 	public String email;
 	public String name;
+	@Setter(AccessLevel.NONE)
 	public String response;
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getResponse() {
-		return response;
-	}
 
 	public void setResponse(String response) {
 		JSONObject jsonResponse = new JSONObject(response);

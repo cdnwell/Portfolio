@@ -7,7 +7,13 @@ import org.apache.ibatis.type.Alias;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Setter;
+
 @Alias("submit")
+@Getter
+@Setter
 public class SubmitDto {
 	private int idx; // index 번호
 	private String nick;
@@ -19,101 +25,11 @@ public class SubmitDto {
 	private String conAddress;
 	private double conLatitude;
 	private double conLongitude;
+	@Setter(AccessLevel.NONE)
 	private JSONArray workDate;
+	@Setter(AccessLevel.NONE)
 	private ArrayList<HashMap<String, Object>> workList;
-
-	public SubmitDto() {
-		super();
-	}
-
-	public int getIdx() {
-		return idx;
-	}
-
-	public void setIdx(int idx) {
-		this.idx = idx;
-	}
-
-	public String getNick() {
-		return nick;
-	}
-
-	public void setNick(String nick) {
-		this.nick = nick;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getPhone() {
-		return phone;
-	}
-
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
-
-	public String getContent() {
-		return content;
-	}
-
-	public void setContent(String content) {
-		this.content = content;
-	}
-
-	public String getBookDate() {
-		return bookDate;
-	}
-
-	public void setBookDate(String bookDate) {
-		this.bookDate = bookDate;
-	}
-
-	public String getConAddress() {
-		return conAddress;
-	}
-
-	public void setConAddress(String conAddress) {
-		this.conAddress = conAddress;
-	}
-
-	public double getConLatitude() {
-		return conLatitude;
-	}
-
-	public void setConLatitude(double conLatitude) {
-		this.conLatitude = conLatitude;
-	}
-
-	public double getConLongitude() {
-		return conLongitude;
-	}
-
-	public void setConLongitude(double conLongitude) {
-		this.conLongitude = conLongitude;
-	}
-
-	public ArrayList<HashMap<String, Object>> getWorkList() {
-		return workList;
-	}
-
-	public JSONArray getWorkDate() {
-		return workDate;
-	}
-
+	
 	public void setWorkDate(JSONArray workDate) {
 		ArrayList<HashMap<String, Object>> workList = new ArrayList<>();
 

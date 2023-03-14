@@ -2,6 +2,7 @@ package com.namweb.global.quill.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.namweb.global.file.dto.FileDto;
 import com.namweb.global.file.dto.FileImageDto;
 
 @Mapper
@@ -12,5 +13,11 @@ public interface QuillMapper {
 	int selectBoardPhotoNo();
 
 	void insertQuillOnlyImage(FileImageDto fileImageDto);
+
+	int selectBoardFileNo();
+
+	void insertQuillOnlyFile(FileDto fileDto);
+
+	void deleteNotUploadImage(int[] photoNumbers);
 
 }

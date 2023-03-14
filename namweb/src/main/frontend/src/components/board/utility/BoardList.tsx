@@ -3,7 +3,7 @@ import BoardPage from "./BoardPage";
 import BoardPageWrite from "./BoardPageWrite";
 
 import BoardTray from "./BoardTray";
-import BoardWrite from "./BoardWrite";
+import BoardWrite from "./BoardWriteBtn";
 
 const BOARD_DUMMY = [
   {

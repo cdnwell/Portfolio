@@ -12,9 +12,21 @@
 		select nextval('board_photo_seq') from dual
 	</select>
 	
+	<select id="selectBoardFileNo" resultType="int">
+		select nextval('board_file_seq') from dual
+ 	</select>
+	
 	<insert id="insertQuillOnlyImage" parameterType="image">
 		insert into board_image(photono, photopath, filename, type)
 		values(#{photoNo}, #{photoPath}, #{fileName}, #{type})
 	</insert>
+	
+	<delete id="deleteNotUploadImage" parameterType="int[]">
+		delete from board_image
+		where photono in 
+		<foreach item="photoNumbers" collection="array" open="(" close=")" separator=",">
+			#{photoNumbers}
+		</foreach>
+	</delete>
 	
 </mapper>

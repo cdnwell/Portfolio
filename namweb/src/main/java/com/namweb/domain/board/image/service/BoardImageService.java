@@ -12,7 +12,7 @@ public class BoardImageService {
 
 	private final BoardImageMapper boardImageMapper;
 
-	public String selectImagePath(String photoNo) {
+	public String selectImagePath(int photoNo) {
 		return boardImageMapper.selectImagePath(photoNo);
 	}
 	

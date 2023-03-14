@@ -7,7 +7,6 @@
   justify-content: center;
 
   width: 1200px;
-  height: 800px;
   border: 1px solid black;
   border-radius: 10px;
   box-shadow: 1px 1px 5px #b7b7b7, -1px -1px 5px #b7b7b7;
@@ -26,7 +25,7 @@
 
 .board_title_select {
   width: 80px;
-  height: 100%;
+  height: 41.33px;
 
   text-align: center;
 
@@ -96,8 +95,7 @@
 }
 
 .board_file_input {
-  width: 0;
-  height: 0;
+  display: none;
 }
 
 .board_write_btn {

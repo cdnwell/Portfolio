@@ -11,6 +11,7 @@ import axios from "../../../common/axiosInstance";
 import { SERVER_URL, ADMIN_EMAIL } from "../../../common/ServerConstant";
 import BackwardButton from "../../login/buttons/BackwardButton";
 import { RiDatabase2Line } from "react-icons/ri";
+import { createSearchParams } from "react-router-dom";
 
 const BACK_URL = SERVER_URL;
 
@@ -20,6 +21,7 @@ const BoardWritePage = () => {
   const [boardNo, setBoardNo] = useState();
   const [fileName, setFileName] = useState("");
   const [file, setFile] = useState("");
+  const [photoNumber, setPhotoNumber] = useState<number[]>([]);
 
   const isAdminLoggedIn =
     useReduxSelector(
@@ -55,6 +57,8 @@ const BoardWritePage = () => {
           console.log(res);
           const photoNo = res.data.photoNo;
           const url = `${BACK_URL}/board/imageDown?photoNo=${photoNo}`;
+          setPhotoNumber((prevState) => [...prevState, photoNo]);
+
           // const range = quillRef.current?.getEditor().getSelection()?.index;
           // if (range !== null && range !== undefined) {
           //   let quill = quillRef.current?.getEditor();
@@ -64,6 +68,7 @@ const BoardWritePage = () => {
           //     `<img src=${url} alt="이미지 태그.png" />`
           //   );
           // }
+
           const editor = quillRef.current?.getEditor();
 
           const range = editor?.getSelection();
@@ -94,14 +99,73 @@ const BoardWritePage = () => {
   const onFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const fileTmp = e.target.value;
 
-    const fileName = fileTmp.substring(fileTmp.lastIndexOf("\\")+1);
-    
+    const fileName = fileTmp.substring(fileTmp.lastIndexOf("\\") + 1);
+
     setFileName(fileName);
     setFile(fileTmp);
-  }
+  };
+
+  const onWriteSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    console.log("content", content);
+
+    // 1. 이미지 photoNo 모두 한 배열에 담기
+    const photoNoArr = new Array();
+    let index = 0;
+    while (true) {
+      let startIndex = content.indexOf("<img src=", index + 1);
+      if (startIndex === -1) break;
+      let endIndex = content.indexOf(">", startIndex);
+
+      let imgStr = content.substring(startIndex, endIndex + 1);
+      console.log("imgStr", imgStr);
+
+      let photoNoIdx = imgStr.indexOf("photoNo=") + 8;
+      let photoNoEndIdx = imgStr.indexOf('"', photoNoIdx);
+      let photoNo = parseInt(imgStr.substring(photoNoIdx, photoNoEndIdx));
+
+      let photoNoStr = imgStr.substring(photoNoIdx, photoNoEndIdx);
+      console.log("photoNoStr", photoNoStr);
+
+      photoNoArr.push(photoNo);
+
+      index = startIndex;
+    }
+
+    console.log("photoNoArr", photoNoArr);
+
+    // 2. 작성되지 않은 photo 삭제
+    // photoNumber : 모든 photo No.
+    // photoNoArr : 글에만 있는 photo No.
+    // -> photoNumberArr : 삭제할 photo No.
+    let photoNumberArr = [...photoNumber];
+    photoNumberArr = photoNumberArr.filter((item) => {
+      for (let num of photoNoArr) {
+        if (item === num) return false;
+      }
+      return true;
+    });
+
+    // 3. axios를 사용해 내용에 없는 photo 삭제
+    axios
+      .delete(`quill/image?photoNo=${photoNumberArr}`)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => console.log(error));
+
+    // 4. boardNo와 photoNo 연결하기
+    axios
+      .patch(`quill/image/link`, { boardNo, photoNo: photoNoArr })
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => console.log(error));
+  };
 
   return (
-    <div className={classes.board_write_page}>
+    <form className={classes.board_write_page} onSubmit={onWriteSubmit}>
       <div className={classes.board_title_box}>
         <select className={classes.board_title_select}>
           {isAdminLoggedIn && <option value="0">공지</option>}
@@ -123,19 +187,32 @@ const BoardWritePage = () => {
         }}
         value={content}
         onChange={setContent}
-        // modules={modules}
+        modules={modules}
         theme="snow"
       />
       <div className={classes.board_file_box}>
-        <label htmlFor="file" className={classes.board_file_label}>파일 업로드</label>
-        <input type="file" className={classes.board_file_input} id="file" onChange={onFileChange}/>
-        {fileName && <> <RiDatabase2Line className={classes.board_file_icon} /> <span className={classes.board_file_span}> { fileName } </span> </> }
+        <label htmlFor="file" className={classes.board_file_label}>
+          파일 업로드
+        </label>
+        <input
+          type="file"
+          className={classes.board_file_input}
+          id="file"
+          onChange={onFileChange}
+        />
+        {fileName && (
+          <>
+            {" "}
+            <RiDatabase2Line className={classes.board_file_icon} />{" "}
+            <span className={classes.board_file_span}> {fileName} </span>{" "}
+          </>
+        )}
       </div>
       <div>
         <button className={classes.board_write_btn}>글 작성</button>
         <BackwardButton path={"/board"} />
       </div>
-    </div>
+    </form>
   );
 };
 

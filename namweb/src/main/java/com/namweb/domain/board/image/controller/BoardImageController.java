@@ -21,7 +21,7 @@ public class BoardImageController {
 	private final BoardImageService boardImageService;  
 
 	@GetMapping("/board/imageDown")
-	public void boardImageDown(String photoNo, HttpServletResponse response) {
+	public void boardImageDown(int photoNo, HttpServletResponse response) {
 		
 		String path = boardImageService.selectImagePath(photoNo);
 		
