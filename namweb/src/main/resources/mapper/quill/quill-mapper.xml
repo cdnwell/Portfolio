@@ -29,4 +29,13 @@
 		</foreach>
 	</delete>
 	
+	<update id="updateImageNoLink" parameterType="qlImage" >
+		update board_image
+		set bno = #{boardNo}
+		where photono in 
+		<foreach item="item" collection="photoNo" open="(" close=")" separator=",">
+			#{item}
+		</foreach>  
+	</update>
+	
 </mapper>

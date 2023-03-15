@@ -27,6 +27,11 @@ public class QuillController {
 	public int selectBoardNo() {
 		return quillService.selectBoardNo();
 	}
+	
+	@GetMapping("/quill/image/photoNo")
+	public int quillSelectPhotoNo() {
+		return quillService.selectBoardPhotoNo();
+	}
 
 	@PostMapping("/quill/setImage")
 	public Map<String, Object> quillInsertImage(MultipartHttpServletRequest request) {
@@ -53,10 +58,20 @@ public class QuillController {
 		return true;
 	}
 	
-	@PatchMapping("/quill/image/link")
-	public boolean quillUpdateImageNo(QuillImageLinkDto quillImageLinkDto) {
-		System.out.println(quillImageLinkDto);
+	@PostMapping("/quill/image/link")
+	public boolean quillUpdateImageNo(@RequestBody QuillImageLinkDto quillImageLinkDto) {
+		quillService.updateImagaNoLink(quillImageLinkDto);
 		return true;
+	}
+	
+	@PostMapping("/quill/image/convert")
+	public String quillConvertImage(MultipartHttpServletRequest request) {
+		int photoNo = quillService.selectBoardPhotoNo();
+		System.out.println("enter");
+		String path = quillService.quillInsertImage(request, photoNo);
+		System.out.println("end");
+		System.out.println(path);
+		return path;
 	}
 	
 }
