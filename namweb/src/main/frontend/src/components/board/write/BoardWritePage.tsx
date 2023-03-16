@@ -65,6 +65,8 @@ const BoardWritePage = () => {
 
           // const url = `${BACK_URL}/board/imageDown?photoNo=${photoNo}`;
           // setPhotoNumber((prevState) => [...prevState, photoNo]);
+
+          // * 파일을 base64로 변환
           const fileReader = new FileReader();
           fileReader.readAsDataURL(file[0]);
           
@@ -78,7 +80,7 @@ const BoardWritePage = () => {
             // const photoNo = res.data;
             // console.log("photo no :", photoNo);
 
-            const url : string = base64;
+            let url : string = base64;
 
             // console.log(url);
 
@@ -106,14 +108,18 @@ const BoardWritePage = () => {
 
             // const formDataBlob = new FormData();
             // formDataBlob.append('image',blob);
+            // url = url.split(",")[1];
+            // url = JSON.stringify(url);
             console.log('url\n',url);
-            const formDataBlob = base64toFormData(url);
 
-            const response = await axios.post("/quill/image/convert", formDataBlob);
-            // console.log('response',response);
+            // *. base64를 FormData로 바꿔줌
+            const formData = base64toFormData(url);
+
+            const response = await axios.post("/quill/image/convert", formData);
+            console.log('response',response);
 
             const result = response.data;
-            // console.log('result',result);
+            console.log('result',result);
           };
 
           // console.log(url);
@@ -168,7 +174,7 @@ const BoardWritePage = () => {
     let index = 0;
     let contentChanged = content;
     while (true) {
-      let startIndex = contentChanged.indexOf("<img src=", index);
+      let startIndex = contentChanged.indexOf("<img src=", index + 1);
       if (startIndex === -1) break;
       let endIndex = contentChanged.indexOf(">", startIndex);
 
@@ -185,9 +191,13 @@ const BoardWritePage = () => {
 
       contentChanged = contentChanged.substring(0,startIndex) + contentChanged.substring(endIndex + 1);
 
-      // const response = await axios.post("/quill/setImage", formData);
-      // const photoNo = response.data.photoNo;
-      // photoNoArr.push(photoNo);
+      const response = await axios.post("/quill/setImage", formData);
+      const photoNo = response.data.photoNo;
+      photoNoArr.push(photoNo);
+      const image = `<img src="${BACK_URL}/board/imageDown?photoNo=${photoNo}" />`;
+      console.log('image',image);
+
+      contentChanged = contentChanged.substring(0,startIndex) + image + contentChanged.substring(startIndex);
 
       index = startIndex;
     }

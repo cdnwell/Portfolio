@@ -1,17 +1,26 @@
 package com.namweb.global.quill.controller;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.imageio.ImageIO;
+
+import org.json.JSONObject;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.namweb.global.login.dto.CustomMultipartFile;
 import com.namweb.global.quill.dto.QuillImageLinkDto;
 import com.namweb.global.quill.service.QuillService;
 
@@ -67,10 +76,7 @@ public class QuillController {
 	@PostMapping("/quill/image/convert")
 	public String quillConvertImage(MultipartHttpServletRequest request) {
 		int photoNo = quillService.selectBoardPhotoNo();
-		System.out.println("enter");
 		String path = quillService.quillInsertImage(request, photoNo);
-		System.out.println("end");
-		System.out.println(path);
 		return path;
 	}
 	

@@ -12,6 +12,7 @@ import com.namweb.global.file.dto.FileDto;
 import com.namweb.global.file.dto.FileImageDto;
 import com.namweb.global.file.register.FileRegister;
 import com.namweb.global.quill.dto.QuillImageLinkDto;
+import com.namweb.global.quill.dto.QuillMultipartFileDto;
 import com.namweb.global.quill.mapper.QuillMapper;
 
 import lombok.RequiredArgsConstructor;

@@ -22,7 +22,6 @@ public class BoardImageController {
 
 	@GetMapping("/board/imageDown")
 	public void boardImageDown(int photoNo, HttpServletResponse response) {
-		
 		String path = boardImageService.selectImagePath(photoNo);
 		
 		File file = new File(path);
