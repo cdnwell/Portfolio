@@ -1,17 +1,8 @@
 package com.namweb.global.quill.controller;
 
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.imageio.ImageIO;
-
-import org.json.JSONObject;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,7 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.namweb.global.login.dto.CustomMultipartFile;
+import com.namweb.global.quill.dto.QuillBoardDto;
+import com.namweb.global.quill.dto.QuillFileLinkDto;
 import com.namweb.global.quill.dto.QuillImageLinkDto;
 import com.namweb.global.quill.service.QuillService;
 
@@ -55,29 +47,32 @@ public class QuillController {
 	}
 	
 	@PostMapping("/quill/setFile")
-	public int quillInsertFile(MultipartFile file) {
+	public int quillInsertFile(MultipartHttpServletRequest request) {
 		int fileNo = quillService.selectBoardFileNo();
+		MultipartFile file = request.getFile("file");
 		String path = quillService.quillInsertFile(file, fileNo);
 		return fileNo;
 	}
 	
-	@DeleteMapping("/quill/image")
-	public boolean quillDeleteImage(String photoNo) {
-		quillService.deleteNotUploadImage(photoNo);
-		return true;
-	}
+//	@DeleteMapping("/quill/image")
+//	public void quillDeleteImage(String photoNo) {
+//		quillService.deleteNotUploadImage(photoNo);
+//	}
 	
 	@PostMapping("/quill/image/link")
-	public boolean quillUpdateImageNo(@RequestBody QuillImageLinkDto quillImageLinkDto) {
-		quillService.updateImagaNoLink(quillImageLinkDto);
-		return true;
+	public void quillUpdateImageNo(@RequestBody QuillImageLinkDto quillImageLinkDto) {
+		quillService.updateImageNumLink(quillImageLinkDto);
 	}
 	
-	@PostMapping("/quill/image/convert")
-	public String quillConvertImage(MultipartHttpServletRequest request) {
-		int photoNo = quillService.selectBoardPhotoNo();
-		String path = quillService.quillInsertImage(request, photoNo);
-		return path;
+	@PostMapping("/quill/file/link")
+	public void quillUpdateFileNum(@RequestBody QuillFileLinkDto quillFileLinkDto) {
+		quillService.updateFileNumLink(quillFileLinkDto);
+	}
+	
+	@PostMapping("/quill/board")
+	public void quillInsertBoard(@RequestBody QuillBoardDto quillBoardDto) {
+		System.out.println(quillBoardDto);
+		quillService.insertBoard(quillBoardDto);
 	}
 	
 }

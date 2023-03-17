@@ -11,8 +11,9 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.namweb.global.file.dto.FileDto;
 import com.namweb.global.file.dto.FileImageDto;
 import com.namweb.global.file.register.FileRegister;
+import com.namweb.global.quill.dto.QuillBoardDto;
+import com.namweb.global.quill.dto.QuillFileLinkDto;
 import com.namweb.global.quill.dto.QuillImageLinkDto;
-import com.namweb.global.quill.dto.QuillMultipartFileDto;
 import com.namweb.global.quill.mapper.QuillMapper;
 
 import lombok.RequiredArgsConstructor;
@@ -60,11 +61,16 @@ public class QuillService {
 		quillMapper.deleteNotUploadImage(photoNumbers);
 	}
 
-	public void updateImagaNoLink(QuillImageLinkDto quillImageLinkDto) {
-		HashMap<String, Object> map = new HashMap<>();
-		map.put("boardNo", quillImageLinkDto.getBoardNo());
-		map.put("photoNo", quillImageLinkDto.getPhotoNo());
-		quillMapper.updateImageNoLink(map);
+	public void updateImageNumLink(QuillImageLinkDto quillImageLinkDto) {
+		quillMapper.updateImageNumLink(quillImageLinkDto);
+	}
+
+	public void updateFileNumLink(QuillFileLinkDto quillFileLinkDto) {
+		quillMapper.updateFileNumLink(quillFileLinkDto);
+	}
+
+	public void insertBoard(QuillBoardDto quillBoardDto) {
+		quillMapper.insertBoard(quillBoardDto);
 	}
 
 }

@@ -21,6 +21,12 @@
 		values(#{photoNo}, #{photoPath}, #{fileName}, #{type})
 	</insert>
 	
+	<insert id="insertQuillOnlyFile">
+		insert into board_file(fileno, filepath, filename, type) 
+		values(#{fileNo}, #{filePath}, #{fileName}, #{type})
+	</insert>
+	
+	<!-- 
 	<delete id="deleteNotUploadImage" parameterType="int[]">
 		delete from board_image
 		where photono in 
@@ -28,8 +34,9 @@
 			#{photoNumbers}
 		</foreach>
 	</delete>
+	 -->
 	
-	<update id="updateImageNoLink" parameterType="qlImage" >
+	<update id="updateImageNumLink" parameterType="qlImage" >
 		update board_image
 		set bno = #{boardNo}
 		where photono in 
@@ -37,5 +44,16 @@
 			#{item}
 		</foreach>  
 	</update>
+	
+	<update id="updateFileNumLink" parameterType="qlFile">
+		update board_file
+		set bno = #{boardNo}
+		where fileNo = #{fileNo}
+	</update>
+	
+	<insert id="insertBoard" parameterType="qBoard">
+		insert into board(idx, nick, email, title, content, post_date, b_view, category)
+		values (#{boardNo}, #{name}, #{email}, #{title}, #{content}, sysdate(), 0, #{category})
+	</insert>
 	
 </mapper>

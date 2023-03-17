@@ -6,6 +6,8 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.namweb.global.file.dto.FileDto;
 import com.namweb.global.file.dto.FileImageDto;
+import com.namweb.global.quill.dto.QuillBoardDto;
+import com.namweb.global.quill.dto.QuillFileLinkDto;
 import com.namweb.global.quill.dto.QuillImageLinkDto;
 
 @Mapper
@@ -23,6 +25,10 @@ public interface QuillMapper {
 
 	void deleteNotUploadImage(int[] photoNumbers);
 
-	void updateImageNoLink(HashMap<String, Object> map);
+	void updateImageNumLink(QuillImageLinkDto quillImageLinkDto);
+	
+	void updateFileNumLink(QuillFileLinkDto quillFileLinkDto);
+
+	void insertBoard(QuillBoardDto quillBoardDto);
 
 }
