@@ -5,7 +5,7 @@
 <h2>제작 기간</h2>
 <p>2023-02 ~</p>
 <h2>기술 스택</h2>
-<p>Java(Spring), React.js, Typescript, Mysql, Mybatis, Html5, CSS</p>
+<p>Java(Spring), React.js, Typescript, Mysql, Mybatis, Html5, SCSS</p>
 <h2>ERD</h2>
 <img src="../[asset]/namweb/sql/namweb_erd.png" alt="namweb erd 스크린샷.png" />
 <h2>핵심 기능</h2>
