@@ -24,6 +24,7 @@
 <img src="./[asset]/fruitproject/portfolio/index01.png" alt="fruit project home.png" />
 <h2>namweb : 리액트 & 스프링</h2>
 <p>소개 : 최근에 만든 개인 프로젝트입니다. 스카이 공사 작업 차량의 작업 예약 홈페이지입니다.</p>
+<p>REST API를 지원하는 웹 사이트입니다. 패키지 구분 방식을 기존 계층형 구분 방식에서 도메인 중심으로 구분 방식으로 변경했습니다.</p>
 <p>스킬 : Java(Spring), React.js, Typescript, Mysql, Html5, SCSS</p>
 <h3>코드</h3>
 <a href="https://github.com/cdnwell/Portfolio/tree/master/namweb">스카이 예약 사이트 : 코드 링크</a>
