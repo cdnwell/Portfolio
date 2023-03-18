@@ -3,7 +3,6 @@ import classes from "./FindEnterCode.module.scss";
 import { useEffect, useState } from "react";
 
 import axios from "../../../common/axiosInstance";
-import BackwardButton from "../buttons/BackwardButton";
 
 const FindEnterCode: React.FC<{
   code: number;
@@ -14,8 +13,6 @@ const FindEnterCode: React.FC<{
 }> = ({ code, email, moveDirection, onBackward, onCodeComplete }) => {
   const [codeEntered, setCodeEntered] = useState<number | null>(null);
   const [codeOrigin, setCodeOrigin] = useState<number>();
-  const [isBackward, setIsBackward] = useState(false);
-  const [btnStc, setBtnStr] = useState("코드 입력");
 
   const onCodeEntered = (e: React.ChangeEvent<HTMLInputElement>) => {
     let codeTmp = e.target.value;

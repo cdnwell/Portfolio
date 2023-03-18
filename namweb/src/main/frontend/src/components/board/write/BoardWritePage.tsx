@@ -46,7 +46,6 @@ const BoardWritePage = () => {
       .then((response) => {
         const boardNo = response.data;
 
-        console.log("board no :", boardNo);
         setBoardNo(boardNo);
       })
       .catch((error) => {});
@@ -165,7 +164,7 @@ const BoardWritePage = () => {
 
       const formData = base64toFormData(base64);
 
-      const response = await axios.post("/quill/setImage", formData);
+      const response = await axios.post("/quill/image", formData);
       const photoNo = response.data.photoNo;
       const image = `<img src="${BACK_URL}/board/imageDown?photoNo=${photoNo}" />`;
 
@@ -181,7 +180,7 @@ const BoardWritePage = () => {
     // 3. boardNo 와 photoNo 연결하기
     if (photoNoArr.length !== 0) {
       axios
-        .post(`/quill/image/link`, {
+        .put(`/quill/imageNo`, {
           boardNo,
           photoNo: JSON.stringify(photoNoArr),
         })
@@ -200,15 +199,14 @@ const BoardWritePage = () => {
     const formDataFile = new FormData();
     if (file?.target.files) formDataFile.append("file", file?.target.files[0]);
     if (file && fileName) {
-      const response = await axios.post("/quill/setFile", formDataFile);
+      const response = await axios.post("/quill/file", formDataFile);
       fileNo = response.data;
     }
-    if (fileNo) console.log("file no :", fileNo);
 
     // 5. fileNo와 boardNo 연결해서 업로드하기
     if (fileNo) {
       axios
-        .post("/quill/file/link", {
+        .put("/quill/fileNo", {
           boardNo,
           fileNo,
         })
@@ -231,14 +229,14 @@ const BoardWritePage = () => {
         email: userEmail,
       })
       .then((response) => {
-        console.log(response);
+        // console.log(response);
         alert("게시글을 작성하였습니다.");
 
         //navigate해서 게시글 보기 페이지로 이동하기.
 
       })
       .catch((error) => {
-        console.log(error);
+        // console.log(error);
       });
   };
 

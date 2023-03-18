@@ -25,9 +25,9 @@ public interface QuillMapper {
 
 	void deleteNotUploadImage(int[] photoNumbers);
 
-	void updateImageNumLink(QuillImageLinkDto quillImageLinkDto);
+	void updateImageNoLink(QuillImageLinkDto quillImageLinkDto);
 	
-	void updateFileNumLink(QuillFileLinkDto quillFileLinkDto);
+	void updateFileNoLink(QuillFileLinkDto quillFileLinkDto);
 
 	void insertBoard(QuillBoardDto quillBoardDto);
 

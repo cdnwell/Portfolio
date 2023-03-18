@@ -129,7 +129,7 @@ const ChangePwPage = () => {
 
     if (isPwExist) {
       axios
-        .post("/member/update/exist-pw", {
+        .put("/member/current-pw", {
           email: userEmail,
           pw: existPw,
           changePw: pw,
@@ -150,7 +150,7 @@ const ChangePwPage = () => {
         });
     } else {
       axios
-        .post("/member/update/pw", { email: userEmail, pw: pw })
+        .put("/member/pw", { email: userEmail, pw: pw })
         .then((response) => {
           const isChanged = response.data;
 
@@ -170,6 +170,7 @@ const ChangePwPage = () => {
 
   return (
     <form className={classes.change_pw} onSubmit={onChangePw}>
+      {}
       <h3 className={classes.change_pw_h3}>비밀번호 변경 / 설정</h3>
       <p className={classes.msg_p}>{msg}</p>
       {isPwExist && (

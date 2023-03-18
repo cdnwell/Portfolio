@@ -10,7 +10,7 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class MemberSelectService {
-	
+
 	private final MemberSelectMapper memberSelectMapper;
 
 	public MemberDto selectMemberInfo(String email) {
@@ -27,8 +27,8 @@ public class MemberSelectService {
 
 	public boolean selectMemberPassword(String email) {
 		MemberDto memberDto = memberSelectMapper.selectMemberPassword(email);
-		
-		if(memberDto == null) return false;
+		if (memberDto == null || memberDto.getPw().trim().equals(""))
+			return false;
 		return true;
 	}
 

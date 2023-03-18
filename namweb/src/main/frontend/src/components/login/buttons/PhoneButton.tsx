@@ -66,7 +66,7 @@ const PhoneButton: React.FC<{
 
   const phoneUpdate = (phoneRep: string) => {
     axios
-      .post("/member/update/phone", { phone: phoneRep, email: user_email })
+      .put("/member/phone", { phone: phoneRep, email: user_email })
       .then((response) => {
         onReloadClick();
         setIsUpdate(true);

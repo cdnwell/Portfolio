@@ -62,7 +62,7 @@ const NickButton: React.FC<{
     if (!changeSelect) return;
 
     axios
-      .post("/member/update/nick", { email: userEmail, nick: nick })
+      .put("/member/nick", { email: userEmail, nick: nick })
       .then((response) => {
         onReloadClick();
         setIsUpdate(true);

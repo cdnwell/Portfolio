@@ -58,7 +58,7 @@ const NameButton: React.FC<{
     if (!changeSelect) return;
 
     axios
-      .post("/member/update/name", { email: userEmail, name: name })
+      .put("/member/name", { email: userEmail, name: name })
       .then((response) => {
         onReloadClick();
         setIsUpdate(true);

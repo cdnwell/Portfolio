@@ -1,9 +1,7 @@
 package com.namweb.domain.member.controller;
 
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.namweb.domain.member.dto.MemberDto;
@@ -17,46 +15,35 @@ public class MemberUpdateController {
 	
 	private final MemberUpdateService memberUpdateService;
 
-	@PostMapping("/member/update/phone")
-	public boolean updatePhone(@RequestBody MemberDto memberDto) {
+	@PutMapping("/member/phone")
+	public void updatePhone(@RequestBody MemberDto memberDto) {
 		memberUpdateService.updatePhone(memberDto);
-		
-		return true;
 	}
 	
-	@PostMapping("/member/update/name")
-	public boolean updateName(@RequestBody MemberDto memberDto) {
+	@PutMapping("/member/name")
+	public void updateName(@RequestBody MemberDto memberDto) {
 		memberUpdateService.updateName(memberDto);
-		
-		return true;
 	}
 	
-	@PostMapping("/member/update/nick")
-	public boolean updateNick(@RequestBody MemberDto memberDto) {
+	@PutMapping("/member/nick")
+	public void updateNick(@RequestBody MemberDto memberDto) {
 		memberUpdateService.updateNick(memberDto);
-		
-		return true;
 	}
 	
-	@PostMapping("/member/update/address")
-	public boolean updateAddress(@RequestBody MemberDto memberDto) {
+	@PutMapping("/member/address")
+	public void updateAddress(@RequestBody MemberDto memberDto) {
 		memberUpdateService.updateAddress(memberDto);
-		
-		return true;
 	}
 	
-	@PostMapping("/member/update/pw")
+	@PutMapping("/member/pw")
 	public boolean updatePassword(@RequestBody MemberDto memberDto) {
 		memberUpdateService.updatePassword(memberDto);
-		
 		return true;
 	}
 	
-	@PostMapping("/member/update/exist-pw")
+	@PutMapping("/member/current-pw")
 	public boolean updateExistPassword(@RequestBody MemberDto memberDto) {
-		boolean result = memberUpdateService.updateExistPassword(memberDto);
-		
-		return result;
+		return memberUpdateService.updateExistPassword(memberDto);
 	}
 	
 }

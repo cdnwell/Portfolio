@@ -36,7 +36,7 @@
 	</delete>
 	 -->
 	
-	<update id="updateImageNumLink" parameterType="qlImage" >
+	<update id="updateImageNoLink" parameterType="qlImage" >
 		update board_image
 		set bno = #{boardNo}
 		where photono in 
@@ -45,7 +45,7 @@
 		</foreach>  
 	</update>
 	
-	<update id="updateFileNumLink" parameterType="qlFile">
+	<update id="updateFileNoLink" parameterType="qlFile">
 		update board_file
 		set bno = #{boardNo}
 		where fileNo = #{fileNo}

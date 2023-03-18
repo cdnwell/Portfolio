@@ -76,7 +76,7 @@ const AddressButton: React.FC<{
     if (!changeSelect) return;
 
     axios
-      .post("/member/update/address", {
+      .put("/member/address", {
         email: userEmail,
         address: address,
         address_detail: addressDetail,

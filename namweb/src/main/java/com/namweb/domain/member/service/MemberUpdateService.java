@@ -43,8 +43,7 @@ public class MemberUpdateService {
 			if (isPwExist == null)
 				throw new MemberNoPasswordException("해당 비밀번호는 기존 비밀번호가 아닙니다.");
 
-			// 기존 pw는 memberDto에 pw로 들어옴
-			// 새로운 pw는 memberDto의 changePw로 들어옴
+			// 기존 pw = memberDto의 pw, 새로운 pw = memberdDto의 changePw
 			// 기존 pw를 새로운 pw로 바꾸고 updatePassword mapper 실행
 			memberDto.setPw(memberDto.getChangePw());
 			memberUpdateMapper.updatePassword(memberDto);

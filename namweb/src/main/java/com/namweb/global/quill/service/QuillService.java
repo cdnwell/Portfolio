@@ -54,19 +54,12 @@ public class QuillService {
 		return uploadFile.getAbsolutePath();
 	}
 
-	public void deleteNotUploadImage(String photoNo) {
-		String[] photoNoSplit = photoNo.split(",");
-		int[] photoNumbers = Arrays.stream(photoNoSplit).mapToInt(Integer::parseInt).toArray();
-		fileRegister.deleteBoardImageFiles(photoNumbers);
-		quillMapper.deleteNotUploadImage(photoNumbers);
+	public void updateImageNoLink(QuillImageLinkDto quillImageLinkDto) {
+		quillMapper.updateImageNoLink(quillImageLinkDto);
 	}
 
-	public void updateImageNumLink(QuillImageLinkDto quillImageLinkDto) {
-		quillMapper.updateImageNumLink(quillImageLinkDto);
-	}
-
-	public void updateFileNumLink(QuillFileLinkDto quillFileLinkDto) {
-		quillMapper.updateFileNumLink(quillFileLinkDto);
+	public void updateFileNoLink(QuillFileLinkDto quillFileLinkDto) {
+		quillMapper.updateFileNoLink(quillFileLinkDto);
 	}
 
 	public void insertBoard(QuillBoardDto quillBoardDto) {
