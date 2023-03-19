@@ -1,7 +1,8 @@
 import classes from "./BoardTray.module.scss";
 
 import { BiMessageDots } from "react-icons/bi";
-
+import axios from "../../../common/axiosInstance";
+import { Link } from "react-router-dom";
 
 interface BoardTrayProps {
   board: {
@@ -15,8 +16,7 @@ interface BoardTrayProps {
   }[];
 }
 
-const BoardTray = ({ board } : BoardTrayProps) => {
-  
+const BoardTray = ({ board }: BoardTrayProps) => {
   const dateConverter = (dateArg: string) => {
     const dateTmp = new Date(dateArg);
     const today = new Date();
@@ -40,11 +40,23 @@ const BoardTray = ({ board } : BoardTrayProps) => {
     return dateResult;
   };
 
+  const onBoardReadClick = (bno: string) => {
+    axios
+      .get(`/board/bulletin/detail/${bno}`)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   const board_spread = board.map((item) => (
     <tr key={item.bno} className={classes.board_spread_tr}>
       <td>{item.bno}</td>
+      <td>{item.category}</td>
       <td>
-        {item.title}
+        <Link to={`/namweb/board/detail/${item.bno}`} className={classes.board_title} onClick={() => onBoardReadClick(item.bno)}>{item.title}</Link>
         {item.breply !== 0 && (
           <span className={classes.board_reply_span}>
             <BiMessageDots className={classes.board_reply_icon} />{" "}

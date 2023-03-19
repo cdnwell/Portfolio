@@ -4,16 +4,48 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.namweb.domain.board.bulletin.mapper.BoardBulletinMapper">
 
-	<select id="selectBoardList" parameterType="int" resultType="board">
-		SELECT bno, category, title, writer, post_date as postDate, email,  bview as bView,
+	<select id="selectBoardList" parameterType="map" resultType="board">
+		SELECT bno, 
+		case 
+		when category = 1
+		then '공지'
+		when category = 2
+		then '자유'
+		when category = 3
+		then '의뢰'
+		end as category, content, title, writer, post_date as postDate, email,  bview as bView,
 			(select count(*) from board_reply br inner join board bi on bi.bno = br.bno) as bReply
 		FROM board
+		where title like concat('%',#{search},'%') 
+		and content like concat('%',#{search},'%')
+		<if test="category != 0">
+		and category = #{category}
+		</if>
 		order by bno desc
 		LIMIT #{pageStartNo}, 15
 	</select>
 	
-	<select id="selectBoardListCount" resultType="int">
+	<select id="selectBoardListCount" parameterType="map" resultType="int">
 		select count(*) from board
+		where title like concat('%',#{search},'%') and content like concat('%',#{search},'%') 
+		<if test="category != 0">
+		and category = #{category}
+		</if>
+	</select>
+	
+	<select id="selectBoardDetail" parameterType="int" resultType="board">
+		SELECT bno, 
+		case 
+		when category = 1
+		then '공지'
+		when category = 2
+		then '자유'
+		when category = 3
+		then '의뢰'
+		end as category, content, title, writer, post_date as postDate, email,  bview as bView,
+			(select count(*) from board_reply br inner join board bi on bi.bno = br.bno) as bReply
+		FROM board
+		where bno = #{bno}
 	</select>
 	
 </mapper>

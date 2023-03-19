@@ -248,9 +248,9 @@ const BoardWritePage = () => {
           onChange={onCategoryChange}
           value={category}
         >
-          {isAdminLoggedIn && <option value="0">공지</option>}
-          <option value="1">자유</option>
-          <option value="2">견적</option>
+          {isAdminLoggedIn && <option value="1">공지</option>}
+          <option value="2">자유</option>
+          <option value="3">의뢰</option>
         </select>
         <input
           type="text"

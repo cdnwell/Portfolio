@@ -16,7 +16,7 @@ const BoardPage = ({ paging, onPageNoPageClick }: PagingProps) => {
   }
 
   return (
-    <td colSpan={4} className={classes.board_page_td}>
+    <td colSpan={5} className={classes.board_page_td}>
       <BoardPageTray
         paging={paging}
         onPageNoClick={onPageNoClick}

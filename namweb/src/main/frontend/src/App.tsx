@@ -9,6 +9,7 @@ import ChangePw from "./pages/Login/ChangePw/ChangePw";
 import NotFind from "./pages/NotFind";
 import Board from "./pages/Board/Board";
 import BoardWrite from "./pages/Board/Write/BoardWrite";
+import BoardRead from "./pages/Board/Read/BoardRead";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path="/login/register" element={<Register />} />
         <Route path="/login/find-pw" element={<FindPw />} />
         <Route path="/login/pw-change" element={<ChangePw />} />
+        <Route path="/namweb/board/detail/:bno" element={<BoardRead />} />
         <Route path="/*" element={<NotFind />} />
       </Routes>
     </Layout>

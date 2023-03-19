@@ -1,6 +1,8 @@
 package com.namweb.domain.board.bulletin.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
@@ -15,13 +17,28 @@ public class BoardBulletinService {
 
 	private final BoardBulletinMapper boardBulletinMapper;
 
-	public List<BoardDTO> selectBoardList(int pageNo) {
+	public List<BoardDTO> selectBoardList(int pageNo, String search, int category) {
+		Map<String, Object> map = new HashMap<>();
 		int pageStartNo = pageNo*15;
-		return boardBulletinMapper.selectBoardList(pageStartNo);		
+		
+		map.put("pageStartNo", pageStartNo);
+		map.put("search", search);
+		map.put("category", category);
+		
+		return boardBulletinMapper.selectBoardList(map);
 	}
 
-	public int selectBoardListCount() {
-		return boardBulletinMapper.selectBoardListCount();
+	public int selectBoardListCount(String search, int category) {
+		Map<String, Object> map = new HashMap<>();
+		
+		map.put("search", search);
+		map.put("category", category);
+		
+		return boardBulletinMapper.selectBoardListCount(map);
 	}
-	
+
+	public BoardDTO selectBoardDetail(int bno) {
+		return boardBulletinMapper.selectBoardDetail(bno);
+	}
+
 }

@@ -6,11 +6,13 @@ import { FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from "redux-persist
 
 import bookReducer from "./book";
 import loginReducer from "./login";
+import searchReducer from "./search";
 
 
 const reducers = combineReducers({
   login: loginReducer,
   book: bookReducer,
+  search : searchReducer,
 });
 
 const persistConfig = {

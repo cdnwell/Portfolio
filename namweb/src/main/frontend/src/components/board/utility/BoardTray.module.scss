@@ -1,16 +1,25 @@
 @import "../../../assets/scss/_constant";
 
 .board_spread_tr > td:nth-child(1),
-.board_spread_tr > td:nth-child(3),
+.board_spread_tr > td:nth-child(2),
 .board_spread_tr > td:nth-child(4),
-.board_spread_tr > td:nth-child(5) {
+.board_spread_tr > td:nth-child(5),
+.board_spread_tr > td:nth-child(6) {
   text-align: center;
+}
+
+.board_spread_tr > td:nth-child(2) {
+    font-size: 13px;
 }
 
 .board_spread_tr > td {
     height: 50px;
 
     border-bottom: 1px solid #b7b7b7;
+}
+
+.board_title {
+    cursor: pointer;
 }
 
 .board_reply_span {

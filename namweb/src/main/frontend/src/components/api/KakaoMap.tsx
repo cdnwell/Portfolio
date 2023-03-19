@@ -12,9 +12,19 @@ import { CENTER_POS_Y, CENTER_POS_X } from "../../constant/KakaoConstant";
 
 let REDUX_POS_FLAG = false;
 
-const KakaoMap: React.FC<{
+type KakaoMapType = {
   onPostPos: (pos: { lat: number; lng: number }) => void;
-}> = ({ onPostPos }) => {
+};
+
+type PostLatType = {
+  book: { post_lat: number };
+};
+
+type PostLngType = {
+  book: { post_lng: number };
+};
+
+const KakaoMap = ({ onPostPos }: KakaoMapType) => {
   const [position, setPosition] = useState({
     lat: CENTER_POS_Y,
     lng: CENTER_POS_X,
@@ -27,10 +37,10 @@ const KakaoMap: React.FC<{
   const [isStored, setIsStored] = useState(false);
 
   const lat_store = useReduxSelector(
-    (state: { book: { post_lat: number } }) => state.book.post_lat
+    (state: PostLatType) => state.book.post_lat
   );
   const lng_store = useReduxSelector(
-    (state: { book: { post_lng: number } }) => state.book.post_lng
+    (state: PostLngType) => state.book.post_lng
   );
 
   useEffect(() => {
