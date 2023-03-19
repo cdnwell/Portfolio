@@ -2,31 +2,59 @@ import classes from "./BoardTray.module.scss";
 
 import { BiMessageDots } from "react-icons/bi";
 
-const BoardTray: React.FC<{
+
+interface BoardTrayProps {
   board: {
-    id: string;
+    bno: string;
+    category: string;
     title: string;
     writer: string;
-    date: string;
-    view: number;
-    reply: number;
+    bview: number;
+    breply: number;
+    postDate: string;
   }[];
-}> = ({ board }) => {
+}
+
+const BoardTray = ({ board } : BoardTrayProps) => {
+  
+  const dateConverter = (dateArg: string) => {
+    const dateTmp = new Date(dateArg);
+    const today = new Date();
+    let dateResult = "";
+
+    if (
+      today.getFullYear() === dateTmp.getFullYear() &&
+      today.getMonth() === dateTmp.getMonth() &&
+      today.getDate() === dateTmp.getDate()
+    ) {
+      dateResult = dateTmp.getHours() + " : " + dateTmp.getMinutes();
+      return dateResult;
+    }
+
+    dateResult =
+      dateTmp.getFullYear() +
+      "-" +
+      dateTmp.getMonth() +
+      "-" +
+      dateTmp.getDate();
+    return dateResult;
+  };
+
   const board_spread = board.map((item) => (
-    <tr key={item.id} className={classes.board_spread_tr}>
-      <td>{item.id}</td>
+    <tr key={item.bno} className={classes.board_spread_tr}>
+      <td>{item.bno}</td>
       <td>
         {item.title}
-        {item.reply !== 0 && (
+        {item.breply !== 0 && (
           <span className={classes.board_reply_span}>
             <BiMessageDots className={classes.board_reply_icon} />{" "}
-            <span>{item.reply}</span>
+            <span>{item.breply}</span>
           </span>
         )}
       </td>
       <td>{item.writer}</td>
-      <td>{item.date}</td>
-      <td>{item.view}</td>
+      <td>{dateConverter(item.postDate)}</td>
+      <td>{item.bview}</td>
     </tr>
   ));
 

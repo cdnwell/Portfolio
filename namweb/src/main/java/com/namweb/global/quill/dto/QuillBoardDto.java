@@ -11,7 +11,7 @@ import lombok.ToString;
 @Setter
 @ToString
 public class QuillBoardDto {
-	private int boardNo;
+	private int bno;
 	private int category;
 	private String title;
 	private String content;

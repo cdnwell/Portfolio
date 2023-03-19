@@ -221,7 +221,7 @@ const BoardWritePage = () => {
     // 6. 내용 db에 전송
     axios
       .post("/quill/board", {
-        boardNo,
+        bno : boardNo,
         category,
         title,
         content : contentChanged,

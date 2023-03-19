@@ -1,9 +1,9 @@
+import { BoardType } from "../types/BoardType";
+import { PagingType } from "../types/PagingType";
 import classes from "./BoardList.module.scss";
-import BoardPage from "./BoardPage";
-import BoardPageWrite from "./BoardPageWrite";
 
+import BoardPageWrite from "./BoardPageWrite";
 import BoardTray from "./BoardTray";
-import BoardWrite from "./BoardWriteBtn";
 
 const BOARD_DUMMY = [
   {
@@ -32,7 +32,17 @@ const BOARD_DUMMY = [
   },
 ];
 
-const BoardList = () => {
+interface BoardListProps {
+  board: BoardType[];
+  paging: PagingType;
+  onPageNoBoardClick: (pageNo: number) => void;
+}
+
+const BoardList = ({ board, paging, onPageNoBoardClick }: BoardListProps) => {
+  const onPageNoListClick = (pageNo: number) => {
+    onPageNoBoardClick(pageNo);
+  };
+
   return (
     <div>
       <table className={classes.board_table}>
@@ -46,10 +56,13 @@ const BoardList = () => {
           </tr>
         </thead>
         <tbody>
-          <BoardTray board={BOARD_DUMMY} />
+          <BoardTray board={board} />
         </tbody>
         <tfoot>
-            <BoardPageWrite />
+          <BoardPageWrite
+            paging={paging as PagingType}
+            onPageNoListClick={onPageNoListClick}
+          />
         </tfoot>
       </table>
     </div>

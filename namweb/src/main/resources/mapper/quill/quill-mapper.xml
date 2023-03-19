@@ -52,8 +52,8 @@
 	</update>
 	
 	<insert id="insertBoard" parameterType="qBoard">
-		insert into board(idx, nick, email, title, content, post_date, b_view, category)
-		values (#{boardNo}, #{name}, #{email}, #{title}, #{content}, sysdate(), 0, #{category})
+		insert into board(bno, writer, email, title, content, post_date, bview, category)
+		values (#{bno}, #{name}, #{email}, #{title}, #{content}, sysdate(), 0, #{category})
 	</insert>
 	
 </mapper>

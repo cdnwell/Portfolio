@@ -1,15 +1,25 @@
 import classes from "./BoardPage.module.scss";
 
+import { PagingType } from "../types/PagingType";
+
 import BoardPageTray from "./BoardPageTray";
 
-const BoardPage = () => {
+interface PagingProps {
+  paging : PagingType;
+  onPageNoPageClick : (pageNo : number) => void;
+}
+
+const BoardPage = ({ paging, onPageNoPageClick }: PagingProps) => {
+
+  const onPageNoClick = (pageNo : number) => {
+    onPageNoPageClick(pageNo);
+  }
+
   return (
     <td colSpan={4} className={classes.board_page_td}>
       <BoardPageTray
-        pageStartNum={1}
-        pageEndNum={5}
-        isBeforePage={true}
-        isAfterPage={true}
+        paging={paging}
+        onPageNoClick={onPageNoClick}
       />
     </td>
   );
