@@ -1,6 +1,6 @@
 @import "../../assets/scss/_constant";
 
-footer {
+.footer {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -11,7 +11,7 @@ footer {
     background-color: $nw-footer-color;
 }
 
-footer p {
+.footer p {
     margin : 5px 15px;
     color: white;
     

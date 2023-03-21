@@ -1,0 +1,71 @@
+@import "../../../../assets/scss/_constant";
+
+.board_reply {
+  width: 95%;
+
+  display: flex;
+  flex-direction: column;
+
+  border: 1px solid #b7b7b7;
+  border-radius: 10px;
+  padding: 15px 40px;
+  margin: 20px 2.5%;
+  box-sizing: border-box;
+}
+
+.board_reply_span_box {
+  padding-bottom: 13px;
+}
+
+.board_reply_textarea_box {
+  position: relative;
+}
+
+.board_reply_textarea {
+  width: 100%;
+  font-size: 15px;
+
+  border: 1px solid #b7b7b7;
+  border-radius: 10px;
+  background-color: #fafafa;
+
+  height: 85px;
+  padding: 10px;
+  box-sizing: border-box;
+
+  outline: none;
+  resize: none;
+}
+
+.board_reply_login_span {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+
+    font-size: 14px;
+    color: gray;
+}
+
+.board_login_link {
+    color: $nw-color;
+}
+
+.board_reply_btn_box {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  padding-top: 10px;
+}
+
+.board_reply_btn {
+  width: 100px;
+  height: 38.5px;
+
+  border: none;
+  border-radius: 5px;
+  background-color: $nw-color;
+
+  color: white;
+
+  cursor: pointer;
+}

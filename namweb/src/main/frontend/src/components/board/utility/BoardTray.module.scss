@@ -12,6 +12,10 @@
     font-size: 13px;
 }
 
+.board_spread_tr > td:nth-child(3) {
+    padding : 0 10px;
+}
+
 .board_spread_tr > td {
     height: 50px;
 

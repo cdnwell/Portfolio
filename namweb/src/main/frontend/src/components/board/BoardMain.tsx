@@ -8,7 +8,6 @@ import BoardList from "./utility/BoardList";
 import BoardSearch from "./utility/BoardSearch";
 import { PagingType } from "./types/PagingType";
 import { BoardType } from "./types/BoardType";
-import { SearchType } from "./types/SearchType";
 
 type SearchReduxType = {
   search: { search: string };
@@ -19,24 +18,24 @@ type CategoryReduxType = {
 };
 
 const BoardMain = () => {
-  const [board, setBoard] = useState<BoardType[]>([]);
-  const [paging, setPaging] = useState<PagingType>();
-  const [pageNo, setPageNo] = useState(0);
-  const [search, setSearch] = useState("");
-  const [category, setCategory] = useState(0);
-
-  const onPageNoBoardClick = (pageNo: number) => {
-    const currentPageNo = pageNo - 1;
-    console.log(currentPageNo);
-    setPageNo(currentPageNo);
-  };
-
   const searchRedux = useReduxSelector(
     (state: SearchReduxType) => state.search.search
   );
   const categoryRedux = useReduxSelector(
     (state: CategoryReduxType) => state.search.category
   );
+
+  const [board, setBoard] = useState<BoardType[]>([]);
+  const [paging, setPaging] = useState<PagingType>();
+  const [pageNo, setPageNo] = useState(0);
+  const [search, setSearch] = useState(searchRedux);
+  const [category, setCategory] = useState(categoryRedux);
+
+  const onPageNoBoardClick = (pageNo: number) => {
+    const currentPageNo = pageNo - 1;
+    console.log(currentPageNo);
+    setPageNo(currentPageNo);
+  };
 
   useEffect(() => {
     setSearch(searchRedux);

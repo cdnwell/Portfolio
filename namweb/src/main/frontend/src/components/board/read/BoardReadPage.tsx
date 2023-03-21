@@ -5,7 +5,41 @@ import { useParams } from "react-router-dom";
 import axios from "../../../common/axiosInstance";
 
 import { BiMessageDots } from "react-icons/bi";
-import localStorage from "redux-persist/es/storage";
+import BoardReply from "./reply/BoardReply";
+
+const BOARD_REPLY_DUMMY = [
+  {
+    bno : 483,
+    replyno:0,
+    replyforno : -1,  // 기본 값 -1
+    writer: "b0001",
+    
+    content:
+      " consectetur adipiscing elit. Phasellus tincidunt tincidunt venenatis. Nunc a libero tortor. Praesent et nisl fermentum, mattis ligula quis, gravida metus. Aliquam id porttitor mauris, sit amet tincidunt neque. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Cras tempus ante metus, quis ullamcorper lacus lacinia et. Aliquam erat volutpat. Suspendisse felis est, elementum sed",
+    date: "2023-3-20 11:02:03",
+    rlike : 3,
+  },
+  {
+    bno : 483,
+    writer: "aab1c",
+    replyno:1,
+    replyforno : -1,
+    content:
+      " consectetur adipiscing elit. Phasellus tincidunt tincidunt venenatis. Nunc a libero tortor. Praesent et nisl fermentum, mattis ligula quis, gravida metus. Aliquam id porttitor mauris, sit amet tincidunt neque. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Cras tempus ante metus, quis ullamcorper lacus lacinia et. Aliquam erat volutpat. Suspendisse felis est, elementum sed",
+    date: "2023-3-22 11:02:03",
+    rlike : 0,
+  },
+  {
+    bno : 483,
+    writer: "Zabcda1",
+    replyno:2,
+    replyforno : 1,
+    content:
+      " consectetur adipiscing elit. Phasellus tincidunt tincidunt venenatis. Nunc a libero tortor. Praesent et nisl fermentum, mattis ligula quis, gravida metus. Aliquam id porttitor mauris, sit amet tincidunt neque. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Cras tempus ante metus, quis ullamcorper lacus lacinia et. Aliquam erat volutpat. Suspendisse felis est, elementum sed",
+    date: "2023-2-1 11:02:03",
+    rlike : 1,
+  },
+];
 
 const BoardReadPage = () => {
   const { bno } = useParams();
@@ -15,9 +49,11 @@ const BoardReadPage = () => {
   const [category, setCategory] = useState();
   const [content, setContent] = useState("");
   const [email, setEmail] = useState();
-  const [postDate, setPostDate] = useState();
+  const [postDate, setPostDate] = useState("");
   const [title, setTitle] = useState();
   const [writer, setWriter] = useState();
+
+  const today = new Date();
 
   useEffect(() => {
     axios
@@ -32,9 +68,28 @@ const BoardReadPage = () => {
         setCategory(data.category);
         setContent(data.content);
         setEmail(data.email);
-        setPostDate(data.postDate);
         setTitle(data.title);
         setWriter(data.writer);
+
+        const postDateTmp = new Date(data.postDate);
+        let postDateStr = "";
+
+        if (
+          postDateTmp.getFullYear() === today.getFullYear() &&
+          postDateTmp.getMonth() === today.getMonth() &&
+          postDateTmp.getDate() === today.getDate()
+        ) {
+          postDateStr =
+            postDateTmp.getHours() + " : " + postDateTmp.getMinutes();
+        } else {
+          postDateStr =
+            postDateTmp.getFullYear() + "-" +
+            postDateTmp.getMonth() +
+            "-" +
+            postDateTmp.getDate();
+        }
+
+        setPostDate(postDateStr);
 
         const boardView = sessionStorage.getItem(`boardView`);
         console.log(`boardView`, boardView);
@@ -76,12 +131,24 @@ const BoardReadPage = () => {
   return (
     <div className={classes.board_read}>
       <header className={classes.board_read_header}>
-        <span className={classes.board_read_category}>{category}</span>
-        <h2 className={classes.board_read_title}>{title}</h2>
-        <span className={classes.board_read_bview}>조회 {bview}</span>
-        <span className={classes.board_read_reply}>
-          댓글 {<BiMessageDots className={classes.board_reply_icon} />} {breply}
-        </span>
+        <div className={classes.board_read_category_box}>
+          <span className={classes.board_read_category}>{category}</span>
+        </div>
+        <h1 className={classes.board_read_title}>{title}</h1>
+        <div className={classes.board_read_writer_box}>
+          <div>
+            <span className={classes.board_read_writer}>{writer}</span>
+            <span className={classes.board_read_bview}>
+              조회 <span className={classes.board_read_bview_num}>{bview}</span>
+            </span>
+          </div>
+          <div>
+            <span className={classes.board_read_postDate_span}>
+              작성시간 /{" "}
+            </span>
+            <span className={classes.board_read_postDate}>{postDate}</span>
+          </div>
+        </div>
       </header>
       <div></div>
       {content && (
@@ -90,6 +157,14 @@ const BoardReadPage = () => {
           dangerouslySetInnerHTML={{ __html: content }}
         ></section>
       )}
+      <footer className={classes.board_read_footer}>
+        <div className={classes.board_read_footer_box}>
+          <span className={classes.board_read_reply}>댓글</span>
+          <BiMessageDots className={classes.board_reply_icon} />
+          <span className={classes.board_read_breply}>{breply}</span>
+        </div>
+        <BoardReply bno={bno ?? ""} />
+      </footer>
     </div>
   );
 };
