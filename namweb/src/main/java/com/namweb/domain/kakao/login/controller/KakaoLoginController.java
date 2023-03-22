@@ -17,8 +17,7 @@ public class KakaoLoginController {
 
 	@PostMapping("/login/kakaoLogin")
 	public Map<String, Object> kakaoLogin(String code) {
-		Map<String, Object> userInfo = kakaoLoginService.kakaoLogin(code);
-		return userInfo;
+		return kakaoLoginService.kakaoLogin(code);
 	}
 
 }

@@ -17,8 +17,7 @@ public class GoogleLoginController {
 
 	@PostMapping("/login/googleLogin")
 	public Map<String, Object> googleLogin(String code) {
-		Map<String, Object> userInfo = googleLoginService.googleLogin(code);
-		return userInfo;
+		return googleLoginService.googleLogin(code);
 	}
 
 }

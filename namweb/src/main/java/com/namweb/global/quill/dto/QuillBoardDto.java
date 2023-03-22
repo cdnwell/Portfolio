@@ -15,6 +15,6 @@ public class QuillBoardDto {
 	private int category;
 	private String title;
 	private String content;
-	private String name;
+	private String nick;
 	private String email;
 }

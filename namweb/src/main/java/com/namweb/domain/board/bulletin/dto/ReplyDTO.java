@@ -6,18 +6,16 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-@Alias("board")
+@Alias("reply")
 @Getter
 @Setter
 @ToString
-public class BoardDTO {
+public class ReplyDTO {
+	private int replyno;
 	private int bno;
-	private String category;
-	private String title;
-	private String nick;
-	private String postDate;
+	private int replyforno;
 	private String email;
-	private int bView;
-	private int bReply;
+	private String nick;
 	private String content;
+	private String replyDate;
 }

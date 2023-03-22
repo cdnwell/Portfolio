@@ -11,34 +11,44 @@ import axios from "../../../common/axiosInstance";
 import { SERVER_URL, ADMIN_EMAIL } from "../../../common/ServerConstant";
 import BackwardButton from "../../login/buttons/BackwardButton";
 import { RiDatabase2Line } from "react-icons/ri";
-import { createSearchParams } from "react-router-dom";
 import base64toFormData from "../../../common/base64toFormData";
 
 const BACK_URL = SERVER_URL;
+
+// 카테고리 (공지, 자유, 의뢰)
+const NOTICE = 1;
+const FREE = 2;
+const REQUEST = 3;
+
+type BoardEmailType = {
+  login: {
+    email: string;
+  };
+};
+
+type BoardNickType = {
+  login: {
+    nick: string;
+  };
+};
 
 const BoardWritePage = () => {
   const quillRef = useRef<ReactQuill>();
 
   const [title, setTitle] = useState("");
-  // category : 1 = 자유
-  const [category, setCategory] = useState(1);
+  const [category, setCategory] = useState(FREE);
   const [content, setContent] = useState("");
   const [boardNo, setBoardNo] = useState();
   const [fileName, setFileName] = useState("");
   const [file, setFile] = useState<React.ChangeEvent<HTMLInputElement>>();
 
   const isAdminLoggedIn =
-    useReduxSelector(
-      (state: { login: { email: string } }) => state.login.email
-    ) === ADMIN_EMAIL
-      ? true
-      : false;
+    useReduxSelector((state: BoardEmailType) => state.login.email) ===
+    ADMIN_EMAIL;
   const userEmail = useReduxSelector(
-    (state: { login: { email: string } }) => state.login.email
+    (state: BoardEmailType) => state.login.email
   );
-  const userName = useReduxSelector(
-    (state: { login: { name: string } }) => state.login.name
-  );
+  const userNick = useReduxSelector((state: BoardNickType) => state.login.nick);
 
   useEffect(() => {
     axios
@@ -124,7 +134,7 @@ const BoardWritePage = () => {
   const onCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const categoryTmp = parseInt(e.target.value);
 
-    // console.log("category",categoryTmp);
+    console.log("category", categoryTmp);
 
     setCategory(categoryTmp);
   };
@@ -145,7 +155,7 @@ const BoardWritePage = () => {
     }
 
     const confirmSelect = confirm("게시글을 작성하시겠습니까?");
-    if(!confirmSelect) return;
+    if (!confirmSelect) return;
 
     // 2. 이미지 photoNo 모두 한 배열에 담기
     const photoNoArr = new Array();
@@ -221,11 +231,11 @@ const BoardWritePage = () => {
     // 6. 내용 db에 전송
     axios
       .post("/quill/board", {
-        bno : boardNo,
+        bno: boardNo,
         category,
         title,
-        content : contentChanged,
-        name: userName,
+        content: contentChanged,
+        nick: userNick,
         email: userEmail,
       })
       .then((response) => {
@@ -233,7 +243,6 @@ const BoardWritePage = () => {
         alert("게시글을 작성하였습니다.");
 
         //navigate해서 게시글 보기 페이지로 이동하기.
-
       })
       .catch((error) => {
         // console.log(error);
@@ -242,6 +251,12 @@ const BoardWritePage = () => {
 
   return (
     <form className={classes.board_write_page} onSubmit={onWriteSubmit}>
+      <div>
+        <h1 className={classes.board_write_h1}>게시글 작성</h1>
+      </div>
+      <div className={classes.board_write_user_nick_box}>
+        <span className={classes.board_writer_user_nick}>{userNick}</span>
+      </div>
       <div className={classes.board_title_box}>
         <select
           className={classes.board_title_select}

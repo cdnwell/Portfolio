@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.namweb.domain.board.bulletin.dto.BoardDTO;
+import com.namweb.domain.board.bulletin.dto.ReplyDTO;
 import com.namweb.domain.board.bulletin.service.BoardBulletinService;
 import com.namweb.global.page.dto.PagingDTO;
 
@@ -49,10 +50,13 @@ public class BoardBulletinController {
 	}
 	
 	@GetMapping("/board/bulletin/detail/{bno}")
-	public BoardDTO selectBoardDetail(@PathVariable("bno") int bno, HttpSession session) {
-	 	BoardDTO boardDTO = boardBulletinService.selectBoardDetail(bno);
-	 	
-	 	return boardDTO;
+	public BoardDTO selectBoardDetail(@PathVariable("bno") int bno) {
+	 	return boardBulletinService.selectBoardDetail(bno);
 	} 
+	
+	@GetMapping("/board/bulletin/detail/reply/{bno}")
+	public List<ReplyDTO> selectBoardReply(@PathVariable("bno") int bno) {
+		return boardBulletinService.selectBoardReply(bno);
+	}
 
 }

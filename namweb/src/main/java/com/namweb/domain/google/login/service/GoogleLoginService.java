@@ -35,6 +35,7 @@ public class GoogleLoginService {
 				throw new GoogleDiffTypeException("이미 가입되어 있는 이메일 주소입니다.(구글 로그인 오류)");
 
 			response.put("email", email);
+			response.put("nick", memberDto.getNick());
 			response.put("name", memberDto.getName());
 		} catch (GoogleDiffTypeException e) {
 			response.put("error", e.getMessage());
@@ -43,6 +44,7 @@ public class GoogleLoginService {
 		} catch (Exception e) {
 			googleLoginMapper.insertMember(googleMemberInfoDto);
 			response.put("email", email);
+			response.put("nick", "익명");
 			response.put("name", googleMemberInfoDto.getName());
 		}
 

@@ -28,6 +28,7 @@ const NaverLoginRedirect: React.FC<{
         dispatch(
           loginActions.setLoginInfo({
             email: data.email,
+            nick: data.nick,
             name: data.name,
           })
         );

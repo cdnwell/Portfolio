@@ -12,6 +12,23 @@
   box-shadow: 1px 1px 5px #b7b7b7, -1px -1px 5px #b7b7b7;
 }
 
+.board_write_h1 {
+  padding-top: 10px;
+  color: $nw-footer-color;
+}
+
+.board_write_user_nick_box {
+  width: 80%;
+  
+  padding-top : 10px;
+}
+
+.board_writer_user_nick {
+  font-size: 20px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid black;
+}
+
 .board_title_box {
   width: 80%;
 

@@ -5,19 +5,19 @@ import { useSelector as useReduxSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 type NameReduxType = {
-  login: { name: string };
+  login: { nick: string };
 };
 
 const BoardReplyWrite = () => {
   const [writer, setWriter] = useState();
-  const userName = useReduxSelector((state: NameReduxType) => state.login.name);
+  const userNick = useReduxSelector((state: NameReduxType) => state.login.nick);
 
   return (
     <>
-      {userName && (
+      {userNick && (
         <div className={classes.board_reply}>
           <div className={classes.board_reply_span_box}>
-            <span>{userName}</span>
+            <span>{userNick}</span>
           </div>
           <textarea
             className={classes.board_reply_textarea}
@@ -28,10 +28,10 @@ const BoardReplyWrite = () => {
           </div>
         </div>
       )}
-      {!userName && (
+      {!userNick && (
         <div className={classes.board_reply}>
           <div className={classes.board_reply_span_box}>
-            <span>{userName}</span>
+            <span>{userNick}</span>
           </div>
           <div className={classes.board_reply_textarea_box}>
             <textarea
@@ -39,7 +39,11 @@ const BoardReplyWrite = () => {
               disabled
             ></textarea>
             <span className={classes.board_reply_login_span}>
-              댓글을 작성하기 위해 <Link to="/login" className={classes.board_login_link}>로그인</Link>을 해주세요.
+              댓글을 작성하기 위해{" "}
+              <Link to="/login" className={classes.board_login_link}>
+                로그인
+              </Link>
+              을 해주세요.
             </span>
           </div>
           <div className={classes.board_reply_btn_box}>

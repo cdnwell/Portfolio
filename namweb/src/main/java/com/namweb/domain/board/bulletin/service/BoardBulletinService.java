@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.stereotype.Service;
 
 import com.namweb.domain.board.bulletin.dto.BoardDTO;
+import com.namweb.domain.board.bulletin.dto.ReplyDTO;
 import com.namweb.domain.board.bulletin.mapper.BoardBulletinMapper;
 
 import lombok.RequiredArgsConstructor;
@@ -39,6 +40,10 @@ public class BoardBulletinService {
 
 	public BoardDTO selectBoardDetail(int bno) {
 		return boardBulletinMapper.selectBoardDetail(bno);
+	}
+
+	public List<ReplyDTO> selectBoardReply(int bno) {
+		return boardBulletinMapper.selectBoardReply(bno);
 	}
 
 }

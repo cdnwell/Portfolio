@@ -9,35 +9,34 @@ import BoardReply from "./reply/BoardReply";
 
 const BOARD_REPLY_DUMMY = [
   {
-    bno : 483,
-    replyno:0,
-    replyforno : -1,  // 기본 값 -1
-    writer: "b0001",
-    
+    bno: 483,
+    replyno: 0,
+    replyforno: -1, // 기본 값 -1
+    nick: "b0001",
     content:
       " consectetur adipiscing elit. Phasellus tincidunt tincidunt venenatis. Nunc a libero tortor. Praesent et nisl fermentum, mattis ligula quis, gravida metus. Aliquam id porttitor mauris, sit amet tincidunt neque. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Cras tempus ante metus, quis ullamcorper lacus lacinia et. Aliquam erat volutpat. Suspendisse felis est, elementum sed",
     date: "2023-3-20 11:02:03",
-    rlike : 3,
+    rlike: 3,
   },
   {
-    bno : 483,
-    writer: "aab1c",
-    replyno:1,
-    replyforno : -1,
+    bno: 483,
+    replyno: 1,
+    replyforno: -1,
+    nick: "aab1c",
     content:
       " consectetur adipiscing elit. Phasellus tincidunt tincidunt venenatis. Nunc a libero tortor. Praesent et nisl fermentum, mattis ligula quis, gravida metus. Aliquam id porttitor mauris, sit amet tincidunt neque. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Cras tempus ante metus, quis ullamcorper lacus lacinia et. Aliquam erat volutpat. Suspendisse felis est, elementum sed",
     date: "2023-3-22 11:02:03",
-    rlike : 0,
+    rlike: 0,
   },
   {
-    bno : 483,
-    writer: "Zabcda1",
-    replyno:2,
-    replyforno : 1,
+    bno: 483,
+    replyno: 2,
+    replyforno: 1,
+    nick: "Zabcda1",
     content:
       " consectetur adipiscing elit. Phasellus tincidunt tincidunt venenatis. Nunc a libero tortor. Praesent et nisl fermentum, mattis ligula quis, gravida metus. Aliquam id porttitor mauris, sit amet tincidunt neque. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Cras tempus ante metus, quis ullamcorper lacus lacinia et. Aliquam erat volutpat. Suspendisse felis est, elementum sed",
     date: "2023-2-1 11:02:03",
-    rlike : 1,
+    rlike: 1,
   },
 ];
 
@@ -51,16 +50,17 @@ const BoardReadPage = () => {
   const [email, setEmail] = useState();
   const [postDate, setPostDate] = useState("");
   const [title, setTitle] = useState();
-  const [writer, setWriter] = useState();
+  const [nick, setNick] = useState();
+  const [reply, setReply] = useState();
 
   const today = new Date();
 
   useEffect(() => {
+    // 1. 게시글 내용 가져오기
     axios
       .get(`/board/bulletin/detail/${bno}`)
       .then((response) => {
         const data = response.data;
-        console.log(data);
 
         setBnoState(data.bno);
         setBreply(data.breply);
@@ -69,7 +69,7 @@ const BoardReadPage = () => {
         setContent(data.content);
         setEmail(data.email);
         setTitle(data.title);
-        setWriter(data.writer);
+        setNick(data.nick);
 
         const postDateTmp = new Date(data.postDate);
         let postDateStr = "";
@@ -83,7 +83,8 @@ const BoardReadPage = () => {
             postDateTmp.getHours() + " : " + postDateTmp.getMinutes();
         } else {
           postDateStr =
-            postDateTmp.getFullYear() + "-" +
+            postDateTmp.getFullYear() +
+            "-" +
             postDateTmp.getMonth() +
             "-" +
             postDateTmp.getDate();
@@ -92,7 +93,6 @@ const BoardReadPage = () => {
         setPostDate(postDateStr);
 
         const boardView = sessionStorage.getItem(`boardView`);
-        console.log(`boardView`, boardView);
         if (boardView) {
           const boardArray = boardView.split(" ");
           let isNoView = true;
@@ -106,7 +106,6 @@ const BoardReadPage = () => {
             axios
               .put(`/board/bulletin/detail/${bno}`)
               .then((response) => {
-                console.log(response);
                 sessionStorage.setItem("boardView", boardView + " " + bno);
               })
               .catch((error) => {
@@ -117,15 +116,26 @@ const BoardReadPage = () => {
           sessionStorage.setItem("boardView", `${bno}`);
           axios
             .put(`/board/bulletin/detail/${bno}`)
-            .then((response) => {
-              console.log(response);
-            })
+            .then((response) => {})
             .catch((error) => {
               console.log(error);
             });
         }
       })
       .catch((error) => console.log(error));
+
+    // 2. 게시글에 대한 댓글 가져오기
+    axios
+      .get(`/board/bulletin/detail/reply/${bno}`)
+      .then((response) => {
+        console.log(response);
+        const data = response.data;
+
+        setReply(data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }, []);
 
   return (
@@ -137,7 +147,7 @@ const BoardReadPage = () => {
         <h1 className={classes.board_read_title}>{title}</h1>
         <div className={classes.board_read_writer_box}>
           <div>
-            <span className={classes.board_read_writer}>{writer}</span>
+            <span className={classes.board_read_writer}>{nick}</span>
             <span className={classes.board_read_bview}>
               조회 <span className={classes.board_read_bview_num}>{bview}</span>
             </span>
@@ -163,7 +173,7 @@ const BoardReadPage = () => {
           <BiMessageDots className={classes.board_reply_icon} />
           <span className={classes.board_read_breply}>{breply}</span>
         </div>
-        <BoardReply bno={bno ?? ""} />
+        {reply && <BoardReply reply={reply} />}
       </footer>
     </div>
   );

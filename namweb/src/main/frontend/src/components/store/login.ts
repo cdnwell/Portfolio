@@ -1,25 +1,36 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { PURGE } from "redux-persist";
 
+type LoginSliceType = {
+  payload : {
+    email : string;
+    nick : string;
+    name : string;
+  }
+}
+
 const initialState = {
   isLoggedIn: false,
-  name: "",
   email: "",
+  nick: "",
+  name: "",
 };
 
 const loginSlice = createSlice({
   name: "login-data",
   initialState,
   reducers: {
-    setLoginInfo(state, action: { payload: { name: string; email: string } }) {
+    setLoginInfo(state, action: LoginSliceType) {
       state.isLoggedIn = true;
-      state.name = action.payload.name;
       state.email = action.payload.email;
+      state.nick = action.payload.nick;
+      state.name = action.payload.name;
     },
     setLoginInvalid(state) {
       state.isLoggedIn = false;
-      state.name = "";
       state.email = "";
+      state.nick = "";
+      state.name = "";
     },
   },
   extraReducers: (builder) => {

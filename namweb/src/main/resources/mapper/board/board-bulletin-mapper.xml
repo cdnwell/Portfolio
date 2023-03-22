@@ -2,50 +2,75 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.namweb.domain.board.bulletin.mapper.BoardBulletinMapper">
+<mapper
+	namespace="com.namweb.domain.board.bulletin.mapper.BoardBulletinMapper">
 
-	<select id="selectBoardList" parameterType="map" resultType="board">
-		SELECT bno, 
-		case 
+	<select id="selectBoardList" parameterType="map"
+		resultType="board">
+		SELECT b.*, IFNULL(bri.bReply, 0) as bReply
+		FROM ( SELECT bno,
+		case
 		when category = 1
 		then '공지'
 		when category = 2
 		then '자유'
 		when category = 3
-		then '의뢰'
-		end as category, content, title, writer, post_date as postDate, email,  bview as bView,
-			(select count(*) from board_reply br inner join board bi on bi.bno = br.bno) as bReply
+		then
+		'의뢰'
+		end as category, content, title, nick, post_date as postDate,
+		email, bview as bView
 		FROM board
-		where title like concat('%',#{search},'%') 
+		where title like
+		concat('%',#{search},'%')
 		and content like concat('%',#{search},'%')
 		<if test="category != 0">
-		and category = #{category}
+			and category = #{category}
 		</if>
 		order by bno desc
 		LIMIT #{pageStartNo}, 15
+		) b
+		LEFT OUTER JOIN (
+		select bi.bno, count(*) as bReply 
+		from board bi inner join board_reply br 
+		on bi.bno = br.bno) bri
+		on b.bno = bri.bno
 	</select>
-	
-	<select id="selectBoardListCount" parameterType="map" resultType="int">
+
+	<select id="selectBoardListCount" parameterType="map"
+		resultType="int">
 		select count(*) from board
-		where title like concat('%',#{search},'%') and content like concat('%',#{search},'%') 
+		where title like concat('%',#{search},'%')
+		and content like concat('%',#{search},'%')
 		<if test="category != 0">
-		and category = #{category}
+			and category = #{category}
 		</if>
 	</select>
-	
-	<select id="selectBoardDetail" parameterType="int" resultType="board">
-		SELECT bno, 
-		case 
+
+	<select id="selectBoardDetail" parameterType="int"
+		resultType="board">
+		SELECT bno,
+		case
 		when category = 1
 		then '공지'
 		when category = 2
 		then '자유'
 		when category = 3
-		then '의뢰'
-		end as category, content, title, writer, post_date as postDate, email,  bview as bView,
-			(select count(*) from board_reply br inner join board bi on bi.bno = br.bno) as bReply
+		then
+		'의뢰'
+		end as category, content, title, nick, post_date as postDate,
+		email, bview as bView,
+		(select count(*) from board_reply br inner join board bi on bi.bno = br.bno)
+		as bReply
 		FROM board
 		where bno = #{bno}
 	</select>
-	
+
+	<select id="selectBoardReply" parameterType="int"
+		resultType="reply">
+		SELECT replyno, bno, replyforno, email, nick, content,
+		reply_date as replyDate
+		FROM board_reply
+		WHERE bno = #{bno}
+	</select>
+
 </mapper>

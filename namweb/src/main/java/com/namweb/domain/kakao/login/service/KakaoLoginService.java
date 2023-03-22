@@ -35,7 +35,8 @@ public class KakaoLoginService {
 				throw new KakaoDiffTypeException("이미 가입이 되어있는 이메일 주소입니다.(카카오 로그인 오류)");
 			
 			response.put("email", email);
-			response.put("name", memberDto.getNick());
+			response.put("nick", memberDto.getNick());
+			response.put("name", memberDto.getName());
 		} catch(KakaoDiffTypeException e) {
 			response.put("eror", e.getMessage());
 			
@@ -43,10 +44,9 @@ public class KakaoLoginService {
 		}catch (Exception e) {
 			kakaoLoginMapper.insertMember(kakaoMemberInfoDto);
 			response.put("email", email);
-			response.put("name", kakaoMemberInfoDto.getNick());
+			response.put("nick", kakaoMemberInfoDto.getNick());
+			response.put("name", "사용자");
 		}
-		
-		
 		
 		return response;
 	}

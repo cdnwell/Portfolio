@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.namweb.domain.board.bulletin.dto.BoardDTO;
+import com.namweb.domain.board.bulletin.dto.ReplyDTO;
 
 @Mapper
 public interface BoardBulletinMapper {
@@ -15,5 +16,7 @@ public interface BoardBulletinMapper {
 	int selectBoardListCount(Map<String, Object> map);
 
 	BoardDTO selectBoardDetail(int bno);
+
+	List<ReplyDTO> selectBoardReply(int bno);
 
 }

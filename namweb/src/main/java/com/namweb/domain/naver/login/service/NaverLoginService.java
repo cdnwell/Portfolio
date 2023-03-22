@@ -35,7 +35,8 @@ public class NaverLoginService {
 				throw new NaverDiffTypeException("이미 가입이 되어있는 이메일 주소입니다.(네이버 로그인 오류)");
 
 			response.put("email", email);
-			response.put("name", memberDto.getNick());
+			response.put("nick", memberDto.getNick());
+			response.put("name", memberDto.getName());
 		} catch (NaverDiffTypeException e) {
 			response.put("error", e.getMessage());
 			
@@ -43,7 +44,8 @@ public class NaverLoginService {
 		} catch (Exception e) {
 			naverLoginMapper.insertMember(naverMemberInfoDto);
 			response.put("email", email);
-			response.put("name", naverMemberInfoDto.getNick());
+			response.put("nick", naverMemberInfoDto.getNick());
+			response.put("name", "사용자");
 		}
 
 		return response;
