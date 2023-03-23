@@ -14,6 +14,7 @@ interface BoardReplyProps {
     nick: string;
     content: string;
     replyDate: string;
+    rLikeNum: number;
   }[];
 };
 

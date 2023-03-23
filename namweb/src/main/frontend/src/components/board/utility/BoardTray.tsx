@@ -1,15 +1,17 @@
 import classes from "./BoardTray.module.scss";
 
-import { BiMessageDots } from "react-icons/bi";
 import axios from "../../../common/axiosInstance";
 import { Link } from "react-router-dom";
+import dateToString from "../../../common/dateToString";
+
+import { BiMessageDots } from "react-icons/bi";
 
 interface BoardTrayProps {
   board: {
     bno: string;
     category: string;
     title: string;
-    writer: string;
+    nick: string;
     bview: number;
     breply: number;
     postDate: string;
@@ -17,28 +19,6 @@ interface BoardTrayProps {
 }
 
 const BoardTray = ({ board }: BoardTrayProps) => {
-  const dateConverter = (dateArg: string) => {
-    const dateTmp = new Date(dateArg);
-    const today = new Date();
-    let dateResult = "";
-
-    if (
-      today.getFullYear() === dateTmp.getFullYear() &&
-      today.getMonth() === dateTmp.getMonth() &&
-      today.getDate() === dateTmp.getDate()
-    ) {
-      dateResult = dateTmp.getHours() + " : " + dateTmp.getMinutes();
-      return dateResult;
-    }
-
-    dateResult =
-      dateTmp.getFullYear() +
-      "-" +
-      dateTmp.getMonth() +
-      "-" +
-      dateTmp.getDate();
-    return dateResult;
-  };
 
   const onBoardReadClick = (bno: string) => {
     axios
@@ -64,8 +44,8 @@ const BoardTray = ({ board }: BoardTrayProps) => {
           </span>
         )}
       </td>
-      <td>{item.writer}</td>
-      <td>{dateConverter(item.postDate)}</td>
+      <td>{item.nick}</td>
+      <td>{dateToString(item.postDate)}</td>
       <td>{item.bview}</td>
     </tr>
   ));

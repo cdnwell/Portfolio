@@ -16,7 +16,7 @@ const BOARD_REPLY_DUMMY = [
     content:
       " consectetur adipiscing elit. Phasellus tincidunt tincidunt venenatis. Nunc a libero tortor. Praesent et nisl fermentum, mattis ligula quis, gravida metus. Aliquam id porttitor mauris, sit amet tincidunt neque. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Cras tempus ante metus, quis ullamcorper lacus lacinia et. Aliquam erat volutpat. Suspendisse felis est, elementum sed",
     date: "2023-3-20 11:02:03",
-    rlike: 3,
+    rLikeNum: 3,
   },
   {
     bno: 483,
@@ -26,7 +26,7 @@ const BOARD_REPLY_DUMMY = [
     content:
       " consectetur adipiscing elit. Phasellus tincidunt tincidunt venenatis. Nunc a libero tortor. Praesent et nisl fermentum, mattis ligula quis, gravida metus. Aliquam id porttitor mauris, sit amet tincidunt neque. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Cras tempus ante metus, quis ullamcorper lacus lacinia et. Aliquam erat volutpat. Suspendisse felis est, elementum sed",
     date: "2023-3-22 11:02:03",
-    rlike: 0,
+    rLikeNum: 0,
   },
   {
     bno: 483,
@@ -36,7 +36,7 @@ const BOARD_REPLY_DUMMY = [
     content:
       " consectetur adipiscing elit. Phasellus tincidunt tincidunt venenatis. Nunc a libero tortor. Praesent et nisl fermentum, mattis ligula quis, gravida metus. Aliquam id porttitor mauris, sit amet tincidunt neque. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Cras tempus ante metus, quis ullamcorper lacus lacinia et. Aliquam erat volutpat. Suspendisse felis est, elementum sed",
     date: "2023-2-1 11:02:03",
-    rlike: 1,
+    rLikeNum: 1,
   },
 ];
 

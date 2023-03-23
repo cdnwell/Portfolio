@@ -17,7 +17,7 @@
 		when category = 3
 		then
 		'의뢰'
-		end as category, content, title, nick, post_date as postDate,
+		end as category, title, nick, post_date as postDate,
 		email, bview as bView
 		FROM board
 		where title like
@@ -46,6 +46,7 @@
 		</if>
 	</select>
 
+	<!-- 
 	<select id="selectBoardDetail" parameterType="int"
 		resultType="board">
 		SELECT bno,
@@ -64,13 +65,40 @@
 		FROM board
 		where bno = #{bno}
 	</select>
+	 -->
+	 
+	 <select id="selectBoardDetail" resultType="board">
+	 	SELECT b.*, IFNULL(bri.bReply, 0) as bReply
+		FROM ( SELECT bno,
+		case
+		when category = 1
+		then '공지'
+		when category = 2
+		then '자유'
+		when category = 3
+		then
+		'의뢰'
+		end as category, content, title, nick, post_date as postDate,
+		email, bview as bView
+		FROM board
+		where bno = #{bno}
+		) b
+		LEFT OUTER JOIN (
+		select bi.bno, count(*) as bReply 
+		from board bi inner join board_reply br 
+		on bi.bno = br.bno) bri
+		on b.bno = bri.bno
+	 </select>
 
 	<select id="selectBoardReply" parameterType="int"
 		resultType="reply">
-		SELECT replyno, bno, replyforno, email, nick, content,
-		reply_date as replyDate
+		SELECT br.*, IFNULL(brlp.rLikeNum, 0) as rLikeNum
+		FROM ( SELECT replyno, bno, replyforno, email, nick, content,
+		reply_date as replyDate, mno
 		FROM board_reply
-		WHERE bno = #{bno}
+		WHERE bno = 486 ) br
+		LEFT OUTER JOIN (select brl.mno, count(*) as rLikeNum from board_reply_like brl inner join board_reply br on brl.mno = br.mno ) brlp
+		ON br.mno = brlp.mno
 	</select>
 
 </mapper>

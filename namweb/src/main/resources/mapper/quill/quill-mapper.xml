@@ -26,16 +26,6 @@
 		values(#{fileNo}, #{filePath}, #{fileName}, #{type})
 	</insert>
 	
-	<!-- 
-	<delete id="deleteNotUploadImage" parameterType="int[]">
-		delete from board_image
-		where photono in 
-		<foreach item="photoNumbers" collection="array" open="(" close=")" separator=",">
-			#{photoNumbers}
-		</foreach>
-	</delete>
-	 -->
-	
 	<update id="updateImageNoLink" parameterType="qlImage" >
 		update board_image
 		set bno = #{boardNo}

@@ -13,30 +13,34 @@ interface BoardReplyListProps {
     nick: string;
     content: string;
     replyDate: string;
+    rLikeNum: number;
   }[];
 }
 
-const BoardReplyList = ({ reply } : BoardReplyListProps) => {
-    const [boardReplyGroup, setBoardReplyGroup] = useState();
+const BoardReplyList = ({ reply }: BoardReplyListProps) => {
+  const [boardReplyGroup, setBoardReplyGroup] = useState<React.ReactNode[]>([]);
 
-    useEffect(()=>{
-        const boardReplyArray = [];
-        let boardReplyRange = [...reply];
-        
-        boardReplyRange = boardReplyRangeFunc(boardReplyRange);
+  useEffect(() => {
+    const boardReplyArray : React.ReactNode[] = [];
+    let boardReplyRange = [...reply];
 
-        console.log('range',boardReplyRange);
+    // 1. 댓글 시간 순서대로 정렬
+    boardReplyRange = boardReplyRangeFunc(boardReplyRange);
 
-        boardReplyRange.map((list) => {
-            if(list.replyforno === -1) {
-                boardReplyArray.push(<BoardReplyGroup reply={reply} />);
-            }
-        })
-    },[]);
+    console.log("range", boardReplyRange);
 
-  return <>
-    
-  </>;
+    boardReplyRange.map((item) => {
+      if (item.replyforno === -1) {
+        boardReplyArray.push(
+          <BoardReplyGroup reply={reply} represent={item} />
+        );
+      }
+    });
+
+    setBoardReplyGroup(boardReplyArray);
+  }, []);
+
+  return <>{boardReplyGroup}</>;
 };
 
 export default BoardReplyList;

@@ -6,6 +6,7 @@ type BoardReplyType = {
   nick: string;
   content: string;
   replyDate: string;
+  rLikeNum: number;
 }[];
 
 const boardReplyRangeFunc = (replyArray: BoardReplyType) => {

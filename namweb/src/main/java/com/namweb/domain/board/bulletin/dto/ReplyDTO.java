@@ -18,4 +18,5 @@ public class ReplyDTO {
 	private String nick;
 	private String content;
 	private String replyDate;
+	private int rLikeNum;
 }
