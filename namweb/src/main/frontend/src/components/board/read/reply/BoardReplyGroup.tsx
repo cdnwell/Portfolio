@@ -1,11 +1,12 @@
 import classes from "./BoardReplyGroup.module.scss";
 
 import { useState, useEffect } from "react";
-import { useSelector as useReduxSelector } from "react-redux";
+import { useDispatch, useSelector as useReduxSelector } from "react-redux";
 
 import BoardReplyItem from "./BoardReplyItem";
 import BoardReplyNestedWrite from "./BoardReplyNestedWrite";
 import BoardReplyNestedGroup from "./BoardReplyNestedGroup";
+import { replyActions } from "../../../store/reply";
 
 interface BoardReplyGroupProps {
   reply: {
@@ -59,22 +60,29 @@ const BoardReplyGroup = ({ reply, represent }: BoardReplyGroupProps) => {
   const onReplyAppendClick = () => {
     if (!userEmail) {
       alert("댓글 작성을 위해 로그인을 해주세요.");
-      return;
+      return false;
     }
 
     setIsReplyAppend((prevState) => !prevState);
+    return true;
   };
 
   useEffect(() => {
+    // console.log('reply',reply);
+    console.log('represent',represent);
+
     const boardNestedArray = reply.filter(
-      (item) => item.replyno === represent.replyforno
+      (item) => item.replyforno === represent.replyno
     );
+
+    console.log('boardNestedArray',boardNestedArray);
 
     setBoardNestedRepresent(boardNestedArray);
   }, []);
 
+
   return (
-    <div>
+    <div className={classes.board_reply_group}>
       <BoardReplyItem
         represent={represent}
         onReplyAppendClick={onReplyAppendClick}

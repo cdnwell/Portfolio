@@ -16,7 +16,7 @@ interface BoardReplyItemProps {
     replyDate: string;
     rLikeNum: number;
   };
-  onReplyAppendClick: () => void;
+  onReplyAppendClick: () => boolean;
 }
 
 const BoardReplyItem = ({
@@ -26,8 +26,9 @@ const BoardReplyItem = ({
   const [isReplyOpen, setIsReplyOpen] = useState(false);
 
   const onReplyClick = () => {
-    setIsReplyOpen((prevState) => !prevState);
-    onReplyAppendClick();
+    const isAppendAble = onReplyAppendClick();
+    if(isAppendAble)
+      setIsReplyOpen((prevState) => !prevState);
   };
 
   const replyDate = dateToString(represent.replyDate);

@@ -32,11 +32,11 @@ const BoardReplyList = ({ reply }: BoardReplyListProps) => {
     boardReplyRange.map((item) => {
       if (item.replyforno === -1) {
         boardReplyArray.push(
-          <BoardReplyGroup reply={reply} represent={item} />
+          <BoardReplyGroup key={item.replyno} reply={reply} represent={item} />
         );
       }
     });
-
+    
     setBoardReplyGroup(boardReplyArray);
   }, []);
 

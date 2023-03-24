@@ -28,12 +28,12 @@ const LoginBox = () => {
 
         if (data === "") throw new Error("로그인 정보가 올바르지 않습니다.");
 
-        let name = "";
-        if (data.name) name = data.name;
-        else if (data.nick) name = data.nick;
+        
+        const name = data.name;
+        const nick = data.nick;
         const email = data.email;
 
-        dispatch(loginActions.setLoginInfo({ email, name }));
+        dispatch(loginActions.setLoginInfo({ email, name, nick }));
 
         navigate("/");
       })

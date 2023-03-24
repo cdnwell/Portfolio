@@ -16,7 +16,7 @@ interface BoardReplyItemProps {
     replyDate: string;
     rLikeNum: number;
   };
-  onReplyAppendClick: () => void;
+  onReplyAppendClick: () => boolean;
 }
 
 const BoardReplyNestedItem = ({
@@ -26,15 +26,18 @@ const BoardReplyNestedItem = ({
   const [isReplyOpen, setIsReplyOpen] = useState(false);
 
   const onReplyClick = () => {
-    setIsReplyOpen((prevState) => !prevState);
-    onReplyAppendClick();
+    const isAppendAble = onReplyAppendClick();
+
+    if (isAppendAble) 
+      setIsReplyOpen((prevState) => !prevState);
   };
 
-  const replyDate = dateToString(represent.replyDate);
+  let replyDate = dateToString(represent.replyDate);
   const replySpan = isReplyOpen ? "닫기" : "댓글 달기";
 
   return (
     <div className={classes.board_reply_item}>
+      <div className={classes.board_reply_item_left_border}></div>
       <div className={classes.board_reply_nick_box}>
         <span></span>
         <span>{represent.nick}</span>

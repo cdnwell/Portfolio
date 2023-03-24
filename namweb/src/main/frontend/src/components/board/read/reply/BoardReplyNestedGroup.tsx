@@ -1,10 +1,11 @@
 import classes from "BoardReplyNestedGroup.module.scss";
 
-import { useState } from "react";
-import { useSelector as useReduxSelector } from "react-redux";
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector as useReduxSelector } from "react-redux";
 import BoardReplyNestedWrite from "./BoardReplyNestedWrite";
 
-import BoardReplyNestedItem from "./BoardReplyNetstedItem";
+import BoardReplyNestedItem from "./BoardReplyNestedItem";
+import { replyActions } from "../../../store/reply";
 
 interface BoardReplyNestedGroupProps {
   represent: {
@@ -25,8 +26,10 @@ type ReduxEmailType = {
   };
 };
 
+
 const BoardReplyNestedGroup = ({ represent }: BoardReplyNestedGroupProps) => {
   const [isReplyAppend, setIsReplyAppend] = useState(false);
+
   const userEmail = useReduxSelector(
     (state: ReduxEmailType) => state.login.email
   );
@@ -34,18 +37,21 @@ const BoardReplyNestedGroup = ({ represent }: BoardReplyNestedGroupProps) => {
   const onReplyAppendClick = () => {
     if (!userEmail) {
       alert("댓글 작성을 위해 로그인을 해주세요.");
-      return;
+      return false;
     }
 
     setIsReplyAppend((prevState) => !prevState);
+    return true;
   };
 
   return (
     <>
-      <BoardReplyNestedItem
-        represent={represent[0]}
-        onReplyAppendClick={onReplyAppendClick}
-      />
+      {represent[0] && (
+        <BoardReplyNestedItem
+          represent={represent[0]}
+          onReplyAppendClick={onReplyAppendClick}
+        />
+      )}
       {isReplyAppend && <BoardReplyNestedWrite />}
     </>
   );
