@@ -14,7 +14,6 @@ import com.namweb.domain.board.bulletin.dto.ReplyDTO;
 import com.namweb.domain.board.bulletin.service.BoardBulletinService;
 import com.namweb.global.page.dto.PagingDTO;
 
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -57,6 +56,11 @@ public class BoardBulletinController {
 	@GetMapping("/board/bulletin/detail/reply/{bno}")
 	public List<ReplyDTO> selectBoardReply(@PathVariable("bno") int bno) {
 		return boardBulletinService.selectBoardReply(bno);
+	}
+	
+	@GetMapping("/board/bulleting/detail/replynum/{bno}")
+	public int selectBoardReplyNum(@PathVariable("bno") int bno) {
+		return boardBulletinService.selectBoardReplyNum(bno);
 	}
 
 }

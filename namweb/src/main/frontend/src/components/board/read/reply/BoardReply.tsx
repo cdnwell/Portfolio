@@ -1,9 +1,11 @@
 import classes from "./BoardReply.module.scss";
 
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
+
 import BoardReplyWrite from "./BoardReplyWrite";
-import BoardReplyGroup from "./BoardReplyGroup";
 import BoardReplyList from "./BoardReplyList";
+import { replyActions } from "../../../store/reply";
 
 interface BoardReplyProps {
   reply: {
@@ -14,17 +16,23 @@ interface BoardReplyProps {
     nick: string;
     content: string;
     replyDate: string;
-    rLikeNum: number;
+    replyLikeNum: number;
   }[];
+  bno: string;
+  onBoardReplyChanged: () => void;
 };
 
-const BoardReply = ({ reply }: BoardReplyProps) => {
-  useEffect(() => {}, []);
+const BoardReply = ({ reply, bno, onBoardReplyChanged }: BoardReplyProps) => {
+  const dispatch = useDispatch();
+
+  useEffect(()=>{
+    dispatch(replyActions.setIsReplyUpdate(false));
+  },[]);
 
   return (
     <div className={classes.board_reply}>
-      <BoardReplyWrite />
-      <BoardReplyList reply={reply} />
+      <BoardReplyWrite bno={bno} onReplyWriteChanged={onBoardReplyChanged} />
+      <BoardReplyList reply={reply} onReplyListChanged={onBoardReplyChanged}/>
     </div>
   );
 };

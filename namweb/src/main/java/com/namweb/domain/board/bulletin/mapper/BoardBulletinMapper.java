@@ -19,4 +19,10 @@ public interface BoardBulletinMapper {
 
 	List<ReplyDTO> selectBoardReply(int bno);
 
+	int selectMemberNo(String email);
+
+	int selectBoardReplyNum(int bno);
+
+	int selectBoardReplyHasReply(int bno);
+
 }

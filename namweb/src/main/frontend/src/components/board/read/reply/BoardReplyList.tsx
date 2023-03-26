@@ -13,32 +13,57 @@ interface BoardReplyListProps {
     nick: string;
     content: string;
     replyDate: string;
-    rLikeNum: number;
+    replyLikeNum: number;
   }[];
+  onReplyListChanged: () => void;
 }
 
-const BoardReplyList = ({ reply }: BoardReplyListProps) => {
+const BoardReplyList = ({ reply, onReplyListChanged }: BoardReplyListProps) => {
   const [boardReplyGroup, setBoardReplyGroup] = useState<React.ReactNode[]>([]);
+  const [replyno, setReplyno] = useState<number>();
+
+  const onReplyRootAppendClick = (replyno: number) => {
+    setReplyno(replyno);
+  };
 
   useEffect(() => {
-    const boardReplyArray : React.ReactNode[] = [];
+
+    const boardReplyArray: React.ReactNode[] = [];
     let boardReplyRange = [...reply];
 
-    // 1. 댓글 시간 순서대로 정렬
     boardReplyRange = boardReplyRangeFunc(boardReplyRange);
-
-    console.log("range", boardReplyRange);
 
     boardReplyRange.map((item) => {
       if (item.replyforno === -1) {
         boardReplyArray.push(
-          <BoardReplyGroup key={item.replyno} reply={reply} represent={item} />
+          <BoardReplyGroup
+            key={item.replyno}
+            reply={reply}
+            represent={item}
+            onReplyRootAppendClick={onReplyRootAppendClick}
+            onReplyGroupChanged={onReplyListChanged}
+            passedReplyno={replyno ?? -1}
+          />
+        );
+      } else if (item.replyforno === -2) {
+        let itemTmp = item;
+        itemTmp.content = "삭제된 댓글입니다.";
+
+        boardReplyArray.push(
+          <BoardReplyGroup
+            key={item.replyno}
+            reply={reply}
+            represent={itemTmp}
+            onReplyRootAppendClick={onReplyRootAppendClick}
+            onReplyGroupChanged={onReplyListChanged}
+            passedReplyno={replyno ?? -1}
+          />
         );
       }
     });
-    
+
     setBoardReplyGroup(boardReplyArray);
-  }, []);
+  }, [replyno, reply]);
 
   return <>{boardReplyGroup}</>;
 };

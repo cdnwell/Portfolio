@@ -45,5 +45,18 @@ public class BoardBulletinService {
 	public List<ReplyDTO> selectBoardReply(int bno) {
 		return boardBulletinMapper.selectBoardReply(bno);
 	}
+	
+	public int selectMemberNo(String email) {
+		return boardBulletinMapper.selectMemberNo(email);
+	}
+
+	public int selectBoardReplyNum(int bno) {
+		return boardBulletinMapper.selectBoardReplyNum(bno);
+	}
+	
+	public boolean selectBoardReplyHasReply(int bno) {
+		int result = boardBulletinMapper.selectBoardReplyHasReply(bno);
+		return result > 0;
+	}
 
 }

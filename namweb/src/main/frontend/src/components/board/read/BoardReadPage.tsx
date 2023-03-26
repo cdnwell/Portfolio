@@ -7,39 +7,6 @@ import axios from "../../../common/axiosInstance";
 import { BiMessageDots } from "react-icons/bi";
 import BoardReply from "./reply/BoardReply";
 
-const BOARD_REPLY_DUMMY = [
-  {
-    bno: 483,
-    replyno: 0,
-    replyforno: -1, // 기본 값 -1
-    nick: "b0001",
-    content:
-      " consectetur adipiscing elit. Phasellus tincidunt tincidunt venenatis. Nunc a libero tortor. Praesent et nisl fermentum, mattis ligula quis, gravida metus. Aliquam id porttitor mauris, sit amet tincidunt neque. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Cras tempus ante metus, quis ullamcorper lacus lacinia et. Aliquam erat volutpat. Suspendisse felis est, elementum sed",
-    date: "2023-3-20 11:02:03",
-    rLikeNum: 3,
-  },
-  {
-    bno: 483,
-    replyno: 1,
-    replyforno: -1,
-    nick: "aab1c",
-    content:
-      " consectetur adipiscing elit. Phasellus tincidunt tincidunt venenatis. Nunc a libero tortor. Praesent et nisl fermentum, mattis ligula quis, gravida metus. Aliquam id porttitor mauris, sit amet tincidunt neque. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Cras tempus ante metus, quis ullamcorper lacus lacinia et. Aliquam erat volutpat. Suspendisse felis est, elementum sed",
-    date: "2023-3-22 11:02:03",
-    rLikeNum: 0,
-  },
-  {
-    bno: 483,
-    replyno: 2,
-    replyforno: 1,
-    nick: "Zabcda1",
-    content:
-      " consectetur adipiscing elit. Phasellus tincidunt tincidunt venenatis. Nunc a libero tortor. Praesent et nisl fermentum, mattis ligula quis, gravida metus. Aliquam id porttitor mauris, sit amet tincidunt neque. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Cras tempus ante metus, quis ullamcorper lacus lacinia et. Aliquam erat volutpat. Suspendisse felis est, elementum sed",
-    date: "2023-2-1 11:02:03",
-    rLikeNum: 1,
-  },
-];
-
 const BoardReadPage = () => {
   const { bno } = useParams();
   const [bnoState, setBnoState] = useState();
@@ -53,6 +20,8 @@ const BoardReadPage = () => {
   const [nick, setNick] = useState();
   const [reply, setReply] = useState();
 
+  const [isChanged, setIsChanged] = useState(false);
+
   const today = new Date();
 
   useEffect(() => {
@@ -63,7 +32,7 @@ const BoardReadPage = () => {
         const data = response.data;
 
         setBnoState(data.bno);
-        setBreply(data.breply);
+        // setBreply(data.breply);
         setBview(data.bview);
         setCategory(data.category);
         setContent(data.content);
@@ -124,11 +93,37 @@ const BoardReadPage = () => {
       })
       .catch((error) => console.log(error));
 
+    // // 2. 게시글에 대한 댓글 가져오기
+    // axios
+    //   .get(`/board/bulletin/detail/reply/${bno}`)
+    //   .then((response) => {
+    //     const data = response.data;
+    //     console.log('data',data);
+
+    //     setReply(data);
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
+  }, []);
+
+  useEffect(() => {
+    // 1. 게시글에 대한 댓글 갯수 가져오기
+    axios
+      .get(`/board/bulleting/detail/replynum/${bno}`)
+      .then((response) => {
+        const data = response.data;
+
+        setBreply(data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
     // 2. 게시글에 대한 댓글 가져오기
     axios
       .get(`/board/bulletin/detail/reply/${bno}`)
       .then((response) => {
-        console.log(response);
         const data = response.data;
 
         setReply(data);
@@ -136,7 +131,11 @@ const BoardReadPage = () => {
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+  }, [isChanged]);
+
+  const onBoardReplyChanged = () => {
+    setIsChanged((prev) => !prev);
+  };
 
   return (
     <div className={classes.board_read}>
@@ -173,7 +172,13 @@ const BoardReadPage = () => {
           <BiMessageDots className={classes.board_reply_icon} />
           <span className={classes.board_read_breply}>{breply}</span>
         </div>
-        {reply && <BoardReply reply={reply} />}
+        {reply && (
+          <BoardReply
+            reply={reply}
+            bno={`${bno}`}
+            onBoardReplyChanged={onBoardReplyChanged}
+          />
+        )}
       </footer>
     </div>
   );

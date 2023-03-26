@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper
 	namespace="com.namweb.domain.board.bulletin.mapper.BoardBulletinMapper">
-
+<!-- 
 	<select id="selectBoardList" parameterType="map"
 		resultType="board">
 		SELECT b.*, IFNULL(bri.bReply, 0) as bReply
@@ -34,6 +34,31 @@
 		from board bi inner join board_reply br 
 		on bi.bno = br.bno) bri
 		on b.bno = bri.bno
+	</select>
+	 -->
+	 <select id="selectBoardList" parameterType="map"
+		resultType="board">
+		SELECT b.bno, 
+		(select count(*) from board_reply br where br.bno = b.bno) as bReply,
+		case
+		when b.category = 1
+		then '공지'
+		when b.category = 2
+		then '자유'
+		when b.category = 3
+		then
+		'의뢰'
+		end as category, b.title, b.nick, b.post_date as postDate,
+		email, bview as bView
+		FROM board b
+		where b.title like
+		concat('%',#{search},'%')
+		and b.content like concat('%',#{search},'%')
+		<if test="category != 0">
+			and b.category = #{category}
+		</if>
+		order by b.bno desc
+		LIMIT #{pageStartNo}, 15
 	</select>
 
 	<select id="selectBoardListCount" parameterType="map"
@@ -67,6 +92,7 @@
 	</select>
 	 -->
 	 
+	 <!-- 
 	 <select id="selectBoardDetail" resultType="board">
 	 	SELECT b.*, IFNULL(bri.bReply, 0) as bReply
 		FROM ( SELECT bno,
@@ -89,6 +115,23 @@
 		on bi.bno = br.bno) bri
 		on b.bno = bri.bno
 	 </select>
+	  -->
+	  
+	  <select id="selectBoardDetail" resultType="board">
+	 	SELECT bno,
+		case
+		when category = 1
+		then '공지'
+		when category = 2
+		then '자유'
+		when category = 3
+		then
+		'의뢰'
+		end as category, content, title, nick, post_date as postDate,
+		email, bview as bView
+		FROM board
+		where bno = #{bno}
+	 </select>
 
 	<select id="selectBoardReply" parameterType="int"
 		resultType="reply">
@@ -96,9 +139,27 @@
 		FROM ( SELECT replyno, bno, replyforno, email, nick, content,
 		reply_date as replyDate, mno
 		FROM board_reply
-		WHERE bno = 486 ) br
+		WHERE bno = #{bno} ) br
 		LEFT OUTER JOIN (select brl.mno, count(*) as rLikeNum from board_reply_like brl inner join board_reply br on brl.mno = br.mno ) brlp
 		ON br.mno = brlp.mno
+	</select>
+	
+	<select id="selectMemberNo" parameterType="String" resultType="int">
+		select mno
+		from member
+		where email = #{email}
+	</select>
+	
+	<select id="selectBoardReplyNum" parameterType="int" resultType="int">
+		select IFNULL(count(*), 0) as bReply 
+		from board_reply
+		where bno = #{bno}
+	</select>
+	
+	<select id="selectBoardReplyHasReply" parameterType="int" resultType="int">
+		select count(*)
+		from board_reply
+		where replyforno = #{replyforno}
 	</select>
 
 </mapper>

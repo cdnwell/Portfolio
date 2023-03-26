@@ -10,4 +10,16 @@
 		where bno = #{bno}
 	</update>
 	
+	<update id="updateBoardReply" parameterType="reply">
+		update board_reply
+		set content = #{content}
+		where replyno = #{replyno}
+	</update>
+	
+	<update id="updateBoardReplyNotDelete" parameterType="int">
+		update board_reply
+		set replyforno = -2
+		where replyno = #{replyno}
+	</update>
+	
 </mapper>

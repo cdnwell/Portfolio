@@ -1,15 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    isReplyOpen : false,
+    isReplyUpdate : false,
 };
 
 const replySlice = createSlice({
   name: "reply-data",
   initialState,
   reducers: {
-    setIsReplyOpen(state) {
-        state.isReplyOpen = !state.isReplyOpen;
+    setIsReplyUpdate(state, action) {
+        state.isReplyUpdate = action.payload;
     }
   },
 });

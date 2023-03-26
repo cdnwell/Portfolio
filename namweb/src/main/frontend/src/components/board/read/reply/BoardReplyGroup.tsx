@@ -1,12 +1,10 @@
 import classes from "./BoardReplyGroup.module.scss";
 
 import { useState, useEffect } from "react";
-import { useDispatch, useSelector as useReduxSelector } from "react-redux";
+import { useSelector as useReduxSelector } from "react-redux";
 
 import BoardReplyItem from "./BoardReplyItem";
-import BoardReplyNestedWrite from "./BoardReplyNestedWrite";
-import BoardReplyNestedGroup from "./BoardReplyNestedGroup";
-import { replyActions } from "../../../store/reply";
+import BoardReplyNestedItem from "./BoardReplyNestedItem";
 
 interface BoardReplyGroupProps {
   reply: {
@@ -17,7 +15,7 @@ interface BoardReplyGroupProps {
     nick: string;
     content: string;
     replyDate: string;
-    rLikeNum: number;
+    replyLikeNum: number;
   }[];
   represent: {
     replyno: number;
@@ -27,20 +25,12 @@ interface BoardReplyGroupProps {
     nick: string;
     content: string;
     replyDate: string;
-    rLikeNum: number;
+    replyLikeNum: number;
   };
+  passedReplyno : number;
+  onReplyRootAppendClick: (replyno: number) => void;
+  onReplyGroupChanged: () => void;
 }
-
-type BoardRepresentType = {
-  replyno: number;
-  bno: number;
-  replyforno: number;
-  email: string;
-  nick: string;
-  content: string;
-  replyDate: string;
-  rLikeNum: number;
-};
 
 type BoardReplyEmailType = {
   login: {
@@ -48,47 +38,60 @@ type BoardReplyEmailType = {
   };
 };
 
-const BoardReplyGroup = ({ reply, represent }: BoardReplyGroupProps) => {
-  const [boardNestedRepresent, setBoardNestedRepresent] =
-    useState<BoardRepresentType[]>([]);
-  const [isReplyAppend, setIsReplyAppend] = useState(false);
+const BoardReplyGroup = ({
+  reply,
+  represent,
+  passedReplyno,
+  onReplyRootAppendClick,
+  onReplyGroupChanged,
+}: BoardReplyGroupProps) => {
+  const [boardNestedRepresent, setBoardNestedRepresent] = useState<
+    React.ReactNode[]
+  >([]);
 
   const userEmail = useReduxSelector(
     (state: BoardReplyEmailType) => state.login.email
   );
 
-  const onReplyAppendClick = () => {
+  const onReplyAppendClick = (replyno: number) => {
     if (!userEmail) {
       alert("댓글 작성을 위해 로그인을 해주세요.");
-      return false;
+      return;
     }
 
-    setIsReplyAppend((prevState) => !prevState);
-    return true;
+    onReplyRootAppendClick(replyno);
   };
 
   useEffect(() => {
-    // console.log('reply',reply);
-    console.log('represent',represent);
-
+    const boardReplyArray: React.ReactNode[] = [];
     const boardNestedArray = reply.filter(
       (item) => item.replyforno === represent.replyno
     );
 
-    console.log('boardNestedArray',boardNestedArray);
+    boardNestedArray.map((item) => {
+      boardReplyArray.push(
+        <BoardReplyNestedItem
+          key={item.replyno}
+          represent={item}
+          onReplyAppendClick={onReplyAppendClick}
+          onReplyItemChanged={onReplyGroupChanged}
+          passedReplyno={passedReplyno}
+        />
+      );
+    });
 
-    setBoardNestedRepresent(boardNestedArray);
-  }, []);
-
+    setBoardNestedRepresent(boardReplyArray);
+  }, [passedReplyno, reply]);
 
   return (
     <div className={classes.board_reply_group}>
       <BoardReplyItem
         represent={represent}
         onReplyAppendClick={onReplyAppendClick}
+        onReplyItemChanged={onReplyGroupChanged}
+        passedReplyno={passedReplyno}
       />
-      {isReplyAppend && <BoardReplyNestedWrite />}
-      {boardNestedRepresent && <BoardReplyNestedGroup represent={boardNestedRepresent} />}
+      {boardNestedRepresent}
     </div>
   );
 };
