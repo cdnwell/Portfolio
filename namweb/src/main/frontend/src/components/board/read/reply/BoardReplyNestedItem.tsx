@@ -60,11 +60,11 @@ const BoardReplyNestedItem = ({
 
   useEffect(() => {
     // handedReplyno가 변하면 바로 모든 창을 닫기 위해 false로 바꿔준다.
-    setIsReplyOpen(false);
 
     // reply root로 부터 온 replyno와 본 replyno가 같다면
     // 댓글 달기 버튼을 눌렀다는 것이므로 댓글을 달 수 있는 창을 열어준다.
     if (represent.replyno === passedReplyno) setIsReplyOpen(true);
+    else setIsReplyOpen(false);
   }, [passedReplyno]);
 
   const replyDate = dateToString(represent.replyDate);
@@ -144,9 +144,72 @@ const BoardReplyNestedItem = ({
   const onReplyContentEntered = () => {
     // 댓글 업데이트를 위한 state 변경
     onReplyItemChanged();
-    
+
     setIsReplyOpen(false);
-  }
+  };
+
+  const onLikeClick = () => {
+    if (!userEmail) {
+      alert("로그인 후 이용 가능합니다.");
+      return;
+    }
+
+    axios
+      .post(`/board/bulletin/reply/like`, {
+        replyno: represent.replyno,
+        email: userEmail,
+      })
+      .then((response) => {
+        const status = response.data.status;
+        console.log(response);
+
+        if (status === "HATE_REPLY_EXISTED") {
+          alert("이미 비추천하셨습니다.");
+        } else if (status === "LIKE_REPLY_INSERTED") {
+          alert("추천되었습니다.");
+
+          onReplyItemChanged();
+        } else if (status === "LIKE_REPLY_DELETED") {
+          alert("추천이 취소되었습니다.");
+
+          onReplyItemChanged();
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const onHateClick = () => {
+    if (!userEmail) {
+      alert("로그인 후 이용 가능합니다.");
+      return;
+    }
+
+    axios
+      .post(`/board/bulletin/reply/hate`, {
+        replyno: represent.replyno,
+        email: userEmail,
+      })
+      .then((response) => {
+        const status = response.data.status;
+
+        if (status === "LIKE_REPLY_EXISTED") {
+          alert("이미 추천하셨습니다.");
+        } else if (status === "HATE_REPLY_INSERTED") {
+          alert("비추천되었습니다.");
+
+          onReplyItemChanged();
+        } else if (status === "HATE_REPLY_DELETED") {
+          alert("비추천이 취소되었습니다.");
+
+          onReplyItemChanged();
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   return (
     <>
@@ -179,12 +242,18 @@ const BoardReplyNestedItem = ({
         <div className={classes.board_reply_up_date_box}>
           <div className={classes.board_reply_hands}>
             <div>
-              <BsHandThumbsUp className={classes.board_reply_up} />
+              <BsHandThumbsUp
+                className={classes.board_reply_up}
+                onClick={onLikeClick}
+              />
               <span className={classes.board_reply_up_num}>
                 {represent.replyLikeNum}
               </span>
             </div>
-            <BsHandThumbsDown className={classes.board_reply_down} />
+            <BsHandThumbsDown
+              className={classes.board_reply_down}
+              onClick={onHateClick}
+            />
           </div>
           <div className={classes.board_reply_date_box}>
             <span className={classes.board_reply_date}>{replyDate}</span>

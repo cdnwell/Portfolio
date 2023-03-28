@@ -59,4 +59,12 @@ public class BoardBulletinService {
 		return result > 0;
 	}
 
+	public ReplyDTO selectBoardReplyLikeHas(ReplyDTO replyDTO) {
+		return boardBulletinMapper.selectBoardReplyLikeHas(replyDTO);
+	}
+
+	public ReplyDTO selectBoardReplyHateHas(ReplyDTO replyDTO) {
+		return boardBulletinMapper.selectBoardReplyHateHas(replyDTO);
+	}
+
 }

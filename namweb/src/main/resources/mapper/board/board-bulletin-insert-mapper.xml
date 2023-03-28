@@ -9,4 +9,14 @@
 		values(nextval('board_reply_seq'), #{bno}, #{replyforno}, #{email}, #{nick}, #{content}, sysdate(), #{mno})
 	</insert>
 	
+	<insert id="insertReplyLike" parameterType="reply">
+		insert into board_reply_like(replyno, mno)
+		values(#{replyno}, #{mno})
+	</insert>
+	
+	<insert id="insertReplyHate" parameterType="reply">
+		insert into board_reply_hate(replyno, mno)
+		values(#{replyno}, #{mno})
+	</insert>
+	
 </mapper>

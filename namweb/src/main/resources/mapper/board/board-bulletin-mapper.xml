@@ -4,38 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper
 	namespace="com.namweb.domain.board.bulletin.mapper.BoardBulletinMapper">
-<!-- 
-	<select id="selectBoardList" parameterType="map"
-		resultType="board">
-		SELECT b.*, IFNULL(bri.bReply, 0) as bReply
-		FROM ( SELECT bno,
-		case
-		when category = 1
-		then '공지'
-		when category = 2
-		then '자유'
-		when category = 3
-		then
-		'의뢰'
-		end as category, title, nick, post_date as postDate,
-		email, bview as bView
-		FROM board
-		where title like
-		concat('%',#{search},'%')
-		and content like concat('%',#{search},'%')
-		<if test="category != 0">
-			and category = #{category}
-		</if>
-		order by bno desc
-		LIMIT #{pageStartNo}, 15
-		) b
-		LEFT OUTER JOIN (
-		select bi.bno, count(*) as bReply 
-		from board bi inner join board_reply br 
-		on bi.bno = br.bno) bri
-		on b.bno = bri.bno
-	</select>
-	 -->
+
 	 <select id="selectBoardList" parameterType="map"
 		resultType="board">
 		SELECT b.bno, 
@@ -71,52 +40,6 @@
 		</if>
 	</select>
 
-	<!-- 
-	<select id="selectBoardDetail" parameterType="int"
-		resultType="board">
-		SELECT bno,
-		case
-		when category = 1
-		then '공지'
-		when category = 2
-		then '자유'
-		when category = 3
-		then
-		'의뢰'
-		end as category, content, title, nick, post_date as postDate,
-		email, bview as bView,
-		(select count(*) from board_reply br inner join board bi on bi.bno = br.bno)
-		as bReply
-		FROM board
-		where bno = #{bno}
-	</select>
-	 -->
-	 
-	 <!-- 
-	 <select id="selectBoardDetail" resultType="board">
-	 	SELECT b.*, IFNULL(bri.bReply, 0) as bReply
-		FROM ( SELECT bno,
-		case
-		when category = 1
-		then '공지'
-		when category = 2
-		then '자유'
-		when category = 3
-		then
-		'의뢰'
-		end as category, content, title, nick, post_date as postDate,
-		email, bview as bView
-		FROM board
-		where bno = #{bno}
-		) b
-		LEFT OUTER JOIN (
-		select bi.bno, count(*) as bReply 
-		from board bi inner join board_reply br 
-		on bi.bno = br.bno) bri
-		on b.bno = bri.bno
-	 </select>
-	  -->
-	  
 	  <select id="selectBoardDetail" resultType="board">
 	 	SELECT bno,
 		case
@@ -133,6 +56,7 @@
 		where bno = #{bno}
 	 </select>
 
+	<!-- 
 	<select id="selectBoardReply" parameterType="int"
 		resultType="reply">
 		SELECT br.*, IFNULL(brlp.rLikeNum, 0) as rLikeNum
@@ -142,6 +66,16 @@
 		WHERE bno = #{bno} ) br
 		LEFT OUTER JOIN (select brl.mno, count(*) as rLikeNum from board_reply_like brl inner join board_reply br on brl.mno = br.mno ) brlp
 		ON br.mno = brlp.mno
+	</select>
+	 -->
+	 
+	 <select id="selectBoardReply" parameterType="int"
+		resultType="reply">
+		SELECT br.replyno, br.bno, br.replyforno, br.email, br.nick, br.content,
+		IFNULL((select count(*) from board_reply_like brl where brl.replyno = br.replyno), 0) as replyLikeNum,
+		br.reply_date as replyDate, br.mno
+		FROM board_reply br
+		WHERE br.bno = #{bno}
 	</select>
 	
 	<select id="selectMemberNo" parameterType="String" resultType="int">
@@ -160,6 +94,18 @@
 		select count(*)
 		from board_reply
 		where replyforno = #{replyforno}
+	</select>
+	
+	<select id="selectBoardReplyLikeHas" parameterType="reply" resultType="reply">
+		select replyno, mno
+		from board_reply_like
+		where replyno = #{replyno}
+	</select>
+	
+	<select id="selectBoardReplyHateHas" parameterType="reply" resultType="reply">
+		select replyno, mno
+		from board_reply_hate
+		where replyno = #{replyno}
 	</select>
 
 </mapper>

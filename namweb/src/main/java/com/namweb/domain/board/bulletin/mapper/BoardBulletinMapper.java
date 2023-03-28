@@ -25,4 +25,8 @@ public interface BoardBulletinMapper {
 
 	int selectBoardReplyHasReply(int bno);
 
+	ReplyDTO selectBoardReplyLikeHas(ReplyDTO replyDTO);
+
+	ReplyDTO selectBoardReplyHateHas(ReplyDTO replyDTO);
+
 }

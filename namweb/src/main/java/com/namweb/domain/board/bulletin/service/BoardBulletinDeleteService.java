@@ -2,6 +2,7 @@ package com.namweb.domain.board.bulletin.service;
 
 import org.springframework.stereotype.Service;
 
+import com.namweb.domain.board.bulletin.dto.ReplyDTO;
 import com.namweb.domain.board.bulletin.mapper.BoardBulletinDeleteMapper;
 
 import lombok.RequiredArgsConstructor;
@@ -21,6 +22,14 @@ public class BoardBulletinDeleteService {
 		} else {
 			boardBulletinDeleteMapper.deleteReply(replyno);
 		}
+	}
+
+	public void deleteReplyLike(ReplyDTO replyDTO) {
+		boardBulletinDeleteMapper.deleteReplyLike(replyDTO);
+	}
+
+	public void deleteReplyHate(ReplyDTO replyDTO) {
+		boardBulletinDeleteMapper.deleteReplyHate(replyDTO);
 	}
 	
 }

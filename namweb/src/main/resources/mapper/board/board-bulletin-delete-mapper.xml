@@ -9,4 +9,14 @@
 		where replyno = #{replyno}
 	</delete>
 	
+	<delete id="deleteReplyLike" parameterType="reply">
+		delete from board_reply_like
+		where replyno = #{replyno} and mno = #{mno}
+	</delete>
+	
+	<delete id="deleteReplyHate" parameterType="reply">
+		delete from board_reply_hate
+		where replyno = #{replyno} and mno = #{mno}
+	</delete>
+	
 </mapper>

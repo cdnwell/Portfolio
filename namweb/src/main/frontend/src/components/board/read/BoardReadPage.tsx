@@ -24,15 +24,14 @@ const BoardReadPage = () => {
 
   const today = new Date();
 
+  // 1. 게시글 내용 가져오기
   useEffect(() => {
-    // 1. 게시글 내용 가져오기
     axios
       .get(`/board/bulletin/detail/${bno}`)
       .then((response) => {
         const data = response.data;
 
         setBnoState(data.bno);
-        // setBreply(data.breply);
         setBview(data.bview);
         setCategory(data.category);
         setContent(data.content);
@@ -92,23 +91,10 @@ const BoardReadPage = () => {
         }
       })
       .catch((error) => console.log(error));
-
-    // // 2. 게시글에 대한 댓글 가져오기
-    // axios
-    //   .get(`/board/bulletin/detail/reply/${bno}`)
-    //   .then((response) => {
-    //     const data = response.data;
-    //     console.log('data',data);
-
-    //     setReply(data);
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
   }, []);
 
+  // 2. 게시글에 대한 댓글 갯수 가져오기
   useEffect(() => {
-    // 1. 게시글에 대한 댓글 갯수 가져오기
     axios
       .get(`/board/bulleting/detail/replynum/${bno}`)
       .then((response) => {
@@ -120,7 +106,7 @@ const BoardReadPage = () => {
         console.log(error);
       });
 
-    // 2. 게시글에 대한 댓글 가져오기
+    // 3. 게시글에 대한 댓글 가져오기
     axios
       .get(`/board/bulletin/detail/reply/${bno}`)
       .then((response) => {

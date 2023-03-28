@@ -1,5 +1,7 @@
 package com.namweb.domain.board.bulletin.controller;
 
+import java.util.Map;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,11 +18,26 @@ public class BoardBulletinInsertController {
 
 	private final BoardBulletinInsertService boardBulletinInsertService;
 	private final BoardBulletinService boardBulletinService;
-	
+
 	@PostMapping("/board/bulletin/reply")
 	public void insertReply(@RequestBody ReplyDTO replyDTO) {
 		int mno = boardBulletinService.selectMemberNo(replyDTO.getEmail());
 		boardBulletinInsertService.insertReply(replyDTO, mno);
 	}
+
+	@PostMapping("/board/bulletin/reply/like")
+	public Map<String, String> insertReplyLike(@RequestBody ReplyDTO replyDTO) {
+		int mno = boardBulletinService.selectMemberNo(replyDTO.getEmail());
+		Map<String, String > map = boardBulletinInsertService.insertReplyLike(replyDTO, mno);
+		System.out.println("like bool : "+ map);
+		return map;
+	}
 	
+	@PostMapping("/board/bulletin/reply/hate")
+	public Map<String, String> insertReplHate(@RequestBody ReplyDTO replyDTO) {
+		int mno = boardBulletinService.selectMemberNo(replyDTO.getEmail());
+		Map<String, String > map = boardBulletinInsertService.insertReplyHate(replyDTO, mno);
+		System.out.println("hate map : " + map);
+		return map;
+	}
 }

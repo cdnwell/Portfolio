@@ -5,7 +5,7 @@ const BackwardButton: React.FC<{ path: string }> = ({ path }) => {
   const navigate = useNavigate();
 
   return (
-    <button type="button" className={classes.backward_button} onClick={() => navigate(path)}>
+    <button type="button" className={classes.backward_button} onClick={() => navigate(-1)}>
       뒤로가기
     </button>
   );

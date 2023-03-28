@@ -9,4 +9,8 @@ public interface BoardBulletinInsertMapper {
 
 	void insertReply(ReplyDTO replyDTO);
 
+	void insertReplyLike(ReplyDTO replyDTO);
+
+	void insertReplyHate(ReplyDTO replyDTO);
+
 }
