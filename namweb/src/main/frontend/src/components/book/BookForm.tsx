@@ -110,14 +110,6 @@ const BookForm = () => {
       " " +
       bookDateObject.toTimeString().substring(0, 8);
 
-    // console.log("이름", name);
-    // console.log("전화번호", phone);
-    // console.log("내용", textRef.current?.value);
-    // console.log("위치", posData);
-    // console.log("주소", addressName);
-    // console.log("일하는 날짜", workDate);
-    // console.log("발주 날짜", bookDate);
-
     const confirmPost = confirm("예약하시겠습니까?");
 
     if(!confirmPost) return;
@@ -166,7 +158,6 @@ const BookForm = () => {
     axios
       .get(`member/info?email=${userEmail}`)
       .then((response) => {
-        console.log(response);
         const data =response.data;
 
         const name = data.name;

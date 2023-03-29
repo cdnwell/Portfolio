@@ -22,8 +22,9 @@ const BoardPageTray = ({ paging, onPageNoClick }: PagingProps) => {
   const [boardPageNo, setBoardPageNo] = useState<React.ReactNode[]>([]);
 
   useEffect(() => {
+    // console.log(paging);
     boardPagingHandler();
-  }, []);
+  }, [paging]);
 
   const boardPagingHandler = () => {
     const boardPageTray = [];

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.namweb.domain.board.file.mapper.BoardFileMapper">
+
+	<select id="selectFilePath" parameterType="int" resultType="String">
+		select filepath from board_file where bno = #{bno}
+	</select>
+	
+	<select id="selectBoardFile" parameterType="int" resultType="file" >
+		select bno, fileNo, filePath, fileName, type from board_file where bno = #{bno}  
+	</select>
+
+</mapper>

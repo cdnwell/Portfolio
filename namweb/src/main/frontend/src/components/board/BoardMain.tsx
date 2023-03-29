@@ -33,7 +33,6 @@ const BoardMain = () => {
 
   const onPageNoBoardClick = (pageNo: number) => {
     const currentPageNo = pageNo - 1;
-    console.log(currentPageNo);
     setPageNo(currentPageNo);
   };
 
@@ -50,9 +49,6 @@ const BoardMain = () => {
       .then((response) => {
         const board = response.data.board;
         const paging = response.data.paging;
-
-        console.log(board);
-        console.log(paging);
 
         setBoard(board);
         setPaging(paging);

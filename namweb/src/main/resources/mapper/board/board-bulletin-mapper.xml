@@ -56,19 +56,6 @@
 		where bno = #{bno}
 	 </select>
 
-	<!-- 
-	<select id="selectBoardReply" parameterType="int"
-		resultType="reply">
-		SELECT br.*, IFNULL(brlp.rLikeNum, 0) as rLikeNum
-		FROM ( SELECT replyno, bno, replyforno, email, nick, content,
-		reply_date as replyDate, mno
-		FROM board_reply
-		WHERE bno = #{bno} ) br
-		LEFT OUTER JOIN (select brl.mno, count(*) as rLikeNum from board_reply_like brl inner join board_reply br on brl.mno = br.mno ) brlp
-		ON br.mno = brlp.mno
-	</select>
-	 -->
-	 
 	 <select id="selectBoardReply" parameterType="int"
 		resultType="reply">
 		SELECT br.replyno, br.bno, br.replyforno, br.email, br.nick, br.content,

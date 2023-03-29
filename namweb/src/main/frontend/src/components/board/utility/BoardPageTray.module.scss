@@ -1,5 +1,6 @@
 @import "../../../assets/scss/_constant";
 
+.board_page_current_span,
 .board_page_span,
 .after_arrow,
 .before_arrow {
@@ -18,6 +19,9 @@
 }
 
 .board_page_current_span {
+  padding: 5px;
+  margin: 0 2px;
+  
   cursor: auto;
 }
 

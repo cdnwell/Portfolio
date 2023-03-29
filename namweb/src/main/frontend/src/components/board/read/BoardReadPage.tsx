@@ -1,11 +1,13 @@
 import classes from "./BoardReadPage.module.scss";
 
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import axios from "../../../common/axiosInstance";
 
 import { BiMessageDots } from "react-icons/bi";
+import { RiDatabase2Line } from "react-icons/ri";
 import BoardReply from "./reply/BoardReply";
+import { SERVER_URL } from "../../../common/ServerConstant";
 
 const BoardReadPage = () => {
   const { bno } = useParams();
@@ -19,6 +21,8 @@ const BoardReadPage = () => {
   const [title, setTitle] = useState();
   const [nick, setNick] = useState();
   const [reply, setReply] = useState();
+  const [fileName, setFileName] = useState();
+  const [filePath, setFilePath] = useState();
 
   const [isChanged, setIsChanged] = useState(false);
 
@@ -91,6 +95,17 @@ const BoardReadPage = () => {
         }
       })
       .catch((error) => console.log(error));
+
+    // 2. 파일 정보 가져오기
+    axios
+      .get(`/namweb/board/file?bno=${bno}`)
+      .then((response) => {
+        const data = response.data;
+
+        setFileName(data.fileName);
+        setFilePath(data.filePath);
+      })
+      .catch((error) => console.log(error));
   }, []);
 
   // 2. 게시글에 대한 댓글 갯수 가져오기
@@ -145,12 +160,22 @@ const BoardReadPage = () => {
           </div>
         </div>
       </header>
-      <div></div>
       {content && (
         <section
           className={classes.board_read_section}
           dangerouslySetInnerHTML={{ __html: content }}
         ></section>
+      )}
+      {fileName && (
+        <div className={classes.board_file_box}>
+          <span className={classes.board_file_icon_box}>
+            <RiDatabase2Line className={classes.board_file_icon} />
+            <div className={classes.board_file_title}>첨부파일</div>
+          </span>
+          <Link to={`${SERVER_URL}/namweb/board/fileDown?bno=${bno}`}>
+            {fileName}
+          </Link>
+        </div>
       )}
       <footer className={classes.board_read_footer}>
         <div className={classes.board_read_footer_box}>

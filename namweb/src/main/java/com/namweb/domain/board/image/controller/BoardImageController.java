@@ -43,9 +43,9 @@ public class BoardImageController {
 				bos.write(buffer, 0, size);
 				bos.flush();
 			}
+			
 			fis.close();
 			bos.close();
-
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

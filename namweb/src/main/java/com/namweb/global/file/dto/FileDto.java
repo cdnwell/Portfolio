@@ -23,6 +23,7 @@ public class FileDto {
 	private String fileName;
 	private String type;
 	private int fileNo;
+	private int bno;
 	
 	public FileDto(File file, int fileNo) {
 		this.filePath = file.getAbsolutePath();

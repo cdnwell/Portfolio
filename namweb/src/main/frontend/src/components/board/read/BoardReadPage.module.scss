@@ -90,6 +90,29 @@
   max-width: 80%;
 }
 
+.board_file_box {
+  width: 100%;
+
+  margin-left : 26px;
+  margin-bottom : 26px;
+}
+
+.board_file_icon_box {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.board_file_icon {
+  padding-right: 5px;
+}
+
+.board_file_title {
+  padding : 10px 0;  
+  font-weight: bold;
+  cursor: pointer;
+}
+
 .board_read_footer {
   width: 100%;
 

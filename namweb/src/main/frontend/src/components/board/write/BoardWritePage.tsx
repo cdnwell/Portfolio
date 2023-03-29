@@ -12,6 +12,7 @@ import { SERVER_URL, ADMIN_EMAIL } from "../../../common/ServerConstant";
 import BackwardButton from "../../login/buttons/BackwardButton";
 import { RiDatabase2Line } from "react-icons/ri";
 import base64toFormData from "../../../common/base64toFormData";
+import { useNavigate } from "react-router-dom";
 
 const BACK_URL = SERVER_URL;
 
@@ -34,6 +35,7 @@ type BoardNickType = {
 
 const BoardWritePage = () => {
   const quillRef = useRef<ReactQuill>();
+  const navigate = useNavigate();
 
   const [title, setTitle] = useState("");
   const [category, setCategory] = useState(FREE);
@@ -133,8 +135,6 @@ const BoardWritePage = () => {
   // Select input - 변경 함수
   const onCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const categoryTmp = parseInt(e.target.value);
-
-    console.log("category", categoryTmp);
 
     setCategory(categoryTmp);
   };
@@ -240,8 +240,8 @@ const BoardWritePage = () => {
       })
       .then((response) => {
         // console.log(response);
-        alert("게시글을 작성하였습니다.");
 
+        navigate(`/namweb/board/detail/${boardNo}`);
         //navigate해서 게시글 보기 페이지로 이동하기.
       })
       .catch((error) => {

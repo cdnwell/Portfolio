@@ -24,7 +24,7 @@ const BoardTray = ({ board }: BoardTrayProps) => {
     axios
       .get(`/board/bulletin/detail/${bno}`)
       .then((response) => {
-        console.log(response);
+        // console.log(response);
       })
       .catch((error) => {
         console.log(error);
