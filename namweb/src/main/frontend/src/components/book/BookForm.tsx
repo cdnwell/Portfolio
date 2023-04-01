@@ -219,7 +219,7 @@ const BookForm = () => {
         type="text"
         onChange={onPhoneEntered}
         value={phone}
-        placeholder="전화번호를 입력해주세요"
+        placeholder="전화번호를 입력해주세요."
       />
       {isPhoneContent && <p className={classes.regex_right}>올바른 전화번호를 입력해주세요.</p>}
       <label className={classes.book_label} htmlFor="book_text">

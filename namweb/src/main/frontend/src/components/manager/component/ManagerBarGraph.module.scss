@@ -1,0 +1,110 @@
+.manager_bar_graph {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    width: 600px;
+    height: 400px;
+
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+.manager_bar_graph_content {
+    position: relative;
+
+    width: 500px;
+    height: 320px;
+
+    border-left: 1px solid black;
+    border-bottom: 1px solid black;
+    border-top: 1px solid #b7b7b7;
+    border-right: 1px solid #b7b7b7;
+}
+
+.manager_bar_graph_left_line {
+    height: 100%;
+
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    list-style-type: none;
+
+    margin : 0;
+    padding : 0;
+
+    left : 0;
+}
+
+.manager_bar_graph_left_line li {
+    width: 5px;
+    height : 1px;
+    background-color: black;
+}
+
+.manager_bar_graph_left_sign {
+    height: 100%;
+
+    position : absolute;
+
+    list-style-type: none;
+
+    margin : 0;
+    padding : 0;
+
+    left : 0;
+    bottom : 0;
+}
+
+.manager_bar_graph_left_sign li {
+    position : absolute;
+
+    transform: translate(calc(-100% - 5px), 8px)
+}
+
+.manager_bar_graph_bottom_line {
+    width: 100%;
+
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    list-style-type: none;
+
+    margin : 0;
+    padding : 0;
+
+    bottom : 0;
+}
+
+.manager_bar_graph_bottom_line li {
+    height: 5px;
+    width : 1px;
+    background-color: black;
+}
+
+.manager_bar_graph_bottom_sign {
+    width: 100%;
+
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    margin : 0;
+    padding : 0;
+
+    bottom: 0;
+    
+    list-style-type: none;
+}
+
+.manager_bar_graph_bottom_sign li {
+    position : absolute;
+
+    transform: translateX(-50%);
+}

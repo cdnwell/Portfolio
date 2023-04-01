@@ -34,7 +34,7 @@ const BoardList = ({ board, paging, onPageNoBoardClick }: BoardListProps) => {
         </tbody>
         <tfoot>
           <BoardPageWrite
-            paging={paging as PagingType}
+            paging={paging}
             onPageNoListClick={onPageNoListClick}
           />
         </tfoot>

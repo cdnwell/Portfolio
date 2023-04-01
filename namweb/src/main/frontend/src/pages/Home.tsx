@@ -1,4 +1,5 @@
 import sky_constructor from "../assets/images/constructor/sky-constructor-01.jpg";
+import constructor_site from "../assets/images/constructor_site/constructor_site_bg01.jpg";
 
 const INTRODUCTION: string[] = [
   "건설 장비 Sky는 건축 및 건설 산업에서 사용되는 중장비 및 도구의 배열을 설명하는 데 사용되는 용어입니다. ",
@@ -22,6 +23,7 @@ const Home = () => {
           alt="스카이 건설 장비.jpg"
         />
         {introduce_tray}
+        <img src={constructor_site} alt="건설 현장 배경.jpg" />
       </section>
     </div>
   );

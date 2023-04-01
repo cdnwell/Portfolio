@@ -28,16 +28,12 @@ public class BoardBulletinInsertController {
 	@PostMapping("/board/bulletin/reply/like")
 	public Map<String, String> insertReplyLike(@RequestBody ReplyDTO replyDTO) {
 		int mno = boardBulletinService.selectMemberNo(replyDTO.getEmail());
-		Map<String, String > map = boardBulletinInsertService.insertReplyLike(replyDTO, mno);
-		System.out.println("like bool : "+ map);
-		return map;
+		return boardBulletinInsertService.insertReplyLike(replyDTO, mno);
 	}
 	
 	@PostMapping("/board/bulletin/reply/hate")
 	public Map<String, String> insertReplHate(@RequestBody ReplyDTO replyDTO) {
 		int mno = boardBulletinService.selectMemberNo(replyDTO.getEmail());
-		Map<String, String > map = boardBulletinInsertService.insertReplyHate(replyDTO, mno);
-		System.out.println("hate map : " + map);
-		return map;
+		return boardBulletinInsertService.insertReplyHate(replyDTO, mno);
 	}
 }

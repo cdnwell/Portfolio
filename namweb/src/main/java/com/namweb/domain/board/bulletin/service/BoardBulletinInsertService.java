@@ -28,21 +28,22 @@ public class BoardBulletinInsertService {
 
 	public Map<String, String> insertReplyLike(ReplyDTO replyDTO, int mno) {
 		Map<String, String> likeMap = new HashMap<>();
-
+		String status = "status";
+		
 		replyDTO.setMno(mno);
 		ReplyDTO replyHas = boardBulletinService.selectBoardReplyLikeHas(replyDTO);
 		if (replyHas != null) {
 			boardBulletinDeleteService.deleteReplyLike(replyDTO);
-			likeMap.put("status", "LIKE_REPLY_DELETED");
+			likeMap.put(status, "LIKE_REPLY_DELETED");
 			return likeMap;
 		} else {
 			replyHas = boardBulletinService.selectBoardReplyHateHas(replyDTO);
 			if (replyHas == null) {
 				boardBulletinInsertMapper.insertReplyLike(replyDTO);
-				likeMap.put("status", "LIKE_REPLY_INSERTED");
+				likeMap.put(status, "LIKE_REPLY_INSERTED");
 				return likeMap;
 			} else {
-				likeMap.put("status", "HATE_REPLY_EXISTED");
+				likeMap.put(status, "HATE_REPLY_EXISTED");
 				return likeMap;
 			}
 		}
@@ -51,21 +52,22 @@ public class BoardBulletinInsertService {
 
 	public Map<String, String> insertReplyHate(ReplyDTO replyDTO, int mno) {
 		Map<String, String> hateMap = new HashMap<>();
+		String status = "status";
 		
 		replyDTO.setMno(mno);
 		ReplyDTO replyHas = boardBulletinService.selectBoardReplyHateHas(replyDTO);
 		if (replyHas != null) {
 			boardBulletinDeleteService.deleteReplyHate(replyDTO);
-			hateMap.put("status", "HATE_REPLY_DELETED");
+			hateMap.put(status, "HATE_REPLY_DELETED");
 			return hateMap;
 		} else {
 			replyHas = boardBulletinService.selectBoardReplyLikeHas(replyDTO);
 			if (replyHas == null) {
 				boardBulletinInsertMapper.insertReplyHate(replyDTO);
-				hateMap.put("status", "HATE_REPLY_INSERTED");
+				hateMap.put(status, "HATE_REPLY_INSERTED");
 				return hateMap;
 			} else {
-				hateMap.put("status", "LIKE_REPLY_EXISTED");
+				hateMap.put(status, "LIKE_REPLY_EXISTED");
 				return hateMap;
 			}
 		}
