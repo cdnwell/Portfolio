@@ -11,7 +11,7 @@ const MANAGER_BOTTOM_DUMMY = [
   { id: 7, sign: "11/6" },
 ];
 
-const MANAGER_LEFT_DUMMY = [
+const MANAGER_LEFT_DUMMY: { id: number; sign: number }[] = [
   { id: 0, sign: 0 },
   { id: 1, sign: 15 },
   { id: 2, sign: 110 },
@@ -22,11 +22,27 @@ const MANAGER_LEFT_DUMMY = [
   { id: 7, sign: 11135 },
 ];
 
+const MANAGER_DATA_DUMMY = [
+  { id: 0, sign: "10/29", data: 1200 },
+  { id: 1, sign: "10/30", data: 10000 },
+  { id: 2, sign: "11/1", data: 11000 },
+  { id: 3, sign: "11/2", data: 1500 },
+  { id: 4, sign: "11/3", data: 7600 },
+  { id: 5, sign: "11/4", data: 5700 },
+  { id: 6, sign: "11/5", data: 3700 },
+  { id: 7, sign: "11/6", data: 800 },
+];
+
 const ManagerBarGraph = () => {
-  const bottomSignLength = MANAGER_BOTTOM_DUMMY.length;
-  const bottomWidth = "500px";
-  const leftSignLength = MANAGER_LEFT_DUMMY.length;
-  const leftHeight = "320px";
+  const bottomSignLength: number = MANAGER_BOTTOM_DUMMY.length;
+  const bottomWidth: string = "500px";
+  const leftSignLength: number = MANAGER_LEFT_DUMMY.length;
+  const leftSignData: number = Math.floor(
+    (MANAGER_LEFT_DUMMY[leftSignLength - 1].sign - MANAGER_LEFT_DUMMY[0].sign) /
+      (leftSignLength - 1)
+  );
+  const leftHeight: string = "320px";
+  const maxData: number = MANAGER_LEFT_DUMMY[leftSignLength - 1].sign;
 
   const leftSign = MANAGER_LEFT_DUMMY.map((item, idx) => {
     return (
@@ -36,7 +52,7 @@ const ManagerBarGraph = () => {
           bottom: `calc(${leftHeight} * ${idx} / ${leftSignLength - 1})`,
         }}
       >
-        {item.sign}
+        {leftSignData * idx}
       </li>
     );
   });
@@ -62,6 +78,21 @@ const ManagerBarGraph = () => {
     return <li key={item.id}></li>;
   });
 
+  const dataSign = MANAGER_DATA_DUMMY.map((item, idx) => {
+    return idx === 0 || idx === bottomSignLength - 1 ? (
+      <></>
+    ) : (
+      <div
+        key={item.id}
+        className={classes.manager_data_bar_div}
+        style={{
+          height: `calc(${leftHeight} * (${item.data} / ${maxData}))`,
+          left: `calc(${bottomWidth} * ${idx} / ${bottomSignLength - 1})`,
+        }}
+      ></div>
+    );
+  });
+
   return (
     <div className={classes.manager_bar_graph}>
       <div className={classes.manager_bar_graph_content}>
@@ -69,6 +100,7 @@ const ManagerBarGraph = () => {
         <ul className={classes.manager_bar_graph_left_sign}>{leftSign}</ul>
         <ul className={classes.manager_bar_graph_bottom_line}>{bottomLine}</ul>
         <ul className={classes.manager_bar_graph_bottom_sign}>{bottomSign}</ul>
+        <div className={classes.manager_data_bar}>{dataSign}</div>
       </div>
     </div>
   );

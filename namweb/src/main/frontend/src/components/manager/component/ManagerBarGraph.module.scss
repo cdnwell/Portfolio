@@ -1,3 +1,5 @@
+@import "../../../assets/scss/_constant";
+
 .manager_bar_graph {
     display: flex;
     flex-direction: column;
@@ -107,4 +109,30 @@
     position : absolute;
 
     transform: translateX(-50%);
+}
+
+.manager_data_bar {
+    position: relative;
+
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: row;
+}
+
+.manager_data_bar_div {
+    position : absolute;
+
+    width: 16px;
+    background-color: $nw-color;
+    bottom : 0;
+
+    transform: translateX(-50%);
+
+    cursor: pointer;
+}
+
+.manager_data_bar_div:hover {
+    background-color: $nw-footer-color;
 }
