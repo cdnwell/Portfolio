@@ -2,12 +2,15 @@ import classes from "./BoardMain.module.scss";
 
 import { useEffect, useState } from "react";
 import axios from "../../common/axiosInstance";
-import { useSelector as useReduxSelector } from "react-redux";
+import { useDispatch, useSelector as useReduxSelector } from "react-redux";
 
 import BoardList from "./utility/BoardList";
 import BoardSearch from "./utility/BoardSearch";
 import { PagingType } from "./types/PagingType";
 import { BoardType } from "./types/BoardType";
+import { backgroundActions } from "../store/background";
+
+import sky_background from "../../assets/images/background/sky/alan-jones-OQsxdghBKrU-unsplash.jpg";
 
 type SearchReduxType = {
   search: { search: string };
@@ -31,6 +34,8 @@ const BoardMain = () => {
   const [search, setSearch] = useState(searchRedux);
   const [category, setCategory] = useState(categoryRedux);
 
+  const dispatch = useDispatch();
+
   const onPageNoBoardClick = (pageNo: number) => {
     const currentPageNo = pageNo - 1;
     setPageNo(currentPageNo);
@@ -40,6 +45,16 @@ const BoardMain = () => {
     setSearch(searchRedux);
     setCategory(categoryRedux);
   }, [searchRedux, categoryRedux]);
+
+  // a. 배경화면 설정
+  // useEffect(() => {
+  //   dispatch(backgroundActions.setBackgroundImage({ path: sky_background }));
+  //   dispatch(backgroundActions.setBackground({background : '#15265b'}));
+
+  //   return () => {
+  //     dispatch(backgroundActions.setBackgroundInvalid());
+  //   };
+  // }, []);
 
   useEffect(() => {
     axios

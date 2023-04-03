@@ -1,11 +1,9 @@
 import google_btn from "../../assets/images/icons/google_btn.png";
 
 import classes from "./GoogleLogin.module.scss";
-import { API_KEY, CLIENT_ID } from "../../constant/GoogleConstant";
-import axios from "../../common/axiosInstance";
+import { CLIENT_ID } from "../../constant/GoogleConstant";
 
 const GoogleLogin = () => {
-//   const GOOGLE_AUTH_URL = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithCustomToken?key=${API_KEY}`;
   const GOOGLE_AUTH_URL = `https://accounts.google.com/o/oauth2/v2/auth`+
   `?client_id=${CLIENT_ID}` +
   `&redirect_uri=http://localhost:5173/login/googleLogin` +

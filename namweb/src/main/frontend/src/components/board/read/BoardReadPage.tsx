@@ -3,11 +3,19 @@ import classes from "./BoardReadPage.module.scss";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import axios from "../../../common/axiosInstance";
+import { useDispatch, useSelector } from "react-redux";
 
 import { BiMessageDots } from "react-icons/bi";
 import { RiDatabase2Line } from "react-icons/ri";
 import BoardReply from "./reply/BoardReply";
 import { SERVER_URL } from "../../../common/ServerConstant";
+
+import sky_background from "../../../assets/images/background/sky/alan-jones-OQsxdghBKrU-unsplash.jpg";
+import { backgroundActions } from "../../store/background";
+
+type ReduxBackgroundType = {
+  background: { path: string };
+}
 
 const BoardReadPage = () => {
   const { bno } = useParams();
@@ -25,8 +33,11 @@ const BoardReadPage = () => {
   const [filePath, setFilePath] = useState();
 
   const [isChanged, setIsChanged] = useState(false);
+  const backgroundPath = useSelector((state : ReduxBackgroundType) => state.background.path);
 
   const today = new Date();
+
+  const dispatch = useDispatch();
 
   // 1. 게시글 내용 가져오기
   useEffect(() => {
@@ -133,6 +144,16 @@ const BoardReadPage = () => {
         console.log(error);
       });
   }, [isChanged]);
+
+  // 4. 배경화면 설정
+  // useEffect(() => {
+  //   dispatch(backgroundActions.setBackgroundImage({path : sky_background}));
+  //   dispatch(backgroundActions.setBackground({background : '#15265b'}));
+
+  //   return () => {
+  //     dispatch(backgroundActions.setBackgroundInvalid());
+  //   } 
+  // },[]);
 
   const onBoardReplyChanged = () => {
     setIsChanged((prev) => !prev);

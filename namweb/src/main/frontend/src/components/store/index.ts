@@ -8,12 +8,14 @@ import bookReducer from "./book";
 import loginReducer from "./login";
 import searchReducer from "./search";
 import replyReducer from "./reply";
+import backgroundReducer from "./background";
 
 const reducers = combineReducers({
   login: loginReducer,
   book: bookReducer,
   search : searchReducer,
   reply : replyReducer,
+  background : backgroundReducer,
 });
 
 const persistConfig = {

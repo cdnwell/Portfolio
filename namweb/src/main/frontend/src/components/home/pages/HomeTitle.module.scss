@@ -1,0 +1,71 @@
+@import "../../../assets/scss/_constant";
+
+@font-face {
+    font-family: 'OAGothic-ExtraBold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302@1.0/OAGothic-ExtraBold.woff2') format('woff2');
+    font-weight: 800;
+    font-style: normal;
+}
+
+.home_title {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    padding : 0 20%;
+    box-sizing: border-box;
+
+    background-size : cover;
+    background-repeat: no-repeat;
+    
+    z-index: -1;
+}
+
+.home_title_p,
+.home_p1,
+.home_p2,
+.home_p3 {
+    text-align: center;
+}
+
+.home_p1,
+.home_p2,
+.home_p3 {
+    font-size: 24px;
+}
+
+.home_title_p {
+    font-size: 42px;
+    font-family: 'OAGothic-ExtraBold';
+
+    color : white;
+    text-shadow: 1px 1px 0px $nw-footer-color, -1px -1px 0px $nw-footer-color;
+
+    animation : fadeDown 0.7s ease-in-out;
+}
+
+.home_p1 {
+    animation : fadeDown 1s ease-in-out;
+}
+
+.home_p2 {
+    animation : fadeDown 1.3s ease-in-out;
+}
+
+.home_p3 {
+    animation : fadeDown 1.6s ease-in-out;
+}
+
+@keyframes fadeDown {
+    0% {
+        opacity: 0;
+        transform: translateY(-100%);
+    }
+    100% {
+        opacity: 1;
+        transform: translate(0);
+    }
+}
