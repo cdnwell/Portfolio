@@ -194,6 +194,11 @@ const BookForm = () => {
     setPhone(phone);
   };
 
+  // init. 메인 페이지에서 넘어온 경우 scrollY = 0으로 초기화하기
+  useEffect(()=>{
+    window.scrollTo(0,0);
+  },[]);
+
   return (
     <>
     {isCalendarContent && <p className={classes.regex_right}>하루 이상 예약해주세요.</p>}

@@ -9,7 +9,7 @@ const HomeTitle = () => {
     "스카이는 주로 건물 유리창 청소, 전선 및 파이프 설치, 풍력발전기 유지보수 등 높은 작업 공간에서 필요한 작업에 사용됩니다.";
   const p3 =
     "스카이는 안전 기능이 매우 우수하여, 안정적인 작업 환경을 제공합니다. 또한 조작이 쉽고 이동이 간편하며, 좁은 작업 공간에서도 자유롭게 움직일 수 있습니다.";
-  const screenHeight = screen.height - 60;
+  const screenHeight = screen.height - 50;
 
   return (
     <div className={classes.home_title} style={{ height : screenHeight,backgroundImage : `url(${sky_background_title})`}}>

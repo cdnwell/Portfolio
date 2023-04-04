@@ -1,0 +1,112 @@
+@import "../../../assets/scss/_constant";
+
+@font-face {
+    font-family: 'OAGothic-ExtraBold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302@1.0/OAGothic-ExtraBold.woff2') format('woff2');
+    font-weight: 800;
+    font-style: normal;
+}
+
+.hide {
+    display: none;
+}
+
+.home_section_two {
+    width: 100%;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    background-color: rgb(59, 73, 150);
+}
+
+.home_section_two_img_box {
+    position: relative;
+    width: 800px;
+    height: 600px;
+}
+
+.home_section_img1,
+.home_section_img2 {
+    position: absolute;
+
+    filter: brightness(70%);
+}
+
+.home_section_img1 {
+    top: 180px;
+
+    animation: leftFadeIn 1s ease-in-out;
+}
+
+.home_section_img2 {
+    left: 150px;
+
+    animation: leftFadeIn 1s ease-in-out;
+}
+
+@keyframes leftFadeIn{
+    0% {
+        opacity: 0;
+        transform: translateX(-100%);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.home_section_two_p_box {
+    width: 800px;
+    height: 600px;
+
+    text-align: center;
+}
+
+.home_section_p1 {
+    font-size: 42px;
+    font-family: 'OAGothic-ExtraBold';
+
+    color : white;
+
+    animation : fadeDown1 0.7s ease-in-out;
+}
+
+.home_section_p2,
+.home_section_p3 {
+    font-size: 24px;
+
+    color : white;
+}
+
+.home_section_p2 {
+    animation : fadeDown1 1.1s ease-in-out;
+}
+
+.home_section_p3 {
+    animation : fadeDown2 1.4s ease-in-out;
+}
+
+@keyframes fadeDown1 {
+    0% {
+        opacity: 0;
+        transform: translateY(-70%);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeDown2 {
+    0% {
+        opacity: 0;
+        transform: translateY(-110%);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

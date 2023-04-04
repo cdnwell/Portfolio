@@ -8,16 +8,11 @@
     justify-content: center;
     align-items: center;
 
-    padding : 0 20%;
     box-sizing: border-box;
 }
 
 .hide {
     display: none;
-}
-
-.block {
-    display: block;
 }
 
 .home_section_img {
@@ -40,6 +35,7 @@
 .home_section_one_p3,
 .home_section_one_p4
 {
+    width: 800px;
     font-size: 24px;
     color: white;
 }

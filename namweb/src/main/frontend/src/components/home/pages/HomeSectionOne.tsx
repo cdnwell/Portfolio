@@ -14,10 +14,8 @@ const HomeSectionOne = () => {
     const [isHide, setIsHide] = useState(true);
 
     const updateScroll = () => {
-        console.log('scroll Y', window.scrollY);
-        console.log('scroll Top', document.documentElement.scrollTop);
         const scrollY = window.scrollY;
-        if (scrollY > 600) {
+        if (scrollY > screenHeight / 3) {
             setIsHide(false);
         } else {
             setIsHide(true);
@@ -26,10 +24,10 @@ const HomeSectionOne = () => {
 
     useEffect(()=>{
         window.addEventListener('scroll', updateScroll);
-        return () => window.removeEventListener('scroll', updateScroll);
+        // return () => window.removeEventListener('scroll', updateScroll);
     })
 
-    const classHide = isHide ? classes.hide : classes.block;
+    const classHide = isHide ? classes.hide : '';
 
     return <div className={classes.home_section_one} style={{height : screenHeight}}>
         <div className={`${classes.home_section_p_div} ${classHide}`}>
