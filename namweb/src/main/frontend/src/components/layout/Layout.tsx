@@ -32,11 +32,11 @@ const Layout = (props: LayoutType) => {
   const backgroundRgb = useSelector((state : ReduxBackgroundRgbType) => state.background.background);
 
   useEffect(() => {
-    setBackgroundImage(backgroundPath);
-    setBackground(backgroundRgb);
-
-    console.log('working :',backgroundPath);
-    console.log('working :',backgroundRgb);
+    if(backgroundPath)
+      setBackgroundImage(backgroundPath);
+      
+    if(backgroundRgb)
+      setBackground(backgroundRgb);
   }, [backgroundPath, backgroundRgb]);
 
   return (

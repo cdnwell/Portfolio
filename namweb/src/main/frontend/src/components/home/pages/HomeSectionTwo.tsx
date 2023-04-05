@@ -15,7 +15,6 @@ const HomeSectionTwo = () => {
 
   const updateScroll = () => {
     const scrollY = window.scrollY;
-    // console.log('scrollY', scrollY);
     if (scrollY > screenHeight + screenHeight / 3) {
       setIsHide(false);
     } else {
@@ -25,7 +24,6 @@ const HomeSectionTwo = () => {
 
   useEffect(() => {
     window.addEventListener("scroll", updateScroll);
-    // return () => window.removeEventListener("scroll", updateScroll);
   });
 
   const classHide = isHide ? classes.hide : "";

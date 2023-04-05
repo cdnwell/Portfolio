@@ -121,18 +121,29 @@
     flex-direction: row;
 }
 
-.manager_data_bar_div {
+.manager_data_bar_span {
     position : absolute;
 
-    width: 16px;
     background-color: $nw-color;
     bottom : 0;
+    
 
     transform: translateX(-50%);
+    
+    animation : bar_animation 0.7s;
 
     cursor: pointer;
 }
 
 .manager_data_bar_div:hover {
     background-color: $nw-footer-color;
+}
+
+@keyframes bar_animation {
+    0% {
+        height: 0;
+    }
+    100% {
+        height: inherit;
+    }
 }

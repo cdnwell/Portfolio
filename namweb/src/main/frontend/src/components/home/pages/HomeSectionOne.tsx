@@ -24,7 +24,6 @@ const HomeSectionOne = () => {
 
     useEffect(()=>{
         window.addEventListener('scroll', updateScroll);
-        // return () => window.removeEventListener('scroll', updateScroll);
     })
 
     const classHide = isHide ? classes.hide : '';

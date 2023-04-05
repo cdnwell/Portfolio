@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.namweb.domain.manager.graph.mapper.ManagerGraphMapper">
+
+	<select id="selectBookData" parameterType="String" resultType="barGraph">
+		SELECT bwl.idx as id, DATE_FORMAT(bwl.con_date, '%m%d') as date, (SELECT count(*) from book_wait_list bwls where bwls.con_date = bwl.con_date) as count
+		FROM book_wait_list bwl
+	</select>
+	
+</mapper>

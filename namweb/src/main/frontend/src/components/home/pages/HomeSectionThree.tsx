@@ -16,22 +16,15 @@ const HomeSectionThree = () => {
     const updateScroll = () => {
         const scrollY = window.scrollY;
 
-        // console.log('scrollY', scrollY);
-        // console.log('screenHeight', screenHeight * 2 + screenHeight / 2)
         if (scrollY > screenHeight * 2 + screenHeight / 2) {
             setIsHide(false);
-            console.log('true entered');
-            console.log('isHide', isHide);
         } else {
             setIsHide(true);
-            console.log('false entered');
-            console.log('isHide', isHide);
         }
     }
 
     useEffect(()=>{
         window.addEventListener('scroll', updateScroll);
-        // return () => window.removeEventListener('scroll', updateScroll);
     })
 
     const classHide = isHide ? classes.hide : '';
