@@ -50,7 +50,7 @@
 .manager_bar_graph_left_sign {
     height: 100%;
 
-    position : absolute;
+    position: absolute;
 
     list-style-type: none;
 
@@ -62,9 +62,9 @@
 }
 
 .manager_bar_graph_left_sign li {
-    position : absolute;
+    position: absolute;
 
-    transform: translate(calc(-100% - 5px), 8px)
+    transform: translate(calc(-100% - 5px), 8px);
 }
 
 .manager_bar_graph_bottom_line {

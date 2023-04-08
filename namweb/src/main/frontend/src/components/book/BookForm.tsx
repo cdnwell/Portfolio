@@ -48,6 +48,11 @@ const BookForm = () => {
       extra: boolean;
     }[]
   >([...workDateBase]);
+
+  const stored_lat = useReduxSelector((state : {book : {stored_lat : number;}}) => state.book.stored_lat);
+  const stored_lng = useReduxSelector((state : {book : {stored_lng : number;}}) => state.book.stored_lng);
+
+  const [reduxPosData, setReduxPosData] = useState({lat : stored_lat, lng: stored_lng});
   
   const [isNameCorrect, setIsNameCorrect] = useState(false);
   const [isTextContent, setIsTextContent] = useState(false);
@@ -69,8 +74,8 @@ const BookForm = () => {
     setIsNameCorrect(false);
 
     const content = textRef.current?.value;
-    const conLatitude = posData.lat;
-    const conLongitude = posData.lng;
+    const conLatitude = reduxPosData.lat;
+    const conLongitude = reduxPosData.lng;
     const conAddress = addressName;
     const workDateJson = JSON.stringify(workDate);
 
@@ -143,6 +148,16 @@ const BookForm = () => {
       setAddressName(address_name);
     });
   }, [lat_store_base, lng_store_base]);
+
+  // redux에서 post 위치 값이 바뀔 때마다 자동으로 위치 좌표, 주소 세팅
+  useEffect(() => {
+    setReduxPosData({lat : stored_lat, lng : stored_lng});
+    const geocoder = new kakao.maps.services.Geocoder();
+    geocoder.coord2Address(stored_lng, stored_lat, (result, status) => {
+      const address_name = result[0].address.address_name;
+      setAddressName(address_name);
+    });
+  },[stored_lat,stored_lng])
 
   // redux에서 work_date 바뀔 때 마다 업데이트
   useEffect(() => {

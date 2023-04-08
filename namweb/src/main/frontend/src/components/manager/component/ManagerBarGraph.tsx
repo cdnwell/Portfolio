@@ -1,6 +1,6 @@
 import classes from "./ManagerBarGraph.module.scss";
 
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "../../../common/axiosInstance";
 
 const MANAGER_BOTTOM_DUMMY = [
@@ -31,21 +31,48 @@ const MANAGER_LEFT_DUMMY: { id: number; sign: number }[] = [
 const MANAGER_DATA_DUMMY = [
   { id: 0, sign: "10/29", data: 1 },
   { id: 1, sign: "10/30", data: 2 },
-  { id: 2, sign: "11/1", data: 4 },
-  { id: 3, sign: "11/2", data: 5 },
-  { id: 4, sign: "11/3", data: 4 },
+  { id: 2, sign: "11/1", data: 3 },
+  { id: 3, sign: "11/2", data: 3 },
+  { id: 4, sign: "11/3", data: 3 },
   { id: 5, sign: "11/4", data: 2 },
-  { id: 6, sign: "11/5", data: 9 },
-  { id: 7, sign: "11/6", data: 9 },
+  { id: 6, sign: "11/5", data: 14 },
+  { id: 7, sign: "11/6", data: 3 },
 ];
+
+type bookDBType = {
+  id: number;
+  date: string;
+  count: number;
+}[];
+
+type bookType = {
+  id: number;
+  sign: string;
+  data: number;
+}[];
 
 const ManagerBarGraph = () => {
   const today: Date = new Date();
 
+  const [bookData, setBookData] = useState<bookType>([]);
+
   // a. 예약 데이터 가져오기
-  useEffect(()=>{
-    axios.get(``)
-  },[]);
+  useEffect(() => {
+    axios
+      .get(`/namweb/manager/graph/book`)
+      .then((response) => {
+        const data: bookDBType = response.data;
+
+        const dataArr: bookType = data.map((item, idx) => {
+          return { id: idx, sign: item.date, data: item.count };
+        });
+
+        setBookData(dataArr);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
   // a. bottom sign 날짜 6일 전까지 계산
   const bottomSignCalculator = () => {
@@ -74,34 +101,111 @@ const ManagerBarGraph = () => {
     ...bottomSignData,
     { id: -2, sign: "" },
   ];
-  // b. bottom data 빈 데이터 추가(padding)
+  // b.1 bottom data 비어있는 데이터 추가(padding)
+  const bottomDataPadding = (bookData: bookType) => {
+    let date: Date;
+    const dateArray = [];
+    loop: for (let i = 6; i >= 0; i--) {
+      date = new Date(
+        today.getFullYear(),
+        today.getMonth(),
+        today.getDate() - i
+      );
+      for (let j = 0; j < bookData.length; j++) {
+        const bookDate = new Date(bookData[j].sign);
+        if (
+          date.getFullYear() === bookDate.getFullYear() &&
+          date.getMonth() === bookDate.getMonth() &&
+          date.getDate() === bookDate.getDate()
+        ) {
+          dateArray.push({
+            id: i,
+            sign: `${date.getMonth() + 1}/${date.getDate()}`,
+            data: bookData[j].data,
+          });
+          continue loop;
+        }
+      }
+      dateArray.push({
+        id: i,
+        sign: `${date.getMonth() + 1}/${date.getDate()}`,
+        data: 0,
+      });
+    }
+
+    return dateArray;
+  };
+  // b.2 bottom data 변수에 값 저장
+  const bottomData = bottomDataPadding(bookData);
+  // b.3 bottom data 빈 데이터 추가(padding)
   const bottomDataArray = [
     { id: -1, sign: "", data: 0 },
-    ...MANAGER_DATA_DUMMY,
+    ...bottomData,
     { id: -2, sign: "", data: 0 },
   ];
 
   const bottomSignLength: number = bottomSignArray.length;
   const bottomWidth: string = "500px";
-  const leftSignLength: number = MANAGER_LEFT_DUMMY.length;
   const leftHeight: string = "320px";
-  const maxData: number = Math.max(...MANAGER_LEFT_DUMMY.map((item) => item.sign));
+  const maxData: number = Math.max(...bookData.map((item) => item.data));
 
-  // a. Left sign = 왼쪽에 표시될 '숫자'
-  const leftSign = MANAGER_LEFT_DUMMY.map((item, idx) => {
+  // a. Left sign calculator = 왼쪽에 표시될 '데이터' 계산
+  const leftSignCalculator = (maxData: number) => {
+    const signArray = [];
+    // a.1 maxData가 10보다 작으면 maxData까지 표시
+    if (maxData <= 10) {
+      for (let i = 0; i < maxData + 1; i++) {
+        signArray.push({
+          id: i,
+          sign: Math.floor((maxData * i) / maxData),
+        });
+      }
+
+      return signArray;
+    }
+
+    // a.2 maxData가 10보다 크면 10으로 구분한다.
+    for (let i = 0; i < 10 + 1; i++) {
+      signArray.push({
+        id: i,
+        sign: Math.floor((maxData * i) / 10),
+      });
+    }
+
+    return signArray;
+  };
+
+  // b. Left Sign = 왼쪽에 표시될 '데이터'
+  const leftSignArray = leftSignCalculator(maxData);
+  const leftSign = leftSignArray.map((item, idx) => {
+    // a.1 maxData가 10보다 작으면 maxData까지 표시
+    if (maxData <= 10)
+      return (
+        <li
+          key={item.id}
+          style={{
+            bottom: `calc(${leftHeight} * ${idx} / ${maxData})`,
+          }}
+        >
+          {Math.floor((maxData * idx) / maxData)}
+        </li>
+      );
+
+    // a.2 maxData가 10보다 크면 10등분을 한다.
     return (
       <li
         key={item.id}
         style={{
-          bottom: `calc(${leftHeight} * ${idx} / ${leftSignLength - 1})`,
+          bottom: `calc(${leftHeight} * ${idx} / 10)`,
         }}
       >
-        {Math.floor(maxData * idx / 10)}
+        {Math.floor((maxData * idx) / 10)}
       </li>
     );
   });
-  // b. Left Line = 왼쪽에 표시될 숫자의 '선'
-  const leftLine = MANAGER_LEFT_DUMMY.map((item) => {
+
+  // c. Left Line = 왼쪽에 표시될 숫자의 '선'
+  const leftLine = leftSignArray.map((item) => {
     return <li key={item.id}></li>;
   });
 

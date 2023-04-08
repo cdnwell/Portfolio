@@ -9,15 +9,17 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
-import java.util.HashMap;
 import java.util.Map;
 
-import org.json.JSONObject;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.RestTemplate;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.namweb.domain.google.login.dto.GoogleTokenDto;
-import com.namweb.global.login.dto.LoginDto;
 import com.namweb.global.login.dto.LoginTokenDto;
 import com.namweb.global.login.dto.LoginUserInfoDto;
 
@@ -58,6 +60,30 @@ public class LoginConnector {
 			e.printStackTrace();
 		}
 
+		return loginTokenDto;
+	}
+
+	public LoginTokenDto getAccessTokenRt(String reqUrl, String reqParams, LoginTokenDto loginTokenDto) {
+		RestTemplate rt = new RestTemplate();
+		
+		HttpHeaders header = new HttpHeaders(); 
+		MultiValueMap<String, String> body = new LinkedMultiValueMap<String, String>();
+		
+		String[] params = reqParams.split("&");
+		
+		for(String param : params) {
+			String key = param.split("=")[0];
+			String value = param.split("=")[1];
+			
+			body.add(key, value);
+		}
+		
+		HttpEntity<MultiValueMap<String, String>> entity = new HttpEntity<>(body, header);
+		
+		ResponseEntity<String> response = rt.exchange(reqUrl, HttpMethod.POST, entity, String.class);
+		
+		loginTokenDto.setResponse(response.getBody());
+		
 		return loginTokenDto;
 	}
 

@@ -1,5 +1,7 @@
 package com.namweb.domain.manager.graph.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.namweb.domain.manager.graph.dto.BarGraphDTO;
@@ -13,7 +15,7 @@ public class ManagerGraphService {
 
 	private final ManagerGraphMapper managerGraphMapper;
 
-	public BarGraphDTO selectBookData(String today) {
+	public List<BarGraphDTO> selectBookData(String today) {
 		return managerGraphMapper.selectBookData(today);
 	}
 	

@@ -1,5 +1,7 @@
 package com.namweb.domain.manager.graph.controller;
 
+import java.util.List;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -14,8 +16,9 @@ public class ManagerGraphController {
 
 	private final ManagerGraphService managerGraphService;
 	
-	@GetMapping("/namweb/manager/graph/Book")
-	public BarGraphDTO selectBookData(String today) {
+	@GetMapping("/namweb/manager/graph/book")
+	public List<BarGraphDTO> selectBookData(String today) {
+		System.out.println("today" + today);
 		return managerGraphService.selectBookData(today);
 	}
 	

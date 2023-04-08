@@ -5,8 +5,10 @@
 <mapper namespace="com.namweb.domain.manager.graph.mapper.ManagerGraphMapper">
 
 	<select id="selectBookData" parameterType="String" resultType="barGraph">
-		SELECT bwl.idx as id, DATE_FORMAT(bwl.con_date, '%m%d') as date, (SELECT count(*) from book_wait_list bwls where bwls.con_date = bwl.con_date) as count
-		FROM book_wait_list bwl
+		SELECT DISTINCT DATE_FORMAT(bw.book_date, '%Y/%m/%d') as date, (select count(*) from book_wait bws WHERE DATE_FORMAT(bws.book_date, '%Y%m%d') = DATE_FORMAT(bw.book_date, '%Y%m%d') ) as count
+		FROM book_wait bw
+		WHERE book_date > date_add(now(), interval - 7 day)
+		ORDER BY date_format(bw.book_date, '%Y%m%d')
 	</select>
 	
 </mapper>

@@ -31,7 +31,9 @@ public class GoogleOAuth {
 
 		String requestParams = sb.toString();
 
-		GoogleTokenDto googleTokenDto = (GoogleTokenDto) loginConnector.getAccessToken(reqUrl, requestParams,
+//		GoogleTokenDto googleTokenDto = (GoogleTokenDto) loginConnector.getAccessToken(reqUrl, requestParams,
+//				new GoogleTokenDto());
+		GoogleTokenDto googleTokenDto = (GoogleTokenDto) loginConnector.getAccessTokenRt(reqUrl, requestParams,
 				new GoogleTokenDto());
 
 		return googleTokenDto;

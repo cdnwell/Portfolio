@@ -38,6 +38,11 @@ const Book = () => {
     dispatch(
       bookActions.setPostPosition({ post_lat: post_lat, post_lng: post_lng })
     );
+    // Redux에서 참조할 위치 값
+    dispatch(
+      bookActions.setStoredPosition({ stored_lat: post_lat, stored_lng: post_lng })
+    );
+    
     setLat(post_lat);
     setLng(post_lng);
   };
@@ -45,6 +50,11 @@ const Book = () => {
   const onMapPostHandler = (post: { lat: number; lng: number }) => {
     setLat(post.lat);
     setLng(post.lng);
+
+    // Redux에서 참조할 위치 값
+    dispatch(
+      bookActions.setStoredPosition({ stored_lat: post.lat, stored_lng: post.lng })
+    );
   };
 
   return (

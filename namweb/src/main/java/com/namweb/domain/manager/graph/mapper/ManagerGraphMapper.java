@@ -1,5 +1,7 @@
 package com.namweb.domain.manager.graph.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import com.namweb.domain.manager.graph.dto.BarGraphDTO;
@@ -7,6 +9,6 @@ import com.namweb.domain.manager.graph.dto.BarGraphDTO;
 @Mapper
 public interface ManagerGraphMapper {
 
-	BarGraphDTO selectBookData(String today);
+	List<BarGraphDTO> selectBookData(String today);
 
 }
