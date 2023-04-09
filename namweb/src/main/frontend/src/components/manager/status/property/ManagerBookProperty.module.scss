@@ -1,0 +1,43 @@
+@import "../../../../assets/scss/_constant";
+
+.manager_book_property {
+    width: 100%;
+
+    border-bottom: 1px solid #b7b7b7;
+}
+
+.manager_book_ul {
+    list-style: none;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    margin: 0;
+
+    padding : 10px 2.5%;
+}
+
+.manager_book_name_li {
+    width: 20%;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.manager_book_date_li {
+    width : 20%;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.manager_book_constructor_li {
+    width: 60%;
+    
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}

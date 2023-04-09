@@ -10,9 +10,6 @@ import { RiDatabase2Line } from "react-icons/ri";
 import BoardReply from "./reply/BoardReply";
 import { SERVER_URL } from "../../../common/ServerConstant";
 
-import sky_background from "../../../assets/images/background/sky/alan-jones-OQsxdghBKrU-unsplash.jpg";
-import { backgroundActions } from "../../store/background";
-
 type ReduxBackgroundType = {
   background: { path: string };
 }

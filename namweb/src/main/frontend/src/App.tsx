@@ -25,7 +25,7 @@ function App() {
         <Route path="/login/find-pw" element={<FindPw />} />
         <Route path="/login/pw-change" element={<ChangePw />} />
         <Route path="/namweb/board/detail/:bno" element={<BoardRead />} />
-        <Route path="/manager" element={<Manager />} />
+        <Route path="/manager/book" element={<Manager />} />
         <Route path="/*" element={<NotFind />} />
       </Routes>
     </Layout>

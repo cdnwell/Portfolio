@@ -2,6 +2,8 @@ import classes from "./ManagerBarGraph.module.scss";
 
 import { useState, useEffect } from "react";
 import axios from "../../../common/axiosInstance";
+import { useDispatch } from "react-redux";
+import { managerActions } from "../../store/manager";
 
 const MANAGER_BOTTOM_DUMMY = [
   { id: 0, sign: "10/29" },
@@ -55,6 +57,8 @@ const ManagerBarGraph = () => {
   const today: Date = new Date();
 
   const [bookData, setBookData] = useState<bookType>([]);
+
+  const dispatch = useDispatch();
 
   // a. 예약 데이터 가져오기
   useEffect(() => {
@@ -120,7 +124,9 @@ const ManagerBarGraph = () => {
         ) {
           dateArray.push({
             id: i,
-            sign: `${date.getMonth() + 1}/${date.getDate()}`,
+            sign: `${date.getFullYear()}/${
+              date.getMonth() + 1
+            }/${date.getDate()}`,
             data: bookData[j].data,
           });
           continue loop;
@@ -128,7 +134,7 @@ const ManagerBarGraph = () => {
       }
       dateArray.push({
         id: i,
-        sign: `${date.getMonth() + 1}/${date.getDate()}`,
+        sign: `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`,
         data: 0,
       });
     }
@@ -229,6 +235,20 @@ const ManagerBarGraph = () => {
     return <li key={item.id}></li>;
   });
 
+  // a. Data sign click 이벤트
+  // Redux manager.ts 저장소로 막대 그래프의 날짜를 전달한다.
+  // 날짜 한 글자인 경우 0을 붙여서 전달한다.
+  const onDataSignClick = (sign: string) => {
+    let signSplit = sign.split("/");
+    if(parseInt(signSplit[1]) < 10 ) signSplit[1] = "0" + signSplit[1];
+    if(parseInt(signSplit[2]) < 10 ) signSplit[2] = "0" + signSplit[2];
+    const signResult = signSplit.join("/");
+
+    console.log(signResult)
+    
+    dispatch(managerActions.setDate({ date: signResult }));
+  };
+
   // a. Data Sign = 데이터의 '막대'
   const dataSign = bottomDataArray.map((item, idx) => {
     return idx === 0 || idx === bottomSignLength - 1 ? (
@@ -249,6 +269,7 @@ const ManagerBarGraph = () => {
             height: `inherit`,
             left: `calc(${bottomWidth} * ${idx} / ${bottomSignLength - 1})`,
           }}
+          onClick={() => onDataSignClick(item.sign)}
         ></span>
       </div>
     );

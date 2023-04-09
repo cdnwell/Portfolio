@@ -1,0 +1,31 @@
+@import "../../../../assets/scss/_constant";
+
+.manager_book_paging {
+  height: 40px;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.manger_book_left_arrow,
+.manger_book_right_arrow {
+  padding: 0 5px;
+}
+
+:is(.manger_book_left_arrow, .manger_book_right_arrow):hover {
+  color: $nw-color;
+
+  cursor: pointer;
+}
+
+.manager_book_span {
+  padding: 0 5px;
+}
+
+.manager_book_span:hover {
+  color: $nw-color;
+
+  cursor: pointer;
+}

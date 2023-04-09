@@ -17,7 +17,7 @@ const AdminMenu = () => {
     <div className={classes.admin_menu}>
       <div className={classes.admin_diagonals}></div>
       <Link to="/login" className={classes.admin_info}>계정 정보</Link>
-      <Link to="/manager" className={classes.admin_page}>관리자 화면</Link>
+      <Link to="/manager/book" className={classes.admin_page}>관리자 화면</Link>
       <span className={classes.admin_logout} onClick={onLogoutClick}>Logout</span>
     </div>
   );

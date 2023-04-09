@@ -1,0 +1,36 @@
+@import "../../../assets/scss/_constant";
+
+.manager_menu{
+    width: 1000px;
+    
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+    padding-bottom : 10px;
+
+    border-bottom: 1px solid #b7b7b7;
+}
+
+.manager_menu_book,
+.manager_menu_calendar,
+.manager_menu_account {
+  font-size: 20px;
+  text-decoration: none;
+  color: black;
+
+  margin: 0 40px;
+
+  cursor: pointer;
+}
+
+:is(.manager_menu_book,
+.manager_menu_calendar,
+.manager_menu_account):hover {
+    font-weight: bold;
+}
+
+.bold {
+    color : $nw-footer-color;
+    font-weight: bold;
+}

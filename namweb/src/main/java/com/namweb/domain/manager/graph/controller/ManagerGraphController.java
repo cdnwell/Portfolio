@@ -18,7 +18,6 @@ public class ManagerGraphController {
 	
 	@GetMapping("/namweb/manager/graph/book")
 	public List<BarGraphDTO> selectBookData(String today) {
-		System.out.println("today" + today);
 		return managerGraphService.selectBookData(today);
 	}
 	
