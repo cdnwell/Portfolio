@@ -12,7 +12,7 @@ const ManagerBookStatusTray = ({ book }: ManagerBookStatusTrayProps) => {
     return <ManagerBookStatusItem key={idx} item={item} />;
   });
 
-  return <div></div>;
+  return <>{bookStatusTray}</>;
 };
 
 export default ManagerBookStatusTray;

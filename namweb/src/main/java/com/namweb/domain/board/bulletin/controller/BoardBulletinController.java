@@ -1,5 +1,6 @@
 package com.namweb.domain.board.bulletin.controller;
 
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,6 +16,7 @@ import com.namweb.domain.board.bulletin.service.BoardBulletinService;
 import com.namweb.global.page.dto.PagingDTO;
 
 import lombok.RequiredArgsConstructor;
+
 
 @RestController
 @RequiredArgsConstructor
@@ -38,7 +40,7 @@ public class BoardBulletinController {
 		int count = boardBulletinService.selectBoardListCount(search, category);
 		// mysql의 limit 시작 인덱스는 0 (1page = 0page)
 		int currentPageNo = pageNo + 1;
-
+		
 		PagingDTO pagingDTO = new PagingDTO(count, currentPageNo, pageOfContentCount, pageGroupOfCount);
 
 		Map<String, Object> result = new HashMap<>();

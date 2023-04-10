@@ -1,5 +1,6 @@
 export type ManagerBookStatusType = {
+    bwno : number;
     name : string;
     bookDate : string;
-    constructorDate : string;
+    conDate : string[];
 }[];

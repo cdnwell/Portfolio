@@ -9,6 +9,7 @@ import ManagerBookPaging from "./paging/ManagerBookPaging";
 import ManagerBookProperty from "./property/ManagerBookProperty";
 import { PagingType } from "../../board/types/PagingType";
 import { ManagerBookStatusType } from "../type/ManagerBookStatusType";
+import ManagerBookStatusTray from "./tray/ManagerBookStatusTray";
 
 type managerDateReduxType = {
   manager: {
@@ -23,8 +24,28 @@ const ManagerBookStatus = () => {
 
   const [book, setBook] = useState<ManagerBookStatusType>();
   const [paging, setPaging] = useState<PagingType>();
-  const [page, setPage] = useState<number>(0);
+  const [page, setPage] = useState<number>(1);
 
+  // a. bookDate가 바뀔 경우 1 page부터 게시글 불러오기
+  useEffect(() => {
+    // 1. bookDate가 바뀌면 page를 1로 초기화
+    setPage(1);
+
+    axios
+      .get(`/namweb/manager/book/status?date=${bookDate}&pageNo=1`)
+      .then((response) => {
+        const data = response.data;
+        console.log(response);
+
+        setBook(data.book);
+        setPaging(data.paging);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [bookDate]);
+
+  // a. page가 바뀔 경우 게시글 불러오기
   useEffect(() => {
     axios
       .get(`/namweb/manager/book/status?date=${bookDate}&pageNo=${page}`)
@@ -38,9 +59,10 @@ const ManagerBookStatus = () => {
       .catch((error) => {
         console.log(error);
       });
-  }, [bookDate]);
+  }, [page]);
 
   const onPageTransfer = (page: number) => {
+    console.log('page',page);
     setPage(page);
   };
 
@@ -51,8 +73,7 @@ const ManagerBookStatus = () => {
           <ManagerBookProperty />
         </div>
         <div className={classes.manager_book_status_item_box}>
-          <ManagerBookStatusItem />
-          <ManagerBookStatusItem />
+          {book && <ManagerBookStatusTray book={book} />}
         </div>
         <div className={classes.manager_book_status_paging}>
           {paging && (

@@ -1,0 +1,32 @@
+@import "../../../../assets/scss/_constant";
+
+.manager_status_info_paging {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    height: 100%;
+}
+
+.manager_paging_arrow {
+    color : $nw-footer-color;
+
+    padding : 0 5px;
+}
+
+.manager_paging_arrow:hover {
+    color : $nw-color;
+
+    cursor: pointer;
+}
+
+.manager_paging_span_active {
+    padding : 0 5px;
+
+    cursor: pointer;
+}
+
+.manager_paging_span_active:hover {
+    color : $nw-color;
+}

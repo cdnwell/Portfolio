@@ -1,0 +1,147 @@
+.manager_status_info {
+    width : 900px;
+
+    border: 1px solid black;
+    border-radius: 5px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    padding : 10px 0;
+    box-sizing: border-box;
+}
+
+.manager_status_info_user {
+    width: 90%;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    
+    margin-bottom : 20px;
+}
+
+.manager_status_user_name {
+    width: 20%;
+}
+
+.manger_status_name_p {
+    margin : 0;
+
+    font-size: 14px;
+    color : gray;
+}
+
+.manager_status_name_span {
+    display: block;
+
+    width: 100%;
+    margin-top : 10px;
+    
+    font-size: 24px;
+    text-align: center;
+}
+
+.manager_status_book_date_box {
+    width: 20%;
+}
+
+.manager_status_book_date_p {
+    margin : 0;
+
+    font-size: 14px;
+    color : gray;
+}
+
+.manager_status_book_date_span {
+    display: block;
+
+    width: 100%;
+    margin-top : 10px;
+    
+    font-size: 24px;
+    text-align: center;
+}
+
+.manager_status_info_box {
+    width: 90%;
+    height: 385px;
+
+    border: 1px solid #b7b7b7;
+    border-radius: 5px;
+}
+
+.manager_status_info_property_box {
+    width: 100%;
+    height : 15%;
+
+    display: flex;
+    flex-direction: row;
+
+    border-bottom: 1px solid #b7b7b7;
+}
+
+.manager_status_info_con_date {
+    width: 40%;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.manager_status_info_properties {
+    width: 60%;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    padding : 15px 0;
+}
+
+.manager_status_property_span {
+    width: 33.3%;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.manager_status_info_item_box {
+    height : 75%;
+}
+
+.manager_status_info_paging{
+    height : 10%;
+}
+
+.manager_status_total_box {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.manager_status_total_property {
+    width: 100%;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+    margin : 10px 0;
+}
+
+.manager_status_total_price {
+    width: 100%;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+    margin : 10px 0;
+}

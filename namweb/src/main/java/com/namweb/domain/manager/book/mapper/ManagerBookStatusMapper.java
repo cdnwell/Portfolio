@@ -1,5 +1,6 @@
 package com.namweb.domain.manager.book.mapper;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -13,5 +14,7 @@ public interface ManagerBookStatusMapper {
 	List<ManagerBookStatusDTO> selectBookStatus(Map<String, Object> params);
 
 	int selectBookListCount(String date);
+
+	String[] selectBookListConDate(int bwno);
 
 }

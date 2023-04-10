@@ -5,14 +5,23 @@
 <mapper namespace="com.namweb.domain.manager.book.mapper.ManagerBookStatusMapper">
 
 	<select id="selectBookStatus" parameterType="Map" resultType="mBookStatus">
-		select name, concat(date_format(book_date, '%m/%d'), ' ', SUBSTR('일월화수목금토', DAYOFWEEK(book_date), 1)) as bookDate, concat(date_format(con_date, '%m/%d'), ' ', SUBSTR('일월화수목금토', DAYOFWEEK(con_date), 1)) as constructorDate from book_wait bw inner join book_wait_list bwl on bw.idx = bwl.book_wait_idx 
-		where date_format(book_date, '%Y/%m/%d') = #{date}
-		limit #{pageNo}, 4
+		SELECT idx as bwno, name
+		, CONCAT(DATE_FORMAT(book_date, '%m/%d'), ' ', SUBSTR('일월화수목금토', DAYOFWEEK(book_date), 1)) as bookDate
+		FROM book_wait
+		WHERE DATE_FORMAT(book_date, '%Y/%m/%d') = #{date}
+		LIMIT #{pageNo}, 4
 	</select>
 	
 	<select id="selectBookListCount" parameterType="String" resultType="int">
-		select count(*) from book_wait bw inner join book_wait_list bwl on bw.idx = bwl.book_wait_idx 
+		SELECT count(*)
+		FROM book_wait 
 		where date_format(book_date, '%Y/%m/%d') = #{date}
+	</select>
+	
+	<select id="selectBookListConDate" parameterType="int" resultType="String">
+		SELECT CONCAT(DATE_FORMAT(con_date, '%m/%d'), ' ', SUBSTR('일월화수목금토', DAYOFWEEK(con_date), 1)) as conDate
+		FROM book_wait_list
+		WHERE book_wait_idx = #{bwno}
 	</select>
 	
 </mapper>

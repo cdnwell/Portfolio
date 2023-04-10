@@ -20,11 +20,12 @@
   cursor: pointer;
 }
 
-.manager_book_span {
+.manager_book_span,
+.manager_book_span_active {
   padding: 0 5px;
 }
 
-.manager_book_span:hover {
+.manager_book_span_active:hover {
   color: $nw-color;
 
   cursor: pointer;

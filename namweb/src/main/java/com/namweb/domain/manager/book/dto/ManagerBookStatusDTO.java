@@ -11,7 +11,8 @@ import lombok.ToString;
 @Setter
 @ToString
 public class ManagerBookStatusDTO {
+	private int bwno;
 	private String name;
 	private String bookDate;
-	private String constructorDate;
+	private String[] conDate;
 }

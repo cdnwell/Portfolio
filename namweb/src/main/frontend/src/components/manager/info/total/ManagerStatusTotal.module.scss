@@ -1,0 +1,115 @@
+.manager_status_total {
+    width: 90%;
+    
+    display: flex;
+    flex-direction: row;
+
+    height : 100px;
+
+    border: 1px solid #b7b7b7;
+    border-radius: 5px;
+}
+
+.manager_status_total_amount_box {
+    width: 40%;
+
+    display: flex;
+    flex-direction: row;
+}
+
+.manager_status_total_date {
+    width: 50%;
+
+    height : 100%;
+
+    padding : 10px;
+    box-sizing: border-box;
+}
+
+.manager_status_total_date_p {
+    margin : 0;
+    height : 30%;
+
+    font-size: 14px;
+    color : gray;
+}
+
+.manager_status_total_date_span {
+    display: block;
+
+    width: 100%;
+    height : 70%;
+    margin-top : 10px;
+    
+    font-size: 24px;
+    text-align: center;
+}
+
+.manager_status_total_con_ea {
+    width: 50%;
+
+    height : 100%;
+    
+    padding : 10px;
+    box-sizing: border-box;
+}
+
+.manager_status_total_con_ea_p {
+    margin : 0;
+    height : 30%;
+
+    font-size: 14px;
+    color : gray;
+}
+
+.manager_status_total_con_ea_span {
+    display: block;
+
+    width: 100%;
+    height : 70%;
+    margin-top : 10px;
+    
+    font-size: 24px;
+    text-align: center;
+}
+
+.manager_status_con_box {
+    width: 60%;
+
+    display: flex;
+    flex-direction: row;
+}
+
+.manager_status_total_morning,
+.manager_status_total_afternoon,
+.manager_status_total_extra {
+    width: 33.3%;
+
+    height : 100%;
+    box-sizing: border-box;
+
+    padding : 10px;
+}
+
+.manager_status_total_morning_p,
+.manager_status_total_afternoon_p,
+.manager_status_total_extra_p {
+    margin : 0;
+    height : 30%;
+
+    font-size: 14px;
+    color : gray;
+}
+
+.manager_status_total_morning_span,
+.manager_status_total_afternoon_span,
+.manager_status_total_extra_span {
+    display: block;
+
+    width: 100%;
+    height : 70%;
+    margin-top : 10px;
+    
+    font-size: 24px;
+    text-align: center;
+}

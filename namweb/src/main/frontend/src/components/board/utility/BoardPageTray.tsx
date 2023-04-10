@@ -34,6 +34,7 @@ const BoardPageTray = ({ paging, onPageNoClick }: PagingProps) => {
         <BsFillArrowLeftCircleFill
           key="before_arrow"
           className={classes.before_arrow}
+          onClick={() => onPageNoLinkClick(paging.startPageOfPageGroup - 1)}
         />
       );
     }
@@ -71,6 +72,7 @@ const BoardPageTray = ({ paging, onPageNoClick }: PagingProps) => {
         <BsFillArrowRightCircleFill
           key="after_arrow"
           className={classes.after_arrow}
+          onClick={() => onPageNoLinkClick(paging.endPageOfPageGroup + 1)}
         />
       );
     }

@@ -1,0 +1,53 @@
+@import "../../../../assets/scss/_constant";
+
+.manager_status_info_item {
+    display: flex;
+
+    flex-direction: row;
+
+    padding : 20px 0;
+
+    border-bottom: 1px solid #b7b7b7;
+}
+
+.manager_info_date {
+    width: 40%;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.manager_info_date_span {
+    padding : 5px 10px;
+
+    background-color: $nw-color;
+    border-radius: 5px;
+    color: white;
+}
+
+.manager_info_date_span:hover {
+    background-color: $nw-footer-color;
+
+    cursor: pointer;
+}
+
+.manager_info_check_box {
+    width: 60%;
+
+    display: flex;
+    flex-direction: row;
+}
+
+.manager_info_check_box_div {
+    width: 33.3%;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.manager_info_checked {
+    color : green;
+}
