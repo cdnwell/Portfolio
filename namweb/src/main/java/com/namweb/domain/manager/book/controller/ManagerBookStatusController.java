@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.namweb.domain.manager.book.dto.ManagerBarGraphDTO;
 import com.namweb.domain.manager.book.dto.ManagerBookStatusDTO;
 import com.namweb.domain.manager.book.service.ManagerBookStatusService;
 import com.namweb.global.page.dto.PagingDTO;
@@ -49,6 +50,11 @@ public class ManagerBookStatusController {
 		
 
 		return result;
+	}
+	
+	@GetMapping("/namweb/manager/book/graph")
+	public List<ManagerBarGraphDTO> selectBookGraphData(String today) {
+		return managerBookStatusService.selectBookGraphData(today);
 	}
 
 }

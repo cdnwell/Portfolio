@@ -24,4 +24,11 @@
 		WHERE book_wait_idx = #{bwno}
 	</select>
 	
+	<select id="selectBookGraphData" parameterType="String" resultType="barGraph">
+		SELECT DISTINCT DATE_FORMAT(bw.book_date, '%Y/%m/%d') as date, (select count(*) from book_wait bws WHERE DATE_FORMAT(bws.book_date, '%Y%m%d') = DATE_FORMAT(bw.book_date, '%Y%m%d') ) as count
+		FROM book_wait bw
+		WHERE book_date > date_add(now(), interval - 7 day)
+		ORDER BY date_format(bw.book_date, '%Y%m%d')
+	</select>
+	
 </mapper>

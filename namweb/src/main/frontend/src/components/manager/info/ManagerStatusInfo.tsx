@@ -4,30 +4,49 @@ import { useState, useEffect } from "react";
 
 import ManagerStatusInfoItem from "./item/ManagerStatusInfoItem";
 import ManagerStatusInfoPaging from "./paging/ManagerStatusInfoPaging";
-import PagingProps from "../../board/types/PagingProps";
 import { PagingType } from "../../board/types/PagingType";
 import ManagerStatusTotal from "./total/ManagerStatusTotal";
 import ManagerStatusAccount from "./account/ManagerStatusAccount";
+import axios from "../../../common/axiosInstance";
+
+export type infoType = {
+  date: string;
+  morning: boolean;
+  afternoon: boolean;
+  extra: boolean;
+}[];
 
 const ManagerStatusInfo = () => {
   const [paging, setPaging] = useState<PagingType>();
+  const [info, setInfo] = useState<infoType>([]);
 
   const onPageNoClick = (pageNo: number) => {
     console.log(pageNo);
   };
 
   useEffect(() => {
-    
     setPaging({
-      currentPageNo : 1,
-      endPageOfPageGroup : 5,
+      currentPageNo: 1,
+      endPageOfPageGroup: 5,
       nextPageGroup: true,
-      previousPageGroup : true,
-      startPageOfPageGroup : 1,
-      totalPage : 10,
-      nowPageGroupNo : 1,
-      totalPageGroup : 2,
-    })
+      previousPageGroup: true,
+      startPageOfPageGroup: 1,
+      totalPage: 10,
+      nowPageGroupNo: 1,
+      totalPageGroup: 2,
+    });
+  }, []);
+
+  // 1. Status에 대한 정보(info)를 받아온다.
+  useEffect(() => {
+    axios
+      .get(``)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }, []);
 
   return (
@@ -57,14 +76,19 @@ const ManagerStatusInfo = () => {
           </div>
         </div>
         <div className={classes.manager_status_info_item_box}>
-          <ManagerStatusInfoItem />
-          <ManagerStatusInfoItem />
-          <ManagerStatusInfoItem />
-          <ManagerStatusInfoItem />
+          <ManagerStatusInfoItem
+            date={"04/11 수"}
+            morning={true}
+            afternoon={false}
+            extra={true}
+          />
         </div>
         <div className={classes.manager_status_info_paging}>
           {paging && (
-            <ManagerStatusInfoPaging paging={paging} onPageNoClick={onPageNoClick} />
+            <ManagerStatusInfoPaging
+              paging={paging}
+              onPageNoClick={onPageNoClick}
+            />
           )}
         </div>
       </div>

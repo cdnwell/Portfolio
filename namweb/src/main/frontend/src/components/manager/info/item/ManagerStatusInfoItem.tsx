@@ -2,19 +2,28 @@ import classes from "./ManagerStatusInfoItem.module.scss";
 
 import { AiFillCheckCircle } from "react-icons/ai";
 
-const ManagerStatusInfoItem = () => {
+interface ManagerStatusInfoItemProps {
+  date: string;
+  morning: boolean;
+  afternoon : boolean;
+  extra : boolean;
+}
+
+const ManagerStatusInfoItem = ({ date, morning, afternoon, extra } : ManagerStatusInfoItemProps) => {
   return (
     <div className={classes.manager_status_info_item}>
       <div className={classes.manager_info_date}>
-        <span className={classes.manager_info_date_span}>04/19 수</span>
+        <span className={classes.manager_info_date_span}>{date}</span>
         </div>
       <div className={classes.manager_info_check_box}>
         <div className={classes.manager_info_check_box_div}>
-          <AiFillCheckCircle className={classes.manager_info_checked} />
+          {morning && <AiFillCheckCircle className={classes.manager_info_checked} />}
         </div>
-        <div className={classes.manager_info_check_box_div}></div>
         <div className={classes.manager_info_check_box_div}>
-          <AiFillCheckCircle className={classes.manager_info_checked} />
+          {afternoon && <AiFillCheckCircle className={classes.manager_info_checked} />}
+        </div>
+        <div className={classes.manager_info_check_box_div}>
+          {extra && <AiFillCheckCircle className={classes.manager_info_checked} />}
         </div>
       </div>
     </div>

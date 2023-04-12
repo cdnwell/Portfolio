@@ -1,4 +1,4 @@
-package com.namweb.domain.manager.graph.dto;
+package com.namweb.domain.manager.book.dto;
 
 import org.apache.ibatis.type.Alias;
 
@@ -10,7 +10,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class BarGraphDTO {
+public class ManagerBarGraphDTO {
 	private int id;
 	private String date;
 	private int count;

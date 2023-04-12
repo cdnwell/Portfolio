@@ -1,15 +1,13 @@
 package com.namweb.domain.manager.book.service;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import com.namweb.domain.manager.book.dto.ManagerBarGraphDTO;
 import com.namweb.domain.manager.book.dto.ManagerBookStatusDTO;
 import com.namweb.domain.manager.book.mapper.ManagerBookStatusMapper;
 
@@ -50,6 +48,10 @@ public class ManagerBookStatusService {
 
 	public int selectBookListCount(String date) {
 		return managerBookStatusMapper.selectBookListCount(date);
+	}
+
+	public List<ManagerBarGraphDTO> selectBookGraphData(String today) {
+		return managerBookStatusMapper.selectBookGraphData(today);
 	}
 
 }

@@ -63,7 +63,7 @@ const ManagerBarGraph = () => {
   // a. 예약 데이터 가져오기
   useEffect(() => {
     axios
-      .get(`/namweb/manager/graph/book`)
+      .get(`/namweb/manager/book/graph`)
       .then((response) => {
         const data: bookDBType = response.data;
 
