@@ -6,8 +6,15 @@ type bookStatusDateType = {
   };
 };
 
+type bwnoType = {
+  payload: {
+    bwno : number;
+  }
+}
+
 const initialState = {
   date: "",
+  bwno: -1,
 };
 
 const manager = createSlice({
@@ -17,6 +24,9 @@ const manager = createSlice({
     setDate(state, action : bookStatusDateType) {
       state.date = action.payload.date;
     },
+    setBookDate(state, action : bwnoType) {
+      state.bwno = action.payload.bwno;
+    }
   },
 });
 

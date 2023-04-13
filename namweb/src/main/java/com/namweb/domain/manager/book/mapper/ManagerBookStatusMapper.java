@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.namweb.domain.manager.book.dto.ManagerBarGraphDTO;
+import com.namweb.domain.manager.book.dto.ManagerBookInfoDTO;
 import com.namweb.domain.manager.book.dto.ManagerBookStatusDTO;
 
 @Mapper
@@ -18,5 +19,7 @@ public interface ManagerBookStatusMapper {
 	String[] selectBookListConDate(int bwno);
 
 	List<ManagerBarGraphDTO> selectBookGraphData(String today);
+
+	List<ManagerBookInfoDTO> selectBookInfo(String bookDate);
 
 }

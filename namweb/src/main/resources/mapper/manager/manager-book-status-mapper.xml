@@ -31,4 +31,8 @@
 		ORDER BY date_format(bw.book_date, '%Y%m%d')
 	</select>
 	
+	<select id="selectBookInfo" parameterType="String" resultType="mBookInfo">
+		
+	</select>
+	
 </mapper>

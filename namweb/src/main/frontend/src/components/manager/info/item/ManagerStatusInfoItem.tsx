@@ -2,7 +2,7 @@ import classes from "./ManagerStatusInfoItem.module.scss";
 
 import { AiFillCheckCircle } from "react-icons/ai";
 
-interface ManagerStatusInfoItemProps {
+export interface ManagerStatusInfoItemProps {
   date: string;
   morning: boolean;
   afternoon : boolean;

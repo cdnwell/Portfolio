@@ -2,27 +2,34 @@ import classes from "./ManagerStatusInfo.module.scss";
 
 import { useState, useEffect } from "react";
 
-import ManagerStatusInfoItem from "./item/ManagerStatusInfoItem";
 import ManagerStatusInfoPaging from "./paging/ManagerStatusInfoPaging";
 import { PagingType } from "../../board/types/PagingType";
 import ManagerStatusTotal from "./total/ManagerStatusTotal";
 import ManagerStatusAccount from "./account/ManagerStatusAccount";
 import axios from "../../../common/axiosInstance";
+import ManagerStatusInfoTray from "./tray/ManagerStatusInfoTray";
+import { infoType } from "./type/infoType";
+import { useSelector } from "react-redux";
 
-export type infoType = {
-  date: string;
-  morning: boolean;
-  afternoon: boolean;
-  extra: boolean;
-}[];
+type bwnoReduxType = {
+  manager: {
+    bwno: number;
+  };
+}
 
 const ManagerStatusInfo = () => {
   const [paging, setPaging] = useState<PagingType>();
   const [info, setInfo] = useState<infoType>([]);
 
+  const bwno = useSelector((state: bwnoReduxType) => state.manager.bwno);
+
   const onPageNoClick = (pageNo: number) => {
     console.log(pageNo);
   };
+
+  useEffect(()=>{
+    console.log('bookDate', bwno);
+  },[bwno]);
 
   useEffect(() => {
     setPaging({
@@ -76,12 +83,7 @@ const ManagerStatusInfo = () => {
           </div>
         </div>
         <div className={classes.manager_status_info_item_box}>
-          <ManagerStatusInfoItem
-            date={"04/11 수"}
-            morning={true}
-            afternoon={false}
-            extra={true}
-          />
+          {info && <ManagerStatusInfoTray info={info} />}
         </div>
         <div className={classes.manager_status_info_paging}>
           {paging && (

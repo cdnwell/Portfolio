@@ -8,6 +8,7 @@ import java.util.Map;
 import org.springframework.stereotype.Service;
 
 import com.namweb.domain.manager.book.dto.ManagerBarGraphDTO;
+import com.namweb.domain.manager.book.dto.ManagerBookInfoDTO;
 import com.namweb.domain.manager.book.dto.ManagerBookStatusDTO;
 import com.namweb.domain.manager.book.mapper.ManagerBookStatusMapper;
 
@@ -52,6 +53,10 @@ public class ManagerBookStatusService {
 
 	public List<ManagerBarGraphDTO> selectBookGraphData(String today) {
 		return managerBookStatusMapper.selectBookGraphData(today);
+	}
+
+	public List<ManagerBookInfoDTO> selectBookInfo(String bookDate) {
+		return managerBookStatusMapper.selectBookInfo(bookDate);
 	}
 
 }
