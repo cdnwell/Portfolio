@@ -20,6 +20,8 @@ public interface ManagerBookStatusMapper {
 
 	List<ManagerBarGraphDTO> selectBookGraphData(String today);
 
-	List<ManagerBookInfoDTO> selectBookInfo(String bookDate);
+	List<ManagerBookInfoDTO> selectBookInfo(Map<String, Object> params);
+
+	int selectBookInfoCount(int bwno);
 
 }

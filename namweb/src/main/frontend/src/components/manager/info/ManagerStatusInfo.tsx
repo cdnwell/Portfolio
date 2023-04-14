@@ -20,41 +20,51 @@ type bwnoReduxType = {
 const ManagerStatusInfo = () => {
   const [paging, setPaging] = useState<PagingType>();
   const [info, setInfo] = useState<infoType>([]);
+  const [pageNo, setPageNo] = useState<number>();
 
   const bwno = useSelector((state: bwnoReduxType) => state.manager.bwno);
 
   const onPageNoClick = (pageNo: number) => {
-    console.log(pageNo);
+    setPageNo(pageNo);
   };
-
-  useEffect(()=>{
-    console.log('bookDate', bwno);
-  },[bwno]);
-
-  useEffect(() => {
-    setPaging({
-      currentPageNo: 1,
-      endPageOfPageGroup: 5,
-      nextPageGroup: true,
-      previousPageGroup: true,
-      startPageOfPageGroup: 1,
-      totalPage: 10,
-      nowPageGroupNo: 1,
-      totalPageGroup: 2,
-    });
-  }, []);
 
   // 1. Status에 대한 정보(info)를 받아온다.
   useEffect(() => {
+    // a. bwno가 존재하지 않는다면 useEffect 종료
+    if(!bwno) return;
+
     axios
-      .get(``)
+      .get(`/namweb/manager/book/info?bwno=${bwno}&pageNo=1`)
       .then((response) => {
-        console.log(response);
+        const info = response.data.bookInfoList;
+        const paging = response.data.paging;
+
+        setInfo(info);
+        setPaging(paging);
       })
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+  }, [bwno]);
+
+  // 2. page 변경에 따른 Status에 대한 정보(info)를 받아온다.
+  useEffect(() => {
+    // a. pageNo가 존재하지 않는다면 useEffect 종료
+    if(!pageNo) return;
+
+    axios
+      .get(`/namweb/manager/book/info?bwno=${bwno}&pageNo=${pageNo}`)
+      .then((response) => {
+        const info = response.data.bookInfoList;
+        const paging = response.data.paging;
+
+        setInfo(info);
+        setPaging(paging);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [pageNo]);
 
   return (
     <div className={classes.manager_status_info}>

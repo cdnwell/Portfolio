@@ -29,8 +29,6 @@ public class ManagerBookStatusController {
 			@RequestParam(name = "date", defaultValue = "") String date) {
 		List<ManagerBookStatusDTO> bookList = managerBookStatusService.selectBookStatus(pageNo, date);
 
-		log.info(bookList);
-		
 		// 한 페이지당 출력할 게시글 개수
 		int pageOfContentCount = 4;
 		// 게시판 하단에 나타낼 페이지 번호 개수
@@ -40,27 +38,38 @@ public class ManagerBookStatusController {
 		int count = managerBookStatusService.selectBookListCount(date);
 		// mysql의 limit 시작 인덱스는 0 (1page = 0page)
 		int currentPageNo = pageNo;
-		
-		log.info("current page no : {}",currentPageNo);
-		
+
 		PagingDTO pagingDTO = new PagingDTO(count, currentPageNo, pageOfContentCount, pageGroupOfCount);
-		
+
 		Map<String, Object> result = new HashMap<>();
 		result.put("book", bookList);
 		result.put("paging", pagingDTO);
-		
 
 		return result;
 	}
-	
+
 	@GetMapping("/namweb/manager/book/graph")
 	public List<ManagerBarGraphDTO> selectBookGraphData(String today) {
 		return managerBookStatusService.selectBookGraphData(today);
 	}
-	
+
 	@GetMapping("/namweb/manager/book/info")
-	public List<ManagerBookInfoDTO> selectBookInfo(String bookDate) {
-		return managerBookStatusService.selectBookInfo(bookDate);
+	public Map<String, Object> selectBookInfo(int bwno, @RequestParam(name = "pageNo", value = "1") int pageNo) {
+		List<ManagerBookInfoDTO> bookInfoList = managerBookStatusService.selectBookInfo(bwno, pageNo);
+
+		int pageOfContentCount = 4;
+		int pageGroupOfCount = 5;
+
+		int count = managerBookStatusService.selectBookInfoCount(bwno);
+		int currentPageNo = pageNo;
+
+		PagingDTO pagingDTO = new PagingDTO(count, currentPageNo, pageOfContentCount, pageGroupOfCount);
+
+		Map<String, Object> result = new HashMap<>();
+		result.put("bookInfoList", bookInfoList);
+		result.put("paging", pagingDTO);
+
+		return result;
 	}
 
 }

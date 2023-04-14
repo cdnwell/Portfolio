@@ -31,8 +31,18 @@
 		ORDER BY date_format(bw.book_date, '%Y%m%d')
 	</select>
 	
-	<select id="selectBookInfo" parameterType="String" resultType="mBookInfo">
-		
+	<select id="selectBookInfo" parameterType="map" resultType="mBookInfo">
+		select CONCAT(DATE_FORMAT(con_date, '%m/%d'), ' ', SUBSTR('일월화수목금토', DAYOFWEEK(con_date), 1)) as date, morning, afternoon, extra
+		from book_wait_list
+		where book_wait_idx = #{bwno}
+		order by con_date
+		limit #{pageNo}, 4
+	</select>
+	
+	<select id="selectBookInfoCount" parameterType="int" resultType="int">
+		select count(*)
+		from book_wait_list
+		where book_wait_idx = #{bwno}
 	</select>
 	
 </mapper>

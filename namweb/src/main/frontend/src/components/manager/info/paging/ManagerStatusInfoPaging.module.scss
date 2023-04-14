@@ -30,3 +30,7 @@
 .manager_paging_span_active:hover {
     color : $nw-color;
 }
+
+.manager_paging_span_non_active {
+    text-decoration: underline;
+}

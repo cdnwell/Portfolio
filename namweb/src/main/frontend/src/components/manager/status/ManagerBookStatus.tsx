@@ -28,14 +28,16 @@ const ManagerBookStatus = () => {
 
   // a. bookDate가 바뀔 경우 1 page부터 게시글 불러오기
   useEffect(() => {
-    // 1. bookDate가 바뀌면 page를 1로 초기화
+    // 1. bookDate가 존재하지 않는다면 useEffect 종료
+    if(!bookDate) return;
+
+    // 2. bookDate가 바뀌면 page를 1로 초기화
     setPage(1);
 
     axios
       .get(`/namweb/manager/book/status?date=${bookDate}&pageNo=1`)
       .then((response) => {
         const data = response.data;
-        console.log(response);
 
         setBook(data.book);
         setPaging(data.paging);
@@ -47,11 +49,13 @@ const ManagerBookStatus = () => {
 
   // a. page가 바뀔 경우 게시글 불러오기
   useEffect(() => {
+    // 1. page가 존재하지 않는다면 useEffect 종료
+    if(!page) return;
+
     axios
       .get(`/namweb/manager/book/status?date=${bookDate}&pageNo=${page}`)
       .then((response) => {
         const data = response.data;
-        console.log(response);
 
         setBook(data.book);
         setPaging(data.paging);
@@ -62,7 +66,6 @@ const ManagerBookStatus = () => {
   }, [page]);
 
   const onPageTransfer = (page: number) => {
-    console.log('page',page);
     setPage(page);
   };
 

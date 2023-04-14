@@ -55,8 +55,18 @@ public class ManagerBookStatusService {
 		return managerBookStatusMapper.selectBookGraphData(today);
 	}
 
-	public List<ManagerBookInfoDTO> selectBookInfo(String bookDate) {
-		return managerBookStatusMapper.selectBookInfo(bookDate);
+	public List<ManagerBookInfoDTO> selectBookInfo(int bwno, int pageNo) {
+		pageNo = (pageNo - 1) * 4;
+		
+		Map<String, Object> params = new HashMap<>();
+		params.put("bwno", bwno);
+		params.put("pageNo", pageNo);
+		
+		return managerBookStatusMapper.selectBookInfo(params);
+	}
+
+	public int selectBookInfoCount(int bwno) {
+		return managerBookStatusMapper.selectBookInfoCount(bwno);
 	}
 
 }
