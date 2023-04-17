@@ -31,12 +31,26 @@
 		ORDER BY date_format(bw.book_date, '%Y%m%d')
 	</select>
 	
+	<!-- 
 	<select id="selectBookInfo" parameterType="map" resultType="mBookInfo">
 		select CONCAT(DATE_FORMAT(con_date, '%m/%d'), ' ', SUBSTR('일월화수목금토', DAYOFWEEK(con_date), 1)) as date, morning, afternoon, extra
 		from book_wait_list
 		where book_wait_idx = #{bwno}
 		order by con_date
 		limit #{pageNo}, 4
+	</select>
+	-->
+	
+	<select id="selectBookInfo" parameterType="map" resultType="mBookInfo">
+		SELECT bw.name , CONCAT(DATE_FORMAT(bw.book_date, '%m/%d'), ' ', SUBSTR('일월화수목금토', DAYOFWEEK(bw.book_date), 1)) as bookDate, 
+		CONCAT(DATE_FORMAT(bwl.con_date, '%m/%d'), ' ', SUBSTR('일월화수목금토', DAYOFWEEK(bwl.con_date), 1)) as date, 
+		morning, afternoon, extra
+		FROM book_wait bw
+		INNER JOIN book_wait_list bwl
+		ON bw.idx = bwl.book_wait_idx
+		WHERE bwl.book_wait_idx = #{bwno}
+		ORDER BY bwl.con_date
+		LIMIT #{pageNo}, 4
 	</select>
 	
 	<select id="selectBookInfoCount" parameterType="int" resultType="int">

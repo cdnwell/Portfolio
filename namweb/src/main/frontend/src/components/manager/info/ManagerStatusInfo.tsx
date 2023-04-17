@@ -10,6 +10,9 @@ import axios from "../../../common/axiosInstance";
 import ManagerStatusInfoTray from "./tray/ManagerStatusInfoTray";
 import { infoType } from "./type/infoType";
 import { useSelector } from "react-redux";
+import { totalType } from "./type/totalType";
+import ManagerStatusTotalCopy from "./total/ManagerStatusTotalCopy";
+import ManagerStatusAccountCopy from "./account/ManagerStatusAccountCopy";
 
 type bwnoReduxType = {
   manager: {
@@ -21,6 +24,7 @@ const ManagerStatusInfo = () => {
   const [paging, setPaging] = useState<PagingType>();
   const [info, setInfo] = useState<infoType>([]);
   const [pageNo, setPageNo] = useState<number>();
+  const [total, setTotal] = useState<totalType>();
 
   const bwno = useSelector((state: bwnoReduxType) => state.manager.bwno);
 
@@ -31,16 +35,20 @@ const ManagerStatusInfo = () => {
   // 1. Status에 대한 정보(info)를 받아온다.
   useEffect(() => {
     // a. bwno가 존재하지 않는다면 useEffect 종료
-    if(!bwno) return;
+    if(!bwno || bwno === -1) return;
 
     axios
       .get(`/namweb/manager/book/info?bwno=${bwno}&pageNo=1`)
       .then((response) => {
         const info = response.data.bookInfoList;
         const paging = response.data.paging;
+        const total = response.data.total;
+
+        console.log('total', total);
 
         setInfo(info);
         setPaging(paging);
+        setTotal(total);
       })
       .catch((error) => {
         console.log(error);
@@ -72,12 +80,12 @@ const ManagerStatusInfo = () => {
       <div className={classes.manager_status_info_user}>
         <div className={classes.manager_status_user_name}>
           <p className={classes.manger_status_name_p}>이름</p>
-          <span className={classes.manager_status_name_span}>hsh</span>
+          <span className={classes.manager_status_name_span}>{info && info[0]?.name}</span>
         </div>
         <div className={classes.manager_status_book_date_box}>
           <p className={classes.manager_status_book_date_p}>예약일</p>
           <span className={classes.manager_status_book_date_span}>
-            04/09 일
+            {info && info[0]?.bookDate}
           </span>
         </div>
       </div>
@@ -106,10 +114,12 @@ const ManagerStatusInfo = () => {
       </div>
       <div className={classes.manager_status_total_box}>
         <div className={classes.manager_status_total_property}>
-          <ManagerStatusTotal />
+          {total && <ManagerStatusTotal total={total} />}
+          {!total && <ManagerStatusTotalCopy/>}
         </div>
         <div className={classes.manager_status_total_price}>
-          <ManagerStatusAccount />
+          {total && <ManagerStatusAccount total={total} />}
+          {!total && <ManagerStatusAccountCopy/>}
         </div>
       </div>
     </div>

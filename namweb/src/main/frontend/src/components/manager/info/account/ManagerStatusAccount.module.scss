@@ -3,9 +3,49 @@
 
     border: 1px solid #b7b7b7;
     border-radius: 5px;
+    box-sizing: border-box;
 
     margin : 0;
-    padding : 10px;
+    padding : 0 10px;
+}
+
+.manager_status_account_box {
+    width: 100%;
+
+    display: flex;
+    flex-direction: row;
+}
+
+.manager_status_total_account {
+    width: 313px;
+
+    text-align: center;
+    padding : 15px 0;
 
     box-sizing: border-box;
+}
+
+.manager_status_total_time_account {
+    width: 65%;
+
+    display: flex;
+    flex-direction: row;
+
+    box-sizing: border-box;
+}
+
+.manager_status_div {
+    width: 33.3%;
+
+    text-align: center;
+    padding: 15px 0;
+    padding-left : 15px;
+}
+
+.manager_total_num_unit {
+    font-size: 24px;
+}
+
+.manager_total_unit {
+    color : gray;
 }

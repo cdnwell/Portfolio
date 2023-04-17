@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.namweb.domain.manager.book.dto.ManagerBarGraphDTO;
 import com.namweb.domain.manager.book.dto.ManagerBookInfoDTO;
+import com.namweb.domain.manager.book.dto.ManagerBookInfoTotalDTO;
 import com.namweb.domain.manager.book.dto.ManagerBookStatusDTO;
 import com.namweb.domain.manager.book.mapper.ManagerBookStatusMapper;
 
@@ -55,14 +56,21 @@ public class ManagerBookStatusService {
 		return managerBookStatusMapper.selectBookGraphData(today);
 	}
 
-	public List<ManagerBookInfoDTO> selectBookInfo(int bwno, int pageNo) {
+	public Map<String, Object> selectBookInfo(int bwno, int pageNo) {
 		pageNo = (pageNo - 1) * 4;
 		
 		Map<String, Object> params = new HashMap<>();
 		params.put("bwno", bwno);
 		params.put("pageNo", pageNo);
 		
-		return managerBookStatusMapper.selectBookInfo(params);
+		List<ManagerBookInfoDTO> infoList = managerBookStatusMapper.selectBookInfo(params);
+		ManagerBookInfoTotalDTO totalDTO = new ManagerBookInfoTotalDTO(infoList);
+		
+		Map<String, Object> result = new HashMap<>();
+		result.put("infoList", infoList);
+		result.put("totalDTO", totalDTO);
+		
+		return result;
 	}
 
 	public int selectBookInfoCount(int bwno) {

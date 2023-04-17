@@ -11,6 +11,8 @@ import lombok.ToString;
 @Setter
 @ToString
 public class ManagerBookInfoDTO {
+	private String name;
+	private String bookDate;
 	private String date;
 	private boolean morning;
 	private boolean afternoon;

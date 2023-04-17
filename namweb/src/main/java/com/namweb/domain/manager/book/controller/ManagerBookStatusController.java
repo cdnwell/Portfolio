@@ -54,8 +54,8 @@ public class ManagerBookStatusController {
 	}
 
 	@GetMapping("/namweb/manager/book/info")
-	public Map<String, Object> selectBookInfo(int bwno, @RequestParam(name = "pageNo", value = "1") int pageNo) {
-		List<ManagerBookInfoDTO> bookInfoList = managerBookStatusService.selectBookInfo(bwno, pageNo);
+	public Map<String, Object> selectBookInfo(int bwno, @RequestParam(name = "pageNo", defaultValue = "1") int pageNo) {
+		Map<String,Object> infoMap = managerBookStatusService.selectBookInfo(bwno, pageNo);
 
 		int pageOfContentCount = 4;
 		int pageGroupOfCount = 5;
@@ -66,7 +66,8 @@ public class ManagerBookStatusController {
 		PagingDTO pagingDTO = new PagingDTO(count, currentPageNo, pageOfContentCount, pageGroupOfCount);
 
 		Map<String, Object> result = new HashMap<>();
-		result.put("bookInfoList", bookInfoList);
+		result.put("bookInfoList", infoMap.get("infoList"));
+		result.put("total", infoMap.get("totalDTO"));
 		result.put("paging", pagingDTO);
 
 		return result;
