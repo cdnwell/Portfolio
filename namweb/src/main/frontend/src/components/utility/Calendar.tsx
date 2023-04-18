@@ -31,7 +31,6 @@ const Calendar = () => {
     { date: Date; morning: boolean; afternoon: boolean; extra: boolean }[]
   >([]);
   const [currentOption, setCurrentOption] = useState<number>();
-  // const [selectValue, setSelectValue] = useState<number>();
   const [morningStatus, setMorningStatus] = useState(false);
   const [afternoonStatus, setAfternoonStatus] = useState(false);
   const [extraStatus, setExtraStatus] = useState(false);

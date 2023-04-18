@@ -11,6 +11,7 @@ import Board from "./pages/Board/Board";
 import BoardWrite from "./pages/Board/Write/BoardWrite";
 import BoardRead from "./pages/Board/Read/BoardRead";
 import Manager from "./pages/Manager/Manager";
+import ManagerCalendar from "./pages/Manager/Calendar/ManagerCalendar";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
         <Route path="/login/pw-change" element={<ChangePw />} />
         <Route path="/namweb/board/detail/:bno" element={<BoardRead />} />
         <Route path="/manager/book" element={<Manager />} />
+        <Route path="/manager/calendar" element={<ManagerCalendar />} />
         <Route path="/*" element={<NotFind />} />
       </Routes>
     </Layout>
