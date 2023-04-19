@@ -8,6 +8,12 @@
     padding : 20px 0;
 
     border-bottom: 1px solid #b7b7b7;
+
+    cursor: pointer;
+}
+
+.manager_status_info_item:hover {
+    background-color: #e4e4e4;
 }
 
 .manager_info_date {

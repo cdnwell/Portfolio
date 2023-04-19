@@ -29,9 +29,6 @@ public class ManagerBookStatusService {
 		params.put("pageNo", limitPageNo);
 		params.put("date", date);
 		
-		log.info("{}",pageNo);
-		log.info("{}",date);
-		
 		List<ManagerBookStatusDTO> list = managerBookStatusMapper.selectBookStatus(params);
 		
 		
@@ -39,10 +36,7 @@ public class ManagerBookStatusService {
 			int bwno = list.get(i).getBwno();
 			
 			String[] conDate = managerBookStatusMapper.selectBookListConDate(bwno);
-			
-			log.info("con date : {}", Arrays.toString(conDate));
 			list.get(i).setConDate(conDate);
-			
 		}
 		
 		return list;
