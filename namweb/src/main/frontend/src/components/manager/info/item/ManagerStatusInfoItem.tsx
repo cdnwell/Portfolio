@@ -9,6 +9,10 @@ export interface ManagerStatusInfoItemProps {
   extra : boolean;
 }
 
+type CloseButtonProps = {
+  onClick: () => void
+} & React.HTMLAttributes<HTMLButtonElement>
+
 const ManagerStatusInfoItem = ({ date, morning, afternoon, extra } : ManagerStatusInfoItemProps) => {
   return (
     <div className={classes.manager_status_info_item}>

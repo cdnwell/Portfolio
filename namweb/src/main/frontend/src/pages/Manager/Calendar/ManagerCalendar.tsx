@@ -1,10 +1,10 @@
 import classes from "./ManagerCalendar.module.scss";
 
-import ManagerCalendarComponent from "../../../components/managerCalendar/calendar/ManagerCalendarComponent";
+import ManagerCalendarMain from "../../../components/managerCalendar/ManagerCalendarMain";
 
 const ManagerCalendar = () => {
     return <div>
-        <ManagerCalendarComponent />
+        <ManagerCalendarMain />
     </div>
 }
 
