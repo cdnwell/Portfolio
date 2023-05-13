@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import { bookActions } from "../../store/book";
 
 const ManagerCalendarComponent = () => {
-    const [today, setToday] = useState(new Date());
+    const today = new Date();
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [selectedDateArray, setSelectedDateArray] = useState([new Date()]);
     const [dateArray, setDateArray] = useState<ReactNode[]>([]);
@@ -332,10 +332,6 @@ const ManagerCalendarComponent = () => {
       setMonthArray([...monthArray]);
     }, [selectedDate, selectedDateArray]);
   
-    const onDayRadio = (event: React.ChangeEvent<HTMLInputElement>) => {
-      setDayPick(event.target.value);
-    };
-  
     useEffect(() => {
       if (dayPick === "one") {
         setIsOneDay(true);
@@ -377,25 +373,6 @@ const ManagerCalendarComponent = () => {
       setOptions(tmpArray);
       // isOneDay를 의존성에 넣어 isOneDay가 바뀔 때도 새로 갱신되게 해준다.
     }, [selectedDate, selectedDateArray, isOneDay]);
-  
-    const onSelectHandler = (e: React.ChangeEvent<HTMLSelectElement>) => {
-      // select에서 onChange 속성을 이용해 값을 받아오는 함수
-      // e.target.value로 값을 받아오자 값이 String으로 받아와짐
-      // parseInt 함수로 값을 변경해준다.
-      setCurrentOption(parseInt(e.target.value));
-    };
-  
-    const morningStatusHandler = () => {
-      setMorningStatus((prevState) => !prevState);
-    };
-  
-    const afternoonStatusHandler = () => {
-      setAfternoonStatus((prevState) => !prevState);
-    };
-  
-    const extraStatusHandler = () => {
-      setExtraStatus((prevState) => !prevState);
-    };
   
     // status가 바뀔 때 변경되는 useEffect 훅
     useEffect(() => {
@@ -554,68 +531,6 @@ const ManagerCalendarComponent = () => {
                 <div className={classes.dot_extra}></div>
                 <span>추가</span>
               </div>
-            </div>
-            <div className={classes.calendar_day_pick}>
-              <span className={classes.one_day_pick}>
-                1일
-                <input
-                  type="radio"
-                  name="day"
-                  value="one"
-                  onChange={onDayRadio}
-                  checked={isOneDay ? true : false}
-                />
-              </span>
-              <span className={classes.two_day_pick}>
-                2일 이상
-                <input
-                  type="radio"
-                  name="day"
-                  value="two"
-                  onChange={onDayRadio}
-                  checked={isOneDay ? false : true}
-                />
-              </span>
-            </div>
-            <div className={classes.calendar_day_detail}>
-              <span className={classes.checkbox_box}>
-                <select onChange={onSelectHandler} value={currentOption}>
-                  {options}
-                </select>
-                <label className={classes.checkbox} htmlFor="morning">
-                  {" "}
-                  아침
-                  <input
-                    type="checkbox"
-                    id="morning"
-                    onChange={morningStatusHandler}
-                    value={String(morningStatus)}
-                    checked={morningStatus}
-                  />
-                </label>
-                <label className={classes.checkbox} htmlFor="afternoon">
-                  {" "}
-                  오후
-                  <input
-                    type="checkbox"
-                    id="afternoon"
-                    onChange={afternoonStatusHandler}
-                    value={String(afternoonStatus)}
-                    checked={afternoonStatus}
-                  />
-                </label>
-                <label className={classes.checkbox} htmlFor="extra">
-                  {" "}
-                  추가
-                  <input
-                    type="checkbox"
-                    id="extra"
-                    onChange={extraStatusHandler}
-                    value={String(extraStatus)}
-                    checked={extraStatus}
-                  />
-                </label>
-              </span>
             </div>
           </div>
         )}
