@@ -172,36 +172,28 @@ const ManagerCalendarComponent = () => {
   };
 
   const minusMonth = () => {
-    if (isOneDay) {
-      let selectedFirstDate = new Date(selectedDate);
-      selectedFirstDate.setMonth(selectedFirstDate.getMonth() - 1);
-      selectedFirstDate.setDate(1);
-      setSelectedDate(selectedFirstDate);
-    } else {
-      let selectedFirstDate = new Date(selectedDateArray[0]);
-      selectedFirstDate.setMonth(selectedFirstDate.getMonth() - 1);
-      selectedFirstDate.setDate(1);
-      const tmpArray = [selectedFirstDate];
-      setSelectedDateArray(tmpArray);
-      setDayPick("one");
-    }
+    plusOrMinusMonth(-1);
   };
 
   const plusMonth = () => {
+    plusOrMinusMonth(1);
+  };
+
+  const plusOrMinusMonth = (num : number) => {
     if (isOneDay) {
       let selectedFirstDate = new Date(selectedDate);
-      selectedFirstDate.setMonth(selectedFirstDate.getMonth() + 1);
+      selectedFirstDate.setMonth(selectedFirstDate.getMonth() + num);
       selectedFirstDate.setDate(1);
       setSelectedDate(selectedFirstDate);
     } else {
       let selectedFirstDate = new Date(selectedDateArray[0]);
-      selectedFirstDate.setMonth(selectedFirstDate.getMonth() + 1);
+      selectedFirstDate.setMonth(selectedFirstDate.getMonth() + num);
       selectedFirstDate.setDate(1);
       const tmpArray = [selectedFirstDate];
       setSelectedDateArray(tmpArray);
       setDayPick("one");
     }
-  };
+  }
 
   const dummyMonth = () => {};
 
