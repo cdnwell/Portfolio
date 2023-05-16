@@ -1,7 +1,7 @@
 import CalendarStatusType from "../../type/CalendarStatusType";
 
 /**
- * 
+ *
  * @param item : CalendarStatusType[]
  * @param cell : Date
  * @param when : string (morning, afternoon, extra 중 하나)
@@ -38,9 +38,12 @@ export const isWhenChecker = (
 };
 
 /**
- * 일반 요일은 검정 색,
- * 휴일은 붉은 색,
- * 같은 달이 아니라면 흐리게 처리
+ * 
+ * @param date 
+ * @param selectedDate 
+ * @param classes 
+ * @param when 
+ * @returns 
  */
 export const isNormalDayChecker = (
   date: Date,
@@ -58,4 +61,68 @@ export const isNormalDayChecker = (
 
   if (cmpDate.getMonth() !== selectedDate.getMonth() && when === "day")
     return classes.dimDay;
+};
+
+/**
+ *
+ * @param date
+ * @returns
+ */
+export const isSelectedChecker = (
+  date: Date,
+  isOneDay: boolean,
+  selectedDate: Date,
+  selectedDateArray: Date[],
+  classes: CSSModuleClasses
+) => {
+  if (
+    isOneDay &&
+    date.getDate() === selectedDate.getDate() &&
+    date.getMonth() === selectedDate.getMonth()
+  ) {
+    return classes.selectedDate;
+  }
+  if (!isOneDay) {
+    for (let tmp of selectedDateArray) {
+      if (
+        date.getDate() === tmp.getDate() &&
+        date.getMonth() === tmp.getMonth()
+      ) {
+        return classes.selectedDate;
+      }
+    }
+  }
+  return "";
+};
+
+/**
+ *
+ * @param num
+ * @param isOneDay
+ * @param selectedDate
+ * @param selectedDateArray
+ * @returns
+ */
+export const plusOrMinusMonth = (
+  num: number,
+  isOneDay: boolean,
+  selectedDate: Date,
+  selectedDateArray: Date[],
+  setSelectedDate: (value: React.SetStateAction<Date>) => void,
+  setSelectedDateArray: (value: React.SetStateAction<Date[]>) => void,
+  setDayPick: (value: React.SetStateAction<string>) => void
+) => {
+  if (isOneDay) {
+    let selectedFirstDate = new Date(selectedDate);
+    selectedFirstDate.setMonth(selectedFirstDate.getMonth() + num);
+    selectedFirstDate.setDate(1);
+    setSelectedDate(selectedFirstDate);
+  } else {
+    let selectedFirstDate = new Date(selectedDateArray[0]);
+    selectedFirstDate.setMonth(selectedFirstDate.getMonth() + num);
+    selectedFirstDate.setDate(1);
+    const tmpArray = [selectedFirstDate];
+    setSelectedDateArray(tmpArray);
+    setDayPick("one");
+  }
 };

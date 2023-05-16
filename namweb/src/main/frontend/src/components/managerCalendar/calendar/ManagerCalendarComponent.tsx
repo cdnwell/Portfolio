@@ -4,8 +4,14 @@ import { useState, useEffect, ReactNode } from "react";
 
 import { useDispatch } from "react-redux";
 import { bookActions } from "../../store/book";
-import { isNormalDayChecker, isWhenChecker } from "./utility/date-utils";
+import {
+  isNormalDayChecker,
+  isSelectedChecker,
+  isWhenChecker,
+  plusOrMinusMonth,
+} from "./utility/date-utils";
 import CalendarStatusType from "../type/CalendarStatusType";
+import { is } from "immutable";
 
 const ManagerCalendarComponent = () => {
   const today = new Date();
@@ -26,27 +32,6 @@ const ManagerCalendarComponent = () => {
   const [extraStatus, setExtraStatus] = useState(false);
 
   const dispatch = useDispatch();
-
-  const isSelectedChecker = (date: Date) => {
-    if (
-      isOneDay &&
-      date.getDate() === selectedDate.getDate() &&
-      date.getMonth() === selectedDate.getMonth()
-    ) {
-      return classes.selectedDate;
-    }
-    if (!isOneDay) {
-      for (let tmp of selectedDateArray) {
-        if (
-          date.getDate() === tmp.getDate() &&
-          date.getMonth() === tmp.getMonth()
-        ) {
-          return classes.selectedDate;
-        }
-      }
-    }
-    return "";
-  };
 
   // 달력을 그려주는 useEffect 훅
   useEffect(() => {
@@ -85,7 +70,13 @@ const ManagerCalendarComponent = () => {
       const datesArray = [];
 
       for (let j = 0; j < 7; j++) {
-        isSelected[j] = isSelectedChecker(date[j + i * 7]);
+        isSelected[j] = isSelectedChecker(
+          date[j + i * 7],
+          isOneDay,
+          selectedDate,
+          selectedDateArray,
+          classes
+        );
         isMorning[j] = isWhenChecker(
           selectedDateStatus,
           date[j + i * 7],
@@ -135,7 +126,7 @@ const ManagerCalendarComponent = () => {
       // 1주일 array에 넣기
       weekArray.push(
         <div className={classes.calendar_weeks} key={i}>
-          {datesArray.map((item) => item)}
+          {datesArray}
         </div>
       );
     }
@@ -172,28 +163,28 @@ const ManagerCalendarComponent = () => {
   };
 
   const minusMonth = () => {
-    plusOrMinusMonth(-1);
+    plusOrMinusMonth(
+      -1,
+      isOneDay,
+      selectedDate,
+      selectedDateArray,
+      setSelectedDate,
+      setSelectedDateArray,
+      setDayPick
+    );
   };
 
   const plusMonth = () => {
-    plusOrMinusMonth(1);
+    plusOrMinusMonth(
+      1,
+      isOneDay,
+      selectedDate,
+      selectedDateArray,
+      setSelectedDate,
+      setSelectedDateArray,
+      setDayPick
+    );
   };
-
-  const plusOrMinusMonth = (num : number) => {
-    if (isOneDay) {
-      let selectedFirstDate = new Date(selectedDate);
-      selectedFirstDate.setMonth(selectedFirstDate.getMonth() + num);
-      selectedFirstDate.setDate(1);
-      setSelectedDate(selectedFirstDate);
-    } else {
-      let selectedFirstDate = new Date(selectedDateArray[0]);
-      selectedFirstDate.setMonth(selectedFirstDate.getMonth() + num);
-      selectedFirstDate.setDate(1);
-      const tmpArray = [selectedFirstDate];
-      setSelectedDateArray(tmpArray);
-      setDayPick("one");
-    }
-  }
 
   const dummyMonth = () => {};
 
@@ -332,12 +323,7 @@ const ManagerCalendarComponent = () => {
         item.date.getDate() === currentOption &&
         item.date.getMonth() === selectedDate.getMonth()
     );
-    let tmpArray: {
-      date: Date;
-      morning: boolean;
-      afternoon: boolean;
-      extra: boolean;
-    }[] = [];
+    let tmpArray: CalendarStatusType[] = [];
     if (existingIndex !== -1) {
       // 인덱스가 있어 찾은 경우
       tmpArray = [...newStatusArray];
