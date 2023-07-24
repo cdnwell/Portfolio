@@ -4,5 +4,6 @@ export default interface ChatMessageType {
         content: string;
         writer: string;
         readNum: number;
+        message: string;
     }[];
 }

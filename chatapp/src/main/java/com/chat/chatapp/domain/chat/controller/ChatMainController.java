@@ -17,22 +17,22 @@ public class ChatMainController {
         List<ChatMessageDTO> list = new ArrayList<>();
 
         ChatMessageDTO dto = new ChatMessageDTO();
-        dto.setContent("hello, chat message!");
+        dto.setMessage("hello, chat message!");
 
         ChatMessageDTO dto2 = new ChatMessageDTO();
-        dto2.setContent("hello, chat2 message2!");
+        dto2.setMessage("hello, chat2 message2!");
 
         ChatMessageDTO dto3 = new ChatMessageDTO();
-        dto3.setContent("chat messages...");
+        dto3.setMessage("chat messages...");
 
         ChatMessageDTO dto4 = new ChatMessageDTO();
-        dto4.setContent("hello chat 4");
+        dto4.setMessage("hello chat 4");
 
         ChatMessageDTO dto5 = new ChatMessageDTO();
-        dto5.setContent("hello chat 5");
+        dto5.setMessage("hello chat 5");
 
         ChatMessageDTO dto6 = new ChatMessageDTO();
-        dto6.setContent("hello chat 6");
+        dto6.setMessage("hello chat 6");
 
         list.add(dto);
         list.add(dto2);

@@ -9,7 +9,7 @@ const ChatMessage = ({ message }: ChatMessageType) => {
         message.map((item, idx) => {
           return (
             <div className={classes.chat_board_message_root} key={idx}>
-              <p>{item.content}</p>
+              <p>{item.message}</p>
             </div>
           );
         })}

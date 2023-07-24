@@ -1,9 +1,11 @@
 import classes from './ChatBoard.module.scss';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import axios from '../../../global/config/axiosInstance';
 
 import ChatMessage from '../board/ChatMessage';
+
+const client = useRef();
 
 const ChatBoard = () => {
     const [message, setMessage] = useState();
