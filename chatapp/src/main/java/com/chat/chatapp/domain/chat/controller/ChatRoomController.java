@@ -24,7 +24,6 @@ public class ChatRoomController {
     @GetMapping("/")
     public List<ChatRoom> chatRoomList(Model model) {
         List<ChatRoom> list =  repository.findAllRoom();
-        log.info("show all list : {}", list);
 
         return list;
     }
