@@ -12,7 +12,7 @@ export const useSignIn = (props: ISignInProps) => {
         , isLoading
         , isSuccess
         , isError
-    } = useMutation("siginin", signIn, {
+    } = useMutation("signin", signIn, {
         onSuccess: (res) => {
             console.log('Response:',res)
             if (res) {
@@ -32,8 +32,8 @@ export const useSignIn = (props: ISignInProps) => {
         },
     });
 
-    const singinHandler = () => {
+    const signinHandler = () => {
         signin(props);
     };
-    return { singinHandler, data, isLoading, isSuccess, isError };
+    return { signinHandler, data, isLoading, isSuccess, isError };
 }

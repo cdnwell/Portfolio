@@ -1,0 +1,30 @@
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+import styled from "styled-components";
+
+export const DivideButton = () => {
+    return (
+        <CreateButton>
+            <MoreVertIcon fontSize={"inherit"} />
+        </CreateButton>
+    )
+}
+
+const CreateButton = styled.div`
+    width: 70px;
+    height: 70px;
+    position: absolute;
+    bottom: 50px;
+    right: 16px;
+    padding: 3px;
+    background: #38d9a9;
+    &:hover {
+        background: #63e6be;
+    }
+    color: #ffffff;
+    box-sizing: border-box;
+    font-size: 60px;
+    font-weight: 800;
+    border-radius: 50%;
+    text-align: center;
+    cursor: pointer;
+`;
