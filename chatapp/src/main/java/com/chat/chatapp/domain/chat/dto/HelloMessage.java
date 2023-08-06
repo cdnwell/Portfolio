@@ -1,20 +1,30 @@
 package com.chat.chatapp.domain.chat.dto;
 
 public class HelloMessage {
-    private String name;
+    private String message;
+    private String clientId;
 
     public HelloMessage() { }
 
-    public HelloMessage(String name) {
-        this.name = name;
+    public HelloMessage(String message) {
+        this.message = message;
     }
 
-    public String getName() {
-        return name;
+    public HelloMessage(String message, String clientId) {
+        this.message = message;
+        this.clientId = clientId;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getMessage() {
+        return message;
     }
+
+    public void setName(String message) {
+        this.message = message;
+    }
+
+    public String getClientId() { return clientId; }
+
+    public void setClientId(String clientId) { this.clientId = clientId; }
 
 }
