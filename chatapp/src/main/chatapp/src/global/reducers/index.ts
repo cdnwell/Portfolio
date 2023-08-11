@@ -12,15 +12,30 @@ const chatSlice = createSlice({
             return [...state];
         },
         storeMessage(state, action) {
-            state = [...action.payload];
+            console.log('payload', action.payload);
+            return [...action.payload];
         },
     },
 });
 
+const initialStateUser = { userId: ''};
+
+const userSlice = createSlice({
+    name: 'user',
+    initialState: initialStateUser,
+    reducers: {
+        setUserId(state, action) {
+            return { userId: action.payload };
+        }
+    }
+})
+
 const store = configureStore({
-    reducer: chatSlice.reducer,
+    reducer: { chat: chatSlice.reducer, user: userSlice.reducer },
 });
 
 export const chatActions = chatSlice.actions;
+
+export const userActions = userSlice.actions;
 
 export default store;

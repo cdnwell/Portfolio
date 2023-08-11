@@ -1,11 +1,11 @@
 import classes from "./ChatInput.module.scss";
 
-import { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useState, useEffect, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 import * as StompJs from "@stomp/stompjs";
 import { BiRightArrow } from "react-icons/bi";
-import { chatActions } from "../../../global/reducers";
+import { chatActions, userActions } from "../../../global/reducers";
 
 interface ChatInputInterface {
   stompClient: StompJs.Client;
@@ -61,6 +61,8 @@ const ChatInput = () => {
 
     setStompClient(client);
 
+    client.activate();
+
     // 컴포넌트가 언마운트될 때 WebSocket 연결 해제
     return () => {
       if (client.connected) {
@@ -69,15 +71,19 @@ const ChatInput = () => {
     };
   }, []);
 
+
+
   // message - dispatch로 redux에 저장
   // action에 들어갈 message는 누적되기 때문에 [...action]으로 저장해주어야 한다.
   useEffect(() => {
     dispatch(chatActions.storeMessage(message));
+    console.log('message storing', message);
   },[message]);
 
   const enterChatRoom = () => {
     // 채팅방에 입장할 때 난수 생성 (0 이상 9999999 이하의 정수)
     const randomClientId = Math.floor(Math.random() * 10000000) + "";
+    dispatch(userActions.setUserId(randomClientId));
     setClientId(randomClientId);
   };
 
