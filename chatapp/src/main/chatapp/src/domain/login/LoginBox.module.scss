@@ -16,24 +16,18 @@
     font-size: 24px;
 }
 
-.login_id_input_div
-, .login_pw_input_div
-, .login_btn_div {
+.login_btn_div {
     width: 100%;
 
     margin-bottom: 5px;
 }
 
-.login_id_input
-, .login_pw_input {
+.first_login_btn_div
+, .second_login_btn_div
+, .third_login_btn_div
+, .fourth_login_btn_div {
     width: 100%;
-
-    padding: 10px;
-    box-sizing: border-box;
-
-    border: 1px solid gray;
-    border-radius: 5px;
-    outline: none;
+    margin-bottom: 10px;
 }
 
 .login_btn {
@@ -42,11 +36,52 @@
     padding: 10px;
     box-sizing: border-box;
 
-    border: 1px solid gray;
+    border: none;
     border-radius: 5px;
 
-    background-color: rgb(82, 82, 211);
     color: white;
 
     cursor: pointer;
+}
+
+@keyframes swift-up {
+    from {
+        transform: translateY(50px);
+    }
+
+    to {
+        transform: translateY(0);
+    }
+}
+
+.common_login_p {
+    display: flex;
+    justify-content: center;
+
+    overflow: hidden;
+}
+
+.common_login_icon {
+    animation: .3s swift-up ease-in-out forwards;
+    margin-right: 5px;
+}
+
+.common_login_span {
+    animation: .6s swift-up ease-in-out forwards;
+}
+
+.first_login_btn {
+    background-color: rgb(82, 82, 211);
+}
+
+.second_login_btn {
+    background-color: red;
+}
+
+.third_login_btn {
+    background-color: orange;
+}
+
+.fourth_login_btn {
+    background-color: green;
 }
