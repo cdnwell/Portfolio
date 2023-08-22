@@ -6,15 +6,25 @@ import { useNavigate } from "react-router-dom";
 import { GiBearFace, GiDolphin } from "react-icons/gi";
 import { LuBird } from "react-icons/lu";
 import { PiDogFill } from "react-icons/pi";
+import { USER_TYPE } from "../../global/uniontypes/user-type";
 
 const LoginBox = () => {
   const [onButtonHover, setOnButtonHover] = useState(0);
+  
 
   const navigate = useNavigate();
 
-  const goToChat = () => {
-    navigate("/Chat");
-  };
+  // const goToChat = () => {
+  //   navigate("/Chat");
+  // };
+
+  // 1. 먼저 리덕스에 어떤 유저를 정했는지 데이터를 전한다.
+  // - 채팅창에서 리덕스의 값을 참조해서 배경생을 정한다.
+  // 2. navigate chat으로 이동
+
+  const onLoginBtnClick = (userAnimal : USER_TYPE) => {
+    
+  }
 
   return (
     <div className={classes.login_div}>
@@ -23,6 +33,7 @@ const LoginBox = () => {
           className={`${classes.login_btn} ${classes.first_login_btn}`}
           onMouseEnter={() => setOnButtonHover(1)}
           onMouseLeave={() => setOnButtonHover(0)}
+          onClick={() => onLoginBtnClick('Bear')}
         >
           {onButtonHover === 1 ? (
             <p className={classes.common_login_p}>
@@ -39,6 +50,7 @@ const LoginBox = () => {
           className={`${classes.login_btn} ${classes.second_login_btn}`}
           onMouseEnter={() => setOnButtonHover(2)}
           onMouseLeave={() => setOnButtonHover(0)}
+          onClick={() => onLoginBtnClick('Bird')}
         >
           {onButtonHover === 2 ? (
             <p className={classes.common_login_p}>
@@ -55,6 +67,7 @@ const LoginBox = () => {
           className={`${classes.login_btn} ${classes.third_login_btn}`}
           onMouseEnter={() => setOnButtonHover(3)}
           onMouseLeave={() => setOnButtonHover(0)}
+          onClick={() => onLoginBtnClick('Dog')}
         >
           {onButtonHover === 3 ? (
             <p className={classes.common_login_p}>
@@ -71,7 +84,7 @@ const LoginBox = () => {
           className={`${classes.login_btn} ${classes.fourth_login_btn}`}
           onMouseEnter={() => setOnButtonHover(4)}
           onMouseLeave={() => setOnButtonHover(0)}
-          onClick={goToChat}
+          onClick={() => onLoginBtnClick('Dolphin')}
         >
           {onButtonHover === 4 ? (
             <p className={classes.common_login_p}>

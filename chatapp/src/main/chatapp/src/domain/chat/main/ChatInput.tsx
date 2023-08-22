@@ -83,7 +83,7 @@ const ChatInput = () => {
   const enterChatRoom = () => {
     // 채팅방에 입장할 때 난수 생성 (0 이상 9999999 이하의 정수)
     const randomClientId = Math.floor(Math.random() * 10000000) + "";
-    dispatch(userActions.setUserId(randomClientId));
+    dispatch(userActions.setUserId({ userId : randomClientId }));
     setClientId(randomClientId);
   };
 

@@ -1,4 +1,5 @@
 import { createSlice, configureStore } from "@reduxjs/toolkit";
+import { USER_TYPE } from "../uniontypes/user-type";
 
 const initialState = [{ message : '', clientId: '' }];
 
@@ -18,14 +19,14 @@ const chatSlice = createSlice({
     },
 });
 
-const initialStateUser = { userId: ''};
+const initialStateUser : {userId : string; userAnimal : USER_TYPE } = { userId: '', userAnimal : 'None'};
 
 const userSlice = createSlice({
     name: 'user',
     initialState: initialStateUser,
     reducers: {
         setUserId(state, action) {
-            return { userId: action.payload };
+            return { userId: action.payload, userAnimal: state.userAnimal };
         }
     }
 })
