@@ -7,11 +7,13 @@ import { GiBearFace, GiDolphin } from "react-icons/gi";
 import { LuBird } from "react-icons/lu";
 import { PiDogFill } from "react-icons/pi";
 import { USER_TYPE } from "../../global/uniontypes/user-type";
+import { useDispatch } from "react-redux";
+import { userActions } from "../../global/reducers";
 
 const LoginBox = () => {
   const [onButtonHover, setOnButtonHover] = useState(0);
   
-
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   // const goToChat = () => {
@@ -23,7 +25,8 @@ const LoginBox = () => {
   // 2. navigate chat으로 이동
 
   const onLoginBtnClick = (userAnimal : USER_TYPE) => {
-    
+    dispatch(userActions.setUserAnimal(userAnimal));
+    navigate("/Chat");
   }
 
   return (

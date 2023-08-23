@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import * as StompJs from "@stomp/stompjs";
 import { BiRightArrow } from "react-icons/bi";
 import { chatActions, userActions } from "../../../global/reducers";
+import { UserPropsType } from "./ChatBoard";
 
 interface ChatInputInterface {
   stompClient: StompJs.Client;
@@ -16,9 +17,10 @@ interface ChatInputInterface {
 export interface Message {
   content: string;
   clientId: string;
+  userAnimal: string;
 }
 
-const ChatInput = () => {
+const ChatInput = ({ userAnimal } : { userAnimal : string; }) => {
   const [stompClient, setStompClient] = useState<StompJs.Client | null>(null);
   const [connected, setConnected] = useState<boolean>(false);
   const [message, setMessage] = useState<Message[]>([]);
@@ -27,6 +29,13 @@ const ChatInput = () => {
   const [clientId, setClientId] = useState<string | null>(null);
 
   const dispatch = useDispatch();
+
+  // menu color
+  const chatMenuColor = userAnimal === 'Bear' ? '#c03546' 
+                        : userAnimal === 'Bird' ? '#ff7473' 
+                        : userAnimal === 'Dog' ? '#ffc952'
+                        : userAnimal === 'Dolphin' ? '#47b8e0'
+                        : 'black';
 
   // --- init --- //
   useEffect(() => {
@@ -40,11 +49,13 @@ const ChatInput = () => {
       client.subscribe("/topic/greetings", (greeting) => {
         const messageContent = JSON.parse(greeting.body);
         console.log("message content", messageContent);
+        console.log('user animal', userAnimal);
         setMessage((prevMessage) => [
           ...prevMessage,
           {
             content: messageContent.content,
             clientId: messageContent.clientId,
+            userAnimal: userAnimal,
           },
         ]);
       });
@@ -62,6 +73,8 @@ const ChatInput = () => {
     setStompClient(client);
 
     client.activate();
+
+    enterChatRoom();
 
     // 컴포넌트가 언마운트될 때 WebSocket 연결 해제
     return () => {
@@ -82,9 +95,10 @@ const ChatInput = () => {
 
   const enterChatRoom = () => {
     // 채팅방에 입장할 때 난수 생성 (0 이상 9999999 이하의 정수)
-    const randomClientId = Math.floor(Math.random() * 10000000) + "";
-    dispatch(userActions.setUserId({ userId : randomClientId }));
+    const randomClientId = String(Math.floor(Math.random() * 10000000));
+    dispatch(userActions.setUserId(randomClientId));
     setClientId(randomClientId);
+    console.log(randomClientId);
   };
 
   const connect = () => {
@@ -134,9 +148,9 @@ const ChatInput = () => {
         />
         <BiRightArrow
           className={classes.chat_type_enter_btn}
+          style={{ backgroundColor : chatMenuColor }}
           onClick={sendName}
         />
-        <button onClick={connect}>connect</button>
       </div>
     </div>
   );

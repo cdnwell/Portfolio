@@ -1,38 +1,83 @@
-import { createSlice, configureStore } from "@reduxjs/toolkit";
+import { createSlice, configureStore, combineReducers } from "@reduxjs/toolkit";
+
+import sessionStorage from "redux-persist/lib/storage/session";
+import { persistReducer } from "redux-persist";
+import {
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+} from "redux-persist";
+
 import { USER_TYPE } from "../uniontypes/user-type";
 
-const initialState = [{ message : '', clientId: '' }];
+const initialStateChat = [{ message: "", clientId: "" }];
 
 const chatSlice = createSlice({
-    name : 'chat',
-    initialState: initialState,
-    reducers: {
-        digMessage(state) {
-            // action : 나중에 추가된 메시지
-            // state : 기존의 메시지
-            return [...state];
-        },
-        storeMessage(state, action) {
-            console.log('payload', action.payload);
-            return [...action.payload];
-        },
+  name: "chat",
+  initialState: initialStateChat,
+  reducers: {
+    digMessage(state) {
+      // action : 나중에 추가된 메시지
+      // state : 기존의 메시지
+      return [...state];
     },
+    storeMessage(state, action) {
+      console.log("payload", action.payload);
+      return [...action.payload];
+    },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(PURGE, () => initialStateChat);
+  },
 });
 
-const initialStateUser : {userId : string; userAnimal : USER_TYPE } = { userId: '', userAnimal : 'None'};
+const initialStateUser: { userId: string; userAnimal: USER_TYPE } = {
+  userId: "",
+  userAnimal: "None",
+};
 
 const userSlice = createSlice({
-    name: 'user',
-    initialState: initialStateUser,
-    reducers: {
-        setUserId(state, action) {
-            return { userId: action.payload, userAnimal: state.userAnimal };
-        }
-    }
-})
+  name: "user",
+  initialState: initialStateUser,
+  reducers: {
+    setUserId(state, action) {
+      state.userId = action.payload;
+      state.userAnimal = state.userAnimal;
+    },
+    setUserAnimal(state, action) {
+      state.userId = state.userId;
+      state.userAnimal = action.payload;
+    },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(PURGE, () => initialStateUser);
+  },
+});
+
+const reducers = combineReducers({
+  chat: chatSlice.reducer,
+  user: userSlice.reducer,
+});
+
+const persistConfig = {
+  key: "root",
+  storage: sessionStorage,
+  whitelist: ["user", "chat"],
+};
+
+const persistedReducer = persistReducer(persistConfig, reducers);
 
 const store = configureStore({
-    reducer: { chat: chatSlice.reducer, user: userSlice.reducer },
+  reducer: persistedReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }),
 });
 
 export const chatActions = chatSlice.actions;

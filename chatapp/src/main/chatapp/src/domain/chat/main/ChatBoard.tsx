@@ -8,21 +8,18 @@ import * as StompJs from "@stomp/stompjs";
 import ChatMessage from "../board/ChatMessage";
 import ChatStomp from "../stomp/ChatStomp";
 import { chatActions } from "../../../global/reducers";
+import { Message } from "./ChatInput";
 
-interface ChatReduxType {
-  content: string, clientId: string
-};
-
-interface ChatMessageType {
-  content: string;
-  clientId: string;
+export interface UserPropsType {
+  userId: string;
+  userAnimal: string;
 };
 
 const ChatBoard = () => {
-  const [message, setMessage] = useState<ChatMessageType[]>([]);
+  const [message, setMessage] = useState<Message[]>([]);
 
   // 1. redux에 있는 메시지 ChatMessage 컴포넌트에 넘겨주기
-  let storedMessage = useSelector((state: { chat : ChatReduxType[]}) => state.chat );
+  let storedMessage = useSelector((state: { chat : Message[]}) => state.chat );
 
   useEffect(() => {
     setMessage(storedMessage);

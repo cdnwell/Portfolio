@@ -11,10 +11,18 @@
     border: 1px solid white;
     border-radius: 5px;
 
-    background-color: rgb(61, 88, 138);
     color: white;
 
     cursor: pointer;
+
+    &:hover {
+        border: 1px solid black;
+        color: black;
+
+        .chat_plus_room_icon {
+            color: black;
+        }
+    }
 }
 
 .chat_plus_room_icon {
