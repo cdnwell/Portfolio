@@ -55,7 +55,7 @@ const ChatInput = ({ userAnimal } : { userAnimal : string; }) => {
           {
             content: messageContent.content,
             clientId: messageContent.clientId,
-            userAnimal: userAnimal,
+            userAnimal: messageContent.userAnimal,
           },
         ]);
       });
@@ -124,7 +124,7 @@ const ChatInput = ({ userAnimal } : { userAnimal : string; }) => {
     if (stompClient && stompClient.connected) {
       stompClient.publish({
         destination: "/app/hello",
-        body: JSON.stringify({ message: inputMessage, clientId }),
+        body: JSON.stringify({ message: inputMessage, clientId, userAnimal }),
       });
     } else {
       console.error("STOMP connection not available");

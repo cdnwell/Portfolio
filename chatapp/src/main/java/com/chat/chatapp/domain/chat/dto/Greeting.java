@@ -10,4 +10,5 @@ import lombok.*;
 public class Greeting {
     private String content;
     private String clientId;
+    private String userAnimal;
 }
