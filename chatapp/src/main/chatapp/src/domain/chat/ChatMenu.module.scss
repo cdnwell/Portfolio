@@ -11,3 +11,9 @@
 
     flex-shrink: 0;
 }
+
+@media only screen and (max-width: 768px) {
+    .chat_menu_div {
+        display: none;
+    }
+}
