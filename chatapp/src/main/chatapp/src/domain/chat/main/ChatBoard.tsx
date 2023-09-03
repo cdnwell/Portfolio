@@ -1,13 +1,9 @@
 import classes from "./ChatBoard.module.scss";
 
-import { useEffect, useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import axios from "../../../global/config/axiosInstance";
-import * as StompJs from "@stomp/stompjs";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
 import ChatMessage from "../board/ChatMessage";
-import ChatStomp from "../stomp/ChatStomp";
-import { chatActions } from "../../../global/reducers";
 import { Message } from "./ChatInput";
 
 export interface UserPropsType {

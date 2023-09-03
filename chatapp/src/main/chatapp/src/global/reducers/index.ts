@@ -26,6 +26,7 @@ const chatSlice = createSlice({
     },
     storeMessage(state, action) {
       console.log("payload", action.payload);
+      state[0];
       return [...action.payload];
     },
   },

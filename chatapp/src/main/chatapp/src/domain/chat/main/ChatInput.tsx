@@ -1,18 +1,12 @@
 import classes from "./ChatInput.module.scss";
 
-import { useState, useEffect, useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
 
 import * as StompJs from "@stomp/stompjs";
 import { BiRightArrow } from "react-icons/bi";
 import { chatActions, userActions } from "../../../global/reducers";
-import { UserPropsType } from "./ChatBoard";
-
-interface ChatInputInterface {
-  stompClient: StompJs.Client;
-  message: string;
-  clientId: string;
-}
+import { BACKEND_URL } from "../../../global/config/constant";
 
 export interface Message {
   content: string;
@@ -22,10 +16,8 @@ export interface Message {
 
 const ChatInput = ({ userAnimal } : { userAnimal : string; }) => {
   const [stompClient, setStompClient] = useState<StompJs.Client | null>(null);
-  const [connected, setConnected] = useState<boolean>(false);
   const [message, setMessage] = useState<Message[]>([]);
   const [inputMessage, setInputMessage] = useState<string>('');
-  const [name, setName] = useState<string>("");
   const [clientId, setClientId] = useState<string | null>(null);
 
   const dispatch = useDispatch();
@@ -40,11 +32,10 @@ const ChatInput = ({ userAnimal } : { userAnimal : string; }) => {
   // --- init --- //
   useEffect(() => {
     // WebSocket 연결 설정
-    const brokerURL = "ws://localhost:9700/chat";
+    const brokerURL = `ws://${BACKEND_URL}:9700/chat`;
     const client = new StompJs.Client({ brokerURL });
 
     client.onConnect = (frame) => {
-      setConnected(true);
       console.log("Connected: " + frame);
       client.subscribe("/topic/greetings", (greeting) => {
         const messageContent = JSON.parse(greeting.body);
@@ -101,21 +92,21 @@ const ChatInput = ({ userAnimal } : { userAnimal : string; }) => {
     console.log(randomClientId);
   };
 
-  const connect = () => {
-    if (stompClient) {
-      stompClient.activate();
-      enterChatRoom();
-      console.log('stomp client entered!');
-    }
-  };
+  // const connect = () => {
+  //   if (stompClient) {
+  //     stompClient.activate();
+  //     enterChatRoom();
+  //     console.log('stomp client entered!');
+  //   }
+  // };
 
-  const disconnect = () => {
-    if (stompClient && stompClient.connected) {
-      stompClient.deactivate();
-      setConnected(false);
-      console.log("Disconnected");
-    }
-  };
+  // const disconnect = () => {
+  //   if (stompClient && stompClient.connected) {
+  //     stompClient.deactivate();
+  //     setConnected(false);
+  //     console.log("Disconnected");
+  //   }
+  // };
 
   const sendName = () => {
     console.log('stompClient', stompClient);

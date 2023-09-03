@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import * as StompJs from '@stomp/stompjs';
+import { BACKEND_URL } from '../../../global/config/constant';
 
 interface Message {
     content: string;
@@ -15,7 +16,7 @@ const StompClientExample: React.FC = () => {
 
   useEffect(() => {
     // WebSocket 연결 설정
-    const brokerURL = 'ws://localhost:9700/chat';
+    const brokerURL = `ws://${BACKEND_URL}:9700/chat`;
     const client = new StompJs.Client({ brokerURL });
 
     client.onConnect = (frame) => {
