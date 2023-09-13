@@ -19,7 +19,7 @@ const ChatBoard = () => {
 
   useEffect(() => {
     setMessage(storedMessage);
-    console.log('stored message', storedMessage);
+    // console.log('stored message', storedMessage);
   }, [storedMessage]);
 
   // const dispatch = useDispatch();

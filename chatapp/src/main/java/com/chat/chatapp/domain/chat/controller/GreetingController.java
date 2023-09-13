@@ -19,7 +19,7 @@ public class GreetingController {
         Thread.sleep(1000); // simulated delay
         log.info(message.toString());
         return new Greeting(
-                HtmlUtils.htmlEscape(message.getMessage())
+                        message.getMessage()
                         , message.getClientId()
                         , message.getUserAnimal()
                             );

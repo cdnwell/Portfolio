@@ -3,6 +3,7 @@ import classes from "./ChatMessage.module.scss";
 import { Message } from "../main/ChatInput";
 import { useSelector } from "react-redux";
 import { UserPropsType } from "../main/ChatBoard";
+import { animalColorConfirm } from "../../../global/utils/colorUtil";
 
 const ChatMessage = ({ message }: { message: Message[] }) => {
   const { userId } = useSelector(
@@ -13,11 +14,7 @@ const ChatMessage = ({ message }: { message: Message[] }) => {
     <>
       {message &&
         message.map((item, idx) => {
-          const messageColor = item.userAnimal === 'Bear' ? '#c03546' 
-                              : item.userAnimal === 'Bird' ? '#ff7473' 
-                              : item.userAnimal === 'Dog' ? '#ffc952'
-                              : item.userAnimal === 'Dolphin' ? '#47b8e0'
-                              : 'black';
+          const messageColor = animalColorConfirm(item.userAnimal);
 
           return (
             <div

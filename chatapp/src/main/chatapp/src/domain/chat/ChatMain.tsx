@@ -1,7 +1,7 @@
-import { useSelector } from 'react-redux';
 import classes from './ChatMain.module.scss';
-import ChatBoard, { UserPropsType } from './main/ChatBoard';
+import { useSelector } from 'react-redux';
 
+import ChatBoard, { UserPropsType } from './main/ChatBoard';
 import ChatInput from './main/ChatInput';
 
 

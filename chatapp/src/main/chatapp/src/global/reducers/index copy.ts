@@ -22,12 +22,11 @@ const chatSlice = createSlice({
     digMessage(state) {
       // action : 나중에 추가된 메시지
       // state : 기존의 메시지
-      return { ...state };
+      return [...state];
     },
     storeMessage(state, action) {
       console.log("payload", action.payload);
-      console.log('stored message :', state[0]?.message);
-      // state.push(action.payload);
+      state[0];
       return [...action.payload];
     },
   },
@@ -50,7 +49,7 @@ const userSlice = createSlice({
       state.userAnimal = state.userAnimal;
     },
     setUserAnimal(state, action) {
-      // state.userId = state.userId;
+      state.userId = state.userId;
       state.userAnimal = action.payload;
     },
   },

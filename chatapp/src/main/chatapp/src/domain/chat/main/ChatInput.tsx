@@ -1,12 +1,13 @@
 import classes from "./ChatInput.module.scss";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
 
 import * as StompJs from "@stomp/stompjs";
 import { BiRightArrow } from "react-icons/bi";
 import { chatActions, userActions } from "../../../global/reducers";
 import { BACKEND_URL } from "../../../global/config/constant";
+import { animalColorConfirm } from "../../../global/utils/colorUtil";
 
 export interface Message {
   content: string;
@@ -19,15 +20,12 @@ const ChatInput = ({ userAnimal } : { userAnimal : string; }) => {
   const [message, setMessage] = useState<Message[]>([]);
   const [inputMessage, setInputMessage] = useState<string>('');
   const [clientId, setClientId] = useState<string | null>(null);
+  const inputRef = useRef<HTMLInputElement | null>(null);
 
   const dispatch = useDispatch();
 
   // menu color
-  const chatMenuColor = userAnimal === 'Bear' ? '#c03546' 
-                        : userAnimal === 'Bird' ? '#ff7473' 
-                        : userAnimal === 'Dog' ? '#ffc952'
-                        : userAnimal === 'Dolphin' ? '#47b8e0'
-                        : 'black';
+  const chatMenuColor = animalColorConfirm(userAnimal);
 
   // --- init --- //
   useEffect(() => {
@@ -75,7 +73,20 @@ const ChatInput = ({ userAnimal } : { userAnimal : string; }) => {
     };
   }, []);
 
+  // 전역 객체에 리스너 추가(키가 입력 되었을 경우, focus가 안되있다면 input에 focus를 한다.)
+  useEffect(()=>{
+    window.addEventListener('keydown', handleKeyPress);
 
+    return () => {
+      window.removeEventListener('keydown', handleKeyPress);
+    }
+  }, []);
+
+  const handleKeyPress = (event: KeyboardEvent) => {
+    if (event.key) {
+      inputRef.current?.focus();
+    }
+  };
 
   // message - dispatch로 redux에 저장
   // action에 들어갈 message는 누적되기 때문에 [...action]으로 저장해주어야 한다.
@@ -92,31 +103,17 @@ const ChatInput = ({ userAnimal } : { userAnimal : string; }) => {
     console.log(randomClientId);
   };
 
-  // const connect = () => {
-  //   if (stompClient) {
-  //     stompClient.activate();
-  //     enterChatRoom();
-  //     console.log('stomp client entered!');
-  //   }
-  // };
-
-  // const disconnect = () => {
-  //   if (stompClient && stompClient.connected) {
-  //     stompClient.deactivate();
-  //     setConnected(false);
-  //     console.log("Disconnected");
-  //   }
-  // };
-
   const sendName = () => {
     console.log('stompClient', stompClient);
     console.log('connected', stompClient?.connected);
+    if(!inputMessage || inputMessage.trim().length === 0) return;
 
     if (stompClient && stompClient.connected) {
       stompClient.publish({
         destination: "/app/hello",
         body: JSON.stringify({ message: inputMessage, clientId, userAnimal }),
       });
+      setInputMessage('');
     } else {
       console.error("STOMP connection not available");
     }
@@ -124,7 +121,12 @@ const ChatInput = ({ userAnimal } : { userAnimal : string; }) => {
 
   const handleInputMessage = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputMessage(event.target.value);
-    // console.log(event.target.value);
+  };
+
+  const enterSendMessage = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter') {
+      sendName();
+    }
   };
 
   return (
@@ -136,6 +138,8 @@ const ChatInput = ({ userAnimal } : { userAnimal : string; }) => {
           placeholder="채팅 내용을 입력해주세요."
           value={inputMessage}
           onChange={handleInputMessage}
+          onKeyDown={enterSendMessage}
+          ref={inputRef}
         />
         <BiRightArrow
           className={classes.chat_type_enter_btn}
