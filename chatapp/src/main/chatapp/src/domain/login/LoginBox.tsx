@@ -26,6 +26,7 @@ const LoginBox = () => {
 
   const onLoginBtnClick = (userAnimal : USER_TYPE) => {
     dispatch(userActions.setUserAnimal(userAnimal));
+    dispatch(userActions.setUserId(undefined));
     navigate("/Chat");
   }
 

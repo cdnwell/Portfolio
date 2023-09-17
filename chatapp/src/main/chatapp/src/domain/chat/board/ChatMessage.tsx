@@ -1,5 +1,7 @@
 import classes from "./ChatMessage.module.scss";
 
+import { useEffect } from "react";
+
 import { Message } from "../main/ChatInput";
 import { useSelector } from "react-redux";
 import { UserPropsType } from "../main/ChatBoard";
@@ -9,6 +11,10 @@ const ChatMessage = ({ message }: { message: Message[] }) => {
   const { userId } = useSelector(
     (state: { user: UserPropsType }) => ({ userId : state.user.userId })
   );
+
+  useEffect(()=>{
+    console.log('messages :', message);
+  }, []);
 
   return (
     <>

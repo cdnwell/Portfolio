@@ -1,7 +1,7 @@
 import classes from "./ChatInput.module.scss";
 
 import { useState, useEffect, useRef } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import * as StompJs from "@stomp/stompjs";
 import { BiRightArrow } from "react-icons/bi";
@@ -23,6 +23,9 @@ const ChatInput = ({ userAnimal } : { userAnimal : string; }) => {
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   const dispatch = useDispatch();
+
+  const hasUserId = useSelector((state: { user : { userId: string; }}) => state.user.userId );
+  const messages = useSelector((state : { chat : Message[]}) => state.chat );
 
   // menu color
   const chatMenuColor = animalColorConfirm(userAnimal);
@@ -63,7 +66,10 @@ const ChatInput = ({ userAnimal } : { userAnimal : string; }) => {
 
     client.activate();
 
-    enterChatRoom();
+    if(!hasUserId) {
+      console.log('entered chat rooms !');
+      enterChatRoom();
+    }
 
     // 컴포넌트가 언마운트될 때 WebSocket 연결 해제
     return () => {
@@ -88,6 +94,13 @@ const ChatInput = ({ userAnimal } : { userAnimal : string; }) => {
     }
   };
 
+  // session 처리의 핵심
+  // 처음 session message 있는지 확인
+  useEffect(() => {
+    if(messages)
+      setMessage([...messages]);
+  }, []);
+
   // message - dispatch로 redux에 저장
   // action에 들어갈 message는 누적되기 때문에 [...action]으로 저장해주어야 한다.
   useEffect(() => {
@@ -111,8 +124,9 @@ const ChatInput = ({ userAnimal } : { userAnimal : string; }) => {
     if (stompClient && stompClient.connected) {
       stompClient.publish({
         destination: "/app/hello",
-        body: JSON.stringify({ message: inputMessage, clientId, userAnimal }),
+        body: JSON.stringify({ message: inputMessage, clientId: hasUserId, userAnimal }),
       });
+      dispatch(chatActions.storeMessage([{ message: inputMessage, clientId: hasUserId, userAnimal }]));
       setInputMessage('');
     } else {
       console.error("STOMP connection not available");

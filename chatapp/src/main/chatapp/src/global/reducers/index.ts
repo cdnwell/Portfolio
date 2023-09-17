@@ -13,7 +13,7 @@ import {
 
 import { USER_TYPE } from "../uniontypes/user-type";
 
-const initialStateChat = [{ message: "", clientId: "" }];
+const initialStateChat = [{ message: "", clientId: "", userAnimal: "" }];
 
 const chatSlice = createSlice({
   name: "chat",
@@ -22,12 +22,14 @@ const chatSlice = createSlice({
     digMessage(state) {
       // action : 나중에 추가된 메시지
       // state : 기존의 메시지
-      return { ...state };
+      return [ ...state ];
     },
     storeMessage(state, action) {
       console.log("payload", action.payload);
-      console.log('stored message :', state[0]?.message);
       // state.push(action.payload);
+      state = [ ...action.payload ];
+      console.log('action', action);
+      console.log('state', state);
       return [...action.payload];
     },
   },
@@ -52,6 +54,7 @@ const userSlice = createSlice({
     setUserAnimal(state, action) {
       // state.userId = state.userId;
       state.userAnimal = action.payload;
+      console.log('animals :', action.payload);
     },
   },
   extraReducers: (builder) => {
