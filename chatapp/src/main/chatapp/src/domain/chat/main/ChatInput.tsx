@@ -13,9 +13,9 @@ export interface Message {
   content: string;
   clientId: string;
   userAnimal: string;
-}
+};
 
-const ChatInput = ({ userAnimal } : { userAnimal : string; }) => {
+const ChatInput = ({ userAnimal, handleMessages } : { userAnimal : string; handleMessages : (messages : Message[]) => void }) => {
   const [stompClient, setStompClient] = useState<StompJs.Client | null>(null);
   const [message, setMessage] = useState<Message[]>([]);
   const [inputMessage, setInputMessage] = useState<string>('');
@@ -106,6 +106,7 @@ const ChatInput = ({ userAnimal } : { userAnimal : string; }) => {
   useEffect(() => {
     dispatch(chatActions.storeMessage(message));
     console.log('message storing', message);
+    handleMessages([...message]);
   },[message]);
 
   const enterChatRoom = () => {
@@ -116,9 +117,10 @@ const ChatInput = ({ userAnimal } : { userAnimal : string; }) => {
     console.log(randomClientId);
   };
 
-  const sendName = () => {
+  const sendMessage = () => {
     console.log('stompClient', stompClient);
     console.log('connected', stompClient?.connected);
+    
     if(!inputMessage || inputMessage.trim().length === 0) return;
 
     if (stompClient && stompClient.connected) {
@@ -139,7 +141,7 @@ const ChatInput = ({ userAnimal } : { userAnimal : string; }) => {
 
   const enterSendMessage = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
-      sendName();
+      sendMessage();
     }
   };
 
@@ -158,7 +160,7 @@ const ChatInput = ({ userAnimal } : { userAnimal : string; }) => {
         <BiRightArrow
           className={classes.chat_type_enter_btn}
           style={{ backgroundColor : chatMenuColor }}
-          onClick={sendName}
+          onClick={sendMessage}
         />
       </div>
     </div>

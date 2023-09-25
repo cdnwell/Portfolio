@@ -22,6 +22,8 @@ const ChatMessage = ({ message }: { message: Message[] }) => {
         message.map((item, idx) => {
           const messageColor = animalColorConfirm(item.userAnimal);
 
+          if(!item.content || item.content.trim().length === 0) return;
+
           return (
             <div
               className={`${classes.chat_board_message_root} ${

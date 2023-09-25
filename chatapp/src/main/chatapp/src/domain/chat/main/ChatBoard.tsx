@@ -11,17 +11,19 @@ export interface UserPropsType {
   userAnimal: string;
 };
 
-const ChatBoard = () => {
+const ChatBoard = ({ messages } : { messages : Message[]}) => {
   const [message, setMessage] = useState<Message[]>([]);
 
   // 1. redux에 있는 메시지 ChatMessage 컴포넌트에 넘겨주기
-  let storedMessage = useSelector((state: { chat : Message[]}) => state.chat );
+  let storedMessage = useSelector((state: { chat : Message[] }) => state.chat );
   let userInfo = useSelector((state : { user : { userId: string; userAnimal: string; } }) => state.user );
 
   useEffect(() => {
-    setMessage([...storedMessage]);
-    console.log('stored message', storedMessage);
-  }, [storedMessage]);
+    if(!message || message.length === 0) 
+      setMessage([...storedMessage]);
+    else
+      setMessage([...messages]);
+  }, [storedMessage, messages]);
 
   useEffect(() => {
     console.log('user Info :', userInfo);
