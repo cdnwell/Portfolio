@@ -42,13 +42,14 @@ const ChatInput = ({ userAnimal, handleMessages } : { userAnimal : string; handl
         const messageContent = JSON.parse(greeting.body);
         console.log("message content", messageContent);
         console.log('user animal', userAnimal);
+        // **메세지 순서를 바꿔 아래에서 위로 올라가는 메세지 구현
         setMessage((prevMessage) => [
-          ...prevMessage,
           {
             content: messageContent.content,
             clientId: messageContent.clientId,
             userAnimal: messageContent.userAnimal,
           },
+          ...prevMessage,
         ]);
       });
     };
