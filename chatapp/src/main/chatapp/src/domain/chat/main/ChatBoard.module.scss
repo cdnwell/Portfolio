@@ -1,4 +1,6 @@
 .chat_board_root {
+    position: relative;
+
     height: 100%;
 
     display: flex;
@@ -21,3 +23,6 @@
 ::-webkit-scrollbar-thumb {border-radius:50px; background:#c2c2c2;}
 ::-webkit-scrollbar-thumb:hover {background:#848484;}
 
+.emo_component {
+    position: absolute;
+}

@@ -34,6 +34,9 @@ const ChatMessage = ({ message }: { message: Message[] }) => {
               key={idx}
               style={{ backgroundColor : messageColor }}
             >
+              {item.emoticon && <div className={classes.msg_emo_div}>
+                <img src={item.emoticon} alt="이모티콘" />
+              </div>}
               <p>{item.content}</p>
             </div>
           );

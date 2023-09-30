@@ -11,4 +11,5 @@ public class Greeting {
     private String content;
     private String clientId;
     private String userAnimal;
+    private String emoticon;
 }

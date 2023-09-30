@@ -11,4 +11,5 @@ public class HelloMessage {
     private String message;
     private String clientId;
     private String userAnimal;
+    private String emoticon;
 }

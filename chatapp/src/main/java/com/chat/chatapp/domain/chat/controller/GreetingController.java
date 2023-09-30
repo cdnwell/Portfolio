@@ -22,6 +22,7 @@ public class GreetingController {
                         message.getMessage()
                         , message.getClientId()
                         , message.getUserAnimal()
+                        , message.getEmoticon()
                             );
     }
 

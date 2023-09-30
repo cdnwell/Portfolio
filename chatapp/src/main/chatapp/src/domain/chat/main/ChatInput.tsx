@@ -8,11 +8,13 @@ import { BiRightArrow } from "react-icons/bi";
 import { chatActions, userActions } from "../../../global/reducers";
 import { BACKEND_URL } from "../../../global/config/constant";
 import { animalColorConfirm } from "../../../global/utils/colorUtil";
+import { emoticonActions } from "../../../global/reducers/emoticon";
 
 export interface Message {
   content: string;
   clientId: string;
   userAnimal: string;
+  emoticon: string;
 };
 
 const ChatInput = ({ userAnimal, handleMessages } : { userAnimal : string; handleMessages : (messages : Message[]) => void }) => {
@@ -26,7 +28,8 @@ const ChatInput = ({ userAnimal, handleMessages } : { userAnimal : string; handl
 
   const hasUserId = useSelector((state: { user : { userId: string; }}) => state.user.userId );
   const messages = useSelector((state : { chat : Message[]}) => state.chat );
-
+  const emoticonSrc = useSelector((state: { emoticon : { src: string; }}) => state.emoticon.src );
+  
   // menu color
   const chatMenuColor = animalColorConfirm(userAnimal);
 
@@ -48,6 +51,7 @@ const ChatInput = ({ userAnimal, handleMessages } : { userAnimal : string; handl
             content: messageContent.content,
             clientId: messageContent.clientId,
             userAnimal: messageContent.userAnimal,
+            emoticon: messageContent.emoticon,
           },
           ...prevMessage,
         ]);
@@ -127,10 +131,12 @@ const ChatInput = ({ userAnimal, handleMessages } : { userAnimal : string; handl
     if (stompClient && stompClient.connected) {
       stompClient.publish({
         destination: "/app/hello",
-        body: JSON.stringify({ message: inputMessage, clientId: hasUserId, userAnimal }),
+        body: JSON.stringify({ message: inputMessage, clientId: hasUserId, userAnimal, emoticon: emoticonSrc }),
       });
+      console.log('emoticon src :', emoticonSrc);
       dispatch(chatActions.storeMessage([{ message: inputMessage, clientId: hasUserId, userAnimal }]));
       setInputMessage('');
+      dispatch(emoticonActions.setEmoticon(''));
     } else {
       console.error("STOMP connection not available");
     }

@@ -1,0 +1,32 @@
+.emo_div {
+    width: 100%;
+
+    background-color: rgba($color: #000000, $alpha: 0.3);
+
+    padding: 10px;
+
+    box-sizing: border-box;
+}
+
+.emo_close_btn {
+    position: absolute;
+
+    top: 0;
+    right: 0;
+
+    padding: 10px;
+
+    background-color: gray;
+    color: white;
+
+    border: none;
+
+    cursor: pointer;
+}
+
+.emo_img {
+    width: auto;
+    height: auto;
+
+    border-radius: 10px;
+}

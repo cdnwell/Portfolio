@@ -13,6 +13,8 @@ import {
 
 import { USER_TYPE } from "../uniontypes/user-type";
 
+import emoticonReducer from "./emoticon";
+
 const initialStateChat = [{ message: "", clientId: "", userAnimal: "" }];
 
 const chatSlice = createSlice({
@@ -65,6 +67,7 @@ const userSlice = createSlice({
 const reducers = combineReducers({
   chat: chatSlice.reducer,
   user: userSlice.reducer,
+  emoticon: emoticonReducer,
 });
 
 const persistConfig = {
