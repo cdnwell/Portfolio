@@ -12,6 +12,8 @@ import GoHomeCatGif from '../../assets/gif/emoticon/cat-worker/gohomecat.gif';
 import { emoticonActions } from '../../global/reducers/emoticon';
 
 import { AiOutlineArrowUp, AiOutlineArrowDown } from "react-icons/ai";
+import ChatEmoticonImages from './menu/ChatEmoticonImages';
+import ChatEmoticonMenu from './menu/ChatEmoticonMenu';
 
 const ChatMenu = () => {
     const [isFolded, setIsFolded] = useState(false);
@@ -22,21 +24,23 @@ const ChatMenu = () => {
 
     const chatMenuColor = animalColorConfirm(userAnimal);
 
-    const emoTypingClicked = (event: any) => {
-        console.log('타자 치는 고양이~');
-        console.log(event.target.src);
-        const imageSrc = event.target.src;
-        dispatch(emoticonActions.setEmoticon(imageSrc));       
-    };
+    // const emoTypingClicked = (event: any) => {
+    //     console.log('타자 치는 고양이~');
+    //     console.log(event.target.src);
+    //     const imageSrc = event.target.src;
+    //     dispatch(emoticonActions.setEmoticon(imageSrc));       
+    // };
 
     const emoFoldClicked = () => {
         setIsFolded((prev) => !prev);
     };
 
     return <div className={classes.chat_menu_div} style={{ backgroundColor : chatMenuColor }}>
-        {!isFolded && <img className={classes.emo_typing_cat} src={TypingCatGif} alt="타자 치는 고양이" onClick={emoTypingClicked} />}
+        {/* {!isFolded && <img className={classes.emo_typing_cat} src={TypingCatGif} alt="타자 치는 고양이" onClick={emoTypingClicked} />}
         {!isFolded && <img className={classes.emo_typing_cat} src={GoOfficeCatGif} alt="회사가는 고양이" onClick={emoTypingClicked} />}
-        {!isFolded && <img className={classes.emo_typing_cat} src={GoHomeCatGif} alt="집가는 고양이" onClick={emoTypingClicked} />}
+        {!isFolded && <img className={classes.emo_typing_cat} src={GoHomeCatGif} alt="집가는 고양이" onClick={emoTypingClicked} />} */}
+        { !isFolded && <ChatEmoticonImages selectedEmoticon={''} />  }
+        { isFolded &&  <ChatEmoticonMenu /> }
         <div className={classes.emo_fold_div} onClick={emoFoldClicked} >
             {!isFolded 
                 ? <AiOutlineArrowUp/> 
