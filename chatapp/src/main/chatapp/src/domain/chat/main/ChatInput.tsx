@@ -21,7 +21,7 @@ const ChatInput = ({ userAnimal, handleMessages } : { userAnimal : string; handl
   const [stompClient, setStompClient] = useState<StompJs.Client | null>(null);
   const [message, setMessage] = useState<Message[]>([]);
   const [inputMessage, setInputMessage] = useState<string>('');
-  const [clientId, setClientId] = useState<string | null>(null);
+  // const [clientId, setClientId] = useState<string | null>(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   const dispatch = useDispatch();
@@ -118,7 +118,7 @@ const ChatInput = ({ userAnimal, handleMessages } : { userAnimal : string; handl
     // 채팅방에 입장할 때 난수 생성 (0 이상 9999999 이하의 정수)
     const randomClientId = String(Math.floor(Math.random() * 10000000));
     dispatch(userActions.setUserId(randomClientId));
-    setClientId(randomClientId);
+    // setClientId(randomClientId);
     console.log(randomClientId);
   };
 
@@ -158,7 +158,6 @@ const ChatInput = ({ userAnimal, handleMessages } : { userAnimal : string; handl
         <input
           type="text"
           className={classes.chat_type_input}
-          placeholder="채팅 내용을 입력해주세요."
           value={inputMessage}
           onChange={handleInputMessage}
           onKeyDown={enterSendMessage}

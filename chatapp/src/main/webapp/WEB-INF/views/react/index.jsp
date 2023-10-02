@@ -15,8 +15,8 @@
         margin: 0;
       }
     </style>
-    <script type="module" crossorigin src="/js/index-1680638f.js"></script>
-    <link rel="stylesheet" href="/css/index-f390ca71.css">
+    <script type="module" crossorigin src="/js/index-3980cec6.js"></script>
+    <link rel="stylesheet" href="/css/index-65f498ed.css">
   </head>
   <body>
     <div id="root"></div>

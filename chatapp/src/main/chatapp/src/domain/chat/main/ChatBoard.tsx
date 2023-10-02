@@ -1,12 +1,11 @@
 import classes from "./ChatBoard.module.scss";
 
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 import ChatMessage from "../board/ChatMessage";
 import { Message } from "./ChatInput";
 import ChatEmoticon from "../board/ChatEmoticon";
-import { emoticonActions } from "../../../global/reducers/emoticon";
 
 export interface UserPropsType {
   userId: string;
@@ -15,7 +14,6 @@ export interface UserPropsType {
 
 const ChatBoard = ({ messages } : { messages : Message[]}) => {
   const [message, setMessage] = useState<Message[]>([]);
-  const dispatch = useDispatch();
 
   // 1. redux에 있는 메시지 ChatMessage 컴포넌트에 넘겨주기
   let storedMessage = useSelector((state: { chat : Message[] }) => state.chat );

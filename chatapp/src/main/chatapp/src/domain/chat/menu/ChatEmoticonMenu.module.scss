@@ -1,0 +1,12 @@
+.emo_menu_div {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    
+    width: 100%;
+    padding: 20px;
+}
+
+.emo_menu_img {
+    width: 100%;
+}
