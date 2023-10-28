@@ -1,23 +1,27 @@
 .chat_board_message_root {
     width: fit-content;
 
-    padding: 10px 20px;
+    padding: 20px;
     margin-bottom: 25px;
     margin-left: 40px;
 
     color: white;
 
-    border-radius: 5px;
+    border-radius: 15px;
 }
 
 .chat_board_message_mine {
     align-self: flex-end;
 
-    margin-right: 80px;
+    margin-right: 40px;
+
+    border-bottom-right-radius: 0;
 }
 
 .chat_board_message_others {
-    margin-left: 60px;
+    margin-left: 40px;
+
+    border-bottom-left-radius: 0;
 }
 
 .msg_emo_div {

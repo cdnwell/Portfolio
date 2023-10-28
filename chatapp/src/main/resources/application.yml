@@ -1,10 +1,13 @@
 server:
   port: 9700
+  error:
+    whitelabel:
+      enabled: false
 
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/memo_db?characterEncoding=UTF-8&serverTimezone=UTC
+    url: jdbc:postgresql://localhost:5432/chat_db
     username: postgres
     password: daon!@34
   jpa:
@@ -15,6 +18,7 @@ spring:
   devtools:
     livereload:
       enabled: true
+
   mvc:
     view:
       prefix: /WEB-INF/views
