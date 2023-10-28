@@ -14,31 +14,32 @@ import {
 import { USER_TYPE } from "../uniontypes/user-type";
 
 import emoticonReducer from "./emoticon";
+import chatReducer from "./chat";
 
-const initialStateChat = [{ message: "", clientId: "", userAnimal: "" }];
+// const initialStateChat = [{ message: "", clientId: "", userAnimal: "" }];
 
-const chatSlice = createSlice({
-  name: "chat",
-  initialState: initialStateChat,
-  reducers: {
-    digMessage(state) {
-      // action : 나중에 추가된 메시지
-      // state : 기존의 메시지
-      return [ ...state ];
-    },
-    storeMessage(state, action) {
-      console.log("payload", action.payload);
-      // state.push(action.payload);
-      state = [ ...action.payload ];
-      console.log('action', action);
-      console.log('state', state);
-      return [...action.payload];
-    },
-  },
-  extraReducers: (builder) => {
-    builder.addCase(PURGE, () => initialStateChat);
-  },
-});
+// const chatSlice = createSlice({
+//   name: "chat",
+//   initialState: initialStateChat,
+//   reducers: {
+//     digMessage(state) {
+//       // action : 나중에 추가된 메시지
+//       // state : 기존의 메시지
+//       return [ ...state ];
+//     },
+//     storeMessage(state, action) {
+//       console.log("payload", action.payload);
+//       // state.push(action.payload);
+//       state = [ ...action.payload ];
+//       console.log('action', action);
+//       console.log('state', state);
+//       return [...action.payload];
+//     },
+//   },
+//   extraReducers: (builder) => {
+//     builder.addCase(PURGE, () => initialStateChat);
+//   },
+// });
 
 const initialStateUser: { userId: string; userAnimal: USER_TYPE } = {
   userId: "",
@@ -65,7 +66,7 @@ const userSlice = createSlice({
 });
 
 const reducers = combineReducers({
-  chat: chatSlice.reducer,
+  chat: chatReducer,
   user: userSlice.reducer,
   emoticon: emoticonReducer,
 });
@@ -88,7 +89,7 @@ const store = configureStore({
     }),
 });
 
-export const chatActions = chatSlice.actions;
+// export const chatActions = chatSlice.actions;
 
 export const userActions = userSlice.actions;
 

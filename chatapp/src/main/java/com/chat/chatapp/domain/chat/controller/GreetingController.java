@@ -23,6 +23,7 @@ public class GreetingController {
                         , message.getClientId()
                         , message.getUserAnimal()
                         , message.getEmoticon()
+                        , message.getPubTime()
                             );
     }
 

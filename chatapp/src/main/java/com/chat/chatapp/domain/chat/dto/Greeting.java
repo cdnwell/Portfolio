@@ -12,4 +12,5 @@ public class Greeting {
     private String clientId;
     private String userAnimal;
     private String emoticon;
+    private String pubTime;
 }

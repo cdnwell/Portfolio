@@ -5,16 +5,18 @@ import { useDispatch, useSelector } from "react-redux";
 
 import * as StompJs from "@stomp/stompjs";
 import { BiRightArrow } from "react-icons/bi";
-import { chatActions, userActions } from "../../../global/reducers";
+import { userActions } from "../../../global/reducers";
 import { BACKEND_URL } from "../../../global/config/constant";
 import { animalColorConfirm } from "../../../global/utils/colorUtil";
 import { emoticonActions } from "../../../global/reducers/emoticon";
+import { chatActions } from "@/global/reducers/chat";
 
 export interface Message {
   content: string;
   clientId: string;
   userAnimal: string;
   emoticon: string;
+  pubTime: string;
 };
 
 const ChatInput = ({ userAnimal, handleMessages } : { userAnimal : string; handleMessages : (messages : Message[]) => void }) => {
@@ -52,6 +54,7 @@ const ChatInput = ({ userAnimal, handleMessages } : { userAnimal : string; handl
             clientId: messageContent.clientId,
             userAnimal: messageContent.userAnimal,
             emoticon: messageContent.emoticon,
+            pubTime: messageContent.pubTime,
           },
           ...prevMessage,
         ]);
@@ -118,7 +121,6 @@ const ChatInput = ({ userAnimal, handleMessages } : { userAnimal : string; handl
     // 채팅방에 입장할 때 난수 생성 (0 이상 9999999 이하의 정수)
     const randomClientId = String(Math.floor(Math.random() * 10000000));
     dispatch(userActions.setUserId(randomClientId));
-    // setClientId(randomClientId);
     console.log(randomClientId);
   };
 
@@ -127,11 +129,15 @@ const ChatInput = ({ userAnimal, handleMessages } : { userAnimal : string; handl
     console.log('connected', stompClient?.connected);
     
     if(!inputMessage || inputMessage.trim().length === 0) return;
+    
+    let currentTime: string = String(new Date());
+    const currentTimeArr: string[] = currentTime.split(" ")[4].split(":");
+    const current: string = currentTimeArr[0] + ":" + currentTimeArr[1];
 
     if (stompClient && stompClient.connected) {
       stompClient.publish({
         destination: "/app/hello",
-        body: JSON.stringify({ message: inputMessage, clientId: hasUserId, userAnimal, emoticon: emoticonSrc }),
+        body: JSON.stringify({ message: inputMessage, clientId: hasUserId, userAnimal, emoticon: emoticonSrc, pubTime: current }),
       });
       console.log('emoticon src :', emoticonSrc);
       dispatch(chatActions.storeMessage([{ message: inputMessage, clientId: hasUserId, userAnimal }]));
