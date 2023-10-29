@@ -1,3 +1,5 @@
+@import "../../assets/scss/constant.scss";
+
 .login_div {
     display: flex;
     flex-direction: column;
@@ -25,7 +27,8 @@
 .first_login_btn_div
 , .second_login_btn_div
 , .third_login_btn_div
-, .fourth_login_btn_div {
+, .fourth_login_btn_div
+, .fifth_login_btn_div {
     width: 100%;
     margin-bottom: 10px;
 }
@@ -71,17 +74,114 @@
 }
 
 .first_login_btn {
-    background-color: #c03546;
+    background-color: $brown-btn;
 }
 
 .second_login_btn {
-    background-color: #ff7473;
+    background-color: $pink-btn;
 }
 
 .third_login_btn {
-    background-color: #ffc952;
+    background-color: $yellow-btn;
 }
 
 .fourth_login_btn {
-    background-color: #47b8e0;
+    background-color: $sky-blue-btn;
 }
+
+// .fifth_login_btn {
+//     display: flex;
+//     justify-content: center;
+
+//     text-decoration: none;
+
+//     background: linear-gradient(
+//         90deg,
+//         rgba(2, 0, 36, 1) 0%,
+//         rgba(9, 9, 121, 1) 35%,
+//         rgba(0, 212, 255, 1) 100%
+//     );
+
+//     border: 1px solid #fff;
+
+//     box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
+// }
+
+.fifth_login_btn {
+    display: flex;
+    justify-content: center;
+
+    text-decoration: none;
+
+    // -webkit-tap-highlight-color: transparent;
+    // -webkit-appearance: button;
+    background-color: $sign-in-btn;
+    // background-image: none;
+    color: white;
+    cursor: pointer;
+    font-weight: 900;
+    line-height: 1.5;
+    text-transform: uppercase;
+}
+
+.fifth_login_btn:hover {
+    animation: 2s btn-ripple ease-in-out forwards;
+}
+
+@keyframes btn-ripple {
+    0% {
+        background: linear-gradient(
+            90deg, $sky-blue-btn 100%
+        );
+    }
+
+    25% {
+        background: linear-gradient(
+            90deg,
+            black 0%,
+            $sign-in-btn 25%
+        );
+    }
+
+    50% {
+        background: linear-gradient(
+            90deg,
+            black 0%,
+            $sign-in-btn 50%
+        );
+    }
+
+    75% {
+        background: linear-gradient(
+            90deg,
+            black 0%,
+            $sign-in-btn 75%
+        );
+    }
+
+    85% {
+        background: linear-gradient(
+            90deg,
+            black 0%,
+            $sign-in-btn 85%
+        );
+    }
+
+    95% {
+        background: linear-gradient(
+            90deg,
+            black 0%,
+            $sign-in-btn 95%
+        );
+    }
+
+    100% {
+        background: black;
+    }
+}
+
+.fifth_login_btn:hover {
+    animation: .2s btn-ripple ease-in-out forwards;
+}
+
+

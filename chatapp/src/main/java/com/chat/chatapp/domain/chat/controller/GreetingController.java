@@ -15,16 +15,17 @@ public class GreetingController {
 
     @MessageMapping("/hello")
     @SendTo("/topic/greetings")
-    public Greeting greeting(HelloMessage message) throws Exception {
+    public HelloMessage greeting(HelloMessage message) throws Exception {
         Thread.sleep(1000); // simulated delay
         log.info(message.toString());
-        return new Greeting(
-                        message.getMessage()
-                        , message.getClientId()
-                        , message.getUserAnimal()
-                        , message.getEmoticon()
-                        , message.getPubTime()
-                            );
+//        return new Greeting(
+//                        message.getMessage()
+//                        , message.getClientId()
+//                        , message.getUserAnimal()
+//                        , message.getEmoticon()
+//                        , message.getPubTime()
+//                            );
+        return message;
     }
 
 }

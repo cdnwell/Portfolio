@@ -1,14 +1,14 @@
 import classes from "./LoginBox.module.scss";
 
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { GiBearFace, GiDolphin } from "react-icons/gi";
 import { LuBird } from "react-icons/lu";
 import { PiDogFill } from "react-icons/pi";
 import { USER_TYPE } from "../../global/uniontypes/user-type";
 import { useDispatch } from "react-redux";
-import { userActions } from "../../global/reducers";
+import { userActions } from "@/global/reducers/user";
 
 const LoginBox = () => {
   const [onButtonHover, setOnButtonHover] = useState(0);
@@ -101,6 +101,11 @@ const LoginBox = () => {
             <GiDolphin />
           )}
         </button>
+      </div>
+      <div className={classes.fifth_login_btn_div}>
+        <Link to={"/signIn"} className={`${classes.login_btn} ${classes.fifth_login_btn}`}>
+          <span>Sign in</span>
+        </Link>
       </div>
     </div>
   );

@@ -8,7 +8,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class HelloMessage {
-    private String message;
+    private String content;
     private String clientId;
     private String userAnimal;
     private String emoticon;

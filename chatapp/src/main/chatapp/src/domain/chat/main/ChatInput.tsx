@@ -5,11 +5,11 @@ import { useDispatch, useSelector } from "react-redux";
 
 import * as StompJs from "@stomp/stompjs";
 import { BiRightArrow } from "react-icons/bi";
-import { userActions } from "../../../global/reducers";
 import { BACKEND_URL } from "../../../global/config/constant";
 import { animalColorConfirm } from "../../../global/utils/colorUtil";
 import { emoticonActions } from "../../../global/reducers/emoticon";
 import { chatActions } from "@/global/reducers/chat";
+import { userActions } from "@/global/reducers/user";
 
 export interface Message {
   content: string;
@@ -137,7 +137,7 @@ const ChatInput = ({ userAnimal, handleMessages } : { userAnimal : string; handl
     if (stompClient && stompClient.connected) {
       stompClient.publish({
         destination: "/app/hello",
-        body: JSON.stringify({ message: inputMessage, clientId: hasUserId, userAnimal, emoticon: emoticonSrc, pubTime: current }),
+        body: JSON.stringify({ content: inputMessage, clientId: hasUserId, userAnimal, emoticon: emoticonSrc, pubTime: current }),
       });
       console.log('emoticon src :', emoticonSrc);
       dispatch(chatActions.storeMessage([{ message: inputMessage, clientId: hasUserId, userAnimal }]));

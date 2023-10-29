@@ -36,10 +36,12 @@ const ChatBoard = ({ messages } : { messages : Message[]}) => {
   }, [emoticon]);
 
   return (
-    <div className={classes.chat_board_root}>
-      {message && <ChatMessage message={message} />}
+    <>
+      <div className={classes.chat_board_root}>
+        {message && <ChatMessage message={message} />}
+      </div>
       {emoticon && <ChatEmoticon className={classes.emo_component} src={emoticon} />}
-    </div>
+    </>
   );
 };
 
