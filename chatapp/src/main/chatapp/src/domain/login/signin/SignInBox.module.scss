@@ -1,6 +1,8 @@
 @import "../../../assets/scss/constant.scss";
 
 .sign_in_div {
+    position: relative;
+
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -121,6 +123,12 @@
 }
 
 .water_mark_div {
+    position: absolute;
+
+    bottom: 15px;
+
+    pointer-events: none;
+
     display: flex;
     justify-content: center;
 

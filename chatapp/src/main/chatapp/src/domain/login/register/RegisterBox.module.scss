@@ -11,5 +11,52 @@
 
     box-shadow: 0 0 46px 1px rgba(0, 0, 0, 0.25);
 
-    padding: 20px;
+    padding: 40px;
+
+    box-sizing: border-box;
+}
+
+.register_div > div {
+    width: 100%;
+
+    margin-bottom: 10px;
+}
+
+.register_div > div > p {
+    margin-bottom: 5px;
+
+    color: gray;
+
+    font-size: 13px;
+}
+
+.register_div > div input
+, .register_div > div > button {
+    width: 100%;
+
+    padding: 10px;
+
+    box-sizing: border-box;
+}
+
+.register_div > div > input {
+    outline: none;
+}
+
+.reg_permit_btn {
+    margin-top: 10px;
+}
+
+.reg_permit_btn button {
+    border: none;
+    border-radius: 5px;
+
+    background-color: $sky-blue-btn;
+    color: white;
+
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+
+    font-weight: 900;
+
+    cursor: pointer;
 }
