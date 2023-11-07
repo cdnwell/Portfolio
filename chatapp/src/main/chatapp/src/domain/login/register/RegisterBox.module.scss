@@ -1,6 +1,8 @@
 @import "../../../assets/scss/constant.scss";
 
 .register_div {
+    position: relative;
+
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -14,6 +16,19 @@
     padding: 40px;
 
     box-sizing: border-box;
+}
+
+.reg_close_btn {
+    position: absolute;
+
+    top: 10px;
+    right: 10px;
+
+    color: red;
+
+    font-size: 24px;
+
+    cursor: pointer;
 }
 
 .register_div > div {
@@ -41,6 +56,13 @@
 
 .register_div > div > input {
     outline: none;
+}
+
+.id_span
+, .pw_span {
+    font-size: 11px;
+
+    color: red;
 }
 
 .reg_permit_btn {
