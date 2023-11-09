@@ -5,10 +5,13 @@ import RegProfile from "./profile/RegProfile";
 
 import { AiFillCloseCircle } from "react-icons/ai";
 import {useNavigate} from "react-router-dom";
-import {ChangeEvent, useEffect, useState} from "react";
+import {ChangeEvent, useRef, useState} from "react";
 
-const invalidIdComment = "아이디는 숫자 혹은 영어로 이루어 져야합니다.";
-const invalidPwComment = "비밀번호가 같지않습니다.";
+import axios from "@/global/config/axiosInstance.ts";
+
+const invalidIdMsg = "아이디는 숫자 혹은 영어로 이루어 져야합니다.";
+const emptyPwMsg = "비밀번호를 입력해주세요.";
+const notEqualPwMsg = "비밀번호가 같지않습니다.";
 
 const RegisterBox = () => {
     const [id, setId] = useState<string>("");
@@ -16,8 +19,12 @@ const RegisterBox = () => {
     const [firstPw, setFirstPw] = useState<string>("");
     const [secondPw, setSecondPw] = useState<string>("");
     const [isInvalidPw, setIsInvalidPw] = useState<boolean>(false);
+    const [isEmptyPw, setIsEmptyPw] = useState<boolean>(false);
+    const [nick, setNick] = useState<String>('');
 
     const navigate = useNavigate();
+    const idInputRef = useRef<HTMLInputElement>(null);
+    const nickInputRef = useRef<HTMLInputElement>(null);
 
     const onCloseBtnHandler = () => {
         navigate(-1);
@@ -25,32 +32,71 @@ const RegisterBox = () => {
 
     const onIdInputHandler = (event: ChangeEvent<HTMLInputElement>) => {
         const id = event.target.value;
-        setId(id);
+        if (idInputRef.current && id.length > 15){
+            idInputRef.current.value = idInputRef.current.value.slice(0,15);
+            setId(idInputRef.current.value);
+        }
     }
 
-    const onPwInputHandler = (event: ChangeEvent<HTMLInputElement>, pwSetter: React.Dispatch<React.SetStateAction<string>>) => {
-        const pw = event.target.value;
+    const onPwInputHandler = (pw: string, pwSetter: React.Dispatch<React.SetStateAction<string>>) => {
         pwSetter(pw);
     }
 
-    useEffect(() => {
-        console.log('first pw :', firstPw);
-        console.log('second pw :', secondPw);
-    }, [firstPw, secondPw]);
-
-    const onLoginSubmit = () => {
-        setIsInvalidId(!idValidator(id));
-        setIsInvalidPw(!pwValidator(firstPw, secondPw));
-    }
-
-    const idValidator = (id: string): boolean => {
+    const isIdValid = (id: string): boolean => {
         const idReg = /^[a-zA-Z0-9]+$/;
         return idReg.test(id);
     }
 
-    const pwValidator = (firstPw: string, secondPw: string): boolean => {
+    const isPwNotEmpty = (firstPw: string, secondPw: string): boolean => {
+        return firstPw.length !== 0 && secondPw.length !== 0;
+    }
+
+    const isPwEqual = (firstPw: string, secondPw: string): boolean => {
         return firstPw === secondPw;
     }
+
+    const isInputValid = (): boolean => {
+        const validatorArr = [
+            { validator: isIdValid, params: [id], statusFunc: setIsInvalidId }
+            , { validator: isPwNotEmpty, params: [firstPw, secondPw], statusFunc: setIsEmptyPw }
+            , { validator: isPwEqual, params: [firstPw, secondPw], statusFunc: setIsInvalidPw }
+        ]
+
+        for(const item of validatorArr) {
+            const { validator, params, statusFunc } = item;
+            // @ts-ignore
+            const isValid = validator.apply(null, params);
+            if(!isValid) {
+                statusFunc(true);
+                return false;
+            } else {
+                statusFunc(false);
+            }
+        }
+
+        return true;
+    }
+
+    const onNickInputHandler = (event: ChangeEvent<HTMLInputElement>) => {
+        const nick = event.target.value;
+        if (nickInputRef.current && nick.length > 15){
+            nickInputRef.current.value = nickInputRef.current.value.slice(0,15);
+            setNick(nickInputRef?.current?.value);
+        }
+    }
+
+    const onLoginSubmit = () => {
+        if(!isInputValid()) return console.log('invalid!');
+
+        const data = {
+            id
+            , pw: firstPw
+            , nick
+        }
+
+        axios.post('/user', data);
+    }
+
 
 
     return (
@@ -61,25 +107,31 @@ const RegisterBox = () => {
                 <p className={classes.id_p}>
                     아이디
                 </p>
-                <input type="text" placeholder="아이디를 입력해주세요." onChange={onIdInputHandler} maxLength={15} />
-                <span className={classes.id_span}>{isInvalidId ? invalidIdComment : ""}</span>
+                <input type="text" placeholder="아이디를 입력해주세요." onChange={onIdInputHandler} ref={idInputRef} />
+                <span className={classes.id_span}>{isInvalidId ? invalidIdMsg : ""}</span>
             </div>
             <div className={classes.reg_pw_div}>
                 <p className={classes.pw_p}>
                     비밀번호
                 </p>
-                <PasswordField placeholder="∗∗∗∗∗∗" pwHandler={(event) => onPwInputHandler(event, setFirstPw)} />
-                <span className={classes.pw_span}>{isInvalidPw ? invalidPwComment : ""}</span>
+                <PasswordField placeholder="∗∗∗∗∗∗" onSendPw={(pw) => onPwInputHandler(pw, setFirstPw)} />
+                <span className={classes.pw_span}>
+                    { isEmptyPw
+                        ? emptyPwMsg
+                        : isInvalidPw
+                        ? notEqualPwMsg
+                        : "" }
+                </span>
             </div>
             <div className={classes.re_pw_div}>
                 <p className={classes.pw_p}>
                     비밀번호 재입력
                 </p>
-                <PasswordField placeholder="∗∗∗∗∗∗" pwHandler={(event) => onPwInputHandler(event, setSecondPw)} />
+                <PasswordField placeholder="∗∗∗∗∗∗" onSendPw={(pw) => onPwInputHandler(pw, setSecondPw)} />
             </div>
             <div className={classes.reg_name_div}>
                 <p className={classes.name_p}>닉네임</p>
-                <input type="text" placeholder="닉네임을 입력해주세요." />
+                <input type="text" placeholder="닉네임을 입력해주세요." onChange={onNickInputHandler} ref={nickInputRef} />
             </div>
             <div className={classes.reg_permit_btn}>
                 <button className={classes.reg_btn} onClick={onLoginSubmit}>제출</button>
