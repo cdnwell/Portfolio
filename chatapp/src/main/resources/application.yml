@@ -23,3 +23,11 @@ spring:
     view:
       prefix: /WEB-INF/views
       suffix: .jsp
+
+user:
+  image:
+    path: C:\user\image
+
+jwt:
+  secret: a82baeed230bac79ed645b0cd249641e9e47f21b9452f728bc8d32009feb62cd461ca547d5982ed64cbf1d5aee2ad0348bb30fd023fd1f25af141913ddfeee4a
+  expiredMs: 1800000

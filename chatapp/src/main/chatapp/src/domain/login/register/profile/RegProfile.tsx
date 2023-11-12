@@ -4,15 +4,21 @@ import { useState } from "react";
 
 import userDefaultImage from "@assets/png/icon/user.png";
 
-const RegProfile = () => {
+interface ProfileFieldProps {
+    onSendImg: (img: string) => void;
+}
+
+const RegProfile: React.FC<ProfileFieldProps> = ({ onSendImg }) => {
     const [profileImg, setProfileImg] = useState<string>(userDefaultImage);
 
     const onProfileImgChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         if(event.target.files && event.target.files[0]) {
             const reader = new FileReader();
             reader.onload = function(e: ProgressEvent<FileReader>) {
-                if (e.target && e.target.result)
+                if (e.target && e.target.result) {
                     setProfileImg(e.target.result as string);
+                    onSendImg(e.target.result as string);
+                }
             }
             reader.readAsDataURL(event.target.files[0]);
         }

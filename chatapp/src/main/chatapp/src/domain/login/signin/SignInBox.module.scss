@@ -41,8 +41,8 @@
     transition: 0.3s;
 }
 
-.sign_id_div:focus-within .id_legend
-, .sign_pw_div:focus-within .pw_legend {
+.id_input_focused
+, .pw_input_focused {
     top: 0px;
 
     padding: 0 5px;
@@ -50,6 +50,15 @@
     background-color: white;
     color: black;
 
+    font-size: 13px;
+}
+
+.sign_id_div .id_legend.focused
+, .sign_pw_div .pw_legend.focused {
+    top: 0px;
+    padding: 0 5px;
+    background-color: white;
+    color: black;
     font-size: 13px;
 }
 
@@ -83,7 +92,15 @@
 }
 
 .sign_btn {
+    background-color: $sign-in-btn !important;
+
     font-weight: 900;
+
+    transition: 0.15s ease-in-out;
+}
+
+.sign_btn:hover {
+    transform: scale(1.025);
 }
 
 .btn_menu_div {

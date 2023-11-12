@@ -21,8 +21,9 @@ const PasswordField : React.FC<PasswordFieldProps>  = ({ placeholder, onSendPw }
         const pw = event.target.value;
         if (pwInputRef.current && pw.length > 20) {
             pwInputRef.current.value = pwInputRef.current.value.slice(0, 15);
-            onSendPw(pwInputRef.current.value);
         }
+        if (pwInputRef.current)
+            onSendPw(pwInputRef.current.value);
     }
 
     return (
