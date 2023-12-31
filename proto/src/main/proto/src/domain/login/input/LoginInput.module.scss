@@ -1,0 +1,41 @@
+.login_root {
+  width: 100%;
+
+  position: relative;
+
+  display: flex;
+  justify-content: center;
+}
+
+.login_p {
+  position: absolute;
+
+  top: 0;
+  left: 15%;
+
+  transform: translateY(30%);
+
+  transition: 0.3s;
+
+  color: gray;
+
+  font-size: 20px;
+}
+
+.login_p.move {
+  transform: translateY(-50%);
+
+  font-size: 16px;
+
+  background-color: white;
+}
+
+.login_input {
+  width: 70%;
+
+  font-size: 20px;
+
+  padding: 10px;
+
+  outline: none;
+}

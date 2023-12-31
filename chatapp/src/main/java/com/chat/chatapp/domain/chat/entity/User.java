@@ -1,6 +1,8 @@
 package com.chat.chatapp.domain.chat.entity;
 
+import com.chat.chatapp.domain.chat.enums.AuthorityEnum;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Data;
 
 @Entity
@@ -11,6 +13,7 @@ import lombok.Data;
         allocationSize = 1
 )
 @Data
+@Builder
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_generator")
@@ -22,6 +25,7 @@ public class User {
     @Column(length = 15)
     private String nick;
     private String prof_img_path;
+    private AuthorityEnum authority;
 
     @Transient
     private String img;

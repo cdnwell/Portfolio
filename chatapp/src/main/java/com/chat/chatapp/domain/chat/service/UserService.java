@@ -18,6 +18,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Base64;
 import java.util.Map;
+import java.util.function.Supplier;
 
 @Slf4j
 @Service
@@ -95,5 +96,6 @@ public class UserService {
             result.put("msg", ErrorEnum.SIGN_IN.getMsg());
             result.put("code", ErrorEnum.SIGN_IN.getCode());
         }
+
     }
 }

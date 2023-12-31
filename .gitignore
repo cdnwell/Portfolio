@@ -7,3 +7,5 @@ config/
 *.properties
 
 axiosInstance.ts
+
+node_modules/
