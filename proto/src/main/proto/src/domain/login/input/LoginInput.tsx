@@ -3,7 +3,12 @@ import {useState} from "react";
 
 const idMoveClass = classes.move;
 
-const LoginInput = ({ inputTitle, type }) => {
+interface LoginInputProps {
+    title: string;
+    type: string;
+}
+
+const LoginInput: React.FC<LoginInputProps> = ({ title, type }) => {
     const [value, setValue] = useState<string>('');
     const [className, setClassName] = useState<string>('');
 
@@ -16,19 +21,19 @@ const LoginInput = ({ inputTitle, type }) => {
             setClassName('');
     }
 
-    const inputChangeHandler = (event) => {
+    const inputChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
         const val = event.target.value;
         setValue(val);
     }
 
     return (
         <div className={classes.login_root}>
-            <p className={`${classes.login_p} ${className}`}>{inputTitle}</p>
+            <p className={`${classes.login_p} ${className}`}>{title}</p>
             <input type={type}
-                   className={classes.login_input}
-                   onClick={inputClickHandler}
-                   onBlur={inputBlurHandler}
-                   onChange={inputChangeHandler}
+               className={classes.login_input}
+               onClick={inputClickHandler}
+               onBlur={inputBlurHandler}
+               onChange={inputChangeHandler}
             />
         </div>
     )

@@ -1,0 +1,21 @@
+.login_btn_div {
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+}
+
+.login_btn {
+  width: 75%;
+
+  padding: 10px;
+
+  background-color: blue;
+  color: white;
+
+  border: none;
+
+  box-sizing: border-box;
+
+  cursor: pointer;
+}

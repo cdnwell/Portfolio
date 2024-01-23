@@ -1,0 +1,20 @@
+
+f
+java:S1192Z"KDefine a constant instead of duplicating this literal "naverToken" 3 times.(ãöº“úÿÿÿÿ
+`
+java:S1192+"JDefine a constant instead of duplicating this literal "nickname" 11 times.(«ù‚¬
+a
+java:S1192y"KDefine a constant instead of duplicating this literal "localToken" 3 times.(çá¢
+a
+java:S1192:"KDefine a constant instead of duplicating this literal "kakaoToken" 4 times.(¸ü¤›
+a
+java:S11921"FDefine a constant instead of duplicating this literal "email" 9 times.(ÅùËÒøÿÿÿÿ
+k	java:S117,"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‹Œ¶ºúÿÿÿÿ
+f	java:S117Q"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(×èêú
+E	java:S106("+Replace this use of System.out by a logger.(ç¥ì´øÿÿÿÿ
+E	java:S106-"+Replace this use of System.out by a logger.(ã¾ÄÄıÿÿÿÿ
+@	java:S1063"+Replace this use of System.out by a logger.(õş©×
+E	java:S1064"+Replace this use of System.out by a logger.(¹Œíúùÿÿÿÿ
+C	java:S108B")Either remove or fill this block of code.(È‹à®ùÿÿÿÿ
+E	java:S106N"+Replace this use of System.out by a logger.(áÏÿ¹øÿÿÿÿ
+A	java:S106"+Replace this use of System.out by a logger.(ö¡¹ê
