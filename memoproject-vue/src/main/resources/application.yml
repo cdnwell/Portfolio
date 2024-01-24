@@ -1,0 +1,14 @@
+server:
+  port: 9700
+
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/memo_db?characterEncoding=UTF-8&serverTimezone=UTC
+    username: postgres
+    password: daon!@34
+  jpa:
+    database: postgresql
+    hibernate:
+      ddl-auto: none
+    show-sql: true

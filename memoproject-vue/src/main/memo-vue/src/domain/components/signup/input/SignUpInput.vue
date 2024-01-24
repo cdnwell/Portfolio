@@ -10,7 +10,6 @@
         @keyup="onInputKeyup"
         @click="onInputClick"
         @blur="onInputBlur"
-        pattern="[A-Za-z]+"
       />
     </div>
     <p class="signup_msg" :class="{ onview: !isMsgEmpty }">hello msg!</p>
@@ -18,7 +17,7 @@
 </template>
 
 <script setup lang="ts">
-import {computed, ref} from 'vue'
+import {computed, ref, watch} from 'vue'
 import { INPUT_PW_TYPE } from '@/domain/components/enum/input/InputEnum'
 import IconEye from '@/domain/components/icons/IconEye.vue'
 
@@ -26,6 +25,7 @@ const props = defineProps({
   text: String,
   type: String,
   lan: String,
+  value: String,
 })
 
 const isInputEmpty = ref<boolean>(true)
@@ -35,7 +35,13 @@ const isMsgEmpty = ref<boolean>(true);
 const inputVal = ref<string>('');
 
 // 문자열 길이 제한 = 20개
-const strLimit = 20;
+const strLimit = 30;
+
+watch(() => props.value, (newVal) => {
+  inputVal.value = newVal;
+});
+
+const emit = defineEmits(['update:modelValue']);
 
 if (props.type === INPUT_PW_TYPE) {
   isPwType.value = true
@@ -44,10 +50,14 @@ if (props.type === INPUT_PW_TYPE) {
 const onInputKeyup = (evt) => {
   let val = evt.target.value;
 
-  if (val.length !== 0 && val.length <= strLimit)
-    return isInputEmpty.value = false
-  if (val.length > strLimit)
-    return inputVal.value = val.slice(0, strLimit);
+  if (val.length !== 0 && val.length <= strLimit) {
+    isInputEmpty.value = false
+    emit('update:modelValue', val);
+  }
+  if (val.length > strLimit) {
+    inputVal.value = val.slice(0, strLimit);
+    emit('update:modelValue', inputVal.value);
+  }
 }
 
 const onInputClick = () => {

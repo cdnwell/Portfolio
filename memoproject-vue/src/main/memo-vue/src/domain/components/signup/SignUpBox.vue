@@ -29,7 +29,7 @@ import {
 import {INPUT_PW_TYPE, INPUT_TEXT_TYPE} from "@/domain/components/enum/input/InputEnum";
 import SingUpDupEmailChkBtn from "@/domain/components/signup/button/SingUpDupEmailChkBtn.vue";
 import SignUpBtn from "@/domain/components/signup/button/SignUpBtn.vue";
-import axios from "axios";
+import axios from "@/global/axios";
 import {ref} from "vue";
 
 const emit = defineEmits(['ancClick']);
@@ -47,9 +47,13 @@ const onSignUpClick = () => {
 const onIsDupClick = () => {
   const email = userEmail.value;
   console.log('email : ' + email);
-  // axios.post('/signUp/dupEmail', { email }).then(result => {
-  //   console.log(result);
-  // }).catch(error => console.log(error));
+  axios.post('/signup/dupemail', JSON.stringify({ email }), {
+    headers: {
+      "Content-Type": "application/json;charset=UTF-8"
+    }
+  } ).then(result => {
+    console.log(result);
+  }).catch(error => console.log(error));
 }
 
 </script>
