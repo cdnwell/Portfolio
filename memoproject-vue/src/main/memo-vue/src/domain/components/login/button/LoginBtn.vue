@@ -19,7 +19,6 @@ button {
   color: var(--btn-permit);
 
   border: 1px solid var(--btn-permit);
-
   border-radius: 5px;
 
   padding: 10px;

@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Login from "@/page/login/Login.vue";
 import SignUp from "@/page/signup/SignUp.vue";
+import Dashboard from "@/page/dashboard/Dashboard.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -22,6 +23,11 @@ const router = createRouter({
       path: '/findIdPw'
       , name: 'findIdPw'
       , component: SignUp
+    }
+    , {
+      path: '/dashboard'
+      , name: 'dashboard'
+      , component: Dashboard
     }
   ]
 })

@@ -1,4 +1,4 @@
-package com.memo.project.domain.signup.dto;
+package com.memo.project.domain.sign.dto;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -16,6 +16,7 @@ import lombok.*;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "user_info_seq", allocationSize = 1)
     private Long userSeq;
 
     @NotBlank(message = "이메일을 입력해주세요")

@@ -23,6 +23,8 @@ import {LOGIN_ID} from "@/domain/components/login/enum/LoginEnum";
   border: 1px solid gray;
   border-radius: 50%;
 
+  background-color: white;
+
   transition: 0.2s;
 }
 

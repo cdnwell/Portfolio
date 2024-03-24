@@ -9,3 +9,6 @@ config/
 axiosInstance.ts
 
 node_modules/
+
+### exclude - application.* ###
+application.*

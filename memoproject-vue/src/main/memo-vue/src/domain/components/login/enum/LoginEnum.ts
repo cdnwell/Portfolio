@@ -1,4 +1,4 @@
-export const LOGIN_ID_PH:string = 'ID 혹은 이메일을 입력해주세요.';
+export const LOGIN_ID_PH:string = '이메일을 입력해주세요.';
 
 export const LOGIN_PW_PH:string = '비밀번호를 입력해주세요.';
 

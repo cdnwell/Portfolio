@@ -1,6 +1,9 @@
 <template>
   <div class="signup_title_div">
-    <h2 class="signup_title">{{ text }}</h2>
+    <h2 class="signup_title_h2">
+      {{ text }}
+    </h2>
+    <p class="signup_title_line"></p>
   </div>
 </template>
 
@@ -13,6 +16,8 @@ const props = defineProps({
 
 <style scoped>
 .signup_title_div {
+  position: relative;
+
   width: 100%;
 
   display: flex;
@@ -22,17 +27,31 @@ const props = defineProps({
 
   padding: 10px;
 
-  font-weight: lighter;
-  font-size: 18px;
-
   user-select: none;
 }
 
-.signup_title{
-  transition: 0.2s;
+.signup_title_h2 {
+  background-color: white;
+  color: gray;
+
+  padding: 0 10px;
+
+  font-size: 14px;
+  font-weight: normal;
 }
 
-.signup_title:hover {
-  color: var(--btn-permit);
+.signup_title_line {
+  position: absolute;
+
+  width: 90%;
+  height: 2px;
+
+  padding: 0 10px;
+
+  background-color: #f0f0f0;
+
+  border-radius: 50%;
+
+  z-index: -1;
 }
 </style>

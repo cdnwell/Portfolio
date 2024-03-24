@@ -1,18 +1,11 @@
 <template>
-  <button type="button" class="dup_chk_btn" @click="onDupChkClick">{{ text }}</button>
+  <button type="button" class="dup_chk_btn">{{ text }}</button>
 </template>
 
 <script setup lang="ts">
 const props = defineProps({
   text: String
 });
-
-const emit = defineEmits(['isDupClick']);
-
-const onDupChkClick = () => {
-  emit('isDupClick');
-}
-
 </script>
 
 <style scoped>

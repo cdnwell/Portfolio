@@ -1,17 +1,11 @@
 <template>
-  <button class="sign_up_btn" @click="onSignUpBtnClick">{{ text }}</button>
+  <button type="button" class="sign_up_btn">{{ text }}</button>
 </template>
 
 <script setup lang="ts">
 const props = defineProps({
   text: String
 });
-
-const emit = defineEmits(['signUpClick'])
-
-const onSignUpBtnClick = () => {
-  emit('signUpClick');
-}
 
 </script>
 

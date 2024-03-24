@@ -9,6 +9,11 @@
   --btn-permit: #0073CF;
 
   --light-blue: #0088FF;
+  --light-gray: #D3D3D3;
+
+  --log-font-size: 12px;
+
+  --main-nav-color: #555555;
 }
 
 html, body, #app {

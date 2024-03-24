@@ -2,44 +2,54 @@
   <div class="signup_input_div">
     <div class="signup_input_wrapper">
       <p class="signup_p" :class="{ onclick: !isInputEmpty }">{{ text }}</p>
-      <IconEye class="signup_pw_eye" :class="{ onview: isPwType }" @click="onEyeIconClick" />
+      <IconEye
+          class="signup_pw_eye"
+          :class="{ onview: isPwType }"
+          @click="onEyeIconClick" />
       <input
         class="signup_input"
         :type="inputType"
         v-model="inputVal"
+        ref="inputRef"
         @keyup="onInputKeyup"
         @click="onInputClick"
         @blur="onInputBlur"
       />
     </div>
-    <p class="signup_msg" :class="{ onview: !isMsgEmpty }">hello msg!</p>
+    <p
+        class="signup_msg"
+       :class="{ onview: msg, msg_ok_color: isCodeOk }"
+    >{{ msg }}</p>
   </div>
 </template>
 
 <script setup lang="ts">
-import {computed, ref, watch} from 'vue'
+import {computed, ref} from 'vue'
 import { INPUT_PW_TYPE } from '@/domain/components/enum/input/InputEnum'
 import IconEye from '@/domain/components/icons/IconEye.vue'
 
 const props = defineProps({
   text: String,
   type: String,
-  lan: String,
-  value: String,
-})
+  msg: String,
+  code: String,
+});
 
-const isInputEmpty = ref<boolean>(true)
-const isPwType = ref<boolean>(false)
-const isPwEyeClick = ref<boolean>(false)
+const isInputEmpty = ref<boolean>(true);
+const isPwType = ref<boolean>(false);
+const isPwEyeClick = ref<boolean>(false);
 const isMsgEmpty = ref<boolean>(true);
 const inputVal = ref<string>('');
+const inputRef = ref<HTMLInputElement>();
+
+const msgText = ref<string>('');
 
 // 문자열 길이 제한 = 20개
 const strLimit = 30;
 
-watch(() => props.value, (newVal) => {
-  inputVal.value = newVal;
-});
+// watch(() => props.value, (newVal) => {
+//   inputVal.value = newVal ?? '';
+// });
 
 const emit = defineEmits(['update:modelValue']);
 
@@ -77,6 +87,16 @@ const onEyeIconClick = () => {
 const inputType = computed(() => {
   return isPwEyeClick.value ? 'text' : props.type;
 });
+
+const isCodeOk = computed(() => parseInt(props.code ?? '') < 100);
+
+const getFocusOn = () => {
+  inputRef?.value?.focus();
+}
+
+defineExpose({
+  getFocusOn
+})
 </script>
 
 <style scoped>
@@ -139,7 +159,7 @@ const inputType = computed(() => {
   display: none;
 
   padding-top: 10px;
-  padding-left: 5px;
+  padding-left: 10px;
 
   color: red;
 
@@ -148,5 +168,9 @@ const inputType = computed(() => {
 
 .signup_msg.onview {
   display: flex;
+}
+
+.msg_ok_color {
+  color: green;
 }
 </style>
